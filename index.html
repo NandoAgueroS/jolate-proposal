@@ -266,6 +266,23 @@
     </section>
 
     <!-- ============================================================
+         SPONSORS MARQUEE — Infinite Carousel
+         ============================================================ -->
+    <section class="py-10 bg-white border-y border-tint/60 overflow-hidden relative">
+        <div class="text-center text-[11px] font-mono font-bold uppercase tracking-widest text-primary/60 mb-6">
+            Instituciones Organizadoras y Patrocinadores Académicos
+        </div>
+
+        <div class="absolute top-0 bottom-0 left-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+        <div class="absolute top-0 bottom-0 right-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+
+        <div class="overflow-hidden w-full flex">
+            <div id="sponsors-marquee" class="animate-marquee items-center gap-10 sm:gap-16">
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
          CONVOCATORIA — #convocatoria
          ============================================================ -->
     <section
@@ -1685,73 +1702,33 @@
             "JOLATE es el foro de referencia continental para la discusión de modelos matemáticos avanzados y teoría abstracta, auspiciado y regulado anualmente por la Asociación Latinoamericana de Teoría Económica (ALTE).",
           contactEmails: ["jolate2026@gmail.com"],
         },
-        sponsors: [
-          { name: "Universidad de La Punta", logo: "ULP" },
-          { name: "Universidad Nacional de San Luis", logo: "UNSL" },
-          {
-            name: "Asociación Latinoamericana de Teoría Económica",
-            logo: "ALTE",
-          },
-          { name: "Universidad Autónoma de San Luis Potosí", logo: "UASLP" },
-          { name: "CONICET", logo: "CONICET" },
-        ],
-        notifications: [
-          {
-            text: "Nuevo trabajo de investigación recibido",
-            detail: "Mesa de Equilibrio General Dinámico",
-            time: "Hace 3 min",
-          },
-          {
-            text: "Ponencia magistral internacional confirmada",
-            detail: "Dr. Hugo Sonnenschein (Princeton)",
-            time: "Hace 14 min",
-          },
-          {
-            text: "Actualización de rúbricas de evaluación",
-            detail: "Comité Editorial Científico",
-            time: "Hace 1 hora",
-          },
-          {
-            text: "Apertura oficial de registro temprano",
-            detail: "Sección de Alojamiento Financiado",
-            time: "Hace 2 horas",
-          },
-        ],
-        progressBars: [
-          { label: "Recepción de trabajos de investigación", percentage: 92 },
-          { label: "Confirmación de ponentes magistrales", percentage: 85 },
-          { label: "Estructuración del programa científico", percentage: 78 },
-          {
-            label: "Asignación de fondos para alojamiento institucional",
-            percentage: 95,
-          },
-        ],
-        testimonials: [
-          {
-            quote:
-              "Un espacio imprescindible para quienes investigamos teoría económica en la región. El rigor metodológico discutido aquí es inigualable.",
-            author: "Dra. Elena Rostova",
-            institution: "Universidad de Chile",
-            avatar:
-              "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80",
-          },
-          {
-            quote:
-              "El mejor entorno para debatir nuevas ideas cuantitativas y establecer redes de investigación con alcance global y publicación científica.",
-            author: "Dr. Carlos Mendoza",
-            institution: "UASLP, México",
-            avatar:
-              "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=150&q=80",
-          },
-          {
-            quote:
-              "Una gran tradición académica que fortalece de manera sistemática y continua la comunidad científica de América Latina.",
-            author: "Prof. Marcos Silva",
-            institution: "FGV, Brasil",
-            avatar:
-              "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80",
-          },
-        ],
+            sponsors: [
+                { name: "UASLP", label: "Univ. Autónoma de San Luis Potosí" },
+                { name: "ALTE", label: "Asoc. Latinoamericana de Teoría Económica" },
+                { name: "UNAM", label: "Universidad Nacional Autónoma de México" },
+                { name: "Univ. de Chile", label: "Facultad de Economía y Negocios" },
+                { name: "FGV Brasil", label: "Fundação Getulio Vargas" },
+                { name: "CONICET", label: "Argentina Research Council" },
+                { name: "UBA", label: "Universidad de Buenos Aires" },
+                { name: "George Mason Univ.", label: "Department of Economics" }
+            ],
+            notifications: [
+                { text: "Nuevo trabajo de investigación recibido", detail: "Mesa de Equilibrio General Dinámico", time: "Hace 3 min" },
+                { text: "Ponencia magistral internacional confirmada", detail: "Dr. Hugo Sonnenschein (Princeton)", time: "Hace 14 min" },
+                { text: "Actualización de rúbricas de evaluación", detail: "Comité Editorial Científico", time: "Hace 1 hora" },
+                { text: "Apertura oficial de registro temprano", detail: "Sección de Alojamiento Financiado", time: "Hace 2 horas" }
+            ],
+            progressBars: [
+                { label: "Recepción de trabajos de investigación", percentage: 92 },
+                { label: "Confirmación de ponentes magistrales", percentage: 85 },
+                { label: "Estructuración del programa científico", percentage: 78 },
+                { label: "Asignación de fondos para alojamiento institucional", percentage: 95 }
+            ],
+            testimonials: [
+                { quote: "Un espacio imprescindible para quienes investigamos teoría económica en la región. El rigor metodológico discutido aquí es inigualable.", author: "Dra. Elena Rostova", institution: "Universidad de Chile", avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" },
+                { quote: "El mejor entorno para debatir nuevas ideas cuantitativas y establecer redes de investigación con alcance global y publicación científica.", author: "Dr. Carlos Mendoza", institution: "UASLP, México", avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=150&q=80" },
+                { quote: "Una gran tradición académica que fortalece de manera sistemática y continua la comunidad científica de América Latina.", author: "Prof. Marcos Silva", institution: "FGV, Brasil", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80" }
+            ],
       };
     </script>
 

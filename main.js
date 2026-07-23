@@ -73,6 +73,33 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(updateCountdown, 1000);
 
   // ══════════════════════════════════════════════════════════════
+  // 1b. Sponsors Marquee — infinite carousel (Task 3.x)
+  // ══════════════════════════════════════════════════════════════
+  var marqueeContainer = document.getElementById('sponsors-marquee');
+  if (marqueeContainer && cfg.sponsors) {
+    var doubleSponsors = cfg.sponsors.concat(cfg.sponsors);
+    var s;
+    for (s = 0; s < doubleSponsors.length; s++) {
+      var sp = doubleSponsors[s];
+      var item = document.createElement('div');
+      item.className =
+        'flex items-center gap-3 px-5 py-2.5 bg-bg border border-tint/80 rounded-2xl shrink-0 ' +
+        'transition-transform duration-300 hover:scale-105 hover:border-primary/50';
+
+      item.innerHTML =
+        '<div class="w-8 h-8 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center font-bold text-xs text-primary font-mono">' +
+          escapeHtml(sp.name) +
+        '</div>' +
+        '<div>' +
+          '<div class="text-xs font-bold text-text whitespace-nowrap">' + escapeHtml(sp.name) + '</div>' +
+          '<div class="text-[10px] text-text/60 font-mono whitespace-nowrap">' + escapeHtml(sp.label) + '</div>' +
+        '</div>';
+
+      marqueeContainer.appendChild(item);
+    }
+  }
+
+  // ══════════════════════════════════════════════════════════════
   // 2. FAQ Accordion — one open at a time (Task 3.5)
   // ══════════════════════════════════════════════════════════════
   var faqToggles = document.querySelectorAll('.faq-toggle');
