@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 443 216">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        letter-spacing: 0em;
+      }
+
+      .cls-3 {
+        letter-spacing: -.07em;
+      }
+
+      .cls-5, .cls-6, .cls-7 {
+        fill: #00b0c0;
+      }
+
+      .cls-5, .cls-4 {
+        letter-spacing: .01em;
+      }
+
+      .cls-8 {
+        fill: none;
+        stroke: #fff;
+        stroke-linecap: round;
+        stroke-miterlimit: 1;
+        stroke-width: 2px;
+      }
+
+      .cls-9 {
+        fill: #1d1d1b;
+      }
+
+      .cls-9, .cls-10 {
+        letter-spacing: .01em;
+      }
+
+      .cls-11 {
+        letter-spacing: 0em;
+      }
+
+      .cls-12 {
+        letter-spacing: 0em;
+      }
+
+      .cls-13 {
+        fill: #c9a84c;
+        font-size: 31.9px;
+        letter-spacing: -.04em;
+      }
+
+      .cls-13, .cls-7 {
+        font-family: Averta-BlackItalic, 'WMAWN Q+ Averta';
+        font-style: italic;
+        font-weight: 800;
+      }
+
+      .cls-14 {
+        letter-spacing: -.04em;
+      }
+
+      .cls-7 {
+        font-size: 68.54px;
+      }
+
+      .cls-15 {
+        font-family: Averta-Bold, Averta-Bold;
+        font-size: 12.82px;
+        font-weight: 700;
+      }
+    </style>
+  </defs>
+  <text class="cls-13" transform="translate(136.71 82.25)"><tspan x="0" y="0">XXV</tspan></text>
+  <text class="cls-15" transform="translate(266.01 136.1)"><tspan class="cls-6"><tspan x="0" y="0">Jornadas </tspan></tspan><tspan class="cls-6"><tspan x="0" y="15.39">Latinoamericanas</tspan></tspan><tspan class="cls-5" x="0" y="30.78">de</tspan><tspan class="cls-9" x="15.41" y="30.78"> </tspan><tspan class="cls-3" x="18.95" y="30.78">T</tspan><tspan class="cls-4" x="25.57" y="30.78">eoría </tspan><tspan class="cls-2" x="60.93" y="30.78">E</tspan><tspan class="cls-4" x="68.67" y="30.78">conómica </tspan><tspan class="cls-1"><tspan class="cls-10" x="0" y="46.17">San Luis - 20</tspan><tspan class="cls-11" x="79.14" y="46.17">2</tspan><tspan class="cls-10" x="86.04" y="46.17">6</tspan></tspan></text>
+  <text class="cls-7" transform="translate(186.29 107.75)"><tspan class="cls-14" x="0" y="0">JO</tspan><tspan class="cls-12" x="74.93" y="0">L</tspan><tspan class="cls-14" x="109.56" y="0">ATE</tspan></text>
+  <line class="cls-8" x1="42.24" y1="78.29" x2="251.54" y2="171.57"/>
+  <path class="cls-8" d="M74.28,50.56s34.22,58.42,70.65,72.73c36.82,14.46,83.64,11.83,109.03,13.19"/>
+  <path class="cls-8" d="M204.2,181.92s-35.37-52.02-78.96-64.49c-21.46-6.14-56.96-8.5-73.1-1.35"/>
+</svg>
