@@ -1,0 +1,137 @@
+/* ============================================================
+   JOLATE 2026 — Stylesheet
+   XXV Jornadas Latinoamericanas de Teoría Económica
+   San Luis, Argentina — 28, 29 y 30 de octubre de 2026
+   ============================================================
+   Design reference:
+   openspec/changes/nueva-version-web-jolate-2026/design.md
+   openspec/changes/nueva-version-web-jolate-2026/specs/web-presentation/spec.md
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   1. CSS Custom Properties (Approved 5-Color Palette)
+   ---------------------------------------------------------- */
+:root {
+  --color-primary: #055c62;
+  --color-accent: #11b0bc;
+  --color-bg: #eef9fa;
+  --color-tint: #cbe3e6;
+  --color-text: #043c41;
+}
+
+/* ----------------------------------------------------------
+   2. Tailwind Configuration Reference
+   ----------------------------------------------------------
+    The Tailwind CDN v3 requires the CDN `<script src="...tailwindcss.com">`
+    to load FIRST (defines window.tailwind), then the config block.
+    This config CANNOT live in styles.css — it must be an inline
+    <script> in index.html <head>.
+
+    Inline script in index.html (placed AFTER the CDN script):
+
+    <script>
+      tailwind.config = {
+       theme: {
+         extend: {
+           colors: {
+             primary: '#055c62',
+             accent: '#11b0bc',
+             bg: '#eef9fa',
+             tint: '#cbe3e6',
+             text: '#043c41',
+           },
+           fontFamily: {
+             sans: ['Inter', 'sans-serif'],
+             display: ['Playfair Display', 'serif'],
+             mono: ['JetBrains Mono', 'monospace'],
+           },
+           boxShadow: {
+             cinematic: '0 20px 50px -12px rgba(0, 0, 0, 0.7)',
+           },
+         },
+       },
+     };
+   </script>
+
+   ---------------------------------------------------------- */
+
+/* ----------------------------------------------------------
+   3. Base Styles
+   ---------------------------------------------------------- */
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: hidden;
+}
+
+/* ----------------------------------------------------------
+   4. Custom Scrollbar (Webkit)
+   ---------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-tint);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+/* ----------------------------------------------------------
+   5. Premium Border Radii
+   Extracted from current-web.html <style> block.
+   Used for hero countdown, cards, FAQ accordion, CTA sections.
+   ---------------------------------------------------------- */
+.rounded-premium-sm {
+  border-radius: 2rem;
+}
+
+.rounded-premium-lg {
+  border-radius: 3rem;
+}
+
+/* ----------------------------------------------------------
+   6. Magnetic Hover Effect
+   Extracted from current-web.html <style> block.
+   Smooth transform + shadow transition used on cards and CTAs.
+   ---------------------------------------------------------- */
+.hover-magnetic {
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+}
+
+.hover-magnetic:hover {
+  transform: translateY(-2px);
+}
+
+/* ----------------------------------------------------------
+   7. Noise Overlay
+   Extracted from current-web.html inline style on the overlay <div>.
+   Apply via: <div class="noise-overlay"></div>
+   ---------------------------------------------------------- */
+.noise-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  opacity: 0.04;
+  background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');
+}
+
+/* ----------------------------------------------------------
+   Omitted Classes (intentionally not carried over)
+
+   - .opacity-0 { opacity: 1 !important }
+     Omitted: dark-theme workaround that overrode Tailwind's
+     native opacity-0 utility. In the new palette, opacity-0
+     should work normally for GSAP fade-in sequences.
+
+   - .d-none { display: none !important }
+     Omitted: Tailwind provides `hidden` natively.
+   ---------------------------------------------------------- */
