@@ -1,41 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JOLATE 2026 — XXV Jornadas Latinoamericanas de Teoría Económica</title>
-    <meta name="description" content="XXV Jornadas Latinoamericanas de Teoría Económica (JOLATE 2026). San Luis, Argentina — 28, 29 y 30 de octubre de 2026.">
-    <meta name="keywords" content="jolate, jolate2026, JOLATE 2026, teoria economica, economía matemática, teoría de juegos, unsl, ulp, UNSL, ULP, ALTE, UASLP">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      JOLATE 2026 — XXV Jornadas Latinoamericanas de Teoría Económica
+    </title>
+    <meta
+      name="description"
+      content="XXV Jornadas Latinoamericanas de Teoría Económica (JOLATE 2026). San Luis, Argentina — 28, 29 y 30 de octubre de 2026."
+    />
+    <meta
+      name="keywords"
+      content="jolate, jolate2026, JOLATE 2026, teoria economica, economía matemática, teoría de juegos, unsl, ulp, UNSL, ULP, ALTE, UASLP"
+    />
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@1,400;1,600;1,700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@1,400;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Tailwind CSS CDN v3 — CDN primero, config después -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#055c62',
-                        accent: '#11b0bc',
-                        bg: '#eef9fa',
-                        tint: '#cbe3e6',
-                        text: '#043c41',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Playfair Display', 'serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    boxShadow: {
-                        cinematic: '0 20px 50px -12px rgba(0, 0, 0, 0.5)',
-                    },
-                },
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#055c62",
+              accent: "#11b0bc",
+              bg: "#eef9fa",
+              tint: "#cbe3e6",
+              text: "#043c41",
             },
-        };
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              display: ["Playfair Display", "serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+            boxShadow: {
+              cinematic: "0 20px 50px -12px rgba(0, 0, 0, 0.5)",
+            },
+          },
+        },
+      };
     </script>
 
     <!-- GSAP + ScrollTrigger -->
@@ -46,851 +57,1702 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Custom Stylesheet -->
-    <link href="styles.css" rel="stylesheet">
-</head>
+    <link href="styles.css" rel="stylesheet" />
+  </head>
 
-<body class="font-sans antialiased bg-bg text-text relative">
-
+  <body class="font-sans antialiased bg-bg text-text relative">
     <!-- Noise Overlay -->
     <div class="noise-overlay"></div>
 
     <!-- ============================================================
          HEADER — Sticky Navbar
          ============================================================ -->
-    <header class="fixed top-0 left-0 w-full z-40 px-4 md:px-8 py-4 pointer-events-none">
-        <nav id="island-navbar" class="max-w-6xl mx-auto w-full bg-primary/70 backdrop-blur-md border border-white/15 rounded-full px-6 py-3 flex items-center justify-between pointer-events-auto transition-all duration-500 hover-magnetic">
-            <!-- Branding logos -->
-            <div class="flex items-center gap-3">
-                <a href="http://ulp.edu.ar" target="_blank" rel="noopener noreferrer">
-                    <img src="res/ulp_icon.png" alt="Universidad de La Punta" class="h-10 md:h-13 w-auto">
-                </a>
-                <a href="http://unsl.edu.ar" target="_blank" rel="noopener noreferrer">
-                    <img src="res/unsl-conicet_icon.png" alt="Universidad Nacional de San Luis" class="h-10 md:h-16 w-auto">
-                </a>
-            </div>
-
-            <!-- Desktop Nav Links -->
-            <div class="hidden md:flex items-center gap-6 text-sm font-medium tracking-wide text-white/80">
-                <a href="#inicio" class="hover:text-white transition-colors">Inicio</a>
-                <a href="#convocatoria" class="hover:text-white transition-colors">Convocatoria</a>
-                <a href="#programa" class="hover:text-white transition-colors">Programa</a>
-                <a href="#comite" class="hover:text-white transition-colors">Comité</a>
-                <a href="#faq" class="hover:text-white transition-colors">Ayuda</a>
-            </div>
-
-            <!-- Nav CTA + Mobile button -->
-            <div class="flex items-center gap-3">
-                <a href="mailto:jolate2026@gmail.com?subject=Articulo%20para%20XXV%20JOLATE"
-                   class="hidden md:inline bg-white hover:bg-white/90 text-primary font-bold text-xs md:text-sm px-5 py-2 rounded-full transition-all hover:scale-105 transform shadow-md">
-                    Enviar Trabajo
-                </a>
-                <button id="mobile-menu-btn" class="md:hidden text-white/80 hover:text-white p-1" aria-label="Abrir Menú">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
-            </div>
-        </nav>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden max-w-sm mx-auto mt-2 bg-primary/95 border border-white/20 backdrop-blur-xl rounded-2xl p-6 text-center space-y-4 pointer-events-auto shadow-cinematic">
-            <a href="#inicio" class="block text-white/80 hover:text-white font-medium transition-colors">Inicio</a>
-            <a href="#convocatoria" class="block text-white/80 hover:text-white font-medium transition-colors">Convocatoria</a>
-            <a href="#programa" class="block text-white/80 hover:text-white font-medium transition-colors">Programa</a>
-            <a href="#comite" class="block text-white/80 hover:text-white font-medium transition-colors">Comité</a>
-            <a href="#faq" class="block text-white/80 hover:text-white font-medium transition-colors">Ayuda</a>
+    <header
+      class="fixed top-0 left-0 w-full z-40 px-4 md:px-8 py-4 pointer-events-none"
+    >
+      <nav
+        id="island-navbar"
+        class="max-w-6xl mx-auto w-full bg-primary/70 backdrop-blur-md border border-white/15 rounded-full px-6 py-3 flex items-center justify-between pointer-events-auto transition-all duration-500 hover-magnetic"
+      >
+        <!-- Branding logos -->
+        <div class="flex items-center gap-3">
+          <a href="http://ulp.edu.ar" target="_blank" rel="noopener noreferrer">
+            <img
+              src="assets/2026/logo jolate 2.svg"
+              alt="Universidad de La Punta"
+              class="h-10 md:h-13 w-auto"
+            />
+          </a>
         </div>
+
+        <!-- Desktop Nav Links -->
+        <div
+          class="hidden md:flex items-center gap-6 text-sm font-medium tracking-wide text-white/80"
+        >
+          <a href="#inicio" class="hover:text-white transition-colors"
+            >Inicio</a
+          >
+          <a href="#convocatoria" class="hover:text-white transition-colors"
+            >Convocatoria</a
+          >
+          <a href="#programa" class="hover:text-white transition-colors"
+            >Programa</a
+          >
+          <a href="#comite" class="hover:text-white transition-colors"
+            >Comité</a
+          >
+          <a href="#faq" class="hover:text-white transition-colors">Ayuda</a>
+        </div>
+
+        <!-- Nav CTA + Mobile button -->
+        <div class="flex items-center gap-3">
+          <a
+            href="mailto:jolate2026@gmail.com?subject=Articulo%20para%20XXV%20JOLATE"
+            class="hidden md:inline bg-white hover:bg-white/90 text-primary font-bold text-xs md:text-sm px-5 py-2 rounded-full transition-all hover:scale-105 transform shadow-md"
+          >
+            Enviar Trabajo
+          </a>
+          <button
+            id="mobile-menu-btn"
+            class="md:hidden text-white/80 hover:text-white p-1"
+            aria-label="Abrir Menú"
+          >
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden max-w-sm mx-auto mt-2 bg-primary/95 border border-white/20 backdrop-blur-xl rounded-2xl p-6 text-center space-y-4 pointer-events-auto shadow-cinematic"
+      >
+        <a
+          href="#inicio"
+          class="block text-white/80 hover:text-white font-medium transition-colors"
+          >Inicio</a
+        >
+        <a
+          href="#convocatoria"
+          class="block text-white/80 hover:text-white font-medium transition-colors"
+          >Convocatoria</a
+        >
+        <a
+          href="#programa"
+          class="block text-white/80 hover:text-white font-medium transition-colors"
+          >Programa</a
+        >
+        <a
+          href="#comite"
+          class="block text-white/80 hover:text-white font-medium transition-colors"
+          >Comité</a
+        >
+        <a
+          href="#faq"
+          class="block text-white/80 hover:text-white font-medium transition-colors"
+          >Ayuda</a
+        >
+      </div>
     </header>
 
     <!-- ============================================================
          HERO — #inicio
          ============================================================ -->
-    <section id="inicio" class="min-h-screen relative flex flex-col justify-center items-center px-4 pt-28 pb-16 bg-gradient-to-b from-tint/30 via-bg to-bg">
-        <div class="text-center max-w-5xl mx-auto space-y-6">
-            <!-- Badge -->
-            <div class="inline-flex items-center gap-2 border border-primary/20 bg-primary/5 px-4 py-1.5 rounded-full hero-badge">
-                <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-                <span class="text-xs font-mono font-bold tracking-widest text-primary uppercase">JOLATE XXV · EDICIÓN ANIVERSARIO · SAN LUIS 2026</span>
-            </div>
-
-            <!-- Hero Image instead of text title -->
-            <div class="flex justify-center hero-image-container">
-                <img src="res/jolateweb.jpg" alt="JOLATE 2026" class="max-w-full h-auto w-full max-w-2xl rounded-2xl shadow-cinematic">
-            </div>
-
-            <!-- Context paragraph -->
-            <p class="text-base sm:text-lg md:text-xl text-text max-w-2xl mx-auto font-light leading-relaxed hero-subtitle">
-                Jornadas Latinoamericanas de Teoría Económica — San Luis, 28 al 30 de octubre de 2026.
-            </p>
-
-            <!-- CTAs -->
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 hero-ctas">
-                <a href="mailto:jolate2026@gmail.com?subject=Articulo%20para%20XXV%20JOLATE"
-                   class="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white font-bold px-8 py-3.5 rounded-full shadow-lg transition-all hover:-translate-y-0.5 text-center">
-                    Enviar Trabajo
-                </a>
-                <a href="#convocatoria"
-                   class="w-full sm:w-auto border border-tint bg-white hover:bg-tint/30 text-text font-medium px-8 py-3.5 rounded-full transition-all hover:-translate-y-0.5 text-center">
-                    Ver Convocatoria
-                </a>
-            </div>
-
-            <!-- Countdown -->
-            <div class="pt-10 max-w-xl mx-auto hero-countdown">
-                <div class="grid grid-cols-4 gap-2 sm:gap-4 bg-tint/30 border border-tint/50 backdrop-blur-md p-4 sm:p-6 rounded-premium-sm shadow-md">
-                    <div class="text-center">
-                        <span id="cd-days" class="block font-mono text-base sm:text-xl font-semibold text-text">00</span>
-                        <span class="text-[10px] font-mono tracking-widest text-text uppercase mt-1 block">Días</span>
-                    </div>
-                    <div class="text-center border-l border-tint/60">
-                        <span id="cd-hours" class="block font-mono text-base sm:text-xl font-semibold text-text">00</span>
-                        <span class="text-[10px] font-mono tracking-widest text-text uppercase mt-1 block">Horas</span>
-                    </div>
-                    <div class="text-center border-l border-tint/60">
-                        <span id="cd-minutes" class="block font-mono text-base sm:text-xl font-semibold text-text">00</span>
-                        <span class="text-[10px] font-mono tracking-widest text-text uppercase mt-1 block">Minutos</span>
-                    </div>
-                    <div class="text-center border-l border-tint/60">
-                        <span id="cd-seconds" class="block font-mono text-base sm:text-xl font-semibold text-primary">00</span>
-                        <span class="text-[10px] font-mono tracking-widest text-text uppercase mt-1 block">Segundos</span>
-                    </div>
-                </div>
-            </div>
+    <section
+      id="inicio"
+      class="min-h-screen relative flex flex-col justify-center items-center px-4 pt-28 pb-16 bg-gradient-to-b from-tint/30 via-bg to-bg"
+    >
+      <div class="text-center max-w-5xl mx-auto space-y-6">
+        <!-- Badge -->
+        <div
+          class="inline-flex items-center gap-2 border border-primary/20 bg-primary/5 px-4 py-1.5 rounded-full hero-badge"
+        >
+          <span
+            class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"
+          ></span>
+          <span
+            class="text-xs font-mono font-bold tracking-widest text-primary uppercase"
+            >JOLATE XXV · EDICIÓN ANIVERSARIO · SAN LUIS 2026</span
+          >
         </div>
+
+        <!-- Hero Image instead of text title -->
+        <div class="flex justify-center hero-image-container">
+          <img
+            src="assets/2026/logo jolate.svg"
+            alt="JOLATE 2026"
+            class="max-w-full h-auto w-full max-w-2xl"
+          />
+        </div>
+
+        <!-- Context paragraph -->
+        <p
+          class="text-base sm:text-lg md:text-xl text-text max-w-2xl mx-auto font-light leading-relaxed hero-subtitle"
+        >
+          Jornadas Latinoamericanas de Teoría Económica — San Luis, 28 al 30 de
+          octubre de 2026.
+        </p>
+
+        <!-- CTAs -->
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 hero-ctas"
+        >
+          <a
+            href="mailto:jolate2026@gmail.com?subject=Articulo%20para%20XXV%20JOLATE"
+            class="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white font-bold px-8 py-3.5 rounded-full shadow-lg transition-all hover:-translate-y-0.5 text-center"
+          >
+            Enviar Trabajo
+          </a>
+          <a
+            href="#convocatoria"
+            class="w-full sm:w-auto border border-tint bg-white hover:bg-tint/30 text-text font-medium px-8 py-3.5 rounded-full transition-all hover:-translate-y-0.5 text-center"
+          >
+            Ver Convocatoria
+          </a>
+        </div>
+
+        <!-- Countdown -->
+        <div class="pt-10 max-w-xl mx-auto hero-countdown">
+          <div
+            class="grid grid-cols-4 gap-2 sm:gap-4 bg-tint/30 border border-tint/50 backdrop-blur-md p-4 sm:p-6 rounded-premium-sm shadow-md"
+          >
+            <div class="text-center">
+              <span
+                id="cd-days"
+                class="block font-mono text-base sm:text-xl font-semibold text-text"
+                >00</span
+              >
+              <span
+                class="text-[10px] font-mono tracking-widest text-text uppercase mt-1 block"
+                >Días</span
+              >
+            </div>
+            <div class="text-center border-l border-tint/60">
+              <span
+                id="cd-hours"
+                class="block font-mono text-base sm:text-xl font-semibold text-text"
+                >00</span
+              >
+              <span
+                class="text-[10px] font-mono tracking-widest text-text uppercase mt-1 block"
+                >Horas</span
+              >
+            </div>
+            <div class="text-center border-l border-tint/60">
+              <span
+                id="cd-minutes"
+                class="block font-mono text-base sm:text-xl font-semibold text-text"
+                >00</span
+              >
+              <span
+                class="text-[10px] font-mono tracking-widest text-text uppercase mt-1 block"
+                >Minutos</span
+              >
+            </div>
+            <div class="text-center border-l border-tint/60">
+              <span
+                id="cd-seconds"
+                class="block font-mono text-base sm:text-xl font-semibold text-primary"
+                >00</span
+              >
+              <span
+                class="text-[10px] font-mono tracking-widest text-text uppercase mt-1 block"
+                >Segundos</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ============================================================
          CONVOCATORIA — #convocatoria
          ============================================================ -->
-    <section id="convocatoria" class="py-24 bg-bg relative border-t border-tint/40">
-        <div class="max-w-6xl mx-auto px-4 space-y-16">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-                <!-- Left column: heading, objectives, support -->
-                <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-28">
-                    <div class="text-xs font-mono text-primary tracking-widest uppercase font-bold">CONVOCATORIA · JOLATE XXV</div>
-                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text">Convocatoria Científica Internacional</h2>
-                    <p class="text-text font-light leading-relaxed text-sm md:text-base">
-                        Las XXV Jornadas Latinoamericanas de Teoría Económica convocan a investigadores y estudiantes de posgrado a presentar trabajos originales en economía altamente formalizada. El comité científico evaluará rigurosamente el aporte analítico de cada contribución. Los trabajos se reciben hasta el 4 de septiembre de 2026 y la confirmación de aceptación se comunica antes del 18 de septiembre de 2026.
-                    </p>
+    <section
+      id="convocatoria"
+      class="py-24 bg-bg relative border-t border-tint/40"
+    >
+      <div class="max-w-6xl mx-auto px-4 space-y-16">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          <!-- Left column: heading, objectives, support -->
+          <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-28">
+            <div
+              class="text-xs font-mono text-primary tracking-widest uppercase font-bold"
+            >
+              CONVOCATORIA · JOLATE XXV
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text">
+              Convocatoria Científica Internacional
+            </h2>
+            <p
+              class="text-text font-light leading-relaxed text-sm md:text-base"
+            >
+              Las XXV Jornadas Latinoamericanas de Teoría Económica convocan a
+              investigadores y estudiantes de posgrado a presentar trabajos
+              originales en economía altamente formalizada. El comité científico
+              evaluará rigurosamente el aporte analítico de cada contribución.
+              Los trabajos se reciben hasta el 4 de septiembre de 2026 y la
+              confirmación de aceptación se comunica antes del 18 de septiembre
+              de 2026.
+            </p>
 
-                    <!-- Apoyo y Financiamiento -->
-                    <div class="p-6 bg-white border border-tint/60 rounded-premium-sm space-y-4">
-                        <div class="flex items-center gap-3 text-primary">
-                            <i data-lucide="award" class="w-5 h-5"></i>
-                            <span class="font-bold text-xs tracking-wider uppercase font-mono">Apoyo y Financiamiento</span>
-                        </div>
-                        <p class="text-xs text-text leading-relaxed">
-                            Se cuenta con algunos recursos para cubrir alojamiento y mantención destinados a expositores y alumnos participantes del evento.
-                            Quienes requieran de este tipo de apoyo deberán solicitarlo al mail:
-                        </p>
-                        <a href="mailto:jolate2026@gmail.com" class="text-primary font-mono text-sm font-bold hover:underline">jolate2026@gmail.com</a>
-                    </div>
-
-                    <!-- Deadline info -->
-                    <div class="flex flex-wrap gap-4 pt-2">
-                        <div class="bg-white border border-tint/50 px-4 py-2 rounded-full text-xs font-mono">
-                            <span class="text-text">Envío hasta: </span>
-                            <span class="text-primary font-bold">4 Septiembre 2026</span>
-                        </div>
-                        <div class="bg-white border border-tint/50 px-4 py-2 rounded-full text-xs font-mono">
-                            <span class="text-text">Aceptación: </span>
-                            <span class="text-primary font-bold">18 Septiembre 2026</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right column: topic areas -->
-                <div class="lg:col-span-7 space-y-4">
-                    <div class="text-xs font-mono text-text uppercase tracking-widest pb-2 font-bold">Áreas Temáticas de Recepción</div>
-                    <div class="grid grid-cols-1 gap-4">
-                        <div class="p-5 bg-white border border-tint/60 hover:border-primary/30 rounded-premium-sm transition-all duration-300 group hover-magnetic">
-                            <div class="flex items-start gap-4">
-                                <span class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5">01.</span>
-                                <h4 class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide">Teoría de Juegos</h4>
-                            </div>
-                        </div>
-                        <div class="p-5 bg-white border border-tint/60 hover:border-primary/30 rounded-premium-sm transition-all duration-300 group hover-magnetic">
-                            <div class="flex items-start gap-4">
-                                <span class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5">02.</span>
-                                <h4 class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide">Elección Social</h4>
-                            </div>
-                        </div>
-                        <div class="p-5 bg-white border border-tint/60 hover:border-primary/30 rounded-premium-sm transition-all duration-300 group hover-magnetic">
-                            <div class="flex items-start gap-4">
-                                <span class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5">03.</span>
-                                <h4 class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide">Crecimiento Económico</h4>
-                            </div>
-                        </div>
-                        <div class="p-5 bg-white border border-tint/60 hover:border-primary/30 rounded-premium-sm transition-all duration-300 group hover-magnetic">
-                            <div class="flex items-start gap-4">
-                                <span class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5">04.</span>
-                                <h4 class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide">Economía Pública</h4>
-                            </div>
-                        </div>
-                        <div class="p-5 bg-white border border-tint/60 hover:border-primary/30 rounded-premium-sm transition-all duration-300 group hover-magnetic">
-                            <div class="flex items-start gap-4">
-                                <span class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5">05.</span>
-                                <h4 class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide">Equilibrio General</h4>
-                            </div>
-                        </div>
-                        <div class="p-5 bg-white border border-tint/60 hover:border-primary/30 rounded-premium-sm transition-all duration-300 group hover-magnetic">
-                            <div class="flex items-start gap-4">
-                                <span class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5">06.</span>
-                                <h4 class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide">Dinámica Económica</h4>
-                            </div>
-                        </div>
-                        <div class="p-5 bg-white border border-tint/60 hover:border-primary/30 rounded-premium-sm transition-all duration-300 group hover-magnetic">
-                            <div class="flex items-start gap-4">
-                                <span class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5">07.</span>
-                                <h4 class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide">Áreas Temáticas Afines</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <!-- Apoyo y Financiamiento -->
+            <div
+              class="p-6 bg-white border border-tint/60 rounded-premium-sm space-y-4"
+            >
+              <div class="flex items-center gap-3 text-primary">
+                <i data-lucide="award" class="w-5 h-5"></i>
+                <span
+                  class="font-bold text-xs tracking-wider uppercase font-mono"
+                  >Apoyo y Financiamiento</span
+                >
+              </div>
+              <p class="text-xs text-text leading-relaxed">
+                Se cuenta con algunos recursos para cubrir alojamiento y
+                mantención destinados a expositores y alumnos participantes del
+                evento. Quienes requieran de este tipo de apoyo deberán
+                solicitarlo al mail:
+              </p>
+              <a
+                href="mailto:jolate2026@gmail.com"
+                class="text-primary font-mono text-sm font-bold hover:underline"
+                >jolate2026@gmail.com</a
+              >
             </div>
 
-            <!-- Bottom row: progress, testimonials -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-12 border-t border-tint/40">
-                <!-- Progress Bars -->
-                <div class="bg-white border border-tint/60 p-6 rounded-premium-sm flex flex-col justify-between">
-                    <div>
-                        <div class="pb-3 border-b border-tint/30 mb-4">
-                            <span class="text-xs font-mono font-bold uppercase tracking-wider text-text block">Métricas de Preparación</span>
-                        </div>
-                        <div class="space-y-4">
-                            <div class="space-y-1.5">
-                                <div class="flex justify-between text-xs font-mono">
-                                    <span class="text-text">Recepción de trabajos de investigación</span>
-                                    <span class="text-primary font-bold">92%</span>
-                                </div>
-                                <div class="w-full h-1 bg-tint/50 rounded-full overflow-hidden">
-                                    <div class="h-full bg-primary progress-fill rounded-full" style="width: 92%"></div>
-                                </div>
-                            </div>
-                            <div class="space-y-1.5">
-                                <div class="flex justify-between text-xs font-mono">
-                                    <span class="text-text">Confirmación de ponentes magistrales</span>
-                                    <span class="text-primary font-bold">85%</span>
-                                </div>
-                                <div class="w-full h-1 bg-tint/50 rounded-full overflow-hidden">
-                                    <div class="h-full bg-primary progress-fill rounded-full" style="width: 85%"></div>
-                                </div>
-                            </div>
-                            <div class="space-y-1.5">
-                                <div class="flex justify-between text-xs font-mono">
-                                    <span class="text-text">Estructuración del programa científico</span>
-                                    <span class="text-primary font-bold">78%</span>
-                                </div>
-                                <div class="w-full h-1 bg-tint/50 rounded-full overflow-hidden">
-                                    <div class="h-full bg-primary progress-fill rounded-full" style="width: 78%"></div>
-                                </div>
-                            </div>
-                            <div class="space-y-1.5">
-                                <div class="flex justify-between text-xs font-mono">
-                                    <span class="text-text">Asignación de fondos para alojamiento institucional</span>
-                                    <span class="text-primary font-bold">95%</span>
-                                </div>
-                                <div class="w-full h-1 bg-tint/50 rounded-full overflow-hidden">
-                                    <div class="h-full bg-primary progress-fill rounded-full" style="width: 95%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-[10px] font-mono text-text mt-4 text-right">*Actualizado en tiempo real.</p>
-                </div>
-
-                <!-- Testimonials -->
-                <div class="bg-white border border-tint/60 p-6 rounded-premium-sm flex flex-col justify-between relative overflow-hidden">
-                    <div class="pb-3 border-b border-tint/30 mb-4">
-                        <span class="text-xs font-mono font-bold uppercase tracking-wider text-text block">Voz de la Comunidad</span>
-                    </div>
-                    <div id="testimonial-carousel" class="min-h-[160px] flex flex-col justify-center">
-                        <div class="space-y-4">
-                            <p class="text-sm md:text-base italic text-text font-light leading-relaxed">"Un espacio imprescindible para quienes investigamos teoría económica en la región. El rigor metodológico discutido aquí es inigualable."</p>
-                            <div class="flex items-center gap-3 pt-2">
-                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="Dra. Elena Rostova" class="w-10 h-10 rounded-full object-cover border border-primary/30">
-                                <div>
-                                    <h5 class="text-xs font-bold text-text">Dra. Elena Rostova</h5>
-                                    <span class="text-[10px] font-mono text-text">Universidad de Chile</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex justify-end gap-2 pt-2">
-                        <button id="prev-testimonial" class="p-1.5 border border-tint/60 hover:border-primary rounded-full transition text-text hover:text-primary" aria-label="Anterior">
-                            <i data-lucide="chevron-left" class="w-4 h-4"></i>
-                        </button>
-                        <button id="next-testimonial" class="p-1.5 border border-tint/60 hover:border-primary rounded-full transition text-text hover:text-primary" aria-label="Siguiente">
-                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                </div>
+            <!-- Deadline info -->
+            <div class="flex flex-wrap gap-4 pt-2">
+              <div
+                class="bg-white border border-tint/50 px-4 py-2 rounded-full text-xs font-mono"
+              >
+                <span class="text-text">Envío hasta: </span>
+                <span class="text-primary font-bold">4 Septiembre 2026</span>
+              </div>
+              <div
+                class="bg-white border border-tint/50 px-4 py-2 rounded-full text-xs font-mono"
+              >
+                <span class="text-text">Aceptación: </span>
+                <span class="text-primary font-bold">18 Septiembre 2026</span>
+              </div>
             </div>
+          </div>
+
+          <!-- Right column: topic areas -->
+          <div class="lg:col-span-7 space-y-4">
+            <div
+              class="text-xs font-mono text-text uppercase tracking-widest pb-2 font-bold"
+            >
+              Áreas Temáticas de Recepción
+            </div>
+            <div class="grid grid-cols-1 gap-4">
+              <div
+                class="p-5 bg-white border border-tint/60 hover:border-primary/30 rounded-premium-sm transition-all duration-300 group hover-magnetic"
+              >
+                <div class="flex items-start gap-4">
+                  <span
+                    class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5"
+                    >01.</span
+                  >
+                  <h4
+                    class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide"
+                  >
+                    Teoría de Juegos
+                  </h4>
+                </div>
+              </div>
+              <div
+                class="p-5 bg-white border border-tint/60 hover:border-primary/30 rounded-premium-sm transition-all duration-300 group hover-magnetic"
+              >
+                <div class="flex items-start gap-4">
+                  <span
+                    class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5"
+                    >02.</span
+                  >
+                  <h4
+                    class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide"
+                  >
+                    Elección Social
+                  </h4>
+                </div>
+              </div>
+              <div
+                class="p-5 bg-white border border-tint/60 hover:border-primary/30 rounded-premium-sm transition-all duration-300 group hover-magnetic"
+              >
+                <div class="flex items-start gap-4">
+                  <span
+                    class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5"
+                    >03.</span
+                  >
+                  <h4
+                    class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide"
+                  >
+                    Crecimiento Económico
+                  </h4>
+                </div>
+              </div>
+              <div
+                class="p-5 bg-white border border-tint/60 hover:border-primary/30 rounded-premium-sm transition-all duration-300 group hover-magnetic"
+              >
+                <div class="flex items-start gap-4">
+                  <span
+                    class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5"
+                    >04.</span
+                  >
+                  <h4
+                    class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide"
+                  >
+                    Economía Pública
+                  </h4>
+                </div>
+              </div>
+              <div
+                class="p-5 bg-white border border-tint/60 hover:border-primary/30 rounded-premium-sm transition-all duration-300 group hover-magnetic"
+              >
+                <div class="flex items-start gap-4">
+                  <span
+                    class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5"
+                    >05.</span
+                  >
+                  <h4
+                    class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide"
+                  >
+                    Equilibrio General
+                  </h4>
+                </div>
+              </div>
+              <div
+                class="p-5 bg-white border border-tint/60 hover:border-primary/30 rounded-premium-sm transition-all duration-300 group hover-magnetic"
+              >
+                <div class="flex items-start gap-4">
+                  <span
+                    class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5"
+                    >06.</span
+                  >
+                  <h4
+                    class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide"
+                  >
+                    Dinámica Económica
+                  </h4>
+                </div>
+              </div>
+              <div
+                class="p-5 bg-white border border-tint/60 hover:border-primary/30 rounded-premium-sm transition-all duration-300 group hover-magnetic"
+              >
+                <div class="flex items-start gap-4">
+                  <span
+                    class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5"
+                    >07.</span
+                  >
+                  <h4
+                    class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide"
+                  >
+                    Áreas Temáticas Afines
+                  </h4>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- Bottom row: progress, testimonials -->
+        <div
+          class="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-12 border-t border-tint/40"
+        >
+          <!-- Progress Bars -->
+          <div
+            class="bg-white border border-tint/60 p-6 rounded-premium-sm flex flex-col justify-between"
+          >
+            <div>
+              <div class="pb-3 border-b border-tint/30 mb-4">
+                <span
+                  class="text-xs font-mono font-bold uppercase tracking-wider text-text block"
+                  >Métricas de Preparación</span
+                >
+              </div>
+              <div class="space-y-4">
+                <div class="space-y-1.5">
+                  <div class="flex justify-between text-xs font-mono">
+                    <span class="text-text"
+                      >Recepción de trabajos de investigación</span
+                    >
+                    <span class="text-primary font-bold">92%</span>
+                  </div>
+                  <div
+                    class="w-full h-1 bg-tint/50 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="h-full bg-primary progress-fill rounded-full"
+                      style="width: 92%"
+                    ></div>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <div class="flex justify-between text-xs font-mono">
+                    <span class="text-text"
+                      >Confirmación de ponentes magistrales</span
+                    >
+                    <span class="text-primary font-bold">85%</span>
+                  </div>
+                  <div
+                    class="w-full h-1 bg-tint/50 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="h-full bg-primary progress-fill rounded-full"
+                      style="width: 85%"
+                    ></div>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <div class="flex justify-between text-xs font-mono">
+                    <span class="text-text"
+                      >Estructuración del programa científico</span
+                    >
+                    <span class="text-primary font-bold">78%</span>
+                  </div>
+                  <div
+                    class="w-full h-1 bg-tint/50 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="h-full bg-primary progress-fill rounded-full"
+                      style="width: 78%"
+                    ></div>
+                  </div>
+                </div>
+                <div class="space-y-1.5">
+                  <div class="flex justify-between text-xs font-mono">
+                    <span class="text-text"
+                      >Asignación de fondos para alojamiento institucional</span
+                    >
+                    <span class="text-primary font-bold">95%</span>
+                  </div>
+                  <div
+                    class="w-full h-1 bg-tint/50 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="h-full bg-primary progress-fill rounded-full"
+                      style="width: 95%"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="text-[10px] font-mono text-text mt-4 text-right">
+              *Actualizado en tiempo real.
+            </p>
+          </div>
+
+          <!-- Testimonials -->
+          <div
+            class="bg-white border border-tint/60 p-6 rounded-premium-sm flex flex-col justify-between relative overflow-hidden"
+          >
+            <div class="pb-3 border-b border-tint/30 mb-4">
+              <span
+                class="text-xs font-mono font-bold uppercase tracking-wider text-text block"
+                >Voz de la Comunidad</span
+              >
+            </div>
+            <div
+              id="testimonial-carousel"
+              class="min-h-[160px] flex flex-col justify-center"
+            >
+              <div class="space-y-4">
+                <p
+                  class="text-sm md:text-base italic text-text font-light leading-relaxed"
+                >
+                  "Un espacio imprescindible para quienes investigamos teoría
+                  económica en la región. El rigor metodológico discutido aquí
+                  es inigualable."
+                </p>
+                <div class="flex items-center gap-3 pt-2">
+                  <img
+                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80"
+                    alt="Dra. Elena Rostova"
+                    class="w-10 h-10 rounded-full object-cover border border-primary/30"
+                  />
+                  <div>
+                    <h5 class="text-xs font-bold text-text">
+                      Dra. Elena Rostova
+                    </h5>
+                    <span class="text-[10px] font-mono text-text"
+                      >Universidad de Chile</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-end gap-2 pt-2">
+              <button
+                id="prev-testimonial"
+                class="p-1.5 border border-tint/60 hover:border-primary rounded-full transition text-text hover:text-primary"
+                aria-label="Anterior"
+              >
+                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+              </button>
+              <button
+                id="next-testimonial"
+                class="p-1.5 border border-tint/60 hover:border-primary rounded-full transition text-text hover:text-primary"
+                aria-label="Siguiente"
+              >
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ============================================================
          PROGRAMA — #programa
          ============================================================ -->
     <section id="programa" class="py-24 bg-bg border-t border-tint/40 relative">
-        <div class="max-w-5xl mx-auto px-4 space-y-12">
-            <div class="text-center max-w-2xl mx-auto space-y-3">
-                <div class="text-xs font-mono text-primary tracking-widest uppercase font-bold">CRONOGRAMA E ITINERARIO</div>
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text">Programa del Encuentro Científico</h2>
-            </div>
-
-            <!-- Day tabs -->
-            <div id="program-tabs" class="flex flex-wrap justify-center gap-2 md:gap-4">
-                <button class="px-5 py-2 rounded-full border text-xs font-mono transition-all duration-300 program-tab-btn bg-primary text-white border-primary font-bold shadow-sm" data-day="0">
-                    Día 1 — 28 Oct
-                </button>
-                <button class="px-5 py-2 rounded-full border text-xs font-mono transition-all duration-300 program-tab-btn bg-white text-text border-tint hover:text-text hover:border-primary/40" data-day="1">
-                    Día 2 — 29 Oct
-                </button>
-                <button class="px-5 py-2 rounded-full border text-xs font-mono transition-all duration-300 program-tab-btn bg-white text-text border-tint hover:text-text hover:border-primary/40" data-day="2">
-                    Día 3 — 30 Oct
-                </button>
-            </div>
-
-            <!-- Timeline -->
-            <div id="program-timeline-frame" class="bg-white border border-tint/60 rounded-premium-lg p-6 md:p-10 shadow-md">
-                <div id="timeline-events-container" class="space-y-6 relative border-l border-tint/40 pl-6 md:pl-8 ml-2 md:ml-4">
-                    <!-- Día 1 events -->
-                    <div class="relative space-y-1.5 group timeline-item pl-4">
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
-                            <span class="font-mono text-xs text-primary font-bold bg-primary/5 px-2 py-0.5 border border-primary/20 rounded max-w-fit">09:00 - 10:00</span>
-                            <span class="text-[10px] font-mono tracking-widest text-text uppercase">Ceremonia de Apertura</span>
-                        </div>
-                        <h4 class="text-text group-hover:text-primary transition-colors font-bold text-base md:text-lg tracking-tight">Acreditaciones e Inauguración Oficial del XXV Aniversario</h4>
-                    </div>
-                    <div class="relative space-y-1.5 group timeline-item pl-4">
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
-                            <span class="font-mono text-xs text-primary font-bold bg-primary/5 px-2 py-0.5 border border-primary/20 rounded max-w-fit">10:00 - 12:00</span>
-                            <span class="text-[10px] font-mono tracking-widest text-text uppercase">Sesión Científica</span>
-                        </div>
-                        <h4 class="text-text group-hover:text-primary transition-colors font-bold text-base md:text-lg tracking-tight flex items-center gap-3">
-                            [Próximamente]
-                        </h4>
-                    </div>
-                    <div class="relative space-y-1.5 group timeline-item pl-4">
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
-                            <span class="font-mono text-xs text-text bg-tint/30 px-2 py-0.5 border border-tint/30 rounded max-w-fit">12:30 - 14:00</span>
-                            <span class="text-[10px] font-mono tracking-widest text-text uppercase">RECESO</span>
-                        </div>
-                        <h4 class="text-text font-bold text-base md:text-lg tracking-tight">Break to lunch</h4>
-                    </div>
-                    <div class="relative space-y-1.5 group timeline-item pl-4">
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
-                            <span class="font-mono text-xs text-primary font-bold bg-primary/5 px-2 py-0.5 border border-primary/20 rounded max-w-fit">14:00 - 16:00</span>
-                            <span class="text-[10px] font-mono tracking-widest text-text uppercase">Sesión Científica</span>
-                        </div>
-                        <h4 class="text-text group-hover:text-primary transition-colors font-bold text-base md:text-lg tracking-tight flex items-center gap-3">
-                            [Próximamente]
-                        </h4>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Note about COMPLETAR events -->
-            <p class="text-center text-xs font-mono text-text">* Las sesiones marcadas como <span class="text-primary font-bold">[Próximamente]</span> se confirmarán en las próximas semanas.</p>
+      <div class="max-w-5xl mx-auto px-4 space-y-12">
+        <div class="text-center max-w-2xl mx-auto space-y-3">
+          <div
+            class="text-xs font-mono text-primary tracking-widest uppercase font-bold"
+          >
+            CRONOGRAMA E ITINERARIO
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text">
+            Programa del Encuentro Científico
+          </h2>
         </div>
+
+        <!-- Day tabs -->
+        <div
+          id="program-tabs"
+          class="flex flex-wrap justify-center gap-2 md:gap-4"
+        >
+          <button
+            class="px-5 py-2 rounded-full border text-xs font-mono transition-all duration-300 program-tab-btn bg-primary text-white border-primary font-bold shadow-sm"
+            data-day="0"
+          >
+            Día 1 — 28 Oct
+          </button>
+          <button
+            class="px-5 py-2 rounded-full border text-xs font-mono transition-all duration-300 program-tab-btn bg-white text-text border-tint hover:text-text hover:border-primary/40"
+            data-day="1"
+          >
+            Día 2 — 29 Oct
+          </button>
+          <button
+            class="px-5 py-2 rounded-full border text-xs font-mono transition-all duration-300 program-tab-btn bg-white text-text border-tint hover:text-text hover:border-primary/40"
+            data-day="2"
+          >
+            Día 3 — 30 Oct
+          </button>
+        </div>
+
+        <!-- Timeline -->
+        <div
+          id="program-timeline-frame"
+          class="bg-white border border-tint/60 rounded-premium-lg p-6 md:p-10 shadow-md"
+        >
+          <div
+            id="timeline-events-container"
+            class="space-y-6 relative border-l border-tint/40 pl-6 md:pl-8 ml-2 md:ml-4"
+          >
+            <!-- Día 1 events -->
+            <div class="relative space-y-1.5 group timeline-item pl-4">
+              <div
+                class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4"
+              >
+                <span
+                  class="font-mono text-xs text-primary font-bold bg-primary/5 px-2 py-0.5 border border-primary/20 rounded max-w-fit"
+                  >09:00 - 10:00</span
+                >
+                <span
+                  class="text-[10px] font-mono tracking-widest text-text uppercase"
+                  >Ceremonia de Apertura</span
+                >
+              </div>
+              <h4
+                class="text-text group-hover:text-primary transition-colors font-bold text-base md:text-lg tracking-tight"
+              >
+                Acreditaciones e Inauguración Oficial del XXV Aniversario
+              </h4>
+            </div>
+            <div class="relative space-y-1.5 group timeline-item pl-4">
+              <div
+                class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4"
+              >
+                <span
+                  class="font-mono text-xs text-primary font-bold bg-primary/5 px-2 py-0.5 border border-primary/20 rounded max-w-fit"
+                  >10:00 - 12:00</span
+                >
+                <span
+                  class="text-[10px] font-mono tracking-widest text-text uppercase"
+                  >Sesión Científica</span
+                >
+              </div>
+              <h4
+                class="text-text group-hover:text-primary transition-colors font-bold text-base md:text-lg tracking-tight flex items-center gap-3"
+              >
+                [Próximamente]
+              </h4>
+            </div>
+            <div class="relative space-y-1.5 group timeline-item pl-4">
+              <div
+                class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4"
+              >
+                <span
+                  class="font-mono text-xs text-text bg-tint/30 px-2 py-0.5 border border-tint/30 rounded max-w-fit"
+                  >12:30 - 14:00</span
+                >
+                <span
+                  class="text-[10px] font-mono tracking-widest text-text uppercase"
+                  >RECESO</span
+                >
+              </div>
+              <h4
+                class="text-text font-bold text-base md:text-lg tracking-tight"
+              >
+                Break to lunch
+              </h4>
+            </div>
+            <div class="relative space-y-1.5 group timeline-item pl-4">
+              <div
+                class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4"
+              >
+                <span
+                  class="font-mono text-xs text-primary font-bold bg-primary/5 px-2 py-0.5 border border-primary/20 rounded max-w-fit"
+                  >14:00 - 16:00</span
+                >
+                <span
+                  class="text-[10px] font-mono tracking-widest text-text uppercase"
+                  >Sesión Científica</span
+                >
+              </div>
+              <h4
+                class="text-text group-hover:text-primary transition-colors font-bold text-base md:text-lg tracking-tight flex items-center gap-3"
+              >
+                [Próximamente]
+              </h4>
+            </div>
+          </div>
+        </div>
+
+        <!-- Note about COMPLETAR events -->
+        <p class="text-center text-xs font-mono text-text">
+          * Las sesiones marcadas como
+          <span class="text-primary font-bold">[Próximamente]</span> se
+          confirmarán en las próximas semanas.
+        </p>
+      </div>
     </section>
 
     <!-- ============================================================
          EXPOSITORES — #expositores
          ============================================================ -->
-    <section id="expositores" class="py-24 bg-bg border-t border-tint/40 relative">
-        <div class="max-w-6xl mx-auto px-4 space-y-12">
-            <div class="text-center max-w-2xl mx-auto space-y-3">
-                <div class="text-xs font-mono text-primary tracking-widest uppercase font-bold flex items-center justify-center gap-3">
-                    CONFERENCISTAS DE HONOR
-                    <span class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full border border-primary/20">Próximamente</span>
-                </div>
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text">Expositores Destacados</h2>
-                <p class="text-text text-sm font-light">Conferencistas confirmados — la lista completa de plenarias se publicará próximamente.</p>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Speaker 1 -->
-                <div class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 hover-magnetic flex flex-col justify-between shadow-sm">
-                    <div class="relative overflow-hidden aspect-[4/3] bg-tint/30">
-                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80" alt="Prof. Dr. Hugo Sonnenschein" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700">
-                    </div>
-                    <div class="p-6 space-y-2 flex-1 flex flex-col justify-between">
-                        <div class="space-y-1">
-                            <h3 class="text-text font-bold text-base tracking-tight group-hover:text-primary transition-colors">Prof. Dr. Hugo Sonnenschein</h3>
-                            <p class="text-xs text-primary/70 font-mono">Princeton University</p>
-                        </div>
-                        <p class="text-xs text-text pt-2 border-t border-tint/30 font-light leading-relaxed">Teoría del Equilibrio General Avanzado</p>
-                    </div>
-                </div>
-                <!-- Speaker 2 -->
-                <div class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 hover-magnetic flex flex-col justify-between shadow-sm">
-                    <div class="relative overflow-hidden aspect-[4/3] bg-tint/30">
-                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80" alt="Dra. Mariana G. Villalba" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700">
-                    </div>
-                    <div class="p-6 space-y-2 flex-1 flex flex-col justify-between">
-                        <div class="space-y-1">
-                            <h3 class="text-text font-bold text-base tracking-tight group-hover:text-primary transition-colors">Dra. Mariana G. Villalba</h3>
-                            <p class="text-xs text-primary/70 font-mono">Universidad de San Andrés</p>
-                        </div>
-                        <p class="text-xs text-text pt-2 border-t border-tint/30 font-light leading-relaxed">Mecanismos de Incentivos y Teoría de Juegos</p>
-                    </div>
-                </div>
-                <!-- Speaker 3 -->
-                <div class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 hover-magnetic flex flex-col justify-between shadow-sm">
-                    <div class="relative overflow-hidden aspect-[4/3] bg-tint/30">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80" alt="Dr. Roberto Chang" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700">
-                    </div>
-                    <div class="p-6 space-y-2 flex-1 flex flex-col justify-between">
-                        <div class="space-y-1">
-                            <h3 class="text-text font-bold text-base tracking-tight group-hover:text-primary transition-colors">Dr. Roberto Chang</h3>
-                            <p class="text-xs text-primary/70 font-mono">Rutgers University</p>
-                        </div>
-                        <p class="text-xs text-text pt-2 border-t border-tint/30 font-light leading-relaxed">Macroeconomía Estocástica de Economías Abiertas</p>
-                    </div>
-                </div>
-                <!-- Speaker 4 -->
-                <div class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 hover-magnetic flex flex-col justify-between shadow-sm">
-                    <div class="relative overflow-hidden aspect-[4/3] bg-tint/30">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Dra. Beatriz R. Alves" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700">
-                    </div>
-                    <div class="p-6 space-y-2 flex-1 flex flex-col justify-between">
-                        <div class="space-y-1">
-                            <h3 class="text-text font-bold text-base tracking-tight group-hover:text-primary transition-colors">Dra. Beatriz R. Alves</h3>
-                            <p class="text-xs text-primary/70 font-mono">Universidade de São Paulo</p>
-                        </div>
-                        <p class="text-xs text-text pt-2 border-t border-tint/30 font-light leading-relaxed">Métodos Numéricos y Economía Computacional</p>
-                    </div>
-                </div>
-            </div>
+    <section
+      id="expositores"
+      class="py-24 bg-bg border-t border-tint/40 relative"
+    >
+      <div class="max-w-6xl mx-auto px-4 space-y-12">
+        <div class="text-center max-w-2xl mx-auto space-y-3">
+          <div
+            class="text-xs font-mono text-primary tracking-widest uppercase font-bold flex items-center justify-center gap-3"
+          >
+            CONFERENCISTAS DE HONOR
+            <span
+              class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full border border-primary/20"
+              >Próximamente</span
+            >
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text">
+            Expositores Destacados
+          </h2>
+          <p class="text-text text-sm font-light">
+            Conferencistas confirmados — la lista completa de plenarias se
+            publicará próximamente.
+          </p>
         </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Speaker 1 -->
+          <div
+            class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 hover-magnetic flex flex-col justify-between shadow-sm"
+          >
+            <div class="relative overflow-hidden aspect-[4/3] bg-tint/30">
+              <img
+                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80"
+                alt="Prof. Dr. Hugo Sonnenschein"
+                class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
+              />
+            </div>
+            <div class="p-6 space-y-2 flex-1 flex flex-col justify-between">
+              <div class="space-y-1">
+                <h3
+                  class="text-text font-bold text-base tracking-tight group-hover:text-primary transition-colors"
+                >
+                  Prof. Dr. Hugo Sonnenschein
+                </h3>
+                <p class="text-xs text-primary/70 font-mono">
+                  Princeton University
+                </p>
+              </div>
+              <p
+                class="text-xs text-text pt-2 border-t border-tint/30 font-light leading-relaxed"
+              >
+                Teoría del Equilibrio General Avanzado
+              </p>
+            </div>
+          </div>
+          <!-- Speaker 2 -->
+          <div
+            class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 hover-magnetic flex flex-col justify-between shadow-sm"
+          >
+            <div class="relative overflow-hidden aspect-[4/3] bg-tint/30">
+              <img
+                src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80"
+                alt="Dra. Mariana G. Villalba"
+                class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
+              />
+            </div>
+            <div class="p-6 space-y-2 flex-1 flex flex-col justify-between">
+              <div class="space-y-1">
+                <h3
+                  class="text-text font-bold text-base tracking-tight group-hover:text-primary transition-colors"
+                >
+                  Dra. Mariana G. Villalba
+                </h3>
+                <p class="text-xs text-primary/70 font-mono">
+                  Universidad de San Andrés
+                </p>
+              </div>
+              <p
+                class="text-xs text-text pt-2 border-t border-tint/30 font-light leading-relaxed"
+              >
+                Mecanismos de Incentivos y Teoría de Juegos
+              </p>
+            </div>
+          </div>
+          <!-- Speaker 3 -->
+          <div
+            class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 hover-magnetic flex flex-col justify-between shadow-sm"
+          >
+            <div class="relative overflow-hidden aspect-[4/3] bg-tint/30">
+              <img
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80"
+                alt="Dr. Roberto Chang"
+                class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
+              />
+            </div>
+            <div class="p-6 space-y-2 flex-1 flex flex-col justify-between">
+              <div class="space-y-1">
+                <h3
+                  class="text-text font-bold text-base tracking-tight group-hover:text-primary transition-colors"
+                >
+                  Dr. Roberto Chang
+                </h3>
+                <p class="text-xs text-primary/70 font-mono">
+                  Rutgers University
+                </p>
+              </div>
+              <p
+                class="text-xs text-text pt-2 border-t border-tint/30 font-light leading-relaxed"
+              >
+                Macroeconomía Estocástica de Economías Abiertas
+              </p>
+            </div>
+          </div>
+          <!-- Speaker 4 -->
+          <div
+            class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 hover-magnetic flex flex-col justify-between shadow-sm"
+          >
+            <div class="relative overflow-hidden aspect-[4/3] bg-tint/30">
+              <img
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
+                alt="Dra. Beatriz R. Alves"
+                class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
+              />
+            </div>
+            <div class="p-6 space-y-2 flex-1 flex flex-col justify-between">
+              <div class="space-y-1">
+                <h3
+                  class="text-text font-bold text-base tracking-tight group-hover:text-primary transition-colors"
+                >
+                  Dra. Beatriz R. Alves
+                </h3>
+                <p class="text-xs text-primary/70 font-mono">
+                  Universidade de São Paulo
+                </p>
+              </div>
+              <p
+                class="text-xs text-text pt-2 border-t border-tint/30 font-light leading-relaxed"
+              >
+                Métodos Numéricos y Economía Computacional
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ============================================================
          COMITÉ — #comite (4 groups)
          ============================================================ -->
     <section id="comite" class="py-24 bg-bg border-t border-tint/40 relative">
-        <div class="max-w-6xl mx-auto px-4 space-y-16">
-            <div class="text-center max-w-2xl mx-auto space-y-3">
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text">Comité Académico e Institucional</h2>
-            </div>
-
-            <!-- 4-column grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
-                <!-- Co-organizadores -->
-                <div class="bg-white border border-tint/60 p-6 rounded-premium-sm space-y-4">
-                    <div class="text-xs font-mono text-primary tracking-wider uppercase font-bold flex items-center gap-2">
-                        <i data-lucide="shield-check" class="w-4 h-4"></i> Co-organizadores
-                    </div>
-                    <div class="space-y-4 pt-2">
-                        <div class="border-b border-tint/30 pb-3">
-                            <div class="text-sm font-bold text-text">Luis Quintas</div>
-                            <div class="text-xs text-text font-mono">Universidad de La Punta (ULP), Argentina</div>
-                        </div>
-                        <div class="border-b border-tint/30 pb-3">
-                            <div class="text-sm font-bold text-text">Alejandro Neme</div>
-                            <div class="text-xs text-text font-mono">Universidad Nacional de San Luis (UNSL), Argentina</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Académico -->
-                <div class="bg-white border border-tint/60 p-6 rounded-premium-sm space-y-4">
-                    <div class="text-xs font-mono text-primary tracking-wider uppercase font-bold flex items-center gap-2">
-                        <i data-lucide="users" class="w-4 h-4"></i> Comité Académico
-                    </div>
-                    <div class="space-y-4 pt-2">
-                        <div class="border-b border-tint/30 pb-2"><div class="text-sm font-bold text-text">Elvio Accinelli</div><div class="text-xs text-text font-mono">UASLP, México</div></div>
-                        <div class="border-b border-tint/30 pb-2"><div class="text-sm font-bold text-text">Paula Jaramillo</div><div class="text-xs text-text font-mono">U de Los Andes, Colombia</div></div>
-                        <div class="border-b border-tint/30 pb-2"><div class="text-sm font-bold text-text">Silvia London</div><div class="text-xs text-text font-mono">UN Sur, Argentina</div></div>
-                        <div class="border-b border-tint/30 pb-2"><div class="text-sm font-bold text-text">Onésimo Hernández</div><div class="text-xs text-text font-mono">CINVESTAV, México</div></div>
-                        <div class="border-b border-tint/30 pb-2"><div class="text-sm font-bold text-text">David Cantalá</div><div class="text-xs text-text font-mono">COLMEX, México</div></div>
-                        <div class="border-b border-tint/30 pb-2"><div class="text-sm font-bold text-text">Enrique Casares</div><div class="text-xs text-text font-mono">UAM Asc., México</div></div>
-                        <div class="border-b border-tint/30 pb-2"><div class="text-sm font-bold text-text">Enrique Covarrubias</div><div class="text-xs text-text font-mono">Actinver</div></div>
-                        <div class="border-b border-tint/30 pb-2"><div class="text-sm font-bold text-text">Wilfredo L. Maldonado</div><div class="text-xs text-text font-mono">USP, Brasil</div></div>
-                        <div class="border-b border-tint/30 pb-2"><div class="text-sm font-bold text-text">Alejandro Neme</div><div class="text-xs text-text font-mono">UNSL, Argentina</div></div>
-                        <div class="border-b border-tint/30 pb-2"><div class="text-sm font-bold text-text">Jorge Oviedo</div><div class="text-xs text-text font-mono">UNSL, Argentina</div></div>
-                        <div class="border-b border-tint/30 pb-2"><div class="text-sm font-bold text-text">Leobardo Plata</div><div class="text-xs text-text font-mono">UASLP, México</div></div>
-                        <div class="border-b border-tint/30 pb-2"><div class="text-sm font-bold text-text">Martin Puchet</div><div class="text-xs text-text font-mono">UNAM, México</div></div>
-                        <div class="border-b border-tint/30 pb-2"><div class="text-sm font-bold text-text">Luis Quintas</div><div class="text-xs text-text font-mono">ULP, Argentina</div></div>
-                        <div class="border-b border-tint/30 pb-2"><div class="text-sm font-bold text-text">Beatriz Rumbos</div><div class="text-xs text-text font-mono">ITAM, México</div></div>
-                        <div class="border-b border-tint/30 pb-2"><div class="text-sm font-bold text-text">Francisco Sanchez</div><div class="text-xs text-text font-mono">CIMAT, México</div></div>
-                        <div class="border-b border-tint/30 pb-2"><div class="text-sm font-bold text-text">Jaime Sempere</div><div class="text-xs text-text font-mono">COLMEX, México</div></div>
-                    </div>
-                </div>
-
-                <!-- Local -->
-                <div class="bg-white border border-tint/60 p-6 rounded-premium-sm space-y-4">
-                    <div class="text-xs font-mono text-primary tracking-wider uppercase font-bold flex items-center gap-2">
-                        <i data-lucide="map-pin" class="w-4 h-4"></i> Comité Local
-                    </div>
-                    <div class="space-y-4 pt-2">
-                        <div class="border-b border-tint/30 pb-2">
-                            <div class="text-sm font-bold text-text">Juan Carlos Zabala</div>
-                            <div class="text-xs text-text font-mono">ULP, Argentina</div>
-                        </div>
-                        <div class="border-b border-tint/30 pb-2">
-                            <div class="text-sm font-bold text-text">Ricardo Silvera</div>
-                            <div class="text-xs text-text font-mono">ULP, Argentina</div>
-                        </div>
-                        <div class="border-b border-tint/30 pb-2">
-                            <div class="text-sm font-bold text-text">Marcos Lucero</div>
-                            <div class="text-xs text-text font-mono">ULP, Argentina</div>
-                        </div>
-                        <div class="border-b border-tint/30 pb-2">
-                            <div class="text-sm font-bold text-text">Cristian Sindoni</div>
-                            <div class="text-xs text-text font-mono">ULP, Argentina</div>
-                        </div>
-                        <div class="border-b border-tint/30 pb-2">
-                            <div class="text-sm font-bold text-text flex items-center gap-2">
-                                [Próximamente]
-                                <span class="text-xs font-normal text-text">UNSL</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Científico -->
-                <div class="bg-white border border-tint/60 p-6 rounded-premium-sm space-y-4">
-                    <div class="text-xs font-mono text-primary tracking-wider uppercase font-bold flex items-center gap-2">
-                        <i data-lucide="binary" class="w-4 h-4"></i> Comité Científico
-                    </div>
-                    <div class="space-y-4 pt-2">
-                        <div class="border-b border-tint/30 pb-2">
-                            <div class="text-sm font-bold text-text">Dr. Juan Pablo Torres-Martínez</div>
-                            <div class="text-xs text-text font-mono">Universidad de Chile, Chile</div>
-                        </div>
-                        <div class="border-b border-tint/30 pb-2">
-                            <div class="text-sm font-bold text-text">Dra. Flavia Rangel</div>
-                            <div class="text-xs text-text font-mono">Fundação Getulio Vargas (FGV), Brasil</div>
-                        </div>
-                        <div class="border-b border-tint/30 pb-2">
-                            <div class="text-sm font-bold text-text">Dr. César Martinelli</div>
-                            <div class="text-xs text-text font-mono">George Mason University, Estados Unidos</div>
-                        </div>
-                        <div class="border-b border-tint/30 pb-2">
-                            <div class="text-sm font-bold text-text">Dr. Elvio Accinelli</div>
-                            <div class="text-xs text-text font-mono">UASLP, México</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="max-w-6xl mx-auto px-4 space-y-16">
+        <div class="text-center max-w-2xl mx-auto space-y-3">
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text">
+            Comité Académico e Institucional
+          </h2>
         </div>
+
+        <!-- 4-column grid -->
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-start"
+        >
+          <!-- Co-organizadores -->
+          <div
+            class="bg-white border border-tint/60 p-6 rounded-premium-sm space-y-4"
+          >
+            <div
+              class="text-xs font-mono text-primary tracking-wider uppercase font-bold flex items-center gap-2"
+            >
+              <i data-lucide="shield-check" class="w-4 h-4"></i>
+              Co-organizadores
+            </div>
+            <div class="space-y-4 pt-2">
+              <div class="border-b border-tint/30 pb-3">
+                <div class="text-sm font-bold text-text">Luis Quintas</div>
+                <div class="text-xs text-text font-mono">
+                  Universidad de La Punta (ULP), Argentina
+                </div>
+              </div>
+              <div class="border-b border-tint/30 pb-3">
+                <div class="text-sm font-bold text-text">Alejandro Neme</div>
+                <div class="text-xs text-text font-mono">
+                  Universidad Nacional de San Luis (UNSL), Argentina
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Académico -->
+          <div
+            class="bg-white border border-tint/60 p-6 rounded-premium-sm space-y-4"
+          >
+            <div
+              class="text-xs font-mono text-primary tracking-wider uppercase font-bold flex items-center gap-2"
+            >
+              <i data-lucide="users" class="w-4 h-4"></i> Comité Académico
+            </div>
+            <div class="space-y-4 pt-2">
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">Elvio Accinelli</div>
+                <div class="text-xs text-text font-mono">UASLP, México</div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">Paula Jaramillo</div>
+                <div class="text-xs text-text font-mono">
+                  U de Los Andes, Colombia
+                </div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">Silvia London</div>
+                <div class="text-xs text-text font-mono">UN Sur, Argentina</div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">Onésimo Hernández</div>
+                <div class="text-xs text-text font-mono">CINVESTAV, México</div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">David Cantalá</div>
+                <div class="text-xs text-text font-mono">COLMEX, México</div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">Enrique Casares</div>
+                <div class="text-xs text-text font-mono">UAM Asc., México</div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">
+                  Enrique Covarrubias
+                </div>
+                <div class="text-xs text-text font-mono">Actinver</div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">
+                  Wilfredo L. Maldonado
+                </div>
+                <div class="text-xs text-text font-mono">USP, Brasil</div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">Alejandro Neme</div>
+                <div class="text-xs text-text font-mono">UNSL, Argentina</div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">Jorge Oviedo</div>
+                <div class="text-xs text-text font-mono">UNSL, Argentina</div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">Leobardo Plata</div>
+                <div class="text-xs text-text font-mono">UASLP, México</div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">Martin Puchet</div>
+                <div class="text-xs text-text font-mono">UNAM, México</div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">Luis Quintas</div>
+                <div class="text-xs text-text font-mono">ULP, Argentina</div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">Beatriz Rumbos</div>
+                <div class="text-xs text-text font-mono">ITAM, México</div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">Francisco Sanchez</div>
+                <div class="text-xs text-text font-mono">CIMAT, México</div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">Jaime Sempere</div>
+                <div class="text-xs text-text font-mono">COLMEX, México</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Local -->
+          <div
+            class="bg-white border border-tint/60 p-6 rounded-premium-sm space-y-4"
+          >
+            <div
+              class="text-xs font-mono text-primary tracking-wider uppercase font-bold flex items-center gap-2"
+            >
+              <i data-lucide="map-pin" class="w-4 h-4"></i> Comité Local
+            </div>
+            <div class="space-y-4 pt-2">
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">
+                  Juan Carlos Zabala
+                </div>
+                <div class="text-xs text-text font-mono">ULP, Argentina</div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">Ricardo Silvera</div>
+                <div class="text-xs text-text font-mono">ULP, Argentina</div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">Marcos Lucero</div>
+                <div class="text-xs text-text font-mono">ULP, Argentina</div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">Cristian Sindoni</div>
+                <div class="text-xs text-text font-mono">ULP, Argentina</div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div
+                  class="text-sm font-bold text-text flex items-center gap-2"
+                >
+                  [Próximamente]
+                  <span class="text-xs font-normal text-text">UNSL</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Científico -->
+          <div
+            class="bg-white border border-tint/60 p-6 rounded-premium-sm space-y-4"
+          >
+            <div
+              class="text-xs font-mono text-primary tracking-wider uppercase font-bold flex items-center gap-2"
+            >
+              <i data-lucide="binary" class="w-4 h-4"></i> Comité Científico
+            </div>
+            <div class="space-y-4 pt-2">
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">
+                  Dr. Juan Pablo Torres-Martínez
+                </div>
+                <div class="text-xs text-text font-mono">
+                  Universidad de Chile, Chile
+                </div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">
+                  Dra. Flavia Rangel
+                </div>
+                <div class="text-xs text-text font-mono">
+                  Fundação Getulio Vargas (FGV), Brasil
+                </div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">
+                  Dr. César Martinelli
+                </div>
+                <div class="text-xs text-text font-mono">
+                  George Mason University, Estados Unidos
+                </div>
+              </div>
+              <div class="border-b border-tint/30 pb-2">
+                <div class="text-sm font-bold text-text">
+                  Dr. Elvio Accinelli
+                </div>
+                <div class="text-xs text-text font-mono">UASLP, México</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ============================================================
          FAQ — #faq
          ============================================================ -->
     <section id="faq" class="py-24 bg-bg border-t border-tint/40 relative">
-        <div class="max-w-3xl mx-auto px-4 space-y-12">
-            <div class="text-center space-y-3">
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text">Preguntas Frecuentes</h2>
-            </div>
-            <div id="faq-accordion-container" class="space-y-4">
-                <!-- FAQ 1 -->
-                <div class="border border-tint/60 bg-white rounded-premium-sm overflow-hidden transition-all duration-300">
-                    <button class="w-full text-left p-6 flex items-center justify-between text-text font-bold text-sm md:text-base gap-4 faq-toggle" data-index="0">
-                        <span>¿Cuándo y dónde se realizan las JOLATE XXV?</span>
-                        <i data-lucide="chevron-down" class="w-4 h-4 text-primary transform transition-transform duration-300 faq-icon"></i>
-                    </button>
-                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out faq-content">
-                        <p class="px-6 pb-6 text-xs md:text-sm text-text leading-relaxed font-light border-t border-tint/20 pt-4 bg-bg/50">
-                            Las XXV Jornadas Latinoamericanas de Teoría Económica (JOLATE) se realizarán los días 28, 29 y 30 de octubre de 2026 en San Luis, Argentina, organizadas en forma conjunta por la Universidad de La Punta (ULP) y la Universidad Nacional de San Luis (UNSL).
-                        </p>
-                    </div>
-                </div>
-
-                <!-- FAQ 2 -->
-                <div class="border border-tint/60 bg-white rounded-premium-sm overflow-hidden transition-all duration-300">
-                    <button class="w-full text-left p-6 flex items-center justify-between text-text font-bold text-sm md:text-base gap-4 faq-toggle" data-index="1">
-                        <span>¿Hasta cuándo puedo enviar mi trabajo?</span>
-                        <i data-lucide="chevron-down" class="w-4 h-4 text-primary transform transition-transform duration-300 faq-icon"></i>
-                    </button>
-                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out faq-content">
-                        <p class="px-6 pb-6 text-xs md:text-sm text-text leading-relaxed font-light border-t border-tint/20 pt-4 bg-bg/50">
-                            La fecha límite para la recepción de trabajos es el 4 de septiembre de 2026. La confirmación de aceptación por parte del Comité Científico se comunicará antes del 18 de septiembre de 2026.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- FAQ 3 -->
-                <div class="border border-tint/60 bg-white rounded-premium-sm overflow-hidden transition-all duration-300">
-                    <button class="w-full text-left p-6 flex items-center justify-between text-text font-bold text-sm md:text-base gap-4 faq-toggle" data-index="2">
-                        <span>¿Cómo se envía un trabajo?</span>
-                        <i data-lucide="chevron-down" class="w-4 h-4 text-primary transform transition-transform duration-300 faq-icon"></i>
-                    </button>
-                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out faq-content">
-                        <p class="px-6 pb-6 text-xs md:text-sm text-text leading-relaxed font-light border-t border-tint/20 pt-4 bg-bg/50">
-                            Los trabajos deben enviarse por correo electrónico a <a href="mailto:jolate2026@gmail.com?subject=Articulo%20para%20XXV%20JOLATE" class="text-primary font-bold hover:underline">jolate2026@gmail.com</a> indicando como asunto: <span class="font-mono text-primary">"Articulo para XXV JOLATE"</span>.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- FAQ 4 -->
-                <div class="border border-tint/60 bg-white rounded-premium-sm overflow-hidden transition-all duration-300">
-                    <button class="w-full text-left p-6 flex items-center justify-between text-text font-bold text-sm md:text-base gap-4 faq-toggle" data-index="3">
-                        <span>¿Hay apoyo para alojamiento?</span>
-                        <i data-lucide="chevron-down" class="w-4 h-4 text-primary transform transition-transform duration-300 faq-icon"></i>
-                    </button>
-                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out faq-content">
-                        <p class="px-6 pb-6 text-xs md:text-sm text-text leading-relaxed font-light border-t border-tint/20 pt-4 bg-bg/50">
-                            Sí. Se cuenta con recursos limitados para cubrir alojamiento y mantención destinados a expositores y alumnos participantes. Quienes requieran este apoyo deben solicitarlo al correo <a href="mailto:jolate2026@gmail.com" class="text-primary font-bold hover:underline">jolate2026@gmail.com</a>.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- FAQ 5 -->
-                <div class="border border-tint/60 bg-white rounded-premium-sm overflow-hidden transition-all duration-300">
-                    <button class="w-full text-left p-6 flex items-center justify-between text-text font-bold text-sm md:text-base gap-4 faq-toggle" data-index="4">
-                        <span>¿Se puede participar virtualmente?</span>
-                        <i data-lucide="chevron-down" class="w-4 h-4 text-primary transform transition-transform duration-300 faq-icon"></i>
-                    </button>
-                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out faq-content">
-                        <p class="px-6 pb-6 text-xs md:text-sm text-text leading-relaxed font-light border-t border-tint/20 pt-4 bg-bg/50">
-                            Sí. Quienes quieran participar virtualmente pueden presentar en vivo durante el tiempo asignado, o bien subir una plática grabada de duración no mayor a 20 minutos y enviar el link de OneDrive, la cual será transmitida en el momento correspondiente.
-                        </p>
-                    </div>
-                </div>
-            </div>
+      <div class="max-w-3xl mx-auto px-4 space-y-12">
+        <div class="text-center space-y-3">
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text">
+            Preguntas Frecuentes
+          </h2>
         </div>
+        <div id="faq-accordion-container" class="space-y-4">
+          <!-- FAQ 1 -->
+          <div
+            class="border border-tint/60 bg-white rounded-premium-sm overflow-hidden transition-all duration-300"
+          >
+            <button
+              class="w-full text-left p-6 flex items-center justify-between text-text font-bold text-sm md:text-base gap-4 faq-toggle"
+              data-index="0"
+            >
+              <span>¿Cuándo y dónde se realizan las JOLATE XXV?</span>
+              <i
+                data-lucide="chevron-down"
+                class="w-4 h-4 text-primary transform transition-transform duration-300 faq-icon"
+              ></i>
+            </button>
+            <div
+              class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out faq-content"
+            >
+              <p
+                class="px-6 pb-6 text-xs md:text-sm text-text leading-relaxed font-light border-t border-tint/20 pt-4 bg-bg/50"
+              >
+                Las XXV Jornadas Latinoamericanas de Teoría Económica (JOLATE)
+                se realizarán los días 28, 29 y 30 de octubre de 2026 en San
+                Luis, Argentina, organizadas en forma conjunta por la
+                Universidad de La Punta (ULP) y la Universidad Nacional de San
+                Luis (UNSL).
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div
+            class="border border-tint/60 bg-white rounded-premium-sm overflow-hidden transition-all duration-300"
+          >
+            <button
+              class="w-full text-left p-6 flex items-center justify-between text-text font-bold text-sm md:text-base gap-4 faq-toggle"
+              data-index="1"
+            >
+              <span>¿Hasta cuándo puedo enviar mi trabajo?</span>
+              <i
+                data-lucide="chevron-down"
+                class="w-4 h-4 text-primary transform transition-transform duration-300 faq-icon"
+              ></i>
+            </button>
+            <div
+              class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out faq-content"
+            >
+              <p
+                class="px-6 pb-6 text-xs md:text-sm text-text leading-relaxed font-light border-t border-tint/20 pt-4 bg-bg/50"
+              >
+                La fecha límite para la recepción de trabajos es el 4 de
+                septiembre de 2026. La confirmación de aceptación por parte del
+                Comité Científico se comunicará antes del 18 de septiembre de
+                2026.
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div
+            class="border border-tint/60 bg-white rounded-premium-sm overflow-hidden transition-all duration-300"
+          >
+            <button
+              class="w-full text-left p-6 flex items-center justify-between text-text font-bold text-sm md:text-base gap-4 faq-toggle"
+              data-index="2"
+            >
+              <span>¿Cómo se envía un trabajo?</span>
+              <i
+                data-lucide="chevron-down"
+                class="w-4 h-4 text-primary transform transition-transform duration-300 faq-icon"
+              ></i>
+            </button>
+            <div
+              class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out faq-content"
+            >
+              <p
+                class="px-6 pb-6 text-xs md:text-sm text-text leading-relaxed font-light border-t border-tint/20 pt-4 bg-bg/50"
+              >
+                Los trabajos deben enviarse por correo electrónico a
+                <a
+                  href="mailto:jolate2026@gmail.com?subject=Articulo%20para%20XXV%20JOLATE"
+                  class="text-primary font-bold hover:underline"
+                  >jolate2026@gmail.com</a
+                >
+                indicando como asunto:
+                <span class="font-mono text-primary"
+                  >"Articulo para XXV JOLATE"</span
+                >.
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div
+            class="border border-tint/60 bg-white rounded-premium-sm overflow-hidden transition-all duration-300"
+          >
+            <button
+              class="w-full text-left p-6 flex items-center justify-between text-text font-bold text-sm md:text-base gap-4 faq-toggle"
+              data-index="3"
+            >
+              <span>¿Hay apoyo para alojamiento?</span>
+              <i
+                data-lucide="chevron-down"
+                class="w-4 h-4 text-primary transform transition-transform duration-300 faq-icon"
+              ></i>
+            </button>
+            <div
+              class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out faq-content"
+            >
+              <p
+                class="px-6 pb-6 text-xs md:text-sm text-text leading-relaxed font-light border-t border-tint/20 pt-4 bg-bg/50"
+              >
+                Sí. Se cuenta con recursos limitados para cubrir alojamiento y
+                mantención destinados a expositores y alumnos participantes.
+                Quienes requieran este apoyo deben solicitarlo al correo
+                <a
+                  href="mailto:jolate2026@gmail.com"
+                  class="text-primary font-bold hover:underline"
+                  >jolate2026@gmail.com</a
+                >.
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ 5 -->
+          <div
+            class="border border-tint/60 bg-white rounded-premium-sm overflow-hidden transition-all duration-300"
+          >
+            <button
+              class="w-full text-left p-6 flex items-center justify-between text-text font-bold text-sm md:text-base gap-4 faq-toggle"
+              data-index="4"
+            >
+              <span>¿Se puede participar virtualmente?</span>
+              <i
+                data-lucide="chevron-down"
+                class="w-4 h-4 text-primary transform transition-transform duration-300 faq-icon"
+              ></i>
+            </button>
+            <div
+              class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out faq-content"
+            >
+              <p
+                class="px-6 pb-6 text-xs md:text-sm text-text leading-relaxed font-light border-t border-tint/20 pt-4 bg-bg/50"
+              >
+                Sí. Quienes quieran participar virtualmente pueden presentar en
+                vivo durante el tiempo asignado, o bien subir una plática
+                grabada de duración no mayor a 20 minutos y enviar el link de
+                OneDrive, la cual será transmitida en el momento
+                correspondiente.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ============================================================
          CONTACTO — Gold CTA Section
          ============================================================ -->
-    <section id="contacto" class="mx-4 md:mx-8 mb-12 bg-primary text-white rounded-premium-lg shadow-md relative overflow-hidden py-16 md:py-24 px-6 md:px-12 text-center">
-        <div class="max-w-3xl mx-auto space-y-6 relative z-10">
-            <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight">Forma parte de JOLATE XXV</h2>
-            <div class="pt-4 flex flex-col items-center gap-4">
-                <a href="mailto:jolate2026@gmail.com?subject=Articulo%20para%20XXV%20JOLATE"
-                   class="bg-white text-primary font-bold px-10 py-4 rounded-full shadow-xl hover:bg-white/90 transition-all hover:-translate-y-0.5 inline-flex items-center gap-2">
-                    <i data-lucide="mail" class="w-4 h-4"></i> Enviar Trabajo por Correo
-                </a>
-                <div class="text-xs font-mono text-white/70 space-y-1 pt-2">
-                    jolate2026@gmail.com
-                </div>
-            </div>
-            <div class="pt-8 border-t border-white/20 mt-6 text-xs font-mono font-bold uppercase tracking-widest opacity-80">
-                25 años construyendo excelencia académica regional
-            </div>
+    <section
+      id="contacto"
+      class="mx-4 md:mx-8 mb-12 bg-primary text-white rounded-premium-lg shadow-md relative overflow-hidden py-16 md:py-24 px-6 md:px-12 text-center"
+    >
+      <div class="max-w-3xl mx-auto space-y-6 relative z-10">
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+          Forma parte de JOLATE XXV
+        </h2>
+        <div class="pt-4 flex flex-col items-center gap-4">
+          <a
+            href="mailto:jolate2026@gmail.com?subject=Articulo%20para%20XXV%20JOLATE"
+            class="bg-white text-primary font-bold px-10 py-4 rounded-full shadow-xl hover:bg-white/90 transition-all hover:-translate-y-0.5 inline-flex items-center gap-2"
+          >
+            <i data-lucide="mail" class="w-4 h-4"></i> Enviar Trabajo por Correo
+          </a>
+          <div class="text-xs font-mono text-white/70 space-y-1 pt-2">
+            jolate2026@gmail.com
+          </div>
         </div>
+        <div
+          class="pt-8 border-t border-white/20 mt-6 text-xs font-mono font-bold uppercase tracking-widest opacity-80"
+        >
+          25 años construyendo excelencia académica regional
+        </div>
+      </div>
     </section>
 
     <!-- ============================================================
          FOOTER
          ============================================================ -->
-    <footer class="bg-primary text-white/80 border-t border-primary/20 py-16 px-4 relative">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-white/10">
-            <div class="md:col-span-4 space-y-4">
-                <div class="font-display italic text-2xl font-bold text-white">JOLATE 2026</div>
-                <p class="text-xs text-white/60 leading-relaxed font-light">
-                    JOLATE es el foro de referencia continental para la discusión de modelos matemáticos avanzados y teoría abstracta, auspiciado y regulado anualmente por la Asociación Latinoamericana de Teoría Económica (ALTE).
-                </p>
-                <!-- Enviar Trabajo in footer -->
-                <a href="mailto:jolate2026@gmail.com?subject=Articulo%20para%20XXV%20JOLATE"
-                   class="inline-block mt-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2 rounded-full transition-all border border-white/20">
-                    Enviar Trabajo
-                </a>
-            </div>
-            <div class="md:col-span-2 space-y-3">
-                <div class="text-xs font-mono font-bold text-white/70 tracking-wider uppercase">Navegación</div>
-                <div class="space-y-2 text-xs">
-                    <a href="#inicio" class="block hover:text-white transition-colors">Inicio</a>
-                    <a href="#convocatoria" class="block hover:text-white transition-colors">Convocatoria</a>
-                    <a href="#programa" class="block hover:text-white transition-colors">Programa</a>
-                    <a href="#comite" class="block hover:text-white transition-colors">Comité</a>
-                    <a href="#faq" class="block hover:text-white transition-colors">Preguntas Frecuentes</a>
-                </div>
-            </div>
-            <div class="md:col-span-3 space-y-3">
-                <div class="text-xs font-mono font-bold text-white/70 tracking-wider uppercase">Soporte Académico</div>
-                <div class="space-y-2 text-xs">
-                    <a href="#comite" class="block hover:text-white transition-colors">Comité Revisor</a>
-                    <a href="#faq" class="block hover:text-white transition-colors">Preguntas Frecuentes</a>
-                </div>
-            </div>
-            <div class="md:col-span-3 space-y-3">
-                <div class="text-xs font-mono font-bold text-white/70 tracking-wider uppercase">Instituciones</div>
-                <div class="space-y-2 text-xs text-white/80 font-medium">
-                    <span class="block">Universidad de La Punta (ULP)</span>
-                    <span class="block">Universidad Nacional de San Luis (UNSL)</span>
-                    <span class="block">Asociación Latinoamericana de Teoría Económica (ALTE)</span>
-                    <span class="block">Universidad Autónoma de San Luis Potosí (UASLP)</span>
-                    <span class="block">CONICET</span>
-                </div>
-            </div>
+    <footer
+      class="bg-primary text-white/80 border-t border-primary/20 py-16 px-4 relative"
+    >
+      <div
+        class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-white/10"
+      >
+        <div class="md:col-span-4 space-y-4">
+          <div class="font-display italic text-2xl font-bold text-white">
+            JOLATE 2026
+          </div>
+          <p class="text-xs text-white/60 leading-relaxed font-light">
+            JOLATE es el foro de referencia continental para la discusión de
+            modelos matemáticos avanzados y teoría abstracta, auspiciado y
+            regulado anualmente por la Asociación Latinoamericana de Teoría
+            Económica (ALTE).
+          </p>
+          <!-- Enviar Trabajo in footer -->
+          <a
+            href="mailto:jolate2026@gmail.com?subject=Articulo%20para%20XXV%20JOLATE"
+            class="inline-block mt-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2 rounded-full transition-all border border-white/20"
+          >
+            Enviar Trabajo
+          </a>
         </div>
+        <div class="md:col-span-2 space-y-3">
+          <div
+            class="text-xs font-mono font-bold text-white/70 tracking-wider uppercase"
+          >
+            Navegación
+          </div>
+          <div class="space-y-2 text-xs">
+            <a href="#inicio" class="block hover:text-white transition-colors"
+              >Inicio</a
+            >
+            <a
+              href="#convocatoria"
+              class="block hover:text-white transition-colors"
+              >Convocatoria</a
+            >
+            <a href="#programa" class="block hover:text-white transition-colors"
+              >Programa</a
+            >
+            <a href="#comite" class="block hover:text-white transition-colors"
+              >Comité</a
+            >
+            <a href="#faq" class="block hover:text-white transition-colors"
+              >Preguntas Frecuentes</a
+            >
+          </div>
+        </div>
+        <div class="md:col-span-3 space-y-3">
+          <div
+            class="text-xs font-mono font-bold text-white/70 tracking-wider uppercase"
+          >
+            Soporte Académico
+          </div>
+          <div class="space-y-2 text-xs">
+            <a href="#comite" class="block hover:text-white transition-colors"
+              >Comité Revisor</a
+            >
+            <a href="#faq" class="block hover:text-white transition-colors"
+              >Preguntas Frecuentes</a
+            >
+          </div>
+        </div>
+        <div class="md:col-span-3 space-y-3">
+          <div
+            class="text-xs font-mono font-bold text-white/70 tracking-wider uppercase"
+          >
+            Instituciones
+          </div>
+          <div class="space-y-2 text-xs text-white/80 font-medium">
+            <span class="block">Universidad de La Punta (ULP)</span>
+            <span class="block">Universidad Nacional de San Luis (UNSL)</span>
+            <span class="block"
+              >Asociación Latinoamericana de Teoría Económica (ALTE)</span
+            >
+            <span class="block"
+              >Universidad Autónoma de San Luis Potosí (UASLP)</span
+            >
+            <span class="block">CONICET</span>
+          </div>
+        </div>
+      </div>
 
-        <!-- Sponsor logos -->
-        <div class="max-w-6xl mx-auto pt-6 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs font-mono text-white/50">
-            <a href="http://ulp.edu.ar" target="_blank" rel="noopener noreferrer" class="bg-white/10 rounded-lg px-3 py-2 hover:bg-white/20 transition-colors">
-                <img src="res/ulp_icon-light.png" alt="Universidad de La Punta" class="h-8 w-auto opacity-90 hover:opacity-100 transition-opacity">
-            </a>
-            <a href="http://unsl.edu.ar" target="_blank" rel="noopener noreferrer" class="bg-white/10 rounded-lg px-3 py-2 hover:bg-white/20 transition-colors">
-                <img src="res/unsl_icon-light.png" alt="Universidad Nacional de San Luis" class="h-8 w-auto opacity-90 hover:opacity-100 transition-opacity">
-            </a>
-            <span class="bg-white/10 rounded-lg px-4 py-2 text-white/70 font-bold tracking-wide">ALTE</span>
-            <span class="bg-white/10 rounded-lg px-4 py-2 text-white/70 font-bold tracking-wide">UASLP</span>
-            <a href="https://www.conicet.gov.ar" target="_blank" rel="noopener noreferrer" class="bg-white/10 rounded-lg px-3 py-2 hover:bg-white/20 transition-colors">
-                <img src="res/unsl-conicet_icon-light.png" alt="CONICET" class="h-8 w-auto opacity-90 hover:opacity-100 transition-opacity">
-            </a>
-            <a href="https://sanluis.gov.ar/educacion/" target="_blank" rel="noopener noreferrer" class="bg-white/10 rounded-lg px-3 py-2 hover:bg-white/20 transition-colors">
-                <img src="res/education_icon-light.png" alt="Ministerio de Educación" class="h-7 w-auto opacity-90 hover:opacity-100 transition-opacity">
-            </a>
-            <a href="http://sanluis.gov.ar" target="_blank" rel="noopener noreferrer" class="bg-white/10 rounded-lg px-3 py-2 hover:bg-white/20 transition-colors">
-                <img src="res/gob_icon-light.png" alt="Gobierno de San Luis" class="h-7 w-auto opacity-90 hover:opacity-100 transition-opacity">
-            </a>
-        </div>
+      <!-- Sponsor logos -->
+      <div
+        class="max-w-6xl mx-auto pt-8 flex flex-wrap items-center justify-center gap-6 sm:gap-8"
+      >
+        <a
+          href="http://ulp.edu.ar"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:opacity-100 transition-opacity"
+        >
+          <img
+            src="assets/ulp_icon-light.png"
+            alt="Universidad de La Punta"
+            class="h-12 w-auto opacity-80"
+          />
+        </a>
+        <a
+          href="http://unsl.edu.ar"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:opacity-100 transition-opacity"
+        >
+          <img
+            src="assets/unsl_icon-light.png"
+            alt="Universidad Nacional de San Luis"
+            class="h-12 w-auto opacity-80"
+          />
+        </a>
+        <a
+          href="https://www.conicet.gov.ar"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:opacity-100 transition-opacity"
+        >
+          <img
+            src="assets/unsl-conicet_icon-light.png"
+            alt="CONICET"
+            class="h-12 w-auto opacity-80"
+          />
+        </a>
+        <a
+          href="https://sanluis.gov.ar/educacion/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:opacity-100 transition-opacity"
+        >
+          <img
+            src="assets/education_icon-light.png"
+            alt="Ministerio de Educación"
+            class="h-10 w-auto opacity-80"
+          />
+        </a>
+        <a
+          href="http://sanluis.gov.ar"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:opacity-100 transition-opacity"
+        >
+          <img
+            src="assets/gob_icon-light.png"
+            alt="Gobierno de San Luis"
+            class="h-10 w-auto opacity-80"
+          />
+        </a>
+      </div>
 
-        <div class="max-w-6xl mx-auto pt-8 flex flex-col sm:flex-row items-center justify-center text-xs gap-4 font-mono">
-            <div class="flex items-center gap-2 text-white/80 bg-white/10 border border-white/10 px-3 py-1 rounded-full">
-                <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
-                Sitio Desarrollado por Multimedia ULP
-            </div>
+      <div
+        class="max-w-6xl mx-auto pt-8 flex flex-col sm:flex-row items-center justify-center text-xs gap-4 font-mono"
+      >
+        <div
+          class="flex items-center gap-2 text-white/80 bg-white/10 border border-white/10 px-3 py-1 rounded-full"
+        >
+          <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+          Sitio Desarrollado por Multimedia ULP
         </div>
+      </div>
     </footer>
 
     <!-- ============================================================
          JOLATE_CONFIG — Data for main.js (Phase 3)
          ============================================================ -->
     <script>
-        window.JOLATE_CONFIG = {
-            meta: {
-                edition: "XXV",
-                year: "2026",
-                location: "San Luis, Argentina",
-                dates: "28, 29 y 30 de Octubre de 2026",
-                countdownTarget: "October 28, 2026 00:00:00"
+      window.JOLATE_CONFIG = {
+        meta: {
+          edition: "XXV",
+          year: "2026",
+          location: "San Luis, Argentina",
+          dates: "28, 29 y 30 de Octubre de 2026",
+          countdownTarget: "October 28, 2026 00:00:00",
+        },
+        hero: {
+          badge: "JOLATE XXV · EDICIÓN ANIVERSARIO · SAN LUIS 2026",
+          titleLine1: "JOLATE",
+          titleLine2: "2026",
+          subtitle:
+            "Jornadas Latinoamericanas de Teoría Económica — San Luis, 28 al 30 de octubre de 2026.",
+          ctaPrimary: "Enviar Trabajo",
+          ctaSecondary: "Ver Convocatoria",
+        },
+        convocatoria: {
+          objectives:
+            "Las XXV Jornadas Latinoamericanas de Teoría Económica convocan a investigadores y estudiantes de posgrado a presentar trabajos originales en economía altamente formalizada. El comité científico evaluará rigurosamente el aporte analítico de cada contribución. Los trabajos se reciben hasta el 4 de septiembre de 2026.",
+          topics: [
+            "Teoría de Juegos",
+            "Elección Social",
+            "Crecimiento Económico",
+            "Economía Pública",
+            "Equilibrio General",
+            "Dinámica Económica",
+            "Áreas Temáticas Afines",
+          ],
+          deadline: "4 de Septiembre de 2026",
+          acceptance: "18 de Septiembre de 2026",
+          email: "jolate2026@gmail.com",
+        },
+        expositores: [
+          {
+            name: "Prof. Dr. Hugo Sonnenschein",
+            institution: "Princeton University",
+            country: "Estados Unidos",
+            area: "Teoría del Equilibrio General Avanzado",
+            image:
+              "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+          },
+          {
+            name: "Dra. Mariana G. Villalba",
+            institution: "Universidad de San Andrés",
+            country: "Argentina",
+            area: "Mecanismos de Incentivos y Teoría de Juegos",
+            image:
+              "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
+          },
+          {
+            name: "Dr. Roberto Chang",
+            institution: "Rutgers University",
+            country: "Perú / EE.UU.",
+            area: "Macroeconomía Estocástica de Economías Abiertas",
+            image:
+              "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+          },
+          {
+            name: "Dra. Beatriz R. Alves",
+            institution: "Universidade de São Paulo",
+            country: "Brasil",
+            area: "Métodos Numéricos y Economía Computacional",
+            image:
+              "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+          },
+        ],
+        programa: [
+          {
+            day: "Día 1 — 28 de Octubre",
+            events: [
+              {
+                time: "09:00 - 10:00",
+                title:
+                  "Acreditaciones e Inauguración Oficial del XXV Aniversario",
+                type: "Ceremonia de Apertura",
+              },
+              {
+                time: "10:00 - 12:00",
+                title: "COMPLETAR",
+                type: "Sesión Científica",
+              },
+              {
+                time: "12:30 - 14:00",
+                title: "Receso — Almuerzo",
+                type: "RECESO",
+              },
+              {
+                time: "14:00 - 16:00",
+                title: "COMPLETAR",
+                type: "Sesión Científica",
+              },
+            ],
+          },
+          {
+            day: "Día 2 — 29 de Octubre",
+            events: [
+              {
+                time: "09:30 - 11:30",
+                title: "COMPLETAR",
+                type: "Keynote de Honor",
+              },
+              {
+                time: "12:30 - 14:00",
+                title: "Receso — Almuerzo",
+                type: "RECESO",
+              },
+              {
+                time: "14:00 - 16:00",
+                title: "COMPLETAR",
+                type: "Sesión Científica",
+              },
+              {
+                time: "16:30 - 18:00",
+                title: "COMPLETAR",
+                type: "Mesa de Expertos",
+              },
+            ],
+          },
+          {
+            day: "Día 3 — 30 de Octubre",
+            events: [
+              {
+                time: "10:00 - 12:30",
+                title: "COMPLETAR",
+                type: "Foro de Investigación",
+              },
+              {
+                time: "12:30 - 14:00",
+                title: "Receso — Almuerzo",
+                type: "RECESO",
+              },
+              {
+                time: "14:30 - 16:30",
+                title: "COMPLETAR",
+                type: "Keynote de Honor",
+              },
+              { time: "17:00", title: "Cierre Institucional", type: "Cierre" },
+            ],
+          },
+        ],
+        comite: {
+          coorganizadores: [
+            {
+              name: "Luis Quintas",
+              institution: "Universidad de La Punta (ULP), Argentina",
             },
-            hero: {
-                badge: "JOLATE XXV · EDICIÓN ANIVERSARIO · SAN LUIS 2026",
-                titleLine1: "JOLATE",
-                titleLine2: "2026",
-                subtitle: "Jornadas Latinoamericanas de Teoría Económica — San Luis, 28 al 30 de octubre de 2026.",
-                ctaPrimary: "Enviar Trabajo",
-                ctaSecondary: "Ver Convocatoria"
+            {
+              name: "Alejandro Neme",
+              institution: "Universidad Nacional de San Luis (UNSL), Argentina",
             },
-            convocatoria: {
-                objectives: "Las XXV Jornadas Latinoamericanas de Teoría Económica convocan a investigadores y estudiantes de posgrado a presentar trabajos originales en economía altamente formalizada. El comité científico evaluará rigurosamente el aporte analítico de cada contribución. Los trabajos se reciben hasta el 4 de septiembre de 2026.",
-                topics: [
-                    "Teoría de Juegos",
-                    "Elección Social",
-                    "Crecimiento Económico",
-                    "Economía Pública",
-                    "Equilibrio General",
-                    "Dinámica Económica",
-                    "Áreas Temáticas Afines"
-                ],
-                deadline: "4 de Septiembre de 2026",
-                acceptance: "18 de Septiembre de 2026",
-                email: "jolate2026@gmail.com"
+          ],
+          academico: [
+            { name: "Elvio Accinelli", institution: "UASLP, México" },
+            {
+              name: "Paula Jaramillo",
+              institution: "U de Los Andes, Colombia",
             },
-            expositores: [
-                { name: "Prof. Dr. Hugo Sonnenschein", institution: "Princeton University", country: "Estados Unidos", area: "Teoría del Equilibrio General Avanzado", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80" },
-                { name: "Dra. Mariana G. Villalba", institution: "Universidad de San Andrés", country: "Argentina", area: "Mecanismos de Incentivos y Teoría de Juegos", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80" },
-                { name: "Dr. Roberto Chang", institution: "Rutgers University", country: "Perú / EE.UU.", area: "Macroeconomía Estocástica de Economías Abiertas", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80" },
-                { name: "Dra. Beatriz R. Alves", institution: "Universidade de São Paulo", country: "Brasil", area: "Métodos Numéricos y Economía Computacional", image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" }
-            ],
-            programa: [
-                {
-                    day: "Día 1 — 28 de Octubre",
-                    events: [
-                        { time: "09:00 - 10:00", title: "Acreditaciones e Inauguración Oficial del XXV Aniversario", type: "Ceremonia de Apertura" },
-                        { time: "10:00 - 12:00", title: "COMPLETAR", type: "Sesión Científica" },
-                        { time: "12:30 - 14:00", title: "Receso — Almuerzo", type: "RECESO" },
-                        { time: "14:00 - 16:00", title: "COMPLETAR", type: "Sesión Científica" }
-                    ]
-                },
-                {
-                    day: "Día 2 — 29 de Octubre",
-                    events: [
-                        { time: "09:30 - 11:30", title: "COMPLETAR", type: "Keynote de Honor" },
-                        { time: "12:30 - 14:00", title: "Receso — Almuerzo", type: "RECESO" },
-                        { time: "14:00 - 16:00", title: "COMPLETAR", type: "Sesión Científica" },
-                        { time: "16:30 - 18:00", title: "COMPLETAR", type: "Mesa de Expertos" }
-                    ]
-                },
-                {
-                    day: "Día 3 — 30 de Octubre",
-                    events: [
-                        { time: "10:00 - 12:30", title: "COMPLETAR", type: "Foro de Investigación" },
-                        { time: "12:30 - 14:00", title: "Receso — Almuerzo", type: "RECESO" },
-                        { time: "14:30 - 16:30", title: "COMPLETAR", type: "Keynote de Honor" },
-                        { time: "17:00", title: "Cierre Institucional", type: "Cierre" }
-                    ]
-                }
-            ],
-            comite: {
-                coorganizadores: [
-                    { name: "Luis Quintas", institution: "Universidad de La Punta (ULP), Argentina" },
-                    { name: "Alejandro Neme", institution: "Universidad Nacional de San Luis (UNSL), Argentina" }
-                ],
-                academico: [
-                    { name: "Elvio Accinelli", institution: "UASLP, México" },
-                    { name: "Paula Jaramillo", institution: "U de Los Andes, Colombia" },
-                    { name: "Silvia London", institution: "UN Sur, Argentina" },
-                    { name: "Onésimo Hernández", institution: "CINVESTAV, México" },
-                    { name: "David Cantalá", institution: "COLMEX, México" },
-                    { name: "Enrique Casares", institution: "UAM Asc., México" },
-                    { name: "Enrique Covarrubias", institution: "Actinver" },
-                    { name: "Wilfredo L. Maldonado", institution: "USP, Brasil" },
-                    { name: "Alejandro Neme", institution: "UNSL, Argentina" },
-                    { name: "Jorge Oviedo", institution: "UNSL, Argentina" },
-                    { name: "Leobardo Plata", institution: "UASLP, México" },
-                    { name: "Martin Puchet", institution: "UNAM, México" },
-                    { name: "Luis Quintas", institution: "ULP, Argentina" },
-                    { name: "Beatriz Rumbos", institution: "ITAM, México" },
-                    { name: "Francisco Sanchez", institution: "CIMAT, México" },
-                    { name: "Jaime Sempere", institution: "COLMEX, México" }
-                ],
-                local: [
-                    { name: "Juan Carlos Zabala", institution: "ULP, Argentina" },
-                    { name: "Ricardo Silvera", institution: "ULP, Argentina" },
-                    { name: "Marcos Lucero", institution: "ULP, Argentina" },
-                    { name: "Cristian Sindoni", institution: "ULP, Argentina" },
-                    { name: "COMPLETAR UNSL", institution: "UNSL, Argentina" }
-                ],
-                cientifico: [
-                    { name: "Dr. Juan Pablo Torres-Martínez", institution: "Universidad de Chile, Chile" },
-                    { name: "Dra. Flavia Rangel", institution: "Fundação Getulio Vargas (FGV), Brasil" },
-                    { name: "Dr. César Martinelli", institution: "George Mason University, Estados Unidos" },
-                    { name: "Dr. Elvio Accinelli", institution: "UASLP, México" }
-                ]
+            { name: "Silvia London", institution: "UN Sur, Argentina" },
+            { name: "Onésimo Hernández", institution: "CINVESTAV, México" },
+            { name: "David Cantalá", institution: "COLMEX, México" },
+            { name: "Enrique Casares", institution: "UAM Asc., México" },
+            { name: "Enrique Covarrubias", institution: "Actinver" },
+            { name: "Wilfredo L. Maldonado", institution: "USP, Brasil" },
+            { name: "Alejandro Neme", institution: "UNSL, Argentina" },
+            { name: "Jorge Oviedo", institution: "UNSL, Argentina" },
+            { name: "Leobardo Plata", institution: "UASLP, México" },
+            { name: "Martin Puchet", institution: "UNAM, México" },
+            { name: "Luis Quintas", institution: "ULP, Argentina" },
+            { name: "Beatriz Rumbos", institution: "ITAM, México" },
+            { name: "Francisco Sanchez", institution: "CIMAT, México" },
+            { name: "Jaime Sempere", institution: "COLMEX, México" },
+          ],
+          local: [
+            { name: "Juan Carlos Zabala", institution: "ULP, Argentina" },
+            { name: "Ricardo Silvera", institution: "ULP, Argentina" },
+            { name: "Marcos Lucero", institution: "ULP, Argentina" },
+            { name: "Cristian Sindoni", institution: "ULP, Argentina" },
+            { name: "COMPLETAR UNSL", institution: "UNSL, Argentina" },
+          ],
+          cientifico: [
+            {
+              name: "Dr. Juan Pablo Torres-Martínez",
+              institution: "Universidad de Chile, Chile",
             },
-            faq: [
-                { q: "¿Cuándo y dónde se realizan las JOLATE XXV?", a: "Las XXV Jornadas Latinoamericanas de Teoría Económica (JOLATE) se realizarán los días 28, 29 y 30 de octubre de 2026 en San Luis, Argentina, organizadas en forma conjunta por la Universidad de La Punta (ULP) y la Universidad Nacional de San Luis (UNSL)." },
-                { q: "¿Hasta cuándo puedo enviar mi trabajo?", a: "La fecha límite para la recepción de trabajos es el 4 de septiembre de 2026. La confirmación de aceptación por parte del Comité Científico se comunicará antes del 18 de septiembre de 2026." },
-                { q: "¿Cómo se envía un trabajo?", a: 'Los trabajos deben enviarse por correo electrónico a jolate2026@gmail.com indicando como asunto: "Articulo para XXV JOLATE".' },
-                { q: "¿Hay apoyo para alojamiento?", a: "Sí. Se cuenta con recursos limitados para cubrir alojamiento y mantención destinados a expositores y alumnos participantes. Quienes requieran este apoyo deben solicitarlo al correo jolate2026@gmail.com." },
-                { q: "¿Se puede participar virtualmente?", a: "Sí. Quienes quieran participar virtualmente pueden presentar en vivo durante el tiempo asignado, o bien subir una plática grabada de duración no mayor a 20 minutos y enviar el link de OneDrive, la cual será transmitida en el momento correspondiente." }
-            ],
-            footer: {
-                about: "JOLATE es el foro de referencia continental para la discusión de modelos matemáticos avanzados y teoría abstracta, auspiciado y regulado anualmente por la Asociación Latinoamericana de Teoría Económica (ALTE).",
-                contactEmails: ["jolate2026@gmail.com"]
+            {
+              name: "Dra. Flavia Rangel",
+              institution: "Fundação Getulio Vargas (FGV), Brasil",
             },
-            sponsors: [
-                { name: "Universidad de La Punta", logo: "ULP" },
-                { name: "Universidad Nacional de San Luis", logo: "UNSL" },
-                { name: "Asociación Latinoamericana de Teoría Económica", logo: "ALTE" },
-                { name: "Universidad Autónoma de San Luis Potosí", logo: "UASLP" },
-                { name: "CONICET", logo: "CONICET" }
-            ],
-            notifications: [
-                { text: "Nuevo trabajo de investigación recibido", detail: "Mesa de Equilibrio General Dinámico", time: "Hace 3 min" },
-                { text: "Ponencia magistral internacional confirmada", detail: "Dr. Hugo Sonnenschein (Princeton)", time: "Hace 14 min" },
-                { text: "Actualización de rúbricas de evaluación", detail: "Comité Editorial Científico", time: "Hace 1 hora" },
-                { text: "Apertura oficial de registro temprano", detail: "Sección de Alojamiento Financiado", time: "Hace 2 horas" }
-            ],
-            progressBars: [
-                { label: "Recepción de trabajos de investigación", percentage: 92 },
-                { label: "Confirmación de ponentes magistrales", percentage: 85 },
-                { label: "Estructuración del programa científico", percentage: 78 },
-                { label: "Asignación de fondos para alojamiento institucional", percentage: 95 }
-            ],
-            testimonials: [
-                { quote: "Un espacio imprescindible para quienes investigamos teoría económica en la región. El rigor metodológico discutido aquí es inigualable.", author: "Dra. Elena Rostova", institution: "Universidad de Chile", avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" },
-                { quote: "El mejor entorno para debatir nuevas ideas cuantitativas y establecer redes de investigación con alcance global y publicación científica.", author: "Dr. Carlos Mendoza", institution: "UASLP, México", avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=150&q=80" },
-                { quote: "Una gran tradición académica que fortalece de manera sistemática y continua la comunidad científica de América Latina.", author: "Prof. Marcos Silva", institution: "FGV, Brasil", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80" }
-            ]
-        };
+            {
+              name: "Dr. César Martinelli",
+              institution: "George Mason University, Estados Unidos",
+            },
+            { name: "Dr. Elvio Accinelli", institution: "UASLP, México" },
+          ],
+        },
+        faq: [
+          {
+            q: "¿Cuándo y dónde se realizan las JOLATE XXV?",
+            a: "Las XXV Jornadas Latinoamericanas de Teoría Económica (JOLATE) se realizarán los días 28, 29 y 30 de octubre de 2026 en San Luis, Argentina, organizadas en forma conjunta por la Universidad de La Punta (ULP) y la Universidad Nacional de San Luis (UNSL).",
+          },
+          {
+            q: "¿Hasta cuándo puedo enviar mi trabajo?",
+            a: "La fecha límite para la recepción de trabajos es el 4 de septiembre de 2026. La confirmación de aceptación por parte del Comité Científico se comunicará antes del 18 de septiembre de 2026.",
+          },
+          {
+            q: "¿Cómo se envía un trabajo?",
+            a: 'Los trabajos deben enviarse por correo electrónico a jolate2026@gmail.com indicando como asunto: "Articulo para XXV JOLATE".',
+          },
+          {
+            q: "¿Hay apoyo para alojamiento?",
+            a: "Sí. Se cuenta con recursos limitados para cubrir alojamiento y mantención destinados a expositores y alumnos participantes. Quienes requieran este apoyo deben solicitarlo al correo jolate2026@gmail.com.",
+          },
+          {
+            q: "¿Se puede participar virtualmente?",
+            a: "Sí. Quienes quieran participar virtualmente pueden presentar en vivo durante el tiempo asignado, o bien subir una plática grabada de duración no mayor a 20 minutos y enviar el link de OneDrive, la cual será transmitida en el momento correspondiente.",
+          },
+        ],
+        footer: {
+          about:
+            "JOLATE es el foro de referencia continental para la discusión de modelos matemáticos avanzados y teoría abstracta, auspiciado y regulado anualmente por la Asociación Latinoamericana de Teoría Económica (ALTE).",
+          contactEmails: ["jolate2026@gmail.com"],
+        },
+        sponsors: [
+          { name: "Universidad de La Punta", logo: "ULP" },
+          { name: "Universidad Nacional de San Luis", logo: "UNSL" },
+          {
+            name: "Asociación Latinoamericana de Teoría Económica",
+            logo: "ALTE",
+          },
+          { name: "Universidad Autónoma de San Luis Potosí", logo: "UASLP" },
+          { name: "CONICET", logo: "CONICET" },
+        ],
+        notifications: [
+          {
+            text: "Nuevo trabajo de investigación recibido",
+            detail: "Mesa de Equilibrio General Dinámico",
+            time: "Hace 3 min",
+          },
+          {
+            text: "Ponencia magistral internacional confirmada",
+            detail: "Dr. Hugo Sonnenschein (Princeton)",
+            time: "Hace 14 min",
+          },
+          {
+            text: "Actualización de rúbricas de evaluación",
+            detail: "Comité Editorial Científico",
+            time: "Hace 1 hora",
+          },
+          {
+            text: "Apertura oficial de registro temprano",
+            detail: "Sección de Alojamiento Financiado",
+            time: "Hace 2 horas",
+          },
+        ],
+        progressBars: [
+          { label: "Recepción de trabajos de investigación", percentage: 92 },
+          { label: "Confirmación de ponentes magistrales", percentage: 85 },
+          { label: "Estructuración del programa científico", percentage: 78 },
+          {
+            label: "Asignación de fondos para alojamiento institucional",
+            percentage: 95,
+          },
+        ],
+        testimonials: [
+          {
+            quote:
+              "Un espacio imprescindible para quienes investigamos teoría económica en la región. El rigor metodológico discutido aquí es inigualable.",
+            author: "Dra. Elena Rostova",
+            institution: "Universidad de Chile",
+            avatar:
+              "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80",
+          },
+          {
+            quote:
+              "El mejor entorno para debatir nuevas ideas cuantitativas y establecer redes de investigación con alcance global y publicación científica.",
+            author: "Dr. Carlos Mendoza",
+            institution: "UASLP, México",
+            avatar:
+              "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=150&q=80",
+          },
+          {
+            quote:
+              "Una gran tradición académica que fortalece de manera sistemática y continua la comunidad científica de América Latina.",
+            author: "Prof. Marcos Silva",
+            institution: "FGV, Brasil",
+            avatar:
+              "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80",
+          },
+        ],
+      };
     </script>
 
     <!-- main.js — Interactive behaviors (countdown, menu, tabs, accordion, etc.) -->
@@ -898,7 +1760,7 @@
 
     <!-- Lucide Icon Initialization -->
     <script>
-        if (window.lucide) window.lucide.createIcons();
+      if (window.lucide) window.lucide.createIcons();
     </script>
-</body>
+  </body>
 </html>
