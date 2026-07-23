@@ -1,0 +1,54 @@
+# openspec/config.yaml
+schema: spec-driven
+
+context: |
+  Project: jolate-proposal — JOLATE 2026 website (XXV Jornadas Latinoamericanas de Teoría Económica)
+  Stack: Static HTML5 single-page site, Tailwind CSS (CDN v3), GSAP 3.12.5 + ScrollTrigger (CDN),
+         Lucide icons (CDN), Google Fonts (Inter, JetBrains Mono, Playfair Display).
+  Architecture: Single-file HTML with inline CSS + inline JS config. No build system, no bundler,
+               no package manager. All dependencies loaded via CDN.
+  Testing: No test runner available. Static site — manual visual regression only.
+  Style: Dark theme (obsidian/champagne palette). GSAP scroll-triggered animations.
+         Config-driven rendering via JOLATE_CONFIG object.
+  Conventions: Spanish-language public site. English for technical SDD artifacts.
+  UX findings documented in JOLATE-2026_hallazgos-UX_actualizado.md (Spanish).
+
+strict_tdd: false
+
+testing:
+  enabled: false
+  reason: >
+    Static HTML site with no package.json, no test runner, no CI pipeline.
+    No unit, integration, or E2E testing infrastructure detected.
+    Testing is manual visual inspection in browser. Strict TDD cannot be enforced.
+  test_command: ""
+  build_command: ""
+  coverage_threshold: 0
+
+rules:
+  proposal:
+    - Include antes (current state) and después (target state) for content/UX changes
+    - Reference UX findings document where relevant
+  specs:
+    - Use Given/When/Then for scenarios where behavior is observable
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+  design:
+    - Document CDN dependencies and version pinning
+    - Note any changes to the JOLATE_CONFIG structure
+  tasks:
+    - Group by section (hero, convocatoria, programa, etc.)
+    - Keep tasks completable in one session
+  apply:
+    guidelines:
+      - Single HTML file — all changes in current-web.html unless splitting is proposed
+      - Inline CSS overrides in <style> block; avoid inline styles on elements
+      - Keep JOLATE_CONFIG as the single source of truth for content
+      - Preserve GSAP animation sequences
+    tdd: false
+    test_command: ""
+  verify:
+    test_command: ""
+    build_command: ""
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas to main spec
