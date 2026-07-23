@@ -158,6 +158,23 @@
     </section>
 
     <!-- ============================================================
+         SPONSORS MARQUEE — Infinite Carousel
+         ============================================================ -->
+    <section class="py-10 bg-white border-y border-tint/60 overflow-hidden relative">
+        <div class="text-center text-[11px] font-mono font-bold uppercase tracking-widest text-primary/60 mb-6">
+            Instituciones Organizadoras y Patrocinadores Académicos
+        </div>
+
+        <div class="absolute top-0 bottom-0 left-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+        <div class="absolute top-0 bottom-0 right-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+
+        <div class="overflow-hidden w-full flex">
+            <div id="sponsors-marquee" class="animate-marquee items-center gap-10 sm:gap-16">
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
          CONVOCATORIA — #convocatoria
          ============================================================ -->
     <section id="convocatoria" class="py-24 bg-bg relative border-t border-tint/40">
@@ -867,11 +884,14 @@
                 contactEmails: ["jolate2026@gmail.com"]
             },
             sponsors: [
-                { name: "Universidad de La Punta", logo: "ULP" },
-                { name: "Universidad Nacional de San Luis", logo: "UNSL" },
-                { name: "Asociación Latinoamericana de Teoría Económica", logo: "ALTE" },
-                { name: "Universidad Autónoma de San Luis Potosí", logo: "UASLP" },
-                { name: "CONICET", logo: "CONICET" }
+                { name: "UASLP", label: "Univ. Autónoma de San Luis Potosí" },
+                { name: "ALTE", label: "Asoc. Latinoamericana de Teoría Económica" },
+                { name: "UNAM", label: "Universidad Nacional Autónoma de México" },
+                { name: "Univ. de Chile", label: "Facultad de Economía y Negocios" },
+                { name: "FGV Brasil", label: "Fundação Getulio Vargas" },
+                { name: "CONICET", label: "Argentina Research Council" },
+                { name: "UBA", label: "Universidad de Buenos Aires" },
+                { name: "George Mason Univ.", label: "Department of Economics" }
             ],
             notifications: [
                 { text: "Nuevo trabajo de investigación recibido", detail: "Mesa de Equilibrio General Dinámico", time: "Hace 3 min" },
