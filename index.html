@@ -652,59 +652,113 @@
     <!-- ============================================================
          ENVIAR PONENCIA — #enviar (Formulario de Envío)
          ============================================================ -->
-    <section id="enviar" class="pt-8 pb-24 bg-bg border-t border-tint/40">
-      <div class="mx-4 md:mx-8 bg-gradient-to-br from-primary to-text rounded-3xl p-6 sm:p-10 text-white shadow-xl">
-        <div class="space-y-6">
-          <div>
-            <span class="text-xs font-mono text-accent font-bold uppercase tracking-wider" data-i18n="enviar.badge">Módulo Oficial de Carga</span>
-            <h3 class="text-2xl sm:text-3xl font-bold mt-1" data-i18n="enviar.title">Envía tu Ponencia o Resumen</h3>
-            <p class="text-xs sm:text-sm text-tint/80 mt-1" data-i18n="enviar.description">Sube tu documento en PDF directamente a la plataforma para el comité revisor.</p>
-          </div>
+    <section id="enviar" class="py-24 bg-bg border-t border-tint/40">
+      <div class="max-w-6xl mx-auto px-4 space-y-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
 
-          <form id="paper-submit-form" class="space-y-4">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-mono font-medium text-tint mb-1" data-i18n="enviar.nombre">Nombre Completo *</label>
-                <input type="text" id="form-author" required placeholder="Ej. Dra. María González" class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/40 focus:outline-none focus:border-primary" />
-              </div>
-              <div>
-                <label class="block text-xs font-mono font-medium text-tint mb-1" data-i18n="enviar.institucion">Universidad / Institución *</label>
-                <input type="text" id="form-institution" required placeholder="Ej. UNAM, Chile, UASLP" class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/40 focus:outline-none focus:border-primary" />
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-mono font-medium text-tint mb-1" data-i18n="enviar.email">Correo Electrónico *</label>
-                <input type="email" id="form-email" required placeholder="autor@universidad.edu" class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/40 focus:outline-none focus:border-primary" />
-              </div>
-              <div>
-                <label class="block text-xs font-mono font-medium text-tint mb-1" data-i18n="enviar.eje">Eje Temático *</label>
-                <select id="form-topic" required class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-primary">
-                  <option value="Teoría de Juegos" class="text-text">Teoría de Juegos</option>
-                  <option value="Elección Social" class="text-text">Elección Social</option>
-                  <option value="Crecimiento Económico" class="text-text">Crecimiento Económico</option>
-                  <option value="Economía Pública" class="text-text">Economía Pública</option>
-                  <option value="Equilibrio General" class="text-text">Equilibrio General</option>
-                  <option value="Dinámica Económica" class="text-text">Dinámica Económica</option>
-                  <option value="Áreas Temáticas Afines" class="text-text">Áreas Temáticas Afines</option>
-                </select>
-              </div>
-            </div>
-
+          <!-- Left column: context + info (sticky) -->
+          <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-28 enviar-info">
             <div>
-              <label class="block text-xs font-mono font-medium text-tint mb-1" data-i18n="enviar.archivo">Archivo de Investigación (PDF) *</label>
-              <input type="file" id="form-file" accept=".pdf" required class="w-full bg-white/10 border border-white/20 rounded-xl p-2 text-xs text-tint file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-primary file:text-white hover:file:bg-primary/80" />
+              <div class="text-xs font-mono text-primary tracking-widest uppercase font-bold" data-i18n="enviar.badge">MÓDULO DE ENVÍO</div>
+              <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text mt-3" data-i18n="enviar.title">Envía tu Ponencia o Resumen</h2>
+              <p class="text-text font-light leading-relaxed text-sm md:text-base mt-3" data-i18n="enviar.description">
+                Sube tu documento en formato PDF para que el Comité Científico lo evalúe bajo revisión ciega por pares.
+              </p>
             </div>
 
-            <button type="submit" class="w-full bg-primary hover:bg-white hover:text-text text-white font-bold py-3.5 rounded-xl shadow-lg transition duration-300 flex items-center justify-center gap-2">
-              <i data-lucide="send" class="w-4 h-4"></i> <span data-i18n="enviar.submit">Procesar Registro y Enviar</span>
-            </button>
-          </form>
+            <!-- Requisitos del archivo -->
+            <div class="p-5 bg-white border border-tint/60 rounded-premium-sm space-y-3">
+              <div class="flex items-center gap-2 text-primary">
+                <i data-lucide="file-check" class="w-4 h-4"></i>
+                <span class="font-bold text-xs tracking-wider uppercase font-mono">Formato Requerido</span>
+              </div>
+              <ul class="space-y-2 text-xs text-text leading-relaxed">
+                <li class="flex items-start gap-2">
+                  <span class="text-primary mt-0.5">•</span>
+                  <span>Formato <strong>PDF</strong> exclusivamente</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-primary mt-0.5">•</span>
+                  <span>Incluir título, autores y afiliación institucional</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-primary mt-0.5">•</span>
+                  <span>Respetar los lineamientos del eje temático seleccionado</span>
+                </li>
+              </ul>
+            </div>
 
-          <div id="form-success-message" class="hidden p-4 bg-emerald-500/20 border border-emerald-400/40 rounded-2xl text-emerald-200 text-xs text-center font-mono">
-            ✓ ¡Ponencia cargada correctamente! Se ha registrado en la actividad pública del sistema.
+            <!-- Deadlines -->
+            <div class="flex flex-wrap gap-3">
+              <div class="bg-white border border-tint/50 px-4 py-2 rounded-full text-xs font-mono">
+                <span class="text-text">Envío hasta: </span>
+                <span class="text-primary font-bold">4 Sept 2026</span>
+              </div>
+              <div class="bg-white border border-tint/50 px-4 py-2 rounded-full text-xs font-mono">
+                <span class="text-text">Aceptación: </span>
+                <span class="text-primary font-bold">18 Sept 2026</span>
+              </div>
+            </div>
+
+            <!-- Contacto -->
+            <div class="inline-flex items-center gap-2 font-mono text-sm text-primary">
+              <i data-lucide="mail" class="w-4 h-4"></i>
+              <a href="mailto:jolate2026@gmail.com" class="border-b border-primary/30 pb-0.5 hover:border-primary transition-colors">jolate2026@gmail.com</a>
+            </div>
           </div>
+
+          <!-- Right column: form card -->
+          <div class="lg:col-span-7">
+            <div class="bg-white border border-tint/60 rounded-premium-lg p-6 sm:p-8 shadow-md enviar-form-card">
+              <form id="paper-submit-form" class="space-y-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.nombre">Nombre Completo *</label>
+                    <input type="text" id="form-author" required placeholder="Ej. Dra. María González" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 transition-all" />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.institucion">Universidad / Institución *</label>
+                    <input type="text" id="form-institution" required placeholder="Ej. UASLP, UNSL, ULP" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 transition-all" />
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.email">Correo Electrónico *</label>
+                    <input type="email" id="form-email" required placeholder="autor@universidad.edu" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 transition-all" />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.eje">Eje Temático *</label>
+                    <select id="form-topic" required class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 transition-all appearance-none">
+                      <option value="Teoría de Juegos">Teoría de Juegos</option>
+                      <option value="Elección Social">Elección Social</option>
+                      <option value="Crecimiento Económico">Crecimiento Económico</option>
+                      <option value="Economía Pública">Economía Pública</option>
+                      <option value="Equilibrio General">Equilibrio General</option>
+                      <option value="Dinámica Económica">Dinámica Económica</option>
+                      <option value="Áreas Temáticas Afines">Áreas Temáticas Afines</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.archivo">Archivo de Investigación (PDF) *</label>
+                  <input type="file" id="form-file" accept=".pdf" required class="w-full bg-bg border border-tint/60 rounded-xl p-2.5 text-xs text-text file:mr-4 file:py-2 file:px-5 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-primary file:text-white hover:file:bg-primary/80 transition-all" />
+                </div>
+
+                <button type="submit" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3.5 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2.5">
+                  <i data-lucide="send" class="w-5 h-5"></i>
+                  <span data-i18n="enviar.submit">Procesar Registro y Enviar</span>
+                </button>
+              </form>
+
+              <div id="form-success-message" class="hidden p-4 bg-accent/15 border border-accent/30 rounded-2xl text-accent text-xs text-center font-mono mt-4">
+                <i data-lucide="check-circle" class="w-4 h-4 inline-block mr-1 -mt-0.5"></i>
+                ¡Ponencia cargada correctamente! El Comité Científico la revisará a la brevedad.
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
