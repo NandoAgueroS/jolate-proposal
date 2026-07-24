@@ -1,0 +1,12 @@
+# Backend security rules
+# Prevent directory listing
+Options -Indexes
+
+# Protect sensitive files from direct HTTP access
+<FilesMatch "^(config|composer)\.(php|json|lock)$">
+    Require all denied
+</FilesMatch>
+
+<FilesMatch "\.log$">
+    Require all denied
+</FilesMatch>
