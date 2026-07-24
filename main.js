@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
   var cfg = window.JOLATE_CONFIG;
   if (!cfg) {
     console.warn('[JOLATE] JOLATE_CONFIG not found — interactive features disabled.');
-    return;
   }
 
   // ══════════════════════════════════════════════════════════════
@@ -46,9 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (diff <= 0) {
       var container = document.querySelector('.hero-countdown');
       if (container) {
+        var doneMsg = (window.T && window.T[window.LANG]) ? window.T[window.LANG]['countdown.done'] : 'Congreso JOLATE XXV En Desarrollo';
         container.innerHTML =
           '<div class="text-center text-primary font-mono text-sm tracking-widest uppercase py-2">' +
-          'Congreso JOLATE XXV En Desarrollo</div>';
+          doneMsg + '</div>';
       }
       return;
     }
@@ -76,8 +76,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // 1b. Sponsors Marquee — infinite carousel (Task 3.x)
   // ══════════════════════════════════════════════════════════════
   var marqueeContainer = document.getElementById('sponsors-marquee');
-  if (marqueeContainer && cfg.sponsors) {
-    var doubleSponsors = cfg.sponsors.concat(cfg.sponsors);
+
+  function renderSponsorsMarquee() {
+    if (!marqueeContainer) return;
+    var sponsorsData = (window.T && window.T[window.LANG]) ? window.T[window.LANG].sponsors : [];
+    marqueeContainer.innerHTML = '';
+    if (sponsorsData.length === 0) return;
+
+    var doubleSponsors = sponsorsData.concat(sponsorsData);
     var s;
     for (s = 0; s < doubleSponsors.length; s++) {
       var sp = doubleSponsors[s];
@@ -98,6 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
       marqueeContainer.appendChild(item);
     }
   }
+
+  renderSponsorsMarquee();
 
   // ══════════════════════════════════════════════════════════════
   // 2. FAQ Accordion — one open at a time (Task 3.5)
@@ -136,8 +144,13 @@ document.addEventListener('DOMContentLoaded', () => {
   var currentTestimonial = 0;
   var carouselFrame      = document.getElementById('testimonial-carousel');
 
+  function getTestimonials() {
+    return (window.T && window.T[window.LANG]) ? window.T[window.LANG].testimonials : [];
+  }
+
   function renderTestimonial(idx) {
-    var t = cfg.testimonials[idx];
+    var testimonialsData = getTestimonials();
+    var t = testimonialsData[idx];
     if (!t || !carouselFrame) return;
 
     carouselFrame.style.opacity = '0';
@@ -164,22 +177,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (prevBtn) {
     prevBtn.addEventListener('click', function () {
+      var testimonialsData = getTestimonials();
       currentTestimonial =
-        (currentTestimonial - 1 + cfg.testimonials.length) % cfg.testimonials.length;
+        (currentTestimonial - 1 + testimonialsData.length) % testimonialsData.length;
       renderTestimonial(currentTestimonial);
     });
   }
 
   if (nextBtn) {
     nextBtn.addEventListener('click', function () {
+      var testimonialsData = getTestimonials();
       currentTestimonial =
-        (currentTestimonial + 1) % cfg.testimonials.length;
+        (currentTestimonial + 1) % testimonialsData.length;
       renderTestimonial(currentTestimonial);
     });
   }
 
   // Render initial testimonial (replaces static HTML)
-  if (cfg.testimonials && cfg.testimonials.length > 0 && carouselFrame) {
+  if (window.T && window.T[window.LANG] && window.T[window.LANG].testimonials.length > 0 && carouselFrame) {
     renderTestimonial(0);
   }
 
@@ -209,11 +224,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // ══════════════════════════════════════════════════════════════
   var timelineContainer = document.getElementById('timeline-events-container');
   var tabButtons        = document.querySelectorAll('.program-tab-btn');
+  var currentDayIdx     = 0;
+
+  function getPrograma() {
+    return (window.T && window.T[window.LANG]) ? window.T[window.LANG].programa : [];
+  }
 
   function renderDayEvents(dayIdx) {
-    if (!timelineContainer || !cfg.programa || !cfg.programa[dayIdx]) return;
+    var programaData = getPrograma();
+    if (!timelineContainer || !programaData || !programaData[dayIdx]) return;
 
-    var day  = cfg.programa[dayIdx];
+    currentDayIdx = dayIdx;
+    var day  = programaData[dayIdx];
     var html = '';
     var e;
 
@@ -226,15 +248,14 @@ document.addEventListener('DOMContentLoaded', () => {
         ? 'font-mono text-xs text-text bg-tint/30 px-2 py-0.5 border border-tint/30 rounded max-w-fit'
         : 'font-mono text-xs text-primary font-bold bg-primary/5 px-2 py-0.5 border border-primary/20 rounded max-w-fit';
 
-      var typeClass = isBreak
-        ? 'text-[10px] font-mono tracking-widest text-text uppercase'
-        : 'text-[10px] font-mono tracking-widest text-text uppercase';
+      var typeClass = 'text-[10px] font-mono tracking-widest text-text uppercase';
 
       var titleClass = isCompletar
         ? 'text-text group-hover:text-primary transition-colors font-bold text-base md:text-lg tracking-tight flex items-center gap-3'
         : 'text-text group-hover:text-primary transition-colors font-bold text-base md:text-lg tracking-tight';
 
-      var titleText = isCompletar ? '[Próximamente]' : escapeHtml(ev.title);
+      var comingSoon = (window.T && window.T[window.LANG]) ? (window.LANG === 'es' ? '[Pr\u00f3ximamente]' : '[Coming Soon]') : '[Pr\u00f3ximamente]';
+      var titleText = isCompletar ? comingSoon : escapeHtml(ev.title);
 
       html +=
         '<div class="relative space-y-1.5 group timeline-item pl-4">' +
@@ -332,5 +353,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       })(bars[bar]);
     }
+  }
+
+  // ══════════════════════════════════════════════════════════════
+  // 7. Dynamic Sections — re-render on language change
+  // ══════════════════════════════════════════════════════════════
+  window.renderDynamicSections = function () {
+    renderSponsorsMarquee();
+    renderTestimonial(currentTestimonial);
+    renderDayEvents(currentDayIdx);
+  };
+
+  // ══════════════════════════════════════════════════════════════
+  // 8. Language Toggle Handlers
+  // ══════════════════════════════════════════════════════════════
+  var langToggle    = document.getElementById('lang-toggle');
+  var langToggleMob = document.getElementById('lang-toggle-mobile');
+
+  function handleLangToggle() {
+    var newLang = window.LANG === 'es' ? 'en' : 'es';
+    applyLang(newLang);
+  }
+
+  if (langToggle) {
+    langToggle.addEventListener('click', handleLangToggle);
+  }
+  if (langToggleMob) {
+    langToggleMob.addEventListener('click', function () {
+      handleLangToggle();
+      if (mobileMenu) mobileMenu.classList.add('hidden');
+    });
   }
 });
