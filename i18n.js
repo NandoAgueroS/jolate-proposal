@@ -69,10 +69,12 @@ T.es = {
   'expositores.area_04': 'M\u00e9todos Num\u00e9ricos y Econom\u00eda Computacional',
 
   'comite.title': 'Comit\u00e9 Acad\u00e9mico e Institucional',
+  'comite.sectionLabel': 'GOBERNANZA CIENTÍFICA',
+  'comite.intro': 'Las personas que dirigen, evalúan y operan las XXV Jornadas Latinoamericanas de Teoría Económica.',
   'comite.coorganizadores': 'Co-organizadores',
-  'comite.academico': 'Comit\u00e9 Acad\u00e9mico',
-  'comite.local': 'Comit\u00e9 Local',
-  'comite.cientifico': 'Comit\u00e9 Cient\u00edfico',
+  'comite.academico': 'Comité Académico',
+  'comite.local': 'Comité Local',
+  'comite.cientifico': 'Comité Científico',
 
   'faq.title': 'Preguntas Frecuentes',
   'faq.q1': '\u00bfCu\u00e1ndo y d\u00f3nde se realizan las JOLATE XXV?',
@@ -219,6 +221,8 @@ T.en = {
   'expositores.area_04': 'Numerical Methods and Computational Economics',
 
   'comite.title': 'Academic & Institutional Committee',
+  'comite.sectionLabel': 'SCIENTIFIC GOVERNANCE',
+  'comite.intro': 'The people who direct, evaluate, and operate the XXV Latin American Meeting on Economic Theory.',
   'comite.coorganizadores': 'Co-organizers',
   'comite.academico': 'Academic Committee',
   'comite.local': 'Local Committee',

@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ? 'text-text group-hover:text-primary transition-colors font-bold text-base md:text-lg tracking-tight flex items-center gap-3'
         : 'text-text group-hover:text-primary transition-colors font-bold text-base md:text-lg tracking-tight';
 
-      var comingSoon = (window.T && window.T[window.LANG]) ? (window.LANG === 'es' ? '[Pr\u00f3ximamente]' : '[Coming Soon]') : '[Pr\u00f3ximamente]';
+      var comingSoon = (window.T && window.T[window.LANG]) ? (window.LANG === 'es' ? '[Próximamente]' : '[Coming Soon]') : '[Próximamente]';
       var titleText = isCompletar ? comingSoon : escapeHtml(ev.title);
 
       html +=
@@ -362,10 +362,55 @@ document.addEventListener('DOMContentLoaded', () => {
     renderSponsorsMarquee();
     renderTestimonial(currentTestimonial);
     renderDayEvents(currentDayIdx);
+    renderComiteList();
   };
 
   // ══════════════════════════════════════════════════════════════
-  // 8. Language Toggle Handlers
+  // 8. Comité — Dynamic render from JOLATE_CONFIG
+  // ══════════════════════════════════════════════════════════════
+  function renderComiteList() {
+    var cfg = window.JOLATE_CONFIG;
+    if (!cfg || !cfg.comite) return;
+
+    var dict = (window.T && window.T[window.LANG]) ? window.T[window.LANG] : {};
+    var comiteList = document.getElementById('comite-list');
+    if (!comiteList) return;
+
+    function renderGroup(groupKey, labelKey) {
+      var members = cfg.comite[groupKey];
+      if (!members || !members.length) return '';
+
+      var label = dict[labelKey] || labelKey;
+      var rows = members.map(function (m) {
+        return '<div class="flex flex-col gap-1 py-2 first:border-t-0 border-t border-tint/60">' +
+          '<div class="text-sm font-semibold text-text">' + escapeHtml(m.name) + '</div>' +
+          '<div class="font-mono text-[11px] text-text/60">' + escapeHtml(m.institution) + '</div>' +
+        '</div>';
+      }).join('');
+
+      return '<div class="comite-group">' +
+        '<div class="font-mono text-xs font-semibold uppercase tracking-wider text-primary mb-4 pb-2 border-b border-tint/60">' + label + '</div>' +
+        '<div class="grid grid-cols-2 gap-3 md:gap-8">' + rows + '</div>' +
+      '</div>';
+    }
+
+    var html = renderGroup('coorganizadores', 'comite.coorganizadores') +
+               renderGroup('academico', 'comite.academico') +
+               renderGroup('local', 'comite.local');
+
+    comiteList.innerHTML = html;
+
+    // Re-init Lucide icons in the newly injected HTML
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  }
+
+  // Initial render on page load
+  renderComiteList();
+
+  // ══════════════════════════════════════════════════════════════
+  // 9. Language Toggle Handlers
   // ══════════════════════════════════════════════════════════════
   var langToggle    = document.getElementById('lang-toggle');
   var langToggleMob = document.getElementById('lang-toggle-mobile');
