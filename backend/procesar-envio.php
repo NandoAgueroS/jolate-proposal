@@ -4,9 +4,8 @@
 
 header('Content-Type: application/json; charset=utf-8');
 
-// Load PHPMailer 5.2 (vendored, no Composer autoloader)
-require __DIR__ . '/vendor/phpmailer/class.phpmailer.php';
-require __DIR__ . '/vendor/phpmailer/class.smtp.php';
+// Load PHPMailer 5.2 via Composer autoloader
+require __DIR__ . '/vendor/autoload.php';
 
 // Load runtime config
 $config = require __DIR__ . '/config.php';
@@ -144,6 +143,9 @@ try {
 
     $mail->addReplyTo($email, $nombre);
 
+    // Attach the saved PDF to the email
+    $mail->addAttachment($rutaDestino, 'ponencia-' . $nombre . '.pdf');
+
     $mail->isHTML(true);
     $mail->Subject = 'Nueva ponencia recibida: ' . $nombre . ' (' . $eje . ')';
     $mail->Body = '<h2>Nueva ponencia / resumen recibido</h2>'
@@ -151,12 +153,12 @@ try {
         . '<p><strong>Institución:</strong> ' . htmlspecialchars($institucion) . '</p>'
         . '<p><strong>Correo:</strong> ' . htmlspecialchars($email) . '</p>'
         . '<p><strong>Eje temático:</strong> ' . htmlspecialchars($eje) . '</p>'
-        . '<p><strong>Archivo:</strong> <a href="' . htmlspecialchars($urlPublica) . '">' . $nombreArchivo . '</a></p>';
+        . '<p><strong>Archivo adjunto:</strong> ponencia-' . htmlspecialchars($nombre) . '.pdf</p>';
     $mail->AltBody = 'Nombre: ' . $nombre . "\n"
         . 'Institución: ' . $institucion . "\n"
         . 'Correo: ' . $email . "\n"
         . 'Eje: ' . $eje . "\n"
-        . 'Archivo: ' . $urlPublica;
+        . 'Archivo adjunto: ponencia-' . $nombre . '.pdf';
 
     $mail->send();
 } catch (Exception $e) {

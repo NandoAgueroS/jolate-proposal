@@ -1,6 +1,12 @@
-# Block PHP execution inside uploads directory
+# Block PHP execution inside uploads directory — Apache 2.2 / 2.4 compatible
 <FilesMatch "\.(php|phtml|php\d|phar)$">
-    Require all denied
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
 </FilesMatch>
 
 # Disable directory listing
