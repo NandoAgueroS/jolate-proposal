@@ -1,4 +1,6 @@
 /others
 backend/config.php
 backend/logs/*.log
-backend/vendor/
+backend/vendor/*
+!backend/vendor/phpmailer/
+!backend/vendor/phpmailer/**

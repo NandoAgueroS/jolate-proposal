@@ -4,8 +4,9 @@
 
 header('Content-Type: application/json; charset=utf-8');
 
-// Load PHPMailer 5.2 via Composer autoloader
-require __DIR__ . '/vendor/autoload.php';
+// Load PHPMailer 5.2 via explicit require — composer is NOT available on the hosting
+require __DIR__ . '/vendor/phpmailer/class.phpmailer.php';
+require __DIR__ . '/vendor/phpmailer/class.smtp.php';
 
 // Load runtime config — guard against missing file to avoid fatal + path exposure
 $configPath = __DIR__ . '/config.php';
