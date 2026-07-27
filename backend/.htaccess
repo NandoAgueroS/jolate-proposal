@@ -23,3 +23,9 @@ Options -Indexes
         Require all denied
     </IfModule>
 </FilesMatch>
+
+# Block access to vendor directory
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^vendor/ - [F,L]
+</IfModule>

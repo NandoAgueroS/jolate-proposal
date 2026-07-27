@@ -18,32 +18,27 @@ return array(
     'apache_version' => 'auto',
 
     // ── SMTP (correo de notificación) ─────────────────────────────
-    // Para Gmail: host=smtp.gmail.com, port=587, encryption=tls.
-    // Generar App Password en https://myaccount.google.com/apppasswords
-    // (requiere verificación en 2 pasos activada en la cuenta).
+    // Configurable via environment variables:
+    //   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_ENCRYPTION
+    //   SMTP_FROM_EMAIL, SMTP_FROM_NAME
     //
-    // Para pruebas con Mailtrap (sandbox):
-    // - Crear cuenta gratis en https://mailtrap.io
-    // - Crear un sandbox y copiar las credenciales SMTP
-    // - Los emails se capturan en el inbox del sandbox (no se envían realmente)
-    // - Usar la misma dirección en from_email y committee_emails para pruebas
+    // Todos los valores deben configurarse via env vars en producción.
     'smtp' => array(
-        'host'       => 'sandbox.smtp.mailtrap.io',
-        'port'       => 2525,
-        'username'   => 'd8db494ff9ec45',
-        'password'   => '852a4b279830e3',  // Editar con tu password real de Mailtrap
-        'encryption' => 'tls',
-        'from_email' => 'jolate2026@gmail.com',
-        'from_name'  => 'Comité Organizador JOLATE',
+        'host'       => getenv('SMTP_HOST') ?: '',
+        'port'       => getenv('SMTP_PORT') ? (int) getenv('SMTP_PORT') : 587,
+        'username'   => getenv('SMTP_USER') ?: '',
+        'password'   => getenv('SMTP_PASS') ?: '',
+        'encryption' => getenv('SMTP_ENCRYPTION') ?: 'tls',
+        'from_email' => getenv('SMTP_FROM_EMAIL') ?: 'comite@ejemplo.com',
+        'from_name'  => getenv('SMTP_FROM_NAME') ?: 'Comité Organizador JOLATE',
     ),
 
     // ── Destinatarios ─────────────────────────────────────────────
     // Emails que reciben la notificación con la ponencia adjunta.
-    // Para pruebas con Mailtrap: usar la misma dirección que from_email
-    // para que todos los emails se capturen en el inbox del sandbox.
-    'committee_emails' => array(
-        'jolate2026@gmail.com',  // Mismo email que from_email para pruebas
-    ),
+    // Configurable via SMTP_COMMITTEE_EMAILS (comma-separated).
+    'committee_emails' => getenv('SMTP_COMMITTEE_EMAILS')
+        ? explode(',', getenv('SMTP_COMMITTEE_EMAILS'))
+        : array('comite@ejemplo.com'),
 
     // ── Almacenamiento de archivos ─────────────────────────────────
     // upload_dir: carpeta física donde se guardan los PDFs.

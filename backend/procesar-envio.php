@@ -7,8 +7,14 @@ header('Content-Type: application/json; charset=utf-8');
 // Load PHPMailer 5.2 via Composer autoloader
 require __DIR__ . '/vendor/autoload.php';
 
-// Load runtime config
-$config = require __DIR__ . '/config.php';
+// Load runtime config — guard against missing file to avoid fatal + path exposure
+$configPath = __DIR__ . '/config.php';
+if (!file_exists($configPath)) {
+    header('HTTP/1.1 500 Internal Server Error');
+    echo json_encode(array('success' => false, 'error' => 'Configuration missing.'));
+    exit;
+}
+$config = require $configPath;
 
 // Ensure upload directory exists
 if (!is_dir($config['upload_dir'])) {
@@ -53,6 +59,17 @@ function jsonSuccess($mensaje) {
     exit;
 }
 
+/**
+ * Safe string length — uses mb_strlen when mbstring is available,
+ * falls back to strlen (ASCII-safe for validation purposes).
+ */
+function safeStrlen($str) {
+    if (extension_loaded('mbstring')) {
+        return mb_strlen($str);
+    }
+    return strlen($str);
+}
+
 // ---------- Honeypot anti-spam ----------
 // A hidden field named "website" should be empty; bots fill it automatically.
 if (!empty($_POST['website'])) {
@@ -71,11 +88,11 @@ $institucion = trim(isset($_POST['institucion']) ? $_POST['institucion'] : '');
 $email = trim(isset($_POST['email']) ? $_POST['email'] : '');
 $eje = trim(isset($_POST['eje_tematico']) ? $_POST['eje_tematico'] : '');
 
-if ($nombre === '' || mb_strlen($nombre) < 3 || mb_strlen($nombre) > 150) {
+if ($nombre === '' || safeStrlen($nombre) < 3 || safeStrlen($nombre) > 150) {
     jsonError('Nombre completo inválido.', 422, 'nombre');
 }
 
-if ($institucion === '' || mb_strlen($institucion) > 200) {
+if ($institucion === '' || safeStrlen($institucion) > 200) {
     jsonError('Universidad / Institución inválida.', 422, 'institucion');
 }
 
@@ -111,7 +128,12 @@ if (!isset($_FILES['archivo']) || $_FILES['archivo']['error'] === UPLOAD_ERR_NO_
 
 // ---------- Secure file storage ----------
 // Random filename prevents collisions and enumeration
-$nombreArchivo = bin2hex(openssl_random_pseudo_bytes(16)) . '.pdf';
+$bytes = openssl_random_pseudo_bytes(16);
+if ($bytes === false) {
+    logError('openssl_random_pseudo_bytes() failed — openssl extension may be missing.');
+    jsonError('No se pudo generar un nombre de archivo seguro.', 500);
+}
+$nombreArchivo = bin2hex($bytes) . '.pdf';
 $rutaDestino = rtrim($config['upload_dir'], '/') . '/' . $nombreArchivo;
 
 if (!move_uploaded_file($archivo['tmp_name'], $rutaDestino)) {
@@ -122,6 +144,9 @@ if (!move_uploaded_file($archivo['tmp_name'], $rutaDestino)) {
 $urlPublica = rtrim($config['public_upload_url'], '/') . '/' . $nombreArchivo;
 
 // ---------- Email notification ----------
+// Sanitize user-supplied name to prevent CR/LF injection in email headers
+$nombreSafe = preg_replace('/[\r\n]/', '', $nombre);
+
 $mail = new PHPMailer(true);
 
 try {
@@ -141,13 +166,13 @@ try {
         $mail->addAddress($emailDestino);
     }
 
-    $mail->addReplyTo($email, $nombre);
+    $mail->addReplyTo($email, $nombreSafe);
 
     // Attach the saved PDF to the email
-    $mail->addAttachment($rutaDestino, 'ponencia-' . $nombre . '.pdf');
+    $mail->addAttachment($rutaDestino, 'ponencia-' . $nombreSafe . '.pdf');
 
     $mail->isHTML(true);
-    $mail->Subject = 'Nueva ponencia recibida: ' . $nombre . ' (' . $eje . ')';
+    $mail->Subject = 'Nueva ponencia recibida: ' . $nombreSafe . ' (' . $eje . ')';
     $mail->Body = '<h2>Nueva ponencia / resumen recibido</h2>'
         . '<p><strong>Nombre:</strong> ' . htmlspecialchars($nombre) . '</p>'
         . '<p><strong>Institución:</strong> ' . htmlspecialchars($institucion) . '</p>'
