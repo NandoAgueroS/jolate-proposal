@@ -2,6 +2,18 @@
 // Backend processor for JOLATE 2026 paper submissions
 // PHP 5.3 compatible — no strict_types, no ??, no random_bytes, no http_response_code
 
+// ---------- CORS ----------
+// Allow all origins for now — tighten before production
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+
+// Handle CORS preflight — return early with 200, no body
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    header('HTTP/1.1 200 OK');
+    exit;
+}
+
 header('Content-Type: application/json; charset=utf-8');
 
 // Load PHPMailer 5.2 via explicit require — composer is NOT available on the hosting
@@ -61,7 +73,7 @@ $logFile = $logDir . '/error.log';
 function logError($mensaje) {
     global $logFile;
     $linea = '[' . date('Y-m-d H:i:s') . '] ' . $mensaje . "\n";
-    file_put_contents($logFile, $linea, FILE_APPEND);
+    @file_put_contents($logFile, $linea, FILE_APPEND);
 }
 
 /**
@@ -197,6 +209,11 @@ try {
     // Attach the saved PDF to the email
     $mail->addAttachment($rutaDestino, 'ponencia-' . $nombreSafe . '.pdf');
 
+    // Build public download URL
+    $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $baseUrl = $scheme . '://' . $_SERVER['HTTP_HOST'];
+    $downloadUrl = $baseUrl . '/uploads/' . $nombreArchivo;
+
     $mail->isHTML(true);
     $mail->Subject = 'Nueva ponencia recibida: ' . $nombreSafe . ' (' . $eje . ')';
     $mail->Body = '<h2>Nueva ponencia / resumen recibido</h2>'
@@ -204,12 +221,13 @@ try {
         . '<p><strong>Institución:</strong> ' . htmlspecialchars($institucion, ENT_QUOTES, 'UTF-8') . '</p>'
         . '<p><strong>Correo:</strong> ' . htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . '</p>'
         . '<p><strong>Eje temático:</strong> ' . htmlspecialchars($eje, ENT_QUOTES, 'UTF-8') . '</p>'
-        . '<p><strong>Archivo adjunto:</strong> ponencia-' . htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8') . '.pdf</p>';
+        . '<p><strong>Archivo:</strong> <a href="' . htmlspecialchars($downloadUrl, ENT_QUOTES, 'UTF-8') . '">'
+        . htmlspecialchars($downloadUrl, ENT_QUOTES, 'UTF-8') . '</a></p>';
     $mail->AltBody = 'Nombre: ' . $nombre . "\n"
         . 'Institución: ' . $institucion . "\n"
         . 'Correo: ' . $email . "\n"
         . 'Eje: ' . $eje . "\n"
-        . 'Archivo adjunto: ponencia-' . $nombre . '.pdf';
+        . 'Archivo: ' . $downloadUrl;
 
     $mail->send();
 } catch (Exception $e) {

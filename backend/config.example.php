@@ -17,13 +17,13 @@ return array(
     //
     // Todos los valores deben configurarse via env vars en producción.
     'smtp' => array(
-        'host'       => getenv('SMTP_HOST') ?: '',
-        'port'       => getenv('SMTP_PORT') ? (int) getenv('SMTP_PORT') : 587,
-        'username'   => getenv('SMTP_USER') ?: '',
-        'password'   => getenv('SMTP_PASS') ?: '',
-        'encryption' => getenv('SMTP_ENCRYPTION') ?: 'tls',
-        'from_email' => getenv('SMTP_FROM_EMAIL') ?: 'comite@ejemplo.com',
-        'from_name'  => getenv('SMTP_FROM_NAME') ?: 'Comité Organizador JOLATE',
+        'host'       => getenv('SMTP_HOST'),
+        'port'       => getenv('SMTP_PORT'),
+        'username'   => getenv('SMTP_USER'),
+        'password'   => getenv('SMTP_PASS'),
+        'encryption' => getenv('SMTP_ENCRYPTION'),
+        'from_email' => getenv('SMTP_FROM_EMAIL'),
+        'from_name'  => getenv('SMTP_FROM_NAME'),
     ),
 
     // ── Destinatarios ─────────────────────────────────────────────
