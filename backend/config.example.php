@@ -10,13 +10,6 @@
 
 return array(
 
-    // ── Apache ────────────────────────────────────────────────────
-    // Versión del servidor Apache que ejecuta este sitio.
-    // Opciones: '2.2', '2.4', o 'auto' (detecta automáticamente via .htaccess).
-    // Si se cambia a '2.2' o '2.4', los .htaccess se regeneran para esa versión.
-    // En modo 'auto', los .htaccess usan <IfModule> para compatibilidad dual.
-    'apache_version' => 'auto',
-
     // ── SMTP (correo de notificación) ─────────────────────────────
     // Configurable via environment variables:
     //   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_ENCRYPTION
@@ -43,10 +36,7 @@ return array(
     // ── Almacenamiento de archivos ─────────────────────────────────
     // upload_dir: carpeta física donde se guardan los PDFs.
     //             Debe estar fuera del webroot si es posible.
-    // public_upload_url: URL pública para acceder a los archivos.
-    //                    Usada como referencia en el email (informativo).
     'upload_dir'        => __DIR__ . '/uploads/',
-    'public_upload_url' => 'https://tudominio.com/uploads/',
     'max_file_size_mb'  => 15,
 
     // ── Ejes temáticos válidos ────────────────────────────────────

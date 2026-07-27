@@ -16,6 +16,31 @@ if (!file_exists($configPath)) {
 }
 $config = require $configPath;
 
+// Validate config structure — fail loudly and safely, never partially
+if (!is_array($config)) {
+    header('HTTP/1.1 500 Internal Server Error');
+    echo json_encode(array('success' => false, 'error' => 'Configuration invalid.'));
+    exit;
+}
+$requiredKeys = array('smtp', 'upload_dir', 'committee_emails', 'ejes_tematicos_validos', 'max_file_size_mb');
+foreach ($requiredKeys as $k) {
+    if (!array_key_exists($k, $config)) {
+        header('HTTP/1.1 500 Internal Server Error');
+        echo json_encode(array('success' => false, 'error' => 'Configuration invalid.'));
+        exit;
+    }
+}
+if (!is_array($config['committee_emails']) || count($config['committee_emails']) === 0) {
+    header('HTTP/1.1 500 Internal Server Error');
+    echo json_encode(array('success' => false, 'error' => 'Configuration invalid.'));
+    exit;
+}
+if (!is_writable(dirname($config['upload_dir'])) && !is_writable($config['upload_dir'])) {
+    header('HTTP/1.1 500 Internal Server Error');
+    echo json_encode(array('success' => false, 'error' => 'Upload directory not writable.'));
+    exit;
+}
+
 // Ensure upload directory exists
 if (!is_dir($config['upload_dir'])) {
     mkdir($config['upload_dir'], 0755, true);
@@ -137,11 +162,10 @@ $nombreArchivo = bin2hex($bytes) . '.pdf';
 $rutaDestino = rtrim($config['upload_dir'], '/') . '/' . $nombreArchivo;
 
 if (!move_uploaded_file($archivo['tmp_name'], $rutaDestino)) {
-    logError('No se pudo guardar el archivo: ' . $archivo['name']);
+    $nombreOriginalLog = preg_replace('/[\x00-\x1F\x7F\r\n]/', '', basename($archivo['name']));
+    logError('No se pudo guardar el archivo: ' . $nombreOriginalLog);
     jsonError('No se pudo guardar el archivo en el servidor.', 500);
 }
-
-$urlPublica = rtrim($config['public_upload_url'], '/') . '/' . $nombreArchivo;
 
 // ---------- Email notification ----------
 // Sanitize user-supplied name to prevent CR/LF injection in email headers
@@ -158,6 +182,7 @@ try {
     $mail->SMTPSecure = $config['smtp']['encryption'];
     $mail->Port = $config['smtp']['port'];
     $mail->CharSet = 'UTF-8';
+    $mail->Timeout = 30;
 
     $mail->setFrom($config['smtp']['from_email'], $config['smtp']['from_name']);
 
@@ -174,11 +199,11 @@ try {
     $mail->isHTML(true);
     $mail->Subject = 'Nueva ponencia recibida: ' . $nombreSafe . ' (' . $eje . ')';
     $mail->Body = '<h2>Nueva ponencia / resumen recibido</h2>'
-        . '<p><strong>Nombre:</strong> ' . htmlspecialchars($nombre) . '</p>'
-        . '<p><strong>Institución:</strong> ' . htmlspecialchars($institucion) . '</p>'
-        . '<p><strong>Correo:</strong> ' . htmlspecialchars($email) . '</p>'
-        . '<p><strong>Eje temático:</strong> ' . htmlspecialchars($eje) . '</p>'
-        . '<p><strong>Archivo adjunto:</strong> ponencia-' . htmlspecialchars($nombre) . '.pdf</p>';
+        . '<p><strong>Nombre:</strong> ' . htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8') . '</p>'
+        . '<p><strong>Institución:</strong> ' . htmlspecialchars($institucion, ENT_QUOTES, 'UTF-8') . '</p>'
+        . '<p><strong>Correo:</strong> ' . htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . '</p>'
+        . '<p><strong>Eje temático:</strong> ' . htmlspecialchars($eje, ENT_QUOTES, 'UTF-8') . '</p>'
+        . '<p><strong>Archivo adjunto:</strong> ponencia-' . htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8') . '.pdf</p>';
     $mail->AltBody = 'Nombre: ' . $nombre . "\n"
         . 'Institución: ' . $institucion . "\n"
         . 'Correo: ' . $email . "\n"
@@ -187,8 +212,8 @@ try {
 
     $mail->send();
 } catch (Exception $e) {
-    logError('Error al enviar correo: ' . $e->getMessage());
-    jsonError('El archivo se guardó pero no se pudo enviar el correo. Contactá al administrador.', 500);
+    logError('SMTP FAILED — file kept for manual review: ' . $e->getMessage() . ' | file: ' . $nombreArchivo);
+    jsonError('El archivo se guardó pero no se pudo enviar el correo. El administrador fue notificado. No reenvíes el formulario: contactá al comité para confirmar.', 500);
 }
 
 jsonSuccess('¡Ponencia recibida correctamente! En breve el comité se pondrá en contacto.');

@@ -62,6 +62,14 @@ All responses are JSON. Handle three types in JavaScript.
 
 Display the message. MAY clear the form.
 
+### HTTP 405 — Method Not Allowed
+
+```json
+{"success": false, "error": "Método no permitido."}
+```
+
+Returned when the request is not `POST`. The frontend must always use `method="POST"`; this code indicates a client/protocol misuse.
+
 ### HTTP 422 — Validation Error
 
 ```json
