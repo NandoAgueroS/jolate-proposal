@@ -1,0 +1,7 @@
+{
+    "name": "jolate/backend-envio-ponencias",
+    "description": "Backend processor for JOLATE 2026 paper submissions",
+    "require": {
+        "phpmailer/phpmailer": "~5.2.0"
+    }
+}

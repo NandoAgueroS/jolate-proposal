@@ -443,4 +443,148 @@ document.addEventListener('DOMContentLoaded', () => {
       if (mobileMenu) mobileMenu.classList.add('hidden');
     });
   }
+
+  // ══════════════════════════════════════════════════════════════
+  // 10. Paper Submission Form — AJAX + validation
+  // ══════════════════════════════════════════════════════════════
+  var paperForm     = document.getElementById('paper-submit-form');
+  var submitBtn     = document.getElementById('form-submit-btn');
+  var fileInput     = document.getElementById('form-file');
+  var successMsg    = document.getElementById('form-success-message');
+  var generalError  = document.getElementById('form-general-error');
+
+  function showFieldError(fieldName, message) {
+    var span = document.querySelector('.field-error[data-field="' + fieldName + '"]');
+    if (span) {
+      span.textContent = message;
+      span.classList.remove('hidden');
+    }
+    var input = document.getElementById('form-' + (fieldName === 'nombre' ? 'author' : fieldName === 'institucion' ? 'institution' : fieldName === 'eje_tematico' ? 'topic' : fieldName));
+    if (input) {
+      input.classList.add('border-red-500');
+      input.classList.remove('border-tint/60');
+    }
+  }
+
+  function clearFieldError(fieldName) {
+    var span = document.querySelector('.field-error[data-field="' + fieldName + '"]');
+    if (span) {
+      span.textContent = '';
+      span.classList.add('hidden');
+    }
+    var input = document.getElementById('form-' + (fieldName === 'nombre' ? 'author' : fieldName === 'institucion' ? 'institution' : fieldName === 'eje_tematico' ? 'topic' : fieldName));
+    if (input) {
+      input.classList.remove('border-red-500');
+      input.classList.add('border-tint/60');
+    }
+  }
+
+  function clearAllErrors() {
+    var spans = document.querySelectorAll('.field-error');
+    var s;
+    for (s = 0; s < spans.length; s++) {
+      spans[s].textContent = '';
+      spans[s].classList.add('hidden');
+    }
+    var inputs = paperForm.querySelectorAll('input, select');
+    var i;
+    for (i = 0; i < inputs.length; i++) {
+      inputs[i].classList.remove('border-red-500');
+      inputs[i].classList.add('border-tint/60');
+    }
+    if (generalError) {
+      generalError.textContent = '';
+      generalError.classList.add('hidden');
+    }
+  }
+
+  function showGeneralError(message) {
+    if (generalError) {
+      generalError.textContent = message;
+      generalError.classList.remove('hidden');
+    }
+  }
+
+  // Front-end PDF validation on file selection
+  if (fileInput) {
+    fileInput.addEventListener('change', function () {
+      var file = this.files[0];
+      if (!file) return;
+
+      clearFieldError('archivo');
+
+      var nameLC = file.name.toLowerCase();
+      if (nameLC.indexOf('.pdf') !== nameLC.length - 4) {
+        showFieldError('archivo', 'Solo se permiten archivos PDF.');
+        this.value = '';
+        return;
+      }
+
+      if (file.type && file.type !== 'application/pdf') {
+        showFieldError('archivo', 'El archivo debe ser un PDF válido.');
+        this.value = '';
+        return;
+      }
+    });
+  }
+
+  // AJAX form submission
+  if (paperForm) {
+    paperForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      clearAllErrors();
+      if (successMsg) successMsg.classList.add('hidden');
+
+      var formData = new FormData(paperForm);
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<svg class="animate-spin w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg><span>Enviando...</span>';
+
+      var xhr = new XMLHttpRequest();
+      var appCfg = window.APP_CONFIG;
+      var backendUrl = (appCfg && appCfg.backendUrl)
+        ? appCfg.backendUrl
+        : (cfg && cfg.meta && cfg.meta.backendUrl)
+          ? cfg.meta.backendUrl
+          : paperForm.getAttribute('action');
+      xhr.open('POST', backendUrl, true);
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState !== 4) return;
+
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i data-lucide="send" class="w-5 h-5"></i><span data-i18n="enviar.submit">Procesar Registro y Enviar</span>';
+        if (window.lucide) lucide.createIcons();
+
+        var resp;
+        try {
+          resp = JSON.parse(xhr.responseText);
+        } catch (err) {
+          showGeneralError('Error inesperado. Intentá nuevamente.');
+          return;
+        }
+
+        if (resp.success) {
+          paperForm.reset();
+          if (successMsg) successMsg.classList.remove('hidden');
+          if (generalError) generalError.classList.add('hidden');
+        } else {
+          if (resp.field && resp.field !== '') {
+            showFieldError(resp.field, resp.error);
+          } else {
+            showGeneralError(resp.error || 'Error al enviar. Intentá nuevamente.');
+          }
+        }
+      };
+
+      xhr.onerror = function () {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i data-lucide="send" class="w-5 h-5"></i><span data-i18n="enviar.submit">Procesar Registro y Enviar</span>';
+        if (window.lucide) lucide.createIcons();
+        showGeneralError('Error de conexión. Verificá tu internet y intentá nuevamente.');
+      };
+
+      xhr.send(formData);
+    });
+  }
 });

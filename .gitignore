@@ -1,1 +1,11 @@
+.atl/
 /others
+backend/.env
+backend/config.php
+backend/logs/*.log
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/vendor/*
+!backend/vendor/phpmailer/
+!backend/vendor/phpmailer/**
+/dev_resources
