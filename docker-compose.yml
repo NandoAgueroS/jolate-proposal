@@ -1,11 +1,12 @@
-version: '2'
+version: "2"
 services:
   php:
     build: .
     ports:
       - "8080:80"
     volumes:
-      - .:/var/www/html
+      - ./backend/uploads:/var/www/html/uploads
+      - ./backend/logs:/var/www/html/logs
     environment:
       SMTP_HOST: ${SMTP_HOST}
       SMTP_PORT: ${SMTP_PORT}

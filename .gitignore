@@ -1,6 +1,6 @@
 .atl/
 /others
-backend/.env
+.env
 backend/config.php
 backend/logs/*.log
 backend/uploads/*

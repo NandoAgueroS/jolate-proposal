@@ -2,18 +2,6 @@
 // Backend processor for JOLATE 2026 paper submissions
 // PHP 5.3 compatible — no strict_types, no ??, no random_bytes, no http_response_code
 
-// ---------- CORS ----------
-// Allow all origins for now — tighten before production
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
-
-// Handle CORS preflight — return early with 200, no body
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    header('HTTP/1.1 200 OK');
-    exit;
-}
-
 header('Content-Type: application/json; charset=utf-8');
 
 // Load PHPMailer 5.2 via explicit require — composer is NOT available on the hosting
