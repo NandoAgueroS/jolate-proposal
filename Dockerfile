@@ -18,4 +18,12 @@ RUN mkdir -p /var/www/html/uploads /var/www/html/logs && \
     chown -R www-data:www-data /var/www/html/uploads /var/www/html/logs && \
     chmod 755 /var/www/html/uploads /var/www/html/logs
 
-COPY . /var/www/html/
+# Copy backend PHP files
+COPY backend/procesar-envio.php /var/www/html/
+COPY backend/vendor/ /var/www/html/vendor/
+COPY backend/.htaccess /var/www/html/
+COPY backend/config.php /var/www/html/
+
+# Copy frontend static files
+COPY index.html main.js config.js i18n.js styles.css /var/www/html/
+COPY assets/ /var/www/html/assets/
