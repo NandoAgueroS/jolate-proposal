@@ -719,12 +719,12 @@
                   <div>
                     <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.nombre">Nombre Completo *</label>
                     <input type="text" id="form-author" name="nombre" required placeholder="Ej. Dra. María González" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 transition-all" />
-                    <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="nombre"></span>
+                    <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="nombre" role="alert" aria-live="polite"></span>
                   </div>
                   <div>
                     <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.institucion">Universidad / Institución *</label>
                     <input type="text" id="form-institution" name="institucion" required placeholder="Ej. UASLP, UNSL, ULP" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 transition-all" />
-                    <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="institucion"></span>
+                    <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="institucion" role="alert" aria-live="polite"></span>
                   </div>
                 </div>
 
@@ -732,7 +732,7 @@
                   <div>
                     <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.email">Correo Electrónico *</label>
                     <input type="email" id="form-email" name="email" required placeholder="autor@universidad.edu" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 transition-all" />
-                    <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="email"></span>
+                    <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="email" role="alert" aria-live="polite"></span>
                   </div>
                   <div>
                     <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.eje">Eje Temático *</label>
@@ -745,17 +745,21 @@
                       <option value="Dinámica Económica">Dinámica Económica</option>
                       <option value="Áreas Temáticas Afines">Áreas Temáticas Afines</option>
                     </select>
-                    <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="eje_tematico"></span>
+                    <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="eje_tematico" role="alert" aria-live="polite"></span>
                   </div>
                 </div>
 
                 <div>
                   <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.archivo">Archivo de Investigación (PDF) *</label>
                   <input type="file" id="form-file" name="archivo" accept=".pdf" required class="w-full bg-bg border border-tint/60 rounded-xl p-2.5 text-xs text-text file:mr-4 file:py-2 file:px-5 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-primary file:text-white hover:file:bg-primary/80 transition-all" />
-                  <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="archivo"></span>
+                  <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="archivo" role="alert" aria-live="polite"></span>
+                  <span id="file-name-display" class="hidden text-xs text-primary font-mono mt-1.5 block"></span>
                 </div>
 
-                <div id="form-general-error" class="hidden p-4 bg-red-50 border border-red-300 rounded-2xl text-red-600 text-xs text-center font-mono"></div>
+                <div id="form-general-error" class="hidden p-4 bg-red-50 border border-red-300 rounded-2xl text-red-600 text-xs text-center font-mono" role="alert" aria-live="assertive">
+                  <i data-lucide="alert-circle" class="w-4 h-4 inline-block mr-1 -mt-0.5"></i>
+                  <span class="error-text"></span>
+                </div>
 
                 <div style="position:absolute;left:-9999px" aria-hidden="true">
                   <input type="text" name="website" tabindex="-1" autocomplete="off">
@@ -767,7 +771,7 @@
                 </button>
               </form>
 
-              <div id="form-success-message" class="hidden p-4 bg-accent/15 border border-accent/30 rounded-2xl text-accent text-xs text-center font-mono mt-4">
+              <div id="form-success-message" class="hidden p-4 bg-accent/15 border border-accent/30 rounded-2xl text-accent text-xs text-center font-mono mt-4" data-i18n="enviar.exito">
                 <i data-lucide="check-circle" class="w-4 h-4 inline-block mr-1 -mt-0.5"></i>
                 ¡Ponencia cargada correctamente! El Comité Científico la revisará a la brevedad.
               </div>

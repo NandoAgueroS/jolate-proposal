@@ -21,6 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
     return String(str).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
+  function t(key) {
+    return (window.T && window.T[window.LANG] && window.T[window.LANG][key]) || key;
+  }
+
   // ── Config guard ────────────────────────────────────────────
   var cfg = window.JOLATE_CONFIG;
   if (!cfg) {
@@ -456,10 +460,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function showFieldError(fieldName, message) {
     var span = document.querySelector('.field-error[data-field="' + fieldName + '"]');
     if (span) {
-      span.textContent = message;
+      span.textContent = message || t('enviar.error_send');
       span.classList.remove('hidden');
     }
-    var input = document.getElementById('form-' + (fieldName === 'nombre' ? 'author' : fieldName === 'institucion' ? 'institution' : fieldName === 'eje_tematico' ? 'topic' : fieldName));
+    var idMap = { nombre: 'author', institucion: 'institution', eje_tematico: 'topic', archivo: 'file' };
+    var input = document.getElementById('form-' + (idMap[fieldName] || fieldName));
     if (input) {
       input.classList.add('border-red-500');
       input.classList.remove('border-tint/60');
@@ -472,7 +477,8 @@ document.addEventListener('DOMContentLoaded', () => {
       span.textContent = '';
       span.classList.add('hidden');
     }
-    var input = document.getElementById('form-' + (fieldName === 'nombre' ? 'author' : fieldName === 'institucion' ? 'institution' : fieldName === 'eje_tematico' ? 'topic' : fieldName));
+    var idMap = { nombre: 'author', institucion: 'institution', eje_tematico: 'topic', archivo: 'file' };
+    var input = document.getElementById('form-' + (idMap[fieldName] || fieldName));
     if (input) {
       input.classList.remove('border-red-500');
       input.classList.add('border-tint/60');
@@ -493,15 +499,20 @@ document.addEventListener('DOMContentLoaded', () => {
       inputs[i].classList.add('border-tint/60');
     }
     if (generalError) {
-      generalError.textContent = '';
+      var errorText = generalError.querySelector('.error-text');
+      if (errorText) errorText.textContent = '';
       generalError.classList.add('hidden');
     }
   }
 
   function showGeneralError(message) {
     if (generalError) {
-      generalError.textContent = message;
+      generalError.querySelector('.error-text').textContent = message;
       generalError.classList.remove('hidden');
+      if (window.lucide) lucide.createIcons();
+    }
+    if (paperForm) {
+      paperForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }
 
@@ -509,21 +520,35 @@ document.addEventListener('DOMContentLoaded', () => {
   if (fileInput) {
     fileInput.addEventListener('change', function () {
       var file = this.files[0];
-      if (!file) return;
+      if (!file) {
+        var fndEmpty = document.getElementById('file-name-display');
+        if (fndEmpty) { fndEmpty.textContent = ''; fndEmpty.classList.add('hidden'); }
+        return;
+      }
 
       clearFieldError('archivo');
 
       var nameLC = file.name.toLowerCase();
       if (nameLC.indexOf('.pdf') !== nameLC.length - 4) {
-        showFieldError('archivo', 'Solo se permiten archivos PDF.');
+        showFieldError('archivo', t('enviar.error_pdf'));
         this.value = '';
+        var fnd1 = document.getElementById('file-name-display');
+        if (fnd1) { fnd1.textContent = ''; fnd1.classList.add('hidden'); }
         return;
       }
 
       if (file.type && file.type !== 'application/pdf') {
-        showFieldError('archivo', 'El archivo debe ser un PDF válido.');
+        showFieldError('archivo', t('enviar.error_pdf_invalid'));
         this.value = '';
+        var fnd2 = document.getElementById('file-name-display');
+        if (fnd2) { fnd2.textContent = ''; fnd2.classList.add('hidden'); }
         return;
+      }
+
+      var fileNameDisplay = document.getElementById('file-name-display');
+      if (fileNameDisplay) {
+        fileNameDisplay.textContent = file.name + ' (' + (file.size > 1048576 ? (file.size / 1048576).toFixed(1) + ' MB' : (file.size / 1024).toFixed(0) + ' KB') + ')';
+        fileNameDisplay.classList.remove('hidden');
       }
     });
   }
@@ -538,7 +563,7 @@ document.addEventListener('DOMContentLoaded', () => {
       var formData = new FormData(paperForm);
 
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<svg class="animate-spin w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg><span>Enviando...</span>';
+      submitBtn.innerHTML = '<svg class="animate-spin w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg><span>' + t('enviar.sending') + '</span>';
 
       var xhr = new XMLHttpRequest();
       var appCfg = window.APP_CONFIG;
@@ -553,14 +578,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (xhr.readyState !== 4) return;
 
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i data-lucide="send" class="w-5 h-5"></i><span data-i18n="enviar.submit">Procesar Registro y Enviar</span>';
+        submitBtn.innerHTML = '<i data-lucide="send" class="w-5 h-5"></i><span>' + t('enviar.submit') + '</span>';
         if (window.lucide) lucide.createIcons();
 
         var resp;
         try {
           resp = JSON.parse(xhr.responseText);
         } catch (err) {
-          showGeneralError('Error inesperado. Intentá nuevamente.');
+          showGeneralError(t('enviar.error_unexpected'));
           return;
         }
 
@@ -568,20 +593,25 @@ document.addEventListener('DOMContentLoaded', () => {
           paperForm.reset();
           if (successMsg) successMsg.classList.remove('hidden');
           if (generalError) generalError.classList.add('hidden');
+          var fileNameDisplay = document.getElementById('file-name-display');
+          if (fileNameDisplay) {
+            fileNameDisplay.textContent = '';
+            fileNameDisplay.classList.add('hidden');
+          }
         } else {
           if (resp.field && resp.field !== '') {
             showFieldError(resp.field, resp.error);
           } else {
-            showGeneralError(resp.error || 'Error al enviar. Intentá nuevamente.');
+            showGeneralError(resp.error || t('enviar.error_send'));
           }
         }
       };
 
       xhr.onerror = function () {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i data-lucide="send" class="w-5 h-5"></i><span data-i18n="enviar.submit">Procesar Registro y Enviar</span>';
+        submitBtn.innerHTML = '<i data-lucide="send" class="w-5 h-5"></i><span>' + t('enviar.submit') + '</span>';
         if (window.lucide) lucide.createIcons();
-        showGeneralError('Error de conexión. Verificá tu internet y intentá nuevamente.');
+        showGeneralError(t('enviar.error_connection'));
       };
 
       xhr.send(formData);
