@@ -154,21 +154,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderTestimonial(idx) {
     var testimonialsData = getTestimonials();
-    var t = testimonialsData[idx];
-    if (!t || !carouselFrame) return;
+    var item = testimonialsData[idx];
+    if (!item || !carouselFrame) return;
 
     carouselFrame.style.opacity = '0';
     setTimeout(function () {
       carouselFrame.innerHTML =
         '<div class="space-y-4">' +
           '<p class="text-sm md:text-base italic text-text font-light leading-relaxed">"' +
-            escapeHtml(t.quote) +
+            escapeHtml(item.quote) +
           '"</p>' +
           '<div class="flex items-center gap-3 pt-2">' +
-            '<img src="' + escapeAttr(t.avatar) + '" alt="' + escapeAttr(t.author) + '" class="w-10 h-10 rounded-full object-cover border border-primary/30">' +
+            '<img src="' + escapeAttr(item.avatar) + '" alt="' + escapeAttr(item.author) + '" class="w-10 h-10 rounded-full object-cover border border-primary/30">' +
             '<div>' +
-              '<h5 class="text-xs font-bold text-text">' + escapeHtml(t.author) + '</h5>' +
-              '<span class="text-[10px] font-mono text-text">' + escapeHtml(t.institution) + '</span>' +
+              '<h5 class="text-xs font-bold text-text">' + escapeHtml(item.author) + '</h5>' +
+              '<span class="text-[10px] font-mono text-text">' + escapeHtml(item.institution) + '</span>' +
             '</div>' +
           '</div>' +
         '</div>';
@@ -280,9 +280,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Tab click handlers
-  var t;
-  for (t = 0; t < tabButtons.length; t++) {
-    tabButtons[t].addEventListener('click', function () {
+  var ti;
+  for (ti = 0; ti < tabButtons.length; ti++) {
+    tabButtons[ti].addEventListener('click', function () {
       var dayIdx = parseInt(this.getAttribute('data-day'), 10);
 
       // Update active tab styling

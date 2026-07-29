@@ -5,8 +5,8 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./backend/uploads:/var/www/html/uploads
-      - ./backend/logs:/var/www/html/logs
+      - ./backend/uploads:/var/www/html/backend/uploads
+      - ./backend/logs:/var/www/html/backend/logs
     environment:
       SMTP_HOST: ${SMTP_HOST}
       SMTP_PORT: ${SMTP_PORT}
@@ -16,6 +16,8 @@ services:
       SMTP_FROM_EMAIL: ${SMTP_FROM_EMAIL}
       SMTP_FROM_NAME: ${SMTP_FROM_NAME}
       SMTP_COMMITTEE_EMAILS: ${SMTP_COMMITTEE_EMAILS}
+      SITE_URL: ${SITE_URL}
+      WORKER_TOKEN: ${WORKER_TOKEN}
     depends_on:
       - mailhog
 

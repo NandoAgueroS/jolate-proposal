@@ -39,6 +39,30 @@ return array(
     'upload_dir'        => __DIR__ . '/uploads/',
     'max_file_size_mb'  => 15,
 
+    // ── Almacenamiento de registros de postulación ─────────────────
+    // submissions_dir: carpeta donde se guardan los archivos JSON individuales
+    //                  con metadatos y banderas de estado de cada postulante.
+    'submissions_dir' => __DIR__ . '/submissions/',
+
+    // ── Prefijo URL público de uploads ─────────────────────────────
+    // Ruta URL que se antepone al nombre del archivo para construir
+    // el link de descarga en los correos. Debe reflejar la ubicación
+    // de upload_dir relativa al webroot del servidor web.
+    'upload_url_prefix' => '/backend/uploads/',
+
+    // ── URL pública del sitio ──────────────────────────────────────
+    // Usada por el worker para construir links de descarga en los emails.
+    // Configurable via SITE_URL.
+    'site_url' => getenv('SITE_URL') ?: 'http://localhost:8080',
+
+    // ── Worker asíncrono ───────────────────────────────────────────
+    // worker_token:       clave secreta para invocar procesar-correos.php via HTTP.
+    // worker_batch_size:  cuántos submissions procesar por cada ejecución.
+    // worker_max_retries: reintentos máximos por email antes de marcar como failed.
+    'worker_token'       => getenv('WORKER_TOKEN') ?: 'cambiar-este-token',
+    'worker_batch_size'  => 5,
+    'worker_max_retries' => 5,
+
     // ── Ejes temáticos válidos ────────────────────────────────────
     // Deben coincidir exactamente con las opciones del <select> del formulario.
     'ejes_tematicos_validos' => array(

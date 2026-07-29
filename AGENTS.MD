@@ -2,85 +2,84 @@
 
 ## Project
 
-JOLATE 2026 — XXV Jornadas Latinoamericanas de Teoría Económica
-Sitio web estático informativo del evento académico.
+JOLATE 2026 — XXV Jornadas Latinoamericanas de Teoría Económica.
+Static HTML site + PHP 5.3 backend for paper submissions.
 
 ## Stack
 
-- **HTML**: Index.html semántico con datos en bloque `<script>` (`JOLATE_CONFIG`)
-- **CSS**: Tailwind CSS v3 via CDN + archivo `styles.css` con propiedades personalizadas
-- **JS**: Vanilla JavaScript (`main.js`) — sin bundler, sin framework
-- **CDN Dependencies**: Tailwind v3, GSAP 3.12.5 + ScrollTrigger, Lucide icons, Google Fonts (Inter, JetBrains Mono, Playfair Display)
-- **Build**: None — 100% static, sin paso de build
+- **Frontend**: Static HTML (`index.html`) + Vanilla JS (`main.js`) + Tailwind v3 CDN. No build step.
+- **Backend**: PHP 5.3 (`procesar-envio.php`), no Composer on prod — PHPMailer 5.2 vendored manually.
+- **CDN deps**: Tailwind v3, GSAP 3.12.5 + ScrollTrigger, Lucide icons, Google Fonts (Inter, JetBrains Mono, Playfair Display).
+- **Infra**: Docker (Apache 2.4 + PHP 5.3) + MailHog for dev. `docker-compose up` on port 8080 (mailhog UI: 8025).
 
-## File Structure
+## Key files
 
 ```
-/
-├── index.html          ← HTML semántico + JOLATE_CONFIG + CDN imports
-├── styles.css          ← CSS custom properties en :root + clases personalizadas
-├── main.js             ← DOMContentLoaded handler: animaciones GSAP, countdown, Lucide
-├── AGENTS.MD           ← Este archivo
-├── res/                ← Imágenes (logos ULP, UNSL, gov, education, fondos JPG)
-├── current-web.html    ← [ELIMINADO después de la migración] Original single-file
-└── openspec/
-    └── changes/nueva-version-web-jolate-2026/
-        ├── proposal.md
-        ├── specs/web-presentation/spec.md
-        └── design.md
+/index.html           ← HTML + JOLATE_CONFIG (inline script) + Tailwind CDN config
+/styles.css           ← Custom properties + premium radii + marquee + noise overlay
+/config.js            ← window.APP_CONFIG ({ backendUrl })
+/i18n.js              ← window.T (es/en), window.LANG, applyLang(), data-i18n binding
+/main.js              ← DOMContentLoaded: countdown, GSAP, tabs, accordion, form AJAX, mobile menu
+/backend/procesar-envio.php  ← PHP 5.3, SMTP via PHPMailer, PDF upload, honeypot anti-spam
+/backend/config.example.php  ← SMTP/env-based config template
+/docker-compose.yml          ← php:5.3-apache + mailhog
 ```
 
-## Palette (CSS Custom Properties)
+## Section order
 
-```css
-:root {
-  --color-primary: #055c62;  /* dark teal — botones, headings, acentos fuertes */
-  --color-bg: #eef9fa;       /* off-white — fondo general */
-  --color-accent: #11b0bc;   /* bright teal — hover states, highlights */
-  --color-tint: #cbe3e6;     /* light teal — bordes suaves, fondos secundarios */
-  --color-text: #043c41;     /* very dark teal — texto sobre fondos claros */
-}
+Hero → Sponsors → Convocatoria → Enviar → Programa → Expositores → Comité → FAQ → Footer
+
+## Content truth
+
+- **Static text**: `i18n.js` (`window.T.es` / `window.T.en`), bound via `data-i18n` attributes, rendered by `applyLang()`.
+- **Config data**: `JOLATE_CONFIG` inline in `index.html` (comite, programa, sponsors, testimonials, progressBars, expositores).
+- **Dynamic sections** (comite, programa, sponsors marquee, testimonials) re-render from `window.T` on language toggle via `renderDynamicSections()`.
+- **"COMPLETAR"** titles → rendered as `[Próximamente]` / `[Coming Soon]` badge.
+
+## CTA rules
+
+- **"Enviar Trabajo"**: `mailto:jolate2026@gmail.com?subject=Articulo%20para%20XXV%20JOLATE` — identical in nav, hero, footer.
+- **"Ver Convocatoria"**: always scrolls to `#convocatoria`.
+- No PDF bases document — do not add "Consultar Bases Completas" link.
+
+## Palette (CSS custom properties + Tailwind extend colors)
+
+| Token    | Hex       | Tailwind class                          | Usage                          |
+|----------|-----------|-----------------------------------------|--------------------------------|
+| primary  | `#055c62` | `bg-primary text-primary border-primary`| Buttons, headings, links       |
+| bg       | `#eef9fa` | `bg-bg`                                 | Page background                |
+| accent   | `#11b0bc` | `bg-accent text-accent`                 | Hover states, secondary CTAs   |
+| tint     | `#cbe3e6` | `bg-tint border-tint`                   | Card backgrounds, soft borders |
+| text     | `#043c41` | `text-text`                              | Body text on light backgrounds |
+
+## Backend quirks (PHP 5.3)
+
+- No `??`, no `[]` short arrays, no `random_bytes()`, no `http_response_code()`, no namespaces.
+- PHPMailer 5.2: `new PHPMailer(true)` to enable exceptions, `addAttachment($path, $name)`.
+- `config.php` reads SMTP creds from env vars (for Docker) — also settable via plain PHP array.
+- `.htaccess` files use `<IfModule>` guards for Apache 2.2/2.4 dual compatibility (mod_authz_core vs Order/Deny).
+- Honeypot: hidden `input[name="website"]` at `left:-9999px`. Backend returns fake success if filled.
+- Upload dir: `backend/uploads/`, `.htaccess` blocks PHP execution inside.
+- Form POST to `procesar-envio.php` with `enctype="multipart/form-data"`.
+
+## Form submission flow
+
+1. User fills `#paper-submit-form` (name, institution, email, topic dropdown, PDF file).
+2. `main.js` intercepts via AJAX (`XMLHttpRequest` + `FormData`), disables button, shows spinner.
+3. Server validates → saves PDF as `bin2hex(openssl_random_pseudo_bytes(16)).pdf` → emails committee via SMTP with attachment.
+4. JSON response: `{ success: true }` shows success message; `{ success: false, field: "nombre", error: "..." }` shows inline field error.
+5. Also works as plain POST (no-JS fallback).
+
+## Dev commands
+
+```sh
+docker-compose up          # serves on localhost:8080, MailHog UI on :8025
+cp backend/config.example.php backend/config.php  # then set env vars or edit
 ```
-
-Tailwind extend colors: `primary`, `bg`, `accent`, `tint`, `text` (mapeados a los mismos valores hex).
-
-## CTA Rules
-
-- **"Enviar Trabajo"**: SIEMPRE → `mailto:jolate2026@gmail.com?subject=Articulo%20para%20XXV%20JOLATE`
-  - Debe ser idéntico en nav, hero y footer.
-- **"Consultar Bases Completas"**: ELIMINADO — no existe PDF de bases.
-- **"Ver Convocatoria"**: Apunta a `#convocatoria`.
-
-## Section Order
-
-Hero → Convocatoria → Programa → Comité → FAQ → Contacto → Footer
 
 ## Language
 
-- **Sitio público**: 100% español rioplatense neutro. Sin secciones en inglés.
-- **SDD artifacts**: Inglés técnico (propuestas, specs, diseño, tareas).
-
-## Content Rules
-
-- `JOLATE_CONFIG` en `<script>` inline en `index.html` es la única fuente de verdad.
-- Todo el contenido textual viene de `info-del-evento.txt`.
-- Secciones con "COMPLETAR" → badge visible `[Próximamente]`.
-- Sin lorem ipsum en ningún lado.
-
-## Color Reference (Tailwind Classes)
-
-| Token | Hex | Tailwind Class | Uso |
-|-------|-----|----------------|-----|
-| primary | `#055c62` | `bg-primary`, `text-primary`, `border-primary` | Botones, títulos, enlaces |
-| bg | `#eef9fa` | `bg-bg` | Fondo de página |
-| accent | `#11b0bc` | `bg-accent`, `text-accent`, `hover:border-accent` | Hover states, CTAs secundarios |
-| tint | `#cbe3e6` | `bg-tint`, `border-tint` | Fondos de tarjetas, bordes suaves |
-| text | `#043c41` | `text-text` | Texto sobre fondos claros |
-
-## CDN Version Pinning
-
-- Tailwind: `https://cdn.tailwindcss.com` (v3, latest CDN)
-- GSAP: `https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js`
-- ScrollTrigger: `https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js`
-- Lucide: `https://unpkg.com/lucide@latest`
-- Google Fonts: Inter (400,600,700,800), JetBrains Mono (400,500,700), Playfair Display (italic 400,600,700)
+- Public site: 100% Spanish (rioplatense). No English sections visible to public.
+- `i18n.js` has full `T.es` and `T.en` translations. `lang-toggle` button in nav toggles between them.
+- `window.LANG` persisted in `localStorage`.
+- Technical SDD artifacts: English.

@@ -3,70 +3,67 @@
 // PHP 5.3 compatible — no strict_types, no ??, no random_bytes, no http_response_code
 
 header('Content-Type: application/json; charset=utf-8');
+error_log('[procesar-envio] Script started — ' . $_SERVER['REQUEST_METHOD'] . ' ' . $_SERVER['REQUEST_URI']);
 
-// Load PHPMailer 5.2 via explicit require — composer is NOT available on the hosting
-require __DIR__ . '/vendor/phpmailer/class.phpmailer.php';
-require __DIR__ . '/vendor/phpmailer/class.smtp.php';
-
-// Load runtime config — guard against missing file to avoid fatal + path exposure
+// ---------- Config loading ----------
 $configPath = __DIR__ . '/config.php';
 if (!file_exists($configPath)) {
+    error_log('[procesar-envio] Config file not found: ' . $configPath);
     header('HTTP/1.1 500 Internal Server Error');
     echo json_encode(array('success' => false, 'error' => 'Configuration missing.'));
     exit;
 }
 $config = require $configPath;
+error_log('[procesar-envio] Config loaded successfully');
 
-// Validate config structure — fail loudly and safely, never partially
 if (!is_array($config)) {
+    error_log('[procesar-envio] Config file returned non-array');
     header('HTTP/1.1 500 Internal Server Error');
     echo json_encode(array('success' => false, 'error' => 'Configuration invalid.'));
     exit;
 }
-$requiredKeys = array('smtp', 'upload_dir', 'committee_emails', 'ejes_tematicos_validos', 'max_file_size_mb');
+
+$requiredKeys = array('upload_dir', 'submissions_dir', 'ejes_tematicos_validos', 'max_file_size_mb', 'worker_token');
 foreach ($requiredKeys as $k) {
     if (!array_key_exists($k, $config)) {
+        error_log('[procesar-envio] Required config key missing: ' . $k);
         header('HTTP/1.1 500 Internal Server Error');
         echo json_encode(array('success' => false, 'error' => 'Configuration invalid.'));
         exit;
     }
 }
-if (!is_array($config['committee_emails']) || count($config['committee_emails']) === 0) {
-    header('HTTP/1.1 500 Internal Server Error');
-    echo json_encode(array('success' => false, 'error' => 'Configuration invalid.'));
-    exit;
-}
+
 if (!is_writable(dirname($config['upload_dir'])) && !is_writable($config['upload_dir'])) {
+    error_log('[procesar-envio] Upload directory not writable: ' . $config['upload_dir']);
     header('HTTP/1.1 500 Internal Server Error');
     echo json_encode(array('success' => false, 'error' => 'Upload directory not writable.'));
     exit;
 }
 
-// Ensure upload directory exists
+// Ensure directories exist
 if (!is_dir($config['upload_dir'])) {
     mkdir($config['upload_dir'], 0755, true);
+    error_log('[procesar-envio] Created upload directory: ' . $config['upload_dir']);
+}
+if (!is_dir($config['submissions_dir'])) {
+    mkdir($config['submissions_dir'], 0755, true);
+    error_log('[procesar-envio] Created submissions directory: ' . $config['submissions_dir']);
 }
 
-// Ensure log directory exists
+// ---------- Logging ----------
 $logDir = __DIR__ . '/logs';
 if (!is_dir($logDir)) {
     mkdir($logDir, 0755, true);
 }
-
 $logFile = $logDir . '/error.log';
 
-/**
- * Append timestamped error to log file
- */
 function logError($mensaje) {
     global $logFile;
     $linea = '[' . date('Y-m-d H:i:s') . '] ' . $mensaje . "\n";
     @file_put_contents($logFile, $linea, FILE_APPEND);
 }
 
-/**
- * Return JSON error response and exit
- */
+// ---------- Response helpers ----------
 function jsonError($mensaje, $status, $field = '') {
     header('HTTP/1.1 ' . $status);
     $respuesta = array('success' => false, 'error' => $mensaje);
@@ -77,18 +74,6 @@ function jsonError($mensaje, $status, $field = '') {
     exit;
 }
 
-/**
- * Return JSON success response and exit
- */
-function jsonSuccess($mensaje) {
-    echo json_encode(array('success' => true, 'message' => $mensaje));
-    exit;
-}
-
-/**
- * Safe string length — uses mb_strlen when mbstring is available,
- * falls back to strlen (ASCII-safe for validation purposes).
- */
 function safeStrlen($str) {
     if (extension_loaded('mbstring')) {
         return mb_strlen($str);
@@ -97,14 +82,15 @@ function safeStrlen($str) {
 }
 
 // ---------- Honeypot anti-spam ----------
-// A hidden field named "website" should be empty; bots fill it automatically.
 if (!empty($_POST['website'])) {
-    // Respond with fake success so the bot thinks it worked.
-    jsonSuccess('Registro recibido.');
+    error_log('[procesar-envio] Honeypot triggered — bot submission blocked');
+    echo json_encode(array('success' => true, 'message' => 'Registro recibido.'));
+    exit;
 }
 
 // ---------- Request method ----------
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    error_log('[procesar-envio] Invalid request method: ' . $_SERVER['REQUEST_METHOD']);
     jsonError('Método no permitido.', 405);
 }
 
@@ -115,112 +101,130 @@ $email = trim(isset($_POST['email']) ? $_POST['email'] : '');
 $eje = trim(isset($_POST['eje_tematico']) ? $_POST['eje_tematico'] : '');
 
 if ($nombre === '' || safeStrlen($nombre) < 3 || safeStrlen($nombre) > 150) {
+    error_log('[procesar-envio] Validation failed — nombre: "' . $nombre . '" (len=' . safeStrlen($nombre) . ')');
     jsonError('Nombre completo inválido.', 422, 'nombre');
 }
 
 if ($institucion === '' || safeStrlen($institucion) > 200) {
+    error_log('[procesar-envio] Validation failed — institucion: "' . $institucion . '" (len=' . safeStrlen($institucion) . ')');
     jsonError('Universidad / Institución inválida.', 422, 'institucion');
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    error_log('[procesar-envio] Validation failed — email: "' . $email . '"');
     jsonError('Correo electrónico inválido.', 422, 'email');
 }
 
 if (!in_array($eje, $config['ejes_tematicos_validos'])) {
+    error_log('[procesar-envio] Validation failed — eje_tematico: "' . $eje . '"');
     jsonError('Eje temático inválido.', 422, 'eje_tematico');
 }
 
 // ---------- PDF validation ----------
 if (!isset($_FILES['archivo']) || $_FILES['archivo']['error'] === UPLOAD_ERR_NO_FILE) {
+    error_log('[procesar-envio] PDF validation failed — no file uploaded');
     jsonError('Debes adjuntar el archivo PDF.', 422, 'archivo');
 } elseif ($_FILES['archivo']['error'] !== UPLOAD_ERR_OK) {
+    error_log('[procesar-envio] PDF validation failed — upload error code: ' . $_FILES['archivo']['error']);
     jsonError('Error al subir el archivo (código ' . $_FILES['archivo']['error'] . ').', 422, 'archivo');
 } else {
     $archivo = $_FILES['archivo'];
     $maxBytes = $config['max_file_size_mb'] * 1024 * 1024;
 
     if ($archivo['size'] > $maxBytes) {
+        error_log('[procesar-envio] PDF validation failed — size ' . $archivo['size'] . ' exceeds ' . $maxBytes);
         jsonError('El archivo supera el tamaño máximo permitido (' . $config['max_file_size_mb'] . ' MB).', 422, 'archivo');
     } else {
-        // Verify real MIME type via finfo (do not trust browser-provided type)
         $finfo = new finfo(FILEINFO_MIME_TYPE);
         $mimeReal = $finfo->file($archivo['tmp_name']);
 
         if ($mimeReal !== 'application/pdf') {
+            error_log('[procesar-envio] PDF validation failed — detected MIME: ' . $mimeReal);
             jsonError('El archivo debe ser un PDF válido.', 422, 'archivo');
         }
     }
 }
+error_log('[procesar-envio] All validations passed');
 
 // ---------- Secure file storage ----------
-// Random filename prevents collisions and enumeration
 $bytes = openssl_random_pseudo_bytes(16);
 if ($bytes === false) {
+    error_log('[procesar-envio] openssl_random_pseudo_bytes() failed');
     logError('openssl_random_pseudo_bytes() failed — openssl extension may be missing.');
     jsonError('No se pudo generar un nombre de archivo seguro.', 500);
 }
 $nombreArchivo = bin2hex($bytes) . '.pdf';
+$submissionId = bin2hex($bytes);
 $rutaDestino = rtrim($config['upload_dir'], '/') . '/' . $nombreArchivo;
 
 if (!move_uploaded_file($archivo['tmp_name'], $rutaDestino)) {
     $nombreOriginalLog = preg_replace('/[\x00-\x1F\x7F\r\n]/', '', basename($archivo['name']));
+    error_log('[procesar-envio] move_uploaded_file failed — tmp: ' . $archivo['tmp_name'] . ' | dst: ' . $rutaDestino);
     logError('No se pudo guardar el archivo: ' . $nombreOriginalLog);
     jsonError('No se pudo guardar el archivo en el servidor.', 500);
 }
+error_log('[procesar-envio] File saved: ' . $nombreArchivo);
 
-// ---------- Email notification ----------
-// Sanitize user-supplied name to prevent CR/LF injection in email headers
-$nombreSafe = preg_replace('/[\r\n]/', '', $nombre);
+// ---------- Write submission record ----------
+$submission = array(
+    'id' => $submissionId,
+    'created_at' => date('Y-m-d H:i:s'),
+    'nombre' => $nombre,
+    'institucion' => $institucion,
+    'email' => $email,
+    'eje_tematico' => $eje,
+    'archivo' => $nombreArchivo,
 
-$mail = new PHPMailer(true);
+    'committee_email_status' => 'pending',
+    'committee_email_attempts' => 0,
+    'committee_email_last_attempt' => null,
+    'committee_email_error' => null,
 
-try {
-    $mail->isSMTP();
-    $mail->Host = $config['smtp']['host'];
-    $mail->SMTPAuth = true;
-    $mail->Username = $config['smtp']['username'];
-    $mail->Password = $config['smtp']['password'];
-    $mail->SMTPSecure = $config['smtp']['encryption'];
-    $mail->Port = $config['smtp']['port'];
-    $mail->CharSet = 'UTF-8';
-    $mail->Timeout = 30;
+    'applicant_email_status' => 'pending',
+    'applicant_email_attempts' => 0,
+    'applicant_email_last_attempt' => null,
+    'applicant_email_error' => null,
+);
 
-    $mail->setFrom($config['smtp']['from_email'], $config['smtp']['from_name']);
-
-    // Send to every configured committee recipient
-    foreach ($config['committee_emails'] as $emailDestino) {
-        $mail->addAddress($emailDestino);
-    }
-
-    $mail->addReplyTo($email, $nombreSafe);
-
-    // Attach the saved PDF to the email
-    $mail->addAttachment($rutaDestino, 'ponencia-' . $nombreSafe . '.pdf');
-
-    // Build public download URL
-    $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-    $baseUrl = $scheme . '://' . $_SERVER['HTTP_HOST'];
-    $downloadUrl = $baseUrl . '/uploads/' . $nombreArchivo;
-
-    $mail->isHTML(true);
-    $mail->Subject = 'Nueva ponencia recibida: ' . $nombreSafe . ' (' . $eje . ')';
-    $mail->Body = '<h2>Nueva ponencia / resumen recibido</h2>'
-        . '<p><strong>Nombre:</strong> ' . htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8') . '</p>'
-        . '<p><strong>Institución:</strong> ' . htmlspecialchars($institucion, ENT_QUOTES, 'UTF-8') . '</p>'
-        . '<p><strong>Correo:</strong> ' . htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . '</p>'
-        . '<p><strong>Eje temático:</strong> ' . htmlspecialchars($eje, ENT_QUOTES, 'UTF-8') . '</p>'
-        . '<p><strong>Archivo:</strong> <a href="' . htmlspecialchars($downloadUrl, ENT_QUOTES, 'UTF-8') . '">'
-        . htmlspecialchars($downloadUrl, ENT_QUOTES, 'UTF-8') . '</a></p>';
-    $mail->AltBody = 'Nombre: ' . $nombre . "\n"
-        . 'Institución: ' . $institucion . "\n"
-        . 'Correo: ' . $email . "\n"
-        . 'Eje: ' . $eje . "\n"
-        . 'Archivo: ' . $downloadUrl;
-
-    $mail->send();
-} catch (Exception $e) {
-    logError('SMTP FAILED — file kept for manual review: ' . $e->getMessage() . ' | file: ' . $nombreArchivo);
-    jsonError('El archivo se guardó pero no se pudo enviar el correo. El administrador fue notificado. No reenvíes el formulario: contactá al comité para confirmar.', 500);
+$submissionFile = rtrim($config['submissions_dir'], '/') . '/' . $submissionId . '.json';
+$written = @file_put_contents($submissionFile, json_encode($submission));
+if ($written === false) {
+    error_log('[procesar-envio] Failed to write submission JSON: ' . $submissionFile);
+    logError('No se pudo escribir el archivo de postulación: ' . $submissionFile);
+    jsonError('No se pudo registrar la postulación en el servidor.', 500);
 }
+error_log('[procesar-envio] Submission JSON written — ID: ' . $submissionId);
 
-jsonSuccess('¡Ponencia recibida correctamente! En breve el comité se pondrá en contacto.');
+// ---------- Respond to visitor ----------
+$responseJson = json_encode(array(
+    'success' => true,
+    'message' => '¡Ponencia cargada correctamente! El Comité Científico la revisará a la brevedad.',
+));
+echo $responseJson;
+
+// Allow script to continue after the client disconnects
+ignore_user_abort(true);
+
+// Flush output so the browser receives the response immediately
+if (ob_get_level() > 0) {
+    ob_flush();
+}
+flush();
+error_log('[procesar-envio] Response flushed to client — submission: ' . $submissionId);
+
+// ---------- Auto-trigger worker (asynchronous, fire-and-forget) ----------
+$scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$workerUrl = $scheme . '://' . $_SERVER['HTTP_HOST']
+    . rtrim(dirname($_SERVER['SCRIPT_NAME']), '/')
+    . '/procesar-correos.php?token=' . urlencode($config['worker_token']);
+
+$ctx = stream_context_create(array(
+    'http' => array(
+        'timeout' => 2,
+        'method' => 'GET',
+    ),
+));
+error_log('[procesar-envio] Triggering worker: ' . $workerUrl);
+@file_get_contents($workerUrl, false, $ctx);
+error_log('[procesar-envio] Worker trigger completed — submission: ' . $submissionId);
+exit;

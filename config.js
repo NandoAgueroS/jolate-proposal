@@ -1,3 +1,3 @@
 window.APP_CONFIG = {
-  backendUrl: "procesar-envio.php"
+  backendUrl: "backend/procesar-envio.php"
 };

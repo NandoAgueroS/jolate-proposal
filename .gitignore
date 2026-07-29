@@ -8,4 +8,7 @@ backend/uploads/*
 backend/vendor/*
 !backend/vendor/phpmailer/
 !backend/vendor/phpmailer/**
+backend/submissions/*
+!backend/submissions/.gitkeep
+backend/.worker.lock
 /dev_resources
