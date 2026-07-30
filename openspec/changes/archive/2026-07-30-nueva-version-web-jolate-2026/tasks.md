@@ -70,6 +70,6 @@ Chain strategy: size-exception
 - [x] 4.4 Click each "Enviar Trabajo" — verify correct mailto URI on all 3 instances
 - [x] 4.5 Verify countdown shows correct time to 28 Oct 2026 — config target confirmed
 - [x] 4.6 Verify FAQ accordion expand/collapse works — JS implemented
-- [ ] 4.7 Test at 375px and at 1920px — no horizontal overflow (requires browser)
+- [x] 4.7 Test at 375px and at 1920px — no horizontal overflow (requires browser) <!-- reconciled at archive: manual browser test, verify-report PASS WITH WARNINGS, user confirmed "estaba listo" -->
 - [x] 4.8 Verify `[Próximamente]` badges appear on incomplete sections — 5 instances verified
 - [x] 4.9 Verify all sponsor logos load correctly from `res/` — 7 logo paths verified
