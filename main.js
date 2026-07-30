@@ -97,9 +97,14 @@ document.addEventListener('DOMContentLoaded', () => {
         'transition-transform duration-300 hover:scale-105 hover:border-primary/50';
 
       item.innerHTML =
-        '<div class="w-8 h-8 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center font-bold text-xs text-primary font-mono">' +
-          escapeHtml(sp.name) +
-        '</div>' +
+        (sp.image
+          ? '<div class="w-10 h-10 flex items-center justify-center shrink-0">' +
+              '<img src="' + escapeAttr(sp.image) + '" alt="' + escapeAttr(sp.name) + '" class="max-w-full max-h-full object-contain">' +
+            '</div>'
+          : '<div class="w-8 h-8 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center font-bold text-xs text-primary font-mono">' +
+              escapeHtml(sp.name) +
+            '</div>'
+        ) +
         '<div>' +
           '<div class="text-xs font-bold text-text whitespace-nowrap">' + escapeHtml(sp.name) + '</div>' +
           '<div class="text-[10px] text-text/60 font-mono whitespace-nowrap">' + escapeHtml(sp.label) + '</div>' +

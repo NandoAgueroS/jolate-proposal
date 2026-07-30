@@ -143,14 +143,11 @@ T.es = {
 
   // ── Dynamic data ──
   sponsors: [
-    { name: 'UASLP', label: 'Univ. Aut\u00f3noma de San Luis Potos\u00ed' },
-    { name: 'ALTE', label: 'Asoc. Latinoamericana de Teor\u00eda Econ\u00f3mica' },
-    { name: 'UNAM', label: 'Universidad Nacional Aut\u00f3noma de M\u00e9xico' },
-    { name: 'Univ. de Chile', label: 'Facultad de Econom\u00eda y Negocios' },
-    { name: 'FGV Brasil', label: 'Fundacao Getulio Vargas' },
-    { name: 'CONICET', label: 'Consejo Nacional de Investigaciones Cient\u00edficas y T\u00e9cnicas' },
-    { name: 'UBA', label: 'Universidad de Buenos Aires' },
-    { name: 'George Mason Univ.', label: 'Department of Economics' }
+    { name: 'UNSL', label: 'Universidad Nacional de San Luis', image: 'assets/logos/UNSL.svg' },
+    { name: 'CONICET', label: 'Consejo Nacional de Investigaciones Cient\u00edficas y T\u00e9cnicas', image: 'assets/logos/conicet.svg' },
+    { name: 'IMASL', label: 'Instituto de Matem\u00e1tica Aplicada San Luis', image: 'assets/logos/IMASL.svg' },
+    { name: 'FCFMyN', label: 'Facultad de Ciencias F\u00edsico Matem\u00e1ticas y Naturales', image: 'assets/logos/ciencias hor color.svg' },
+    { name: 'Matem\u00e1tica', label: 'Departamento de Matem\u00e1tica', image: 'assets/logos/matematica color.svg' }
   ],
   testimonials: [
     { quote: 'Un espacio imprescindible para quienes investigamos teor\u00eda econ\u00f3mica en la regi\u00f3n. El rigor metodol\u00f3gico discutido aqu\u00ed es inigualable.', author: 'Dra. Elena Rostova', institution: 'Universidad de Chile', avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80' },
@@ -329,14 +326,11 @@ T.en = {
   'footer.dev': 'Site Developed by Multimedia ULP',
 
   sponsors: [
-    { name: 'UASLP', label: 'Autonomous University of San Luis Potos\u00ed' },
-    { name: 'ALTE', label: 'Latin American Association of Economic Theory' },
-    { name: 'UNAM', label: 'National Autonomous University of Mexico' },
-    { name: 'Univ. de Chile', label: 'School of Economics and Business' },
-    { name: 'FGV Brasil', label: 'Fundacao Getulio Vargas' },
-    { name: 'CONICET', label: 'Argentine National Research Council' },
-    { name: 'UBA', label: 'University of Buenos Aires' },
-    { name: 'George Mason Univ.', label: 'Department of Economics' }
+    { name: 'UNSL', label: 'National University of San Luis', image: 'assets/logos/UNSL.svg' },
+    { name: 'CONICET', label: 'Argentine National Research Council', image: 'assets/logos/conicet.svg' },
+    { name: 'IMASL', label: 'Institute of Applied Mathematics San Luis', image: 'assets/logos/IMASL.svg' },
+    { name: 'FCFMyN', label: 'Faculty of Physical, Mathematical and Natural Sciences', image: 'assets/logos/ciencias hor color.svg' },
+    { name: 'Matem\u00e1tica', label: 'Department of Mathematics', image: 'assets/logos/matematica color.svg' }
   ],
   testimonials: [
     { quote: 'An indispensable space for those of us researching economic theory in the region. The methodological rigor discussed here is unmatched.', author: 'Dra. Elena Rostova', institution: 'Universidad de Chile', avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80' },
