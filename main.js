@@ -396,7 +396,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!cfg || !cfg.comite) return;
 
     var dict = (window.T && window.T[window.LANG]) ? window.T[window.LANG] : {};
-    var ordenLabel = dict['comite.orden_alfabetico'] || 'Orden alfabético';
 
     function sortByLastName(list) {
       return list.slice().sort(function (a, b) {
@@ -440,9 +439,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }).join('');
 
       container.innerHTML =
-        '<div class="flex items-baseline gap-3 mb-3">' +
+        '<div class="mb-3">' +
           '<h3 class="font-mono text-xs font-semibold uppercase tracking-wider text-primary">' + label + '</h3>' +
-          '<span class="font-mono text-[10px] text-text/40 italic">— ' + ordenLabel + '</span>' +
         '</div>' +
         '<div class="space-y-3">' + rows + '</div>';
     }
