@@ -17,8 +17,10 @@ T.es = {
   'nav.enviar': 'Enviar Trabajo',
 
   'aria.open_menu': 'Abrir Menú',
+  'aria.close_menu': 'Cerrar Menú',
   'aria.previous': 'Anterior',
   'aria.next': 'Siguiente',
+  'aria.back_to_top': 'Volver arriba',
   'meta_title': 'JOLATE 2026 — XXV Jornadas Latinoamericanas de Teoría Económica',
   'meta_description': 'XXV Jornadas Latinoamericanas de Teoría Económica (JOLATE 2026). San Luis, Argentina — 28, 29 y 30 de octubre de 2026.',
 
@@ -241,8 +243,10 @@ T.en = {
   'nav.enviar': 'Submit Paper',
 
   'aria.open_menu': 'Open Menu',
+  'aria.close_menu': 'Close Menu',
   'aria.previous': 'Previous',
   'aria.next': 'Next',
+  'aria.back_to_top': 'Back to top',
   'meta_title': 'JOLATE 2026 — XXV Latin American Meeting on Economic Theory',
   'meta_description': 'XXV Latin American Meeting on Economic Theory (JOLATE 2026). San Luis, Argentina — October 28, 29 and 30, 2026.',
 

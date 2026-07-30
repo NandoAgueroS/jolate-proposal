@@ -217,16 +217,26 @@ document.addEventListener('DOMContentLoaded', () => {
   var mobileMenu = document.getElementById('mobile-menu');
 
   if (menuBtn && mobileMenu) {
+    function updateMenuIcon() {
+      var icon = menuBtn.querySelector('i');
+      var isOpen = !mobileMenu.classList.contains('hidden');
+      icon.setAttribute('data-lucide', isOpen ? 'x' : 'menu');
+      if (window.lucide) lucide.createIcons();
+      menuBtn.setAttribute('aria-label', isOpen ? t('aria.close_menu') : t('aria.open_menu'));
+    }
+
     menuBtn.addEventListener('click', function () {
       mobileMenu.classList.toggle('hidden');
+      updateMenuIcon();
     });
 
     // Close menu on link click
-    var menuLinks = mobileMenu.querySelectorAll('a');
+    var menuLinks = mobileMenu.querySelectorAll('a, button');
     var l;
     for (l = 0; l < menuLinks.length; l++) {
       menuLinks[l].addEventListener('click', function () {
         mobileMenu.classList.add('hidden');
+        updateMenuIcon();
       });
     }
   }
@@ -469,6 +479,23 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTrigger: { trigger: '#inscripcion', start: 'top 75%' }
       });
     }
+  }
+
+  // ══════════════════════════════════════════════════════════════
+  // 6f. Back to Top button — show/hide on scroll
+  // ══════════════════════════════════════════════════════════════
+  var backToTop = document.getElementById('back-to-top');
+  if (backToTop) {
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 400) {
+        backToTop.classList.remove('opacity-0', 'pointer-events-none');
+      } else {
+        backToTop.classList.add('opacity-0', 'pointer-events-none');
+      }
+    }, { passive: true });
+    backToTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   }
 
   // ══════════════════════════════════════════════════════════════
