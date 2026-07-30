@@ -76,6 +76,7 @@ T.es = {
   'comite.academico': 'Comité Académico',
   'comite.local': 'Comité Local',
   'comite.cientifico': 'Comité Científico',
+  'comite.orden_alfabetico': 'Orden alfabético',
 
   'info_local.badge': 'INFORMACI\u00d3N LOCAL \u00b7 SEDES',
   'info_local.title': 'Informaci\u00f3n Local',
@@ -260,6 +261,7 @@ T.en = {
   'comite.academico': 'Academic Committee',
   'comite.local': 'Local Committee',
   'comite.cientifico': 'Scientific Committee',
+  'comite.orden_alfabetico': 'Alphabetical order',
 
   'info_local.badge': 'LOCAL INFO \u00b7 VENUES',
   'info_local.title': 'Local Information',

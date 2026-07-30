@@ -399,21 +399,52 @@ document.addEventListener('DOMContentLoaded', () => {
     var comiteList = document.getElementById('comite-list');
     if (!comiteList) return;
 
+    var ordenLabel = dict['comite.orden_alfabetico'] || 'Orden alfabético';
+
+    function sortByLastName(list) {
+      return list.slice().sort(function (a, b) {
+        var la = (a.lastName || '').toLowerCase();
+        var lb = (b.lastName || '').toLowerCase();
+        if (la === '' && lb === '') return 0;
+        if (la === '') return 1;
+        if (lb === '') return -1;
+        return la.localeCompare(lb, 'es');
+      });
+    }
+
+    function formatName(m) {
+      if (!m.lastName) return escapeHtml(m.name);
+      var parts = m.name.split(' ');
+      var firstName = parts[0] || '';
+      return '<span class="font-bold">' + escapeHtml(m.lastName.toUpperCase()) + '</span><span class="font-normal">, ' + escapeHtml(firstName) + '</span>';
+    }
+
     function renderGroup(groupKey, labelKey) {
       var members = cfg.comite[groupKey];
       if (!members || !members.length) return '';
 
       var label = dict[labelKey] || labelKey;
-      var rows = members.map(function (m) {
-        return '<div class="flex flex-col gap-1 py-2 first:border-t-0 border-t border-tint/60">' +
-          '<div class="text-sm font-semibold text-text">' + escapeHtml(m.name) + '</div>' +
-          '<div class="font-mono text-[11px] text-text/60">' + escapeHtml(m.institution) + '</div>' +
+      var sorted = sortByLastName(members);
+
+      var rows = sorted.map(function (m) {
+        var isPlaceholder = m.name.indexOf('COMPLETAR') !== -1;
+        var badgeHtml = isPlaceholder
+          ? '<span class="inline-block ml-2 text-[9px] font-mono font-bold text-white bg-primary/40 px-1.5 py-0.5 rounded-full align-middle">[Próximamente]</span>'
+          : '';
+        var nameHtml = isPlaceholder ? escapeHtml(m.name) : formatName(m);
+
+        return '<div class="bg-white border border-tint/60 rounded-lg p-4 flex flex-col justify-center min-h-[80px] hover:border-primary/30 transition-colors duration-200">' +
+          '<div class="text-sm leading-snug text-text">' + nameHtml + badgeHtml + '</div>' +
+          '<div class="font-mono text-[11px] text-text/60 mt-1 leading-tight">' + escapeHtml(m.institution) + '</div>' +
         '</div>';
       }).join('');
 
-      return '<div class="comite-group">' +
-        '<div class="font-mono text-xs font-semibold uppercase tracking-wider text-primary mb-4 pb-2 border-b border-tint/60">' + label + '</div>' +
-        '<div class="grid grid-cols-2 gap-3 md:gap-8">' + rows + '</div>' +
+      return '<div class="space-y-3">' +
+        '<div class="flex items-baseline gap-3">' +
+          '<h3 class="font-mono text-xs font-semibold uppercase tracking-wider text-primary">' + label + '</h3>' +
+          '<span class="font-mono text-[10px] text-text/40 italic">— ' + ordenLabel + '</span>' +
+        '</div>' +
+        '<div class="grid grid-cols-2 lg:grid-cols-3 gap-3">' + rows + '</div>' +
       '</div>';
     }
 
@@ -422,11 +453,6 @@ document.addEventListener('DOMContentLoaded', () => {
                renderGroup('local', 'comite.local');
 
     comiteList.innerHTML = html;
-
-    // Re-init Lucide icons in the newly injected HTML
-    if (window.lucide) {
-      lucide.createIcons();
-    }
   }
 
   // Initial render on page load
