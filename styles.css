@@ -103,7 +103,9 @@ body {
    Smooth transform + shadow transition used on cards and CTAs.
    ---------------------------------------------------------- */
 .hover-magnetic {
-  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+  transition:
+    transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.3s ease;
 }
 
 .hover-magnetic:hover {
@@ -121,15 +123,19 @@ body {
   inset: 0;
   z-index: 50;
   opacity: 0.04;
-  background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');
+  background-image: url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E");
 }
 
 /* ----------------------------------------------------------
    8. Infinite Marquee Animation (Sponsors Carousel)
    ---------------------------------------------------------- */
 @keyframes marquee {
-  0%   { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .animate-marquee {
@@ -155,6 +161,54 @@ body {
 #form-submit-btn:disabled:hover {
   transform: none !important;
   box-shadow: none;
+}
+
+/* ----------------------------------------------------------
+   10. Clip Path Mountains (San Luis hero)
+   ---------------------------------------------------------- */
+.clip-mountains {
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% 100%,
+    99.75% 75.1%,
+    97.25% 68%,
+    92.97% 72.8%,
+    88.35% 86%,
+    86.59% 87.5%,
+    84.29% 88%,
+    83.3% 88%,
+    78.27% 82%,
+    75.25% 77.5%,
+    73.69% 74.3%,
+    70.43% 78.8%,
+    64.42% 78.8%,
+    62.92% 78.7%,
+    60.62% 82.4%,
+    59.14% 82.7%,
+    52.55% 76.7%,
+    50.85% 74.7%,
+    49.87% 75.1%,
+    48.42% 76.5%,
+    47.55% 77%,
+    40.83% 83.3%,
+    35.77% 86.2%,
+    30.06% 80.2%,
+    27.63% 79.6%,
+    25.48% 75.1%,
+    24.55% 77.7%,
+    23.24% 82.8%,
+    20.37% 75.3%,
+    18.03% 76.8%,
+    15.85% 78.4%,
+    13.96% 81.2%,
+    8.55% 76.8%,
+    7.4% 77.3%,
+    2.96% 79.5%,
+    1.51% 80.3%,
+    0.02% 77.4%,
+    0% 100%
+  );
 }
 
 /* ----------------------------------------------------------
