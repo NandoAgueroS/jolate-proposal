@@ -58,6 +58,8 @@ T.es = {
   'programa.day1': 'D\u00eda 1 \u2014 28 Oct',
   'programa.day2': 'D\u00eda 2 \u2014 29 Oct',
   'programa.day3': 'D\u00eda 3 \u2014 30 Oct',
+  'programa.am': 'Ma\u00f1ana',
+  'programa.pm': 'Tarde',
   'programa.note': '* Las sesiones marcadas como [Pr\u00f3ximamente] se confirmar\u00e1n en las pr\u00f3ximas semanas.',
 
   'expositores.badge': 'CONFERENCISTAS DE HONOR',
@@ -243,6 +245,8 @@ T.en = {
   'programa.day1': 'Day 1 \u2014 Oct 28',
   'programa.day2': 'Day 2 \u2014 Oct 29',
   'programa.day3': 'Day 3 \u2014 Oct 30',
+  'programa.am': 'Morning',
+  'programa.pm': 'Afternoon',
   'programa.note': '* Sessions marked as [Coming Soon] will be confirmed in the coming weeks.',
 
   'expositores.badge': 'KEYNOTE SPEAKERS',

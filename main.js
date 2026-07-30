@@ -239,55 +239,138 @@ document.addEventListener('DOMContentLoaded', () => {
     return (window.T && window.T[window.LANG]) ? window.T[window.LANG].programa : [];
   }
 
+  function parseTimeRange(timeStr) {
+    var parts = timeStr.split('-');
+    if (parts.length < 2) return null;
+    var start = parts[0].trim();
+    var end = parts[1].trim();
+    function toMin(t) {
+      var p = t.split(':');
+      return parseInt(p[0], 10) * 60 + parseInt(p[1] || '0', 10);
+    }
+    var sm = toMin(start);
+    var em = toMin(end);
+    return { duration: em - sm, startMin: sm };
+  }
+
+  function getRowStyle(ev) {
+    var te = (ev.type || '').toLowerCase();
+    if (te === 'receso' || te === 'break') return { typeCls: 'text-white/40', dot: 'bg-white/20', icon: 'utensils-crossed' };
+    if (te.indexOf('keynote') !== -1) return { typeCls: 'text-accent font-bold', dot: 'bg-accent', icon: null };
+    if (te.indexOf('cient') !== -1 || te.indexOf('scientific') !== -1 || te.indexOf('sesion') !== -1 || te.indexOf('session') !== -1) return { typeCls: 'text-white/70', dot: 'bg-white/40', icon: null };
+    if (te.indexOf('mesa') !== -1 || te.indexOf('expert') !== -1) return { typeCls: 'text-accent/80', dot: 'bg-accent/60', icon: null };
+    if (te.indexOf('foro') !== -1 || te.indexOf('research') !== -1 || te.indexOf('forum') !== -1) return { typeCls: 'text-white/70', dot: 'bg-white/40', icon: null };
+    if (te.indexOf('apertura') !== -1 || te.indexOf('ceremonia') !== -1 || te.indexOf('opening') !== -1 || te.indexOf('ceremony') !== -1) return { typeCls: 'text-white font-bold', dot: 'bg-white', icon: null };
+    if (te.indexOf('cierre') !== -1 || te.indexOf('closing') !== -1) return { typeCls: 'text-white font-bold', dot: 'bg-white', icon: null };
+    return { typeCls: 'text-white/70', dot: 'bg-white/30', icon: null };
+  }
+
   function renderDayEvents(dayIdx) {
     var programaData = getPrograma();
     if (!timelineContainer || !programaData || !programaData[dayIdx]) return;
 
     currentDayIdx = dayIdx;
-    var day  = programaData[dayIdx];
-    var html = '';
+    var day = programaData[dayIdx];
+    var comingSoonText = (window.T && window.T[window.LANG])
+      ? (window.LANG === 'es' ? '[Pr\u00f3ximamente]' : '[Coming Soon]')
+      : '[Pr\u00f3ximamente]';
+
+    var parts = [];
+    var inAm = null;
     var e;
+    var globalIdx = 0;
+
+    function openSection(isAm) {
+      parts.push(
+        '<div class="flex items-center gap-2.5 px-5 sm:px-8 py-3.5 bg-white/5">' +
+          '<i data-lucide="' + (isAm ? 'sun' : 'moon') + '" class="w-4 h-4 text-accent"></i>' +
+          '<span class="text-xs font-mono font-bold uppercase tracking-wider text-accent">' +
+            t(isAm ? 'programa.am' : 'programa.pm') +
+          '</span>' +
+        '</div>'
+      );
+    }
 
     for (e = 0; e < day.events.length; e++) {
-      var ev        = day.events[e];
-      var isBreak   = ev.type === 'BREAK';
+      var ev = day.events[e];
+      var isBreak = ev.type === 'RECESO' || ev.type === 'BREAK';
       var isCompletar = ev.title === 'COMPLETAR';
+      var parsed = parseTimeRange(ev.time);
+      var isAm = parsed ? parsed.startMin < 780 : true;
 
-      var timeBadgeClass = isBreak
-        ? 'font-mono text-xs text-text bg-tint/30 px-2 py-0.5 border border-tint/30 rounded max-w-fit'
-        : 'font-mono text-xs text-primary font-bold bg-primary/5 px-2 py-0.5 border border-primary/20 rounded max-w-fit';
+      if (inAm !== isAm) {
+        inAm = isAm;
+        openSection(isAm);
+        globalIdx = 0;
+      }
 
-      var typeClass = 'text-[10px] font-mono tracking-widest text-text uppercase';
+      var isAlt = globalIdx % 2 === 1;
+      var style = getRowStyle(ev);
 
-      var titleClass = isCompletar
-        ? 'text-text group-hover:text-primary transition-colors font-bold text-base md:text-lg tracking-tight flex items-center gap-3'
-        : 'text-text group-hover:text-primary transition-colors font-bold text-base md:text-lg tracking-tight';
+      var rowBg = isAlt ? 'bg-white/[0.04]' : 'bg-transparent';
+      var timeCls = 'text-white';
+      var durCls = 'font-mono text-[10px] text-white/40 mt-px';
+      var comingBg = 'bg-white/10 text-white/50';
 
-      var comingSoon = (window.T && window.T[window.LANG]) ? (window.LANG === 'es' ? '[Próximamente]' : '[Coming Soon]') : '[Próximamente]';
-      var titleText = isCompletar ? comingSoon : escapeHtml(ev.title);
+      if (isBreak) {
+        var breakBg = isAlt ? 'bg-white/[0.03]' : 'bg-transparent';
+        var breakTime = 'text-white/50';
+        var breakTitle = 'text-white/60';
+        var breakIcon = 'text-white/30';
+        parts.push(
+          '<div class="flex gap-4 sm:gap-5 px-5 sm:px-8 py-3 ' + breakBg + '">' +
+            '<div class="w-24 sm:w-28 shrink-0 pt-px">' +
+              '<span class="font-mono text-sm font-medium ' + breakTime + '">' + escapeHtml(ev.time) + '</span>' +
+            '</div>' +
+            '<div class="flex-1 flex items-center gap-2">' +
+              '<i data-lucide="' + style.icon + '" class="w-4 h-4 ' + breakIcon + '"></i>' +
+              '<span class="' + breakTitle + ' text-sm font-light">' + escapeHtml(ev.title) + '</span>' +
+            '</div>' +
+          '</div>'
+        );
+      } else {
+        var durHtml = (parsed && parsed.duration > 0 && !isNaN(parsed.duration))
+          ? '<div class="' + durCls + '">' + parsed.duration + ' min</div>'
+          : '';
+        var titleText = isCompletar ? comingSoonText : escapeHtml(ev.title);
+        var titleCls = isCompletar
+          ? 'text-white/50 font-bold text-base italic truncate'
+          : 'text-white font-bold text-base truncate';
+        var comingBadge = isCompletar
+          ? '<span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full shrink-0 ' + comingBg + '">' + comingSoonText + '</span>'
+          : '';
 
-      html +=
-        '<div class="relative space-y-1.5 group timeline-item pl-4">' +
-          '<div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">' +
-            '<span class="' + timeBadgeClass + '">' + escapeHtml(ev.time) + '</span>' +
-            '<span class="' + typeClass + '">' + escapeHtml(ev.type) + '</span>' +
-          '</div>' +
-          '<h4 class="' + titleClass + '">' + titleText + '</h4>' +
-        '</div>';
+        parts.push(
+          '<div class="flex gap-4 sm:gap-5 px-5 sm:px-8 py-4 ' + rowBg + '">' +
+            '<div class="w-24 sm:w-28 shrink-0">' +
+              '<div class="font-mono text-sm font-bold ' + timeCls + '">' + escapeHtml(ev.time) + '</div>' +
+              durHtml +
+            '</div>' +
+            '<div class="flex-1 min-w-0">' +
+              '<div class="flex items-start gap-2">' +
+                '<h4 class="' + titleCls + '">' + titleText + '</h4>' +
+                comingBadge +
+              '</div>' +
+              '<div class="flex items-center gap-1.5 mt-1">' +
+                '<span class="w-1.5 h-1.5 rounded-full ' + style.dot + '"></span>' +
+                '<span class="text-xs font-mono font-semibold tracking-wider ' + style.typeCls + '">' + escapeHtml(ev.type) + '</span>' +
+              '</div>' +
+            '</div>' +
+          '</div>'
+        );
+      }
+      globalIdx++;
     }
 
-    timelineContainer.innerHTML = html;
+    timelineContainer.innerHTML = parts.join('');
 
-    // Re-initialize Lucide icons in the newly injected HTML
-    if (window.lucide) {
-      lucide.createIcons();
-    }
+    if (window.lucide) lucide.createIcons();
   }
 
   // Tab click handlers
-  var t;
-  for (t = 0; t < tabButtons.length; t++) {
-    tabButtons[t].addEventListener('click', function () {
+  var ti;
+  for (ti = 0; ti < tabButtons.length; ti++) {
+    tabButtons[ti].addEventListener('click', function () {
       var dayIdx = parseInt(this.getAttribute('data-day'), 10);
 
       // Update active tab styling
@@ -304,6 +387,9 @@ document.addEventListener('DOMContentLoaded', () => {
       renderDayEvents(dayIdx);
     });
   }
+
+  // Render first day on load
+  renderDayEvents(0);
 
   // ══════════════════════════════════════════════════════════════
   // 6. GSAP Animations + ScrollTrigger (Tasks 3.2, 3.8)
