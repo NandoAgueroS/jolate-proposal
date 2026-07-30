@@ -152,6 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ══════════════════════════════════════════════════════════════
   var currentTestimonial = 0;
   var carouselFrame      = document.getElementById('testimonial-carousel');
+  var isTestimonialHidden = carouselFrame && carouselFrame.closest('.hidden');
 
   function getTestimonials() {
     return (window.T && window.T[window.LANG]) ? window.T[window.LANG].testimonials : [];
@@ -181,30 +182,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 200);
   }
 
-  var prevBtn = document.getElementById('prev-testimonial');
-  var nextBtn = document.getElementById('next-testimonial');
+  if (!isTestimonialHidden) {
+    var prevBtn = document.getElementById('prev-testimonial');
+    var nextBtn = document.getElementById('next-testimonial');
 
-  if (prevBtn) {
-    prevBtn.addEventListener('click', function () {
-      var testimonialsData = getTestimonials();
-      currentTestimonial =
-        (currentTestimonial - 1 + testimonialsData.length) % testimonialsData.length;
-      renderTestimonial(currentTestimonial);
-    });
-  }
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function () {
+        var testimonialsData = getTestimonials();
+        currentTestimonial =
+          (currentTestimonial - 1 + testimonialsData.length) % testimonialsData.length;
+        renderTestimonial(currentTestimonial);
+      });
+    }
 
-  if (nextBtn) {
-    nextBtn.addEventListener('click', function () {
-      var testimonialsData = getTestimonials();
-      currentTestimonial =
-        (currentTestimonial + 1) % testimonialsData.length;
-      renderTestimonial(currentTestimonial);
-    });
-  }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function () {
+        var testimonialsData = getTestimonials();
+        currentTestimonial =
+          (currentTestimonial + 1) % testimonialsData.length;
+        renderTestimonial(currentTestimonial);
+      });
+    }
 
-  // Render initial testimonial (replaces static HTML)
-  if (window.T && window.T[window.LANG] && window.T[window.LANG].testimonials.length > 0 && carouselFrame) {
-    renderTestimonial(0);
+    // Render initial testimonial (replaces static HTML)
+    if (window.T && window.T[window.LANG] && window.T[window.LANG].testimonials.length > 0 && carouselFrame) {
+      renderTestimonial(0);
+    }
   }
 
   // ══════════════════════════════════════════════════════════════
@@ -431,22 +434,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ── 6d. Progress bars — 0% → target on scroll ──────────────
-    var bars = gsap.utils.toArray('.progress-fill');
-    var bar;
-    for (bar = 0; bar < bars.length; bar++) {
-      (function (el) {
-        var targetWidth = el.style.width;
-        if (!targetWidth || targetWidth === '0%' || targetWidth === '0px') return;
+    var barsContainer = document.querySelector('.progress-fill');
+    var isProgressHidden = barsContainer && barsContainer.closest('.hidden');
+    if (!isProgressHidden) {
+      var bars = gsap.utils.toArray('.progress-fill');
+      var bar;
+      for (bar = 0; bar < bars.length; bar++) {
+        (function (el) {
+          var targetWidth = el.style.width;
+          if (!targetWidth || targetWidth === '0%' || targetWidth === '0px') return;
 
-        el.style.width = '0%';
+          el.style.width = '0%';
 
-        gsap.to(el, {
-          width: targetWidth,
-          duration: 1.5,
-          ease: 'power2.inOut',
-          scrollTrigger: { trigger: el, start: 'top 90%' }
-        });
-      })(bars[bar]);
+          gsap.to(el, {
+            width: targetWidth,
+            duration: 1.5,
+            ease: 'power2.inOut',
+            scrollTrigger: { trigger: el, start: 'top 90%' }
+          });
+        })(bars[bar]);
+      }
     }
 
     // ── 6e. Enviar section — fade-in on scroll ──────────────
