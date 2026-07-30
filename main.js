@@ -364,11 +364,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (enviarInfo && enviarCard) {
       gsap.fromTo(enviarInfo, { opacity: 0, x: -30 }, {
         opacity: 1, x: 0, duration: 0.8, ease: 'power2.out',
-        scrollTrigger: { trigger: '#enviar', start: 'top 75%' }
+        scrollTrigger: { trigger: '#inscripcion', start: 'top 75%' }
       });
       gsap.fromTo(enviarCard, { opacity: 0, x: 30 }, {
         opacity: 1, x: 0, duration: 0.8, delay: 0.15, ease: 'power2.out',
-        scrollTrigger: { trigger: '#enviar', start: 'top 75%' }
+        scrollTrigger: { trigger: '#inscripcion', start: 'top 75%' }
       });
     }
   }
