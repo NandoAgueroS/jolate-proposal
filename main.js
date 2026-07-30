@@ -396,9 +396,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!cfg || !cfg.comite) return;
 
     var dict = (window.T && window.T[window.LANG]) ? window.T[window.LANG] : {};
-    var comiteList = document.getElementById('comite-list');
-    if (!comiteList) return;
-
     var ordenLabel = dict['comite.orden_alfabetico'] || 'Orden alfabético';
 
     function sortByLastName(list) {
@@ -419,9 +416,12 @@ document.addEventListener('DOMContentLoaded', () => {
       return '<span class="font-bold">' + escapeHtml(m.lastName.toUpperCase()) + '</span><span class="font-normal">, ' + escapeHtml(firstName) + '</span>';
     }
 
-    function renderGroup(groupKey, labelKey) {
+    function renderGroup(groupKey, labelKey, containerId) {
+      var container = document.getElementById(containerId);
+      if (!container) return;
+
       var members = cfg.comite[groupKey];
-      if (!members || !members.length) return '';
+      if (!members || !members.length) return;
 
       var label = dict[labelKey] || labelKey;
       var sorted = sortByLastName(members);
@@ -439,20 +439,17 @@ document.addEventListener('DOMContentLoaded', () => {
         '</div>';
       }).join('');
 
-      return '<div class="space-y-3">' +
-        '<div class="flex items-baseline gap-3">' +
+      container.innerHTML =
+        '<div class="flex items-baseline gap-3 mb-3">' +
           '<h3 class="font-mono text-xs font-semibold uppercase tracking-wider text-primary">' + label + '</h3>' +
           '<span class="font-mono text-[10px] text-text/40 italic">— ' + ordenLabel + '</span>' +
         '</div>' +
-        '<div class="grid grid-cols-2 lg:grid-cols-3 gap-3">' + rows + '</div>' +
-      '</div>';
+        '<div class="space-y-3">' + rows + '</div>';
     }
 
-    var html = renderGroup('coorganizadores', 'comite.coorganizadores') +
-               renderGroup('academico', 'comite.academico') +
-               renderGroup('local', 'comite.local');
-
-    comiteList.innerHTML = html;
+    renderGroup('coorganizadores', 'comite.coorganizadores', 'comite-coorganizadores');
+    renderGroup('academico', 'comite.academico', 'comite-academico');
+    renderGroup('local', 'comite.local', 'comite-local');
   }
 
   // Initial render on page load
