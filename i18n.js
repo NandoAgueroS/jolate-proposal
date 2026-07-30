@@ -14,6 +14,37 @@ T.es = {
   'nav.info_local': 'Info Local',
   'nav.inscripcion': 'Inscripci\u00f3n',
   'nav.faq': 'Ayuda',
+  'nav.enviar': 'Enviar Trabajo',
+
+  'aria.open_menu': 'Abrir Menú',
+  'aria.previous': 'Anterior',
+  'aria.next': 'Siguiente',
+  'meta_title': 'JOLATE 2026 — XXV Jornadas Latinoamericanas de Teoría Económica',
+  'meta_description': 'XXV Jornadas Latinoamericanas de Teoría Económica (JOLATE 2026). San Luis, Argentina — 28, 29 y 30 de octubre de 2026.',
+
+  'acerca_de.badge': 'ACERCA DE JOLATE',
+  'acerca_de.title': 'XXV Jornadas Latinoamericanas',
+  'acerca_de.title_accent': 'de Teoría Económica',
+  'acerca_de.p1': 'Las <strong class="text-primary">Jornadas Latinoamericanas de Teoría Económica (JOLATE)</strong> son el foro académico más relevante de la región en el área de economía altamente formalizada. Desde su creación, han reunido a investigadores, docentes y estudiantes de posgrado de toda América Latina y el mundo para debatir los avances más recientes en teoría económica.',
+  'acerca_de.p2': 'En su <strong class="text-text">XXV edición</strong> —un hito que celebra un cuarto de siglo de producción científica ininterrumpida— las jornadas se realizarán en <strong class="text-text">San Luis, Argentina</strong>, coorganizadas por la <strong class="text-text">Universidad de La Punta (ULP)</strong> y la <strong class="text-text">Universidad Nacional de San Luis (UNSL)</strong>, con el apoyo del CONICET y del gobierno provincial.',
+  'acerca_de.tag_latam': 'Latinoamérica',
+  'acerca_de.tag_dates': '28–30 Oct 2026',
+  'acerca_de.tag_location': 'San Luis, Argentina',
+  'acerca_de.tag_speakers': '+30 ponentes',
+  'acerca_de.stat_editions': 'Ediciones',
+  'acerca_de.stat_editions_sub': 'Trayectoria ininterrumpida desde 1998',
+  'acerca_de.stat_countries': 'Países',
+  'acerca_de.stat_countries_sub': 'Participación de toda la región y el mundo',
+  'acerca_de.stat_areas': 'Áreas Temáticas',
+  'acerca_de.stat_areas_sub': 'De teoría de juegos a dinámica económica',
+  'acerca_de.stat_committee': 'Comité Científico',
+  'acerca_de.stat_committee_sub': 'Investigadores de 8 universidades',
+  'acerca_de.milestone1_title': 'Fundación',
+  'acerca_de.milestone1_text': 'Nacen como un espacio de encuentro para economistas teóricos latinoamericanos, con el objetivo de fomentar la investigación rigurosa en economía matemática y formal.',
+  'acerca_de.milestone2_title': 'Crecimiento',
+  'acerca_de.milestone2_text': 'Las jornadas se consolidan como el congreso de referencia en teoría económica de la región, con la participación ininterrumpida de las principales universidades latinoamericanas.',
+  'acerca_de.milestone3_title': 'XXV Aniversario',
+  'acerca_de.milestone3_text': 'La edición 2026 marca un cuarto de siglo de producción científica. San Luis recibe a la comunidad internacional para celebrar este hito con un programa de excelencia.',
 
   'hero.badge': 'JOLATE XXV \u00b7 EDICI\u00d3N ANIVERSARIO \u00b7 SAN LUIS 2026',
   'hero.subtitle': 'Jornadas Latinoamericanas de Teor\u00eda Econ\u00f3mica \u2014 San Luis, 28 al 30 de octubre de 2026.',
@@ -50,8 +81,6 @@ T.es = {
   'convocatoria.progress_04': 'Asignaci\u00f3n de fondos para alojamiento institucional',
   'convocatoria.metrics_updated': '*Actualizado en tiempo real.',
   'convocatoria.voice_title': 'Voz de la Comunidad',
-  'convocatoria.prev': 'Anterior',
-  'convocatoria.next': 'Siguiente',
 
   'programa.badge': 'CRONOGRAMA E ITINERARIO',
   'programa.title': 'Programa del Encuentro Cient\u00edfico',
@@ -77,8 +106,12 @@ T.es = {
   'comite.coorganizadores': 'Co-organizadores',
   'comite.academico': 'Comité Académico',
   'comite.local': 'Comité Local',
-  'comite.cientifico': 'Comité Científico',
-  'comite.orden_alfabetico': 'Orden alfabético',
+
+  'san_luis.badge': 'SAN LUIS, ARGENTINA',
+  'san_luis.title': 'CONOCÉ',
+  'san_luis.title_line2': 'SAN LUIS',
+  'san_luis.text': 'San Luis: naturaleza, tranquilidad y sierras únicas. Descubra un destino diseñado para su próximo descanso.',
+  'san_luis.cta': 'Conexión San Luis',
 
   'info_local.badge': 'INFORMACI\u00d3N LOCAL \u00b7 SEDES',
   'info_local.title': 'Informaci\u00f3n Local',
@@ -90,10 +123,6 @@ T.es = {
   'info_local.sede_imasl_text': 'Instituto de Matem\u00e1tica Aplicada San Luis, co-organizador e instituci\u00f3n anfitriona del evento.',
   'info_local.sede_imasl_dir': 'Ej\u00e9rcito de los Andes 950, San Luis',
   'info_local.map_title': 'Ubicaci\u00f3n en San Luis',
-  'info_local.turismo_title': 'Descubr\u00ed San Luis',
-  'info_local.turismo_text': 'San Luis ofrece una variada propuesta tur\u00edstica: desde las sierras y el Parque Nacional Sierra de las Quijadas hasta sus diques y la gastronom\u00eda regional.',
-  'info_local.turismo_link': 'Turismo San Luis',
-  'info_local.gob_link': 'Gobierno de San Luis',
 
   'faq.title': 'Preguntas Frecuentes',
   'faq.q1': '\u00bfCu\u00e1ndo y d\u00f3nde se realizan las JOLATE XXV?',
@@ -110,10 +139,18 @@ T.es = {
   'inscripcion.badge': 'INSCRIPCI\u00d3N \u00b7 ENV\u00cdO DE PONENCIAS',
   'inscripcion.title': 'Inscripci\u00f3n y Env\u00edo de Trabajos',
   'inscripcion.description': 'Complet\u00e1 el formulario para inscribir tu ponencia. El Comit\u00e9 Cient\u00edfico evaluar\u00e1 cada contribuci\u00f3n bajo revisi\u00f3n ciega por pares.',
+  'inscripcion.format_title': 'Formato Requerido',
+  'inscripcion.format_01': 'Formato <strong>PDF</strong> exclusivamente',
+  'inscripcion.format_02': 'Incluir t\u00edtulo, autores y afiliaci\u00f3n institucional',
+  'inscripcion.format_03': 'Respetar los lineamientos del eje tem\u00e1tico seleccionado',
+  'inscripcion.deadline_label': 'Env\u00edo hasta:',
+  'inscripcion.acceptance_label': 'Aceptaci\u00f3n:',
+  'enviar.placeholder_nombre': 'Ej. Dra. Mar\u00eda Gonz\u00e1lez',
+  'enviar.placeholder_institucion': 'Ej. UASLP, UNSL, ULP',
+  'enviar.placeholder_email': 'autor@universidad.edu',
+  'enviar.file_button': 'Elegir archivo (PDF)',
+  'enviar.file_selected': 'Archivo seleccionado',
 
-  'enviar.badge': 'M\u00f3dulo Oficial de Carga',
-  'enviar.title': 'Env\u00eda tu Ponencia o Resumen',
-  'enviar.description': 'Sube tu documento en PDF directamente a la plataforma para el comit\u00e9 revisor.',
   'enviar.nombre': 'Nombre Completo *',
   'enviar.institucion': 'Universidad / Instituci\u00f3n *',
   'enviar.email': 'Correo Electr\u00f3nico *',
@@ -201,6 +238,37 @@ T.en = {
   'nav.info_local': 'Local Info',
   'nav.inscripcion': 'Registration',
   'nav.faq': 'FAQ',
+  'nav.enviar': 'Submit Paper',
+
+  'aria.open_menu': 'Open Menu',
+  'aria.previous': 'Previous',
+  'aria.next': 'Next',
+  'meta_title': 'JOLATE 2026 — XXV Latin American Meeting on Economic Theory',
+  'meta_description': 'XXV Latin American Meeting on Economic Theory (JOLATE 2026). San Luis, Argentina — October 28, 29 and 30, 2026.',
+
+  'acerca_de.badge': 'ABOUT JOLATE',
+  'acerca_de.title': 'XXV Latin American Meetings',
+  'acerca_de.title_accent': 'on Economic Theory',
+  'acerca_de.p1': 'The <strong class="text-primary">Latin American Meetings on Economic Theory (JOLATE)</strong> are the region\u2019s most relevant academic forum in the area of highly formalized economics. Since its creation, it has brought together researchers, teachers, and graduate students from all over Latin America and the world to discuss the latest advances in economic theory.',
+  'acerca_de.p2': 'In its <strong class="text-text">XXV edition</strong> \u2014a milestone celebrating a quarter of a century of uninterrupted scientific production\u2014 the meetings will be held in <strong class="text-text">San Luis, Argentina</strong>, co-organized by the <strong class="text-text">Universidad de La Punta (ULP)</strong> and the <strong class="text-text">Universidad Nacional de San Luis (UNSL)</strong>, with the support of CONICET and the provincial government.',
+  'acerca_de.tag_latam': 'Latin America',
+  'acerca_de.tag_dates': 'Oct 28\u201330 2026',
+  'acerca_de.tag_location': 'San Luis, Argentina',
+  'acerca_de.tag_speakers': '+30 speakers',
+  'acerca_de.stat_editions': 'Editions',
+  'acerca_de.stat_editions_sub': 'Uninterrupted trajectory since 1998',
+  'acerca_de.stat_countries': 'Countries',
+  'acerca_de.stat_countries_sub': 'Participation from the region and the world',
+  'acerca_de.stat_areas': 'Thematic Areas',
+  'acerca_de.stat_areas_sub': 'From game theory to economic dynamics',
+  'acerca_de.stat_committee': 'Scientific Committee',
+  'acerca_de.stat_committee_sub': 'Researchers from 8 universities',
+  'acerca_de.milestone1_title': 'Foundation',
+  'acerca_de.milestone1_text': 'Born as a meeting space for Latin American theoretical economists, with the goal of fostering rigorous research in mathematical and formal economics.',
+  'acerca_de.milestone2_title': 'Growth',
+  'acerca_de.milestone2_text': 'The meetings became the reference conference in economic theory in the region, with the uninterrupted participation of the main Latin American universities.',
+  'acerca_de.milestone3_title': 'XXV Anniversary',
+  'acerca_de.milestone3_text': 'The 2026 edition marks a quarter of a century of scientific production. San Luis hosts the international community to celebrate this milestone with an excellent program.',
 
   'hero.badge': 'JOLATE XXV \u00b7 ANNIVERSARY EDITION \u00b7 SAN LUIS 2026',
   'hero.subtitle': 'Latin American Meeting on Economic Theory \u2014 San Luis, October 28\u201330, 2026.',
@@ -237,8 +305,6 @@ T.en = {
   'convocatoria.progress_04': 'Institutional accommodation funding',
   'convocatoria.metrics_updated': '*Updated in real time.',
   'convocatoria.voice_title': 'Community Voices',
-  'convocatoria.prev': 'Previous',
-  'convocatoria.next': 'Next',
 
   'programa.badge': 'SCHEDULE & ITINERARY',
   'programa.title': 'Scientific Program',
@@ -264,8 +330,12 @@ T.en = {
   'comite.coorganizadores': 'Co-organizers',
   'comite.academico': 'Academic Committee',
   'comite.local': 'Local Committee',
-  'comite.cientifico': 'Scientific Committee',
-  'comite.orden_alfabetico': 'Alphabetical order',
+
+  'san_luis.badge': 'SAN LUIS, ARGENTINA',
+  'san_luis.title': 'DISCOVER',
+  'san_luis.title_line2': 'SAN LUIS',
+  'san_luis.text': 'San Luis: nature, tranquility, and unique sierras. Discover a destination designed for your next getaway.',
+  'san_luis.cta': 'Conexión San Luis',
 
   'info_local.badge': 'LOCAL INFO \u00b7 VENUES',
   'info_local.title': 'Local Information',
@@ -277,10 +347,6 @@ T.en = {
   'info_local.sede_imasl_text': 'Instituto de Matem\u00e1tica Aplicada San Luis, co-organizer and host institution of the event.',
   'info_local.sede_imasl_dir': 'Ej\u00e9rcito de los Andes 950, San Luis',
   'info_local.map_title': 'Location in San Luis',
-  'info_local.turismo_title': 'Discover San Luis',
-  'info_local.turismo_text': 'San Luis offers a wide variety of tourist attractions: from the sierras and Sierra de las Quijadas National Park to its dams and regional cuisine.',
-  'info_local.turismo_link': 'San Luis Tourism',
-  'info_local.gob_link': 'San Luis Government',
 
   'faq.title': 'Frequently Asked Questions',
   'faq.q1': 'When and where will JOLATE XXV take place?',
@@ -297,10 +363,18 @@ T.en = {
   'inscripcion.badge': 'REGISTRATION \u00b7 PAPER SUBMISSION',
   'inscripcion.title': 'Registration & Paper Submission',
   'inscripcion.description': 'Complete the form to register your paper. The Scientific Committee will evaluate each contribution under blind peer review.',
+  'inscripcion.format_title': 'Required Format',
+  'inscripcion.format_01': '<strong>PDF</strong> format exclusively',
+  'inscripcion.format_02': 'Include title, authors, and institutional affiliation',
+  'inscripcion.format_03': 'Follow the guidelines of the selected thematic area',
+  'inscripcion.deadline_label': 'Submission deadline:',
+  'inscripcion.acceptance_label': 'Acceptance:',
+  'enviar.placeholder_nombre': 'e.g. Dr. Maria Gonzalez',
+  'enviar.placeholder_institucion': 'e.g. UASLP, UNSL, ULP',
+  'enviar.placeholder_email': 'author@university.edu',
+  'enviar.file_button': 'Choose file (PDF)',
+  'enviar.file_selected': 'Selected file',
 
-  'enviar.badge': 'Official Submission Module',
-  'enviar.title': 'Submit Your Paper or Abstract',
-  'enviar.description': 'Upload your PDF document directly to the platform for the review committee.',
   'enviar.nombre': 'Full Name *',
   'enviar.institucion': 'University / Institution *',
   'enviar.email': 'Email Address *',
@@ -396,6 +470,35 @@ function applyLang(lang) {
       el.textContent = dict[key];
     }
   });
+
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n-html');
+    if (dict[key] !== undefined) {
+      el.innerHTML = dict[key];
+    }
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n-placeholder');
+    if (dict[key] !== undefined) {
+      el.placeholder = dict[key];
+    }
+  });
+
+  document.querySelectorAll('[data-i18n-aria-label]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n-aria-label');
+    if (dict[key] !== undefined) {
+      el.setAttribute('aria-label', dict[key]);
+    }
+  });
+
+  if (dict.meta_title !== undefined) {
+    document.title = dict.meta_title;
+  }
+  var metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc && dict.meta_description !== undefined) {
+    metaDesc.setAttribute('content', dict.meta_description);
+  }
 
   if (typeof window.renderDynamicSections === 'function') {
     window.renderDynamicSections();

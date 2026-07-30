@@ -514,7 +514,7 @@ document.addEventListener('DOMContentLoaded', () => {
       var rows = sorted.map(function (m) {
         var isPlaceholder = m.name.indexOf('COMPLETAR') !== -1;
         var badgeHtml = isPlaceholder
-          ? '<span class="inline-block ml-2 text-[9px] font-mono font-bold text-white bg-primary/40 px-1.5 py-0.5 rounded-full align-middle">[Próximamente]</span>'
+          ? '<span class="inline-block ml-2 text-[9px] font-mono font-bold text-white bg-primary/40 px-1.5 py-0.5 rounded-full align-middle">' + t('expositores.coming') + '</span>'
           : '';
         var nameHtml = isPlaceholder ? escapeHtml(m.name) : formatName(m);
 
@@ -581,6 +581,12 @@ document.addEventListener('DOMContentLoaded', () => {
       input.classList.add('border-red-500');
       input.classList.remove('border-tint/60');
     }
+    var wrapperMap = { archivo: 'form-file-wrapper' };
+    var wrapper = document.getElementById(wrapperMap[fieldName]);
+    if (wrapper) {
+      wrapper.classList.add('border-red-500');
+      wrapper.classList.remove('border-tint/60');
+    }
   }
 
   function clearFieldError(fieldName) {
@@ -594,6 +600,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (input) {
       input.classList.remove('border-red-500');
       input.classList.add('border-tint/60');
+    }
+    var wrapperMap = { archivo: 'form-file-wrapper' };
+    var wrapper = document.getElementById(wrapperMap[fieldName]);
+    if (wrapper) {
+      wrapper.classList.remove('border-red-500');
+      wrapper.classList.add('border-tint/60');
     }
   }
 
@@ -610,11 +622,52 @@ document.addEventListener('DOMContentLoaded', () => {
       inputs[i].classList.remove('border-red-500');
       inputs[i].classList.add('border-tint/60');
     }
+    var fileWrapper = document.getElementById('form-file-wrapper');
+    if (fileWrapper) {
+      fileWrapper.classList.remove('border-red-500');
+      fileWrapper.classList.add('border-tint/60');
+    }
     if (generalError) {
       var errorText = generalError.querySelector('.error-text');
       if (errorText) errorText.textContent = '';
       generalError.classList.add('hidden');
     }
+  }
+
+  function updateFileInputState() {
+    var emptyText = document.getElementById('file-empty-text');
+    var fileNameDisplay = document.getElementById('file-name-display');
+    var check = document.getElementById('file-selected-check');
+    var file = fileInput && fileInput.files && fileInput.files[0];
+    if (file) {
+      if (emptyText) emptyText.classList.add('hidden');
+      if (fileNameDisplay) {
+        fileNameDisplay.textContent = file.name + ' (' + (file.size > 1048576 ? (file.size / 1048576).toFixed(1) + ' MB' : (file.size / 1024).toFixed(0) + ' KB') + ')';
+        fileNameDisplay.classList.remove('hidden');
+      }
+      if (check) check.classList.remove('hidden');
+    } else {
+      if (emptyText) emptyText.classList.remove('hidden');
+      if (fileNameDisplay) {
+        fileNameDisplay.textContent = '';
+        fileNameDisplay.classList.add('hidden');
+      }
+      if (check) check.classList.add('hidden');
+    }
+    if (window.lucide) lucide.createIcons();
+  }
+
+  function resetFileInputState() {
+    var emptyText = document.getElementById('file-empty-text');
+    var fileNameDisplay = document.getElementById('file-name-display');
+    var check = document.getElementById('file-selected-check');
+    if (emptyText) emptyText.classList.remove('hidden');
+    if (fileNameDisplay) {
+      fileNameDisplay.textContent = '';
+      fileNameDisplay.classList.add('hidden');
+    }
+    if (check) check.classList.add('hidden');
+    if (fileInput) fileInput.value = '';
   }
 
   function showGeneralError(message) {
@@ -633,8 +686,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fileInput.addEventListener('change', function () {
       var file = this.files[0];
       if (!file) {
-        var fndEmpty = document.getElementById('file-name-display');
-        if (fndEmpty) { fndEmpty.textContent = ''; fndEmpty.classList.add('hidden'); }
+        resetFileInputState();
         return;
       }
 
@@ -643,25 +695,17 @@ document.addEventListener('DOMContentLoaded', () => {
       var nameLC = file.name.toLowerCase();
       if (nameLC.indexOf('.pdf') !== nameLC.length - 4) {
         showFieldError('archivo', t('enviar.error_pdf'));
-        this.value = '';
-        var fnd1 = document.getElementById('file-name-display');
-        if (fnd1) { fnd1.textContent = ''; fnd1.classList.add('hidden'); }
+        resetFileInputState();
         return;
       }
 
       if (file.type && file.type !== 'application/pdf') {
         showFieldError('archivo', t('enviar.error_pdf_invalid'));
-        this.value = '';
-        var fnd2 = document.getElementById('file-name-display');
-        if (fnd2) { fnd2.textContent = ''; fnd2.classList.add('hidden'); }
+        resetFileInputState();
         return;
       }
 
-      var fileNameDisplay = document.getElementById('file-name-display');
-      if (fileNameDisplay) {
-        fileNameDisplay.textContent = file.name + ' (' + (file.size > 1048576 ? (file.size / 1048576).toFixed(1) + ' MB' : (file.size / 1024).toFixed(0) + ' KB') + ')';
-        fileNameDisplay.classList.remove('hidden');
-      }
+      updateFileInputState();
     });
   }
 
@@ -703,13 +747,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (resp.success) {
           paperForm.reset();
+          resetFileInputState();
           if (successMsg) successMsg.classList.remove('hidden');
           if (generalError) generalError.classList.add('hidden');
-          var fileNameDisplay = document.getElementById('file-name-display');
-          if (fileNameDisplay) {
-            fileNameDisplay.textContent = '';
-            fileNameDisplay.classList.add('hidden');
-          }
         } else {
           if (resp.field && resp.field !== '') {
             showFieldError(resp.field, resp.error);
