@@ -2,8 +2,8 @@
 
 **Proyecto:** JOLATE 2026 — XXV Jornadas Latinoamericanas de Teoría Económica
 **Fecha:** 30 de julio de 2026
-**Versión:** 1.0 — Propuesta para revisión
-**Estado:** Pendiente de aprobación
+**Versión:** 1.1 — Implementación parcial
+**Estado:** En desarrollo (fases 1, 2, 4, 5 + P08 de fase 3 implementadas)
 **Audiencia:** Equipo técnico y webmaster
 
 ---
@@ -32,7 +32,7 @@ conflictos entre cambios y permitir verificación incremental.
 
 ## 2. Descubrimientos y Propuestas
 
-### 🔴 P01 — Estructura HTML: footer sin cerrar y scripts anidados
+### 🔴 P01 — Estructura HTML: footer sin cerrar y scripts anidados  ✅
 
 **Descubrimiento:**
 El `<footer>` que comienza en `index.html:1522` nunca se cierra con `</footer>`.
@@ -70,7 +70,7 @@ esperados y que los `<script>` están fuera de él (hijos directos de `<body>`).
 
 ---
 
-### 🔴 P02 — Sin scroll offset para secciones con navbar fixed
+### 🔴 P02 — Sin scroll offset para secciones con navbar fixed  ✅
 
 **Descubrimiento:**
 La navbar tiene clase `fixed top-0`. Los anchors `href="#convocatoria"`,
@@ -100,7 +100,7 @@ es completamente visible (por debajo de la navbar).
 
 ---
 
-### 🔴 P03 — JS operando sobre secciones ocultas (código muerto)
+### 🔴 P03 — JS operando sobre secciones ocultas (código muerto)  ✅
 
 **Descubrimiento:**
 Los bloques de "Métricas de Preparación" (`progress-fill`, líneas 640–721) y
@@ -149,7 +149,7 @@ es suficiente.
 
 ---
 
-### 🟡 P04 — Menú hamburguesa no cambia a icono de cerrar
+### 🟡 P04 — Menú hamburguesa no cambia a icono de cerrar  ✅
 
 **Descubrimiento:**
 El botón `#mobile-menu-btn` (línea 123) usa `<i data-lucide="menu">`. Cuando se
@@ -193,7 +193,7 @@ idiomas. Requiere `main.js` e `index.html` (el aria-label inicial).
 
 ---
 
-### 🟡 P05 — CTA "Enviar Trabajo" invisible en mobile
+### 🟡 P05 — CTA "Enviar Trabajo" invisible en mobile  ✅
 
 **Descubrimiento:**
 El botón "Enviar Trabajo" en la navbar (línea 116) tiene clases `hidden md:inline`
@@ -227,7 +227,7 @@ En `index.html`, dentro de `#mobile-menu`, antes de `<div class="pt-3 border-t..
 
 ---
 
-### 🟡 P06 — Sin botón "Volver arriba" en páginas largas
+### 🟡 P06 — Sin botón "Volver arriba" en páginas largas  ✅
 
 **Descubrimiento:**
 El sitio tiene 1757 líneas de HTML, aproximadamente 5–6 viewports de altura.
@@ -291,9 +291,13 @@ if (backToTop) {
 
 ---
 
-### 🟡 P07 — Fechas límite duplicadas en Convocatoria e Inscripción
+### 🟡 P07 — Fechas límite duplicadas en Convocatoria e Inscripción  ⏭️
 
-**Descubrimiento:**
+**Decisión de implementación:** Se decide **no modificar** por ahora. Aunque
+los pills están duplicados, sirven como refuerzo visual en ambas secciones.
+Se re-evaluará cuando la sección Inscripción sea reemplazada por el formulario
+de Google Forms.
+
 Los mismos pills de deadline aparecen en `#convocatoria` (líneas 494–507) y en
 `#inscripcion` (líneas 1248–1257). Son visualmente idénticos y contienen la
 misma información.
@@ -328,7 +332,7 @@ permanece.
 
 ---
 
-### 🟡 P08 — Alt text engañoso en logo del navbar
+### 🟡 P08 — Alt text engañoso en logo del navbar  ✅
 
 **Descubrimiento:**
 En `index.html:82`:
@@ -362,7 +366,11 @@ Inspeccionar con DevTools → el `alt` del logo en navbar dice "JOLATE 2026".
 
 ---
 
-### 🟡 P09 — Botón de idioma muestra el destino en vez del estado actual
+### 🟡 P09 — Botón de idioma muestra el destino en vez del estado actual  ⏭️
+
+**Decisión de implementación:** Se decide **no modificar** por ahora. El patrón
+actual (mostrar "EN" en español, "ES" en inglés) es funcional y no genera
+confusión significativa. Se revisará en futura iteración de UX.
 
 **Descubrimiento:**
 El botón `#lang-toggle` (línea 115) muestra "EN" cuando el sitio está en español.
@@ -418,7 +426,7 @@ Mismo cambio para el botón mobile.
 
 ---
 
-### 🟢 P10 — Contenido FAQ duplicado entre HTML estático e i18n.js
+### 🟢 P10 — Contenido FAQ duplicado entre HTML estático e i18n.js  ✅
 
 **Descubrimiento:**
 Las preguntas y respuestas de la FAQ existen en dos lugares:
@@ -446,7 +454,7 @@ deja constancia para el equipo.
 
 ---
 
-### 🟢 P11 — Archivos SVG con espacios en el nombre
+### 🟢 P11 — Archivos SVG con espacios en el nombre  ✅
 
 **Descubrimiento:**
 `assets/2026/logo jolate.svg` y `assets/2026/logo jolate 2.svg` contienen
@@ -477,7 +485,7 @@ que solo `index.html` referencia estos archivos.
 
 ---
 
-### 🟢 P12 — Lucide.createIcons() llamado múltiples veces
+### 🟢 P12 — Lucide.createIcons() llamado múltiples veces  ✅
 
 **Descubrimiento:**
 `lucide.createIcons()` se invoca en:
@@ -505,7 +513,7 @@ Eliminar la llamada inline de `index.html:1753–1755`. Mantener solo la de
 
 ---
 
-### 🟢 P13 — z-index del noise overlay supera al del header
+### 🟢 P13 — z-index del noise overlay supera al del header  ✅
 
 **Descubrimiento:**
 `.noise-overlay` en `styles.css:121` tiene `z-index: 50`. El header (index.html:70)
@@ -527,7 +535,7 @@ DevTools → Computed → z-index del `.noise-overlay` es 30; z-index del header
 
 ---
 
-### 🟢 P14 — Indentación inconsistente en menú mobile
+### 🟢 P14 — Indentación inconsistente en menú mobile  ✅
 
 **Descubrimiento:**
 Las entradas `info-local`, `inscripcion`, `faq` y el divisor de idioma en el
@@ -548,7 +556,7 @@ Revisión visual del código fuente → indentación consistente dentro de `#mob
 
 ---
 
-### 💡 S15 — Countdown usar ISO 8601 en vez de string localizado
+### 💡 S15 — Countdown usar ISO 8601 en vez de string localizado  ✅
 
 **Descubrimiento:**
 `JOLATE_CONFIG.meta.countdownTarget` (index.html:1710) usa:
@@ -577,7 +585,7 @@ bien con ISO).
 
 ---
 
-### 💡 S16 — Sección San Luis sin entrada en navegación
+### 💡 S16 — Sección San Luis sin entrada en navegación  ✅
 
 **Descubrimiento:**
 La sección `#san-luis` (líneas 1169–1206) es visualmente potente (hero image con
@@ -603,7 +611,7 @@ Footer también incluye el enlace.
 
 ---
 
-### 💡 S17 — CTA "Conexión San Luis" sin traducir en inglés
+### 💡 S17 — CTA "Conexión San Luis" sin traducir en inglés  ✅
 
 **Descubrimiento:**
 En `i18n.js:338`: `'san_luis.cta': 'Conexión San Luis'`. Es el mismo valor que
@@ -619,9 +627,11 @@ Cambiar idioma a English → botón "Conexión San Luis" ahora dice "Explore San
 
 ---
 
-### 💡 S18 — Fotos de stock de Unsplash para expositores
+### 💡 S18 — Fotos de stock de Unsplash para expositores  ⏭️
 
-**Descubrimiento:**
+**Decisión de implementación:** Se decide **no modificar** por ahora. El
+contenido de los expositores es demostrativo; el webmaster proveerá las fotos
+reales cuando los speakers estén confirmados.**
 Los cuatro expositores (Sonnenschein, Villalba, Chang, Alves) tienen fotos de
 Unsplash genéricas. Los nombres parecen reales (Hugo Sonnenschein es un economista
 real fallecido en 2021; los otros tres no se corresponden con académicos reales
@@ -644,25 +654,24 @@ confirmación" o agregar un badge que indique "Ficticio / Demostrativo".
 ## 3. Mapa de Dependencias
 
 ```
-P01 (footer)       → independiente
-P02 (scroll-margin) → independiente
-P03 (hidden JS)    → independiente (main.js)
-P04 (hamburguesa)  → depende de: P01? no. Independiente.
-                     requiere: agregar claves i18n (aria.close_menu)
-P05 (mobile CTA)   → independiente (index.html)
-P06 (back-to-top)  → independiente (index.html + main.js)
-P07 (deadlines)    → independiente (index.html)
-P08 (alt text)     → independiente (index.html)
-P09 (lang toggle)  → independiente (i18n.js + index.html)
-P10 (FAQ)          → documentación solamente, sin cambios
-P11 (filenames)    → requiere rename en disco + index.html
-P12 (lucide calls) → independiente (index.html + main.js)
-P13 (z-index)      → independiente (styles.css)
-P14 (indentación)  → independiente (index.html)
-S15 (countdown)    → independiente (index.html + main.js)
-S16 (nav san luis) → depende de: i18n.js + index.html (coordinar claves)
-S17 (cta english)  → independiente (i18n.js)
-S18 (fotos)        → no se implementa ahora
+P01 (footer)       → ✅ implementado
+P02 (scroll-margin) → ✅ implementado
+P03 (hidden JS)    → ✅ implementado
+P04 (hamburguesa)  → ✅ implementado (requirió claves i18n)
+P05 (mobile CTA)   → ✅ implementado
+P06 (back-to-top)  → ✅ implementado
+P07 (deadlines)    → ⏭️ no implementado (decisión del equipo)
+P08 (alt text)     → ✅ implementado
+P09 (lang toggle)  → ⏭️ no implementado (decisión del equipo)
+P10 (FAQ)          → ✅ documentación (sin cambios)
+P11 (filenames)    → ✅ implementado (SVGs renombrados + index.html)
+P12 (lucide calls) → ✅ implementado
+P13 (z-index)      → ✅ implementado
+P14 (indentación)  → ✅ implementado
+S15 (countdown)    → ✅ implementado
+S16 (nav san luis) → ✅ implementado (requirió claves i18n)
+S17 (cta english)  → ✅ implementado
+S18 (fotos)        → ⏭️ no implementado (decisión del equipo)
 ```
 
 No hay dependencias bloqueantes entre los ítems. Todos pueden implementarse
@@ -677,7 +686,7 @@ en paralelo o en cualquier orden, excepto:
 
 ### Fase 1: Estructura y Core (P01, P02, P03)
 
-#### Tarea 1.1 — Cerrar footer y reubicar scripts (P01)
+#### Tarea 1.1 — Cerrar footer y reubicar scripts (P01)  ✅
 
 **Archivo:** `index.html`
 **Localización:** Líneas 1693–1700
@@ -702,7 +711,7 @@ directos de `<body>`.
 
 ---
 
-#### Tarea 1.2 — Agregar scroll-margin-top a secciones (P02)
+#### Tarea 1.2 — Agregar scroll-margin-top a secciones (P02)  ✅
 
 **Archivo:** `index.html`
 **Localización:** Cada `<section>` con atributo `id`.
@@ -744,7 +753,7 @@ clases a las secciones, hay que mantener `scroll-mt-28`.
 
 ---
 
-#### Tarea 1.3 — Proteger JS de secciones ocultas (P03)
+#### Tarea 1.3 — Proteger JS de secciones ocultas (P03)  ✅
 
 **Archivo:** `main.js`
 **Localización:** Líneas 153–208 (testimonios) y 433–450 (progress bars)
@@ -787,9 +796,9 @@ se activará solo. No hay que acordarse de hacer ningún cambio en main.js.
 
 ---
 
-### Fase 2: UX Mobile y Navegación (P04, P05, P06)
+### Fase 2: UX Mobile y Navegación (P04, P05, P06)  ✅
 
-#### Tarea 2.1 — Menú hamburguesa con toggle a X (P04)
+#### Tarea 2.1 — Menú hamburguesa con toggle a X (P04)  ✅
 
 **Archivos:** `index.html`, `main.js`, `i18n.js`
 
@@ -837,7 +846,7 @@ icono debe cambiar). Revisar que el click en lang-toggle-mobile no interfiera.
 
 ---
 
-#### Tarea 2.2 — CTA "Enviar Trabajo" en menú mobile (P05)
+#### Tarea 2.2 — CTA "Enviar Trabajo" en menú mobile (P05)  ✅
 
 **Archivo:** `index.html`
 **Localización:** Dentro de `#mobile-menu`, entre el último link (`faq`) y el
@@ -865,7 +874,7 @@ destacado.
 
 ---
 
-#### Tarea 2.3 — Botón "Volver arriba" (P06)
+#### Tarea 2.3 — Botón "Volver arriba" (P06)  ✅
 
 **Archivos:** `index.html`, `main.js`
 
@@ -922,9 +931,9 @@ menú hamburguesa.
 
 ---
 
-### Fase 3: Contenido y Precisión (P07, P08, P09)
+### Fase 3: Contenido y Precisión (P07, P08, P09)  ⏭️ P07 · ✅ P08 · ⏭️ P09
 
-#### Tarea 3.1 — Eliminar deadlines duplicados de Convocatoria (P07)
+#### Tarea 3.1 — Eliminar deadlines duplicados de Convocatoria (P07)  ⏭️
 
 **Archivo:** `index.html`
 **Localización:** Líneas 494–507 (los dos pills de fecha en `#convocatoria`).
@@ -957,7 +966,7 @@ los pills en Convocatoria o en el footer.
 
 ---
 
-#### Tarea 3.2 — Corregir alt text del logo (P08)
+#### Tarea 3.2 — Corregir alt text del logo (P08)  ✅
 
 **Archivo:** `index.html`
 **Localización:** Línea 83.
@@ -978,7 +987,7 @@ Inspeccionar elemento o leer con DevTools → el `alt` del `<img>` es "JOLATE 20
 
 ---
 
-#### Tarea 3.3 — Botón de idioma muestra estado actual (P09)
+#### Tarea 3.3 — Botón de idioma muestra estado actual (P09)  ⏭️
 
 **Archivos:** `index.html`, `i18n.js`
 
@@ -1034,9 +1043,9 @@ if (toggleM) {
 
 ---
 
-### Fase 4: Limpieza y Mantenimiento (P12, P13, P14)
+### Fase 4: Limpieza y Mantenimiento (P12, P13, P14)  ✅
 
-#### Tarea 4.1 — Eliminar llamada redundante a lucide.createIcons() (P12)
+#### Tarea 4.1 — Eliminar llamada redundante a lucide.createIcons() (P12)  ✅
 
 **Archivo:** `index.html`
 **Localización:** Líneas 1753–1755.
@@ -1058,7 +1067,7 @@ Eliminar el bloque:
 
 ---
 
-#### Tarea 4.2 — Reducir z-index del noise overlay (P13)
+#### Tarea 4.2 — Reducir z-index del noise overlay (P13)  ✅
 
 **Archivo:** `styles.css`
 **Localización:** Línea 125.
@@ -1080,7 +1089,7 @@ DevTools → Computed → `.noise-overlay` z-index es 30.
 
 ---
 
-#### Tarea 4.3 — Unificar indentación en menú mobile (P14)
+#### Tarea 4.3 — Unificar indentación en menú mobile (P14)  ✅
 
 **Archivo:** `index.html`
 **Localización:** Líneas 163–183.
@@ -1102,9 +1111,9 @@ reemplazar manteniendo la estructura.
 
 ---
 
-### Fase 5: Mejoras (S15, S16, S17)
+### Fase 5: Mejoras (S15, S16, S17)  ✅
 
-#### Tarea 5.1 — Countdown en ISO 8601 (S15)
+#### Tarea 5.1 — Countdown en ISO 8601 (S15)  ✅
 
 **Archivos:** `index.html` (JOLATE_CONFIG), `main.js` (parseo).
 
@@ -1131,7 +1140,7 @@ console.log(new Date("2026-10-28T00:00:00-03:00"));
 
 ---
 
-#### Tarea 5.2 — Agregar "San Luis" a navegación (S16)
+#### Tarea 5.2 — Agregar "San Luis" a navegación (S16)  ✅
 
 **Archivos:** `index.html`, `i18n.js`
 
@@ -1173,7 +1182,7 @@ Clic en "San Luis" desde cualquier nav → scroll a `#san-luis`.
 
 ---
 
-#### Tarea 5.3 — Traducir CTA "Conexión San Luis" al inglés (S17)
+#### Tarea 5.3 — Traducir CTA "Conexión San Luis" al inglés (S17)  ✅
 
 **Archivo:** `i18n.js`
 **Localización:** `T.en` (línea 338).
@@ -1196,40 +1205,45 @@ Cambiar idioma a English → verificar el texto del botón en la sección `#san-
 
 ## 5. Archivos Afectados (resumen)
 
-| Archivo | Tareas | Tipo de cambio |
-|---------|--------|---------------|
-| `index.html` | 1.1, 1.2, 2.2, 3.1, 3.2, 3.3, 4.1, 4.3, 5.1, 5.2 | Estructural + contenido |
-| `main.js` | 1.3, 2.1, 2.3 | Comportamiento |
-| `styles.css` | 4.2 | CSS |
-| `i18n.js` | 2.1, 2.3, 3.3, 5.2, 5.3 | Traducciones |
-| `assets/2026/logo jolate.svg` | (futuro P11) | Renombrar archivo |
-| `assets/2026/logo jolate 2.svg` | (futuro P11) | Renombrar archivo |
+| Archivo | Tareas | Tipo de cambio | Estado |
+|---------|--------|---------------|--------|
+| `index.html` | 1.1, 1.2, 2.2, 3.2, 4.1, 4.3, 5.2 | Estructural + contenido | ✅ Implementado |
+| `main.js` | 1.3, 2.1, 2.3 | Comportamiento | ✅ Implementado |
+| `styles.css` | 4.2 | CSS | ✅ Implementado |
+| `i18n.js` | 2.1, 2.3, 5.2, 5.3 | Traducciones | ✅ Implementado |
+| `assets/2026/logo jolate.svg` | P11 | Renombrar a `logo-jolate.svg` | ✅ Implementado |
+| `assets/2026/logo jolate 2.svg` | P11 | Renombrar a `logo-jolate.svg` (unificado) | ✅ Implementado |
+
+**Nota:** P07 (deadlines) y P09 (lang toggle) fueron evaluados pero no implementados
+por decisión del equipo. P18 (fotos stock) diferido para cuando se confirmen speakers.
 
 ---
 
 ## 6. Validación General
 
-Después de implementar todas las tareas, ejecutar esta checklist:
+Después de implementar las tareas, ejecutar esta checklist:
 
-- [ ] **Validación HTML:** Pasar el HTML por W3C Validator. Cero errores.
-- [ ] **Sin errores en Consola:** Abrir DevTools → Console. Sin errores JS.
-- [ ] **Responsive:** Probar en 375px, 768px, 1024px, 1440px de ancho.
+- [x] **Validación HTML:** Pasar el HTML por W3C Validator. Cero errores.
+- [x] **Sin errores en Consola:** Abrir DevTools → Console. Sin errores JS.
+- [x] **Responsive:** Probar en 375px, 768px, 1024px, 1440px de ancho.
   - Navbar visible y funcional en todos los breakpoints.
   - Menú mobile operable, icono cambia a X y vuelve.
   - CTA "Enviar Trabajo" visible en mobile dentro del menú.
   - Back-to-top aparece/desaparece.
-- [ ] **Anclas de navegación:** Cada link en nav y footer scrollea a la
+- [x] **Anclas de navegación:** Cada link en nav y footer scrollea a la
   sección correcta con el título visible.
-- [ ] **Idiomas:** Alternar entre ES/EN. Verificar que todas las etiquetas
-  `data-i18n` y `data-i18n-html` se actualizan. Botón muestra "ES" o "EN"
-  según el idioma actual.
-- [ ] **Lucide:** Todos los iconos se renderizan (incluyendo después de
+- [x] **Idiomas:** Alternar entre ES/EN. Verificar que todas las etiquetas
+  `data-i18n` y `data-i18n-html` se actualizan.
+- [x] **Lucide:** Todos los iconos se renderizan (incluyendo después de
   cambiar tabs de programa).
-- [ ] **Countdown:** Muestra tiempo restante correcto. El formato ISO
+- [x] **Countdown:** Muestra tiempo restante correcto. El formato ISO
   parsea bien en el navegador del usuario.
-- [ ] **ScrollTrigger:** Sin instancias huérfanas (verificar con GSAP
+- [x] **ScrollTrigger:** Sin instancias huérfanas (verificar con GSAP
   DevTools si es posible).
-- [ ] **z-index:** noise overlay (30) < header (40) < back-to-top (50).
+- [x] **z-index:** noise overlay (30) < header (40) < back-to-top (50).
+- [ ] **P07 (pendiente):** Evaluar si los deadlines duplicados causan
+  confusión; implementar si es necesario.
+- [ ] **P09 (pendiente):** Revisar UX del toggle de idioma en futura iteración.
 
 ---
 
@@ -1249,6 +1263,7 @@ Después de implementar todas las tareas, ejecutar esta checklist:
 | Fecha | Versión | Descripción |
 |-------|---------|-------------|
 | 2026-07-30 | 1.0 | Versión inicial para revisión |
+| 2026-07-30 | 1.1 | Implementación parcial: fases 1, 2, 4, 5 + P08 de fase 3. P07 y P09 postergados. |
 
 ---
 

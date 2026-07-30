@@ -14,6 +14,7 @@ T.es = {
   'nav.info_local': 'Info Local',
   'nav.inscripcion': 'Inscripci\u00f3n',
   'nav.faq': 'Ayuda',
+  'nav.san_luis': 'San Luis',
   'nav.enviar': 'Enviar Trabajo',
 
   'aria.open_menu': 'Abrir Menú',
@@ -177,6 +178,7 @@ T.es = {
   'footer.info_local': 'Info Local',
   'footer.inscripcion': 'Inscripci\u00f3n',
   'footer.faq': 'Preguntas Frecuentes',
+  'footer.san_luis': 'San Luis',
   'footer.support_title': 'Soporte Acad\u00e9mico',
   'footer.comite_revisor': 'Comit\u00e9 Revisor',
   'footer.faq_link': 'Preguntas Frecuentes',
@@ -240,6 +242,7 @@ T.en = {
   'nav.info_local': 'Local Info',
   'nav.inscripcion': 'Registration',
   'nav.faq': 'FAQ',
+  'nav.san_luis': 'San Luis',
   'nav.enviar': 'Submit Paper',
 
   'aria.open_menu': 'Open Menu',
@@ -339,7 +342,7 @@ T.en = {
   'san_luis.title': 'DISCOVER',
   'san_luis.title_line2': 'SAN LUIS',
   'san_luis.text': 'San Luis: nature, tranquility, and unique sierras. Discover a destination designed for your next getaway.',
-  'san_luis.cta': 'Conexión San Luis',
+  'san_luis.cta': 'Explore San Luis',
 
   'info_local.badge': 'LOCAL INFO \u00b7 VENUES',
   'info_local.title': 'Local Information',
@@ -403,6 +406,7 @@ T.en = {
   'footer.info_local': 'Local Info',
   'footer.inscripcion': 'Registration',
   'footer.faq': 'Frequently Asked Questions',
+  'footer.san_luis': 'San Luis',
   'footer.support_title': 'Academic Support',
   'footer.comite_revisor': 'Review Committee',
   'footer.faq_link': 'Frequently Asked Questions',
