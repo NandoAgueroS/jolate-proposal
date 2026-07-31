@@ -94,7 +94,7 @@ T.es = {
 
   'expositores.badge': 'CONFERENCISTAS DE HONOR',
   'expositores.coming': 'Pr\u00f3ximamente',
-  'expositores.title': 'Expositores Destacados',
+  'expositores.title': 'Sesiones Plenarias',
   'expositores.text': 'Conferencistas confirmados \u2014 la lista completa de plenarias se publicar\u00e1 pr\u00f3ximamente.',
   'expositores.area_01': 'Teor\u00eda del Equilibrio General Avanzado',
   'expositores.area_02': 'Mecanismos de Incentivos y Teor\u00eda de Juegos',
@@ -138,7 +138,7 @@ T.es = {
   'faq.a5': 'S\u00ed. Quienes quieran participar virtualmente pueden presentar en vivo durante el tiempo asignado, o bien subir una pl\u00e1tica grabada de duraci\u00f3n no mayor a 20 minutos y enviar el link de OneDrive, la cual ser\u00e1 transmitida en el momento correspondiente.',
 
   'inscripcion.badge': 'INSCRIPCI\u00d3N \u00b7 ENV\u00cdO DE PONENCIAS',
-  'inscripcion.title': 'Inscripci\u00f3n y Env\u00edo de Trabajos',
+  'inscripcion.title': 'Inscripci\u00f3n y Convocatoria',
   'inscripcion.description': 'Complet\u00e1 el formulario para inscribir tu ponencia. El Comit\u00e9 Cient\u00edfico evaluar\u00e1 cada contribuci\u00f3n bajo revisi\u00f3n ciega por pares.',
   'inscripcion.format_title': 'Formato Requerido',
   'inscripcion.format_01': 'Formato <strong>PDF</strong> exclusivamente',
@@ -319,7 +319,7 @@ T.en = {
 
   'expositores.badge': 'KEYNOTE SPEAKERS',
   'expositores.coming': 'Coming Soon',
-  'expositores.title': 'Featured Speakers',
+  'expositores.title': 'Main Speakers',
   'expositores.text': 'Confirmed speakers \u2014 the full list of plenary sessions will be published soon.',
   'expositores.area_01': 'Advanced General Equilibrium Theory',
   'expositores.area_02': 'Incentive Mechanisms and Game Theory',
@@ -363,7 +363,7 @@ T.en = {
   'faq.a5': 'Yes. Those who wish to participate virtually can present live during their assigned time, or upload a pre-recorded talk of no more than 20 minutes and send the OneDrive link, which will be streamed at the corresponding time.',
 
   'inscripcion.badge': 'REGISTRATION \u00b7 PAPER SUBMISSION',
-  'inscripcion.title': 'Registration & Paper Submission',
+  'inscripcion.title': 'Registration & Call for Papers',
   'inscripcion.description': 'Complete the form to register your paper. The Scientific Committee will evaluate each contribution under blind peer review.',
   'inscripcion.format_title': 'Required Format',
   'inscripcion.format_01': '<strong>PDF</strong> format exclusively',
