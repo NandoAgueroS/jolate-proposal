@@ -112,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $nombre = trim(isset($_POST['nombre']) ? $_POST['nombre'] : '');
 $institucion = trim(isset($_POST['institucion']) ? $_POST['institucion'] : '');
 $email = trim(isset($_POST['email']) ? $_POST['email'] : '');
+$dni = trim(isset($_POST['dni']) ? $_POST['dni'] : '');
 $eje = trim(isset($_POST['eje_tematico']) ? $_POST['eje_tematico'] : '');
 
 if ($nombre === '' || safeStrlen($nombre) < 3 || safeStrlen($nombre) > 150) {
@@ -120,6 +121,10 @@ if ($nombre === '' || safeStrlen($nombre) < 3 || safeStrlen($nombre) > 150) {
 
 if ($institucion === '' || safeStrlen($institucion) > 200) {
     jsonError('Universidad / Institución inválida.', 422, 'institucion');
+}
+
+if ($dni === '' || safeStrlen($dni) < 5 || safeStrlen($dni) > 20) {
+    jsonError('DNI o Pasaporte inválido.', 422, 'dni');
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -206,12 +211,14 @@ try {
     $mail->Subject = 'Nueva ponencia recibida: ' . $nombreSafe . ' (' . $eje . ')';
     $mail->Body = '<h2>Nueva ponencia / resumen recibido</h2>'
         . '<p><strong>Nombre:</strong> ' . htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8') . '</p>'
+        . '<p><strong>DNI / Pasaporte:</strong> ' . htmlspecialchars($dni, ENT_QUOTES, 'UTF-8') . '</p>'
         . '<p><strong>Institución:</strong> ' . htmlspecialchars($institucion, ENT_QUOTES, 'UTF-8') . '</p>'
         . '<p><strong>Correo:</strong> ' . htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . '</p>'
         . '<p><strong>Eje temático:</strong> ' . htmlspecialchars($eje, ENT_QUOTES, 'UTF-8') . '</p>'
         . '<p><strong>Archivo:</strong> <a href="' . htmlspecialchars($downloadUrl, ENT_QUOTES, 'UTF-8') . '">'
         . htmlspecialchars($downloadUrl, ENT_QUOTES, 'UTF-8') . '</a></p>';
     $mail->AltBody = 'Nombre: ' . $nombre . "\n"
+        . 'DNI / Pasaporte: ' . $dni . "\n"
         . 'Institución: ' . $institucion . "\n"
         . 'Correo: ' . $email . "\n"
         . 'Eje: ' . $eje . "\n"

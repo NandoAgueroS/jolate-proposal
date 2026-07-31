@@ -137,6 +137,9 @@ T.es = {
   'faq.q5': '\u00bfSe puede participar virtualmente?',
   'faq.a5': 'S\u00ed. Quienes quieran participar virtualmente pueden presentar en vivo durante el tiempo asignado, o bien subir una pl\u00e1tica grabada de duraci\u00f3n no mayor a 20 minutos y enviar el link de OneDrive, la cual ser\u00e1 transmitida en el momento correspondiente.',
 
+  'enviar.dni': 'DNI o Pasaporte *',
+  'enviar.placeholder_dni': 'Ej. 12345678',
+
   'inscripcion.badge': 'INSCRIPCI\u00d3N \u00b7 ENV\u00cdO DE PONENCIAS',
   'inscripcion.title': 'Inscripci\u00f3n y Convocatoria',
   'inscripcion.description': 'Complet\u00e1 el formulario para inscribir tu ponencia. El Comit\u00e9 Cient\u00edfico evaluar\u00e1 cada contribuci\u00f3n bajo revisi\u00f3n ciega por pares.',
@@ -361,6 +364,9 @@ T.en = {
   'faq.a4': 'Yes. Limited funds are available to cover accommodation and living expenses for speakers and participating students. Those requiring this support should request it by email at jolate2026@gmail.com.',
   'faq.q5': 'Can I participate virtually?',
   'faq.a5': 'Yes. Those who wish to participate virtually can present live during their assigned time, or upload a pre-recorded talk of no more than 20 minutes and send the OneDrive link, which will be streamed at the corresponding time.',
+
+  'enviar.dni': 'ID or Passport *',
+  'enviar.placeholder_dni': 'e.g. 12345678',
 
   'inscripcion.badge': 'REGISTRATION \u00b7 PAPER SUBMISSION',
   'inscripcion.title': 'Registration & Call for Papers',

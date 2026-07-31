@@ -1286,6 +1286,12 @@
                 </div>
 
                 <div>
+                  <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.dni">DNI o Pasaporte *</label>
+                  <input type="text" id="form-dni" name="dni" required placeholder="Ej. 12345678" data-i18n-placeholder="enviar.placeholder_dni" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 transition-all" />
+                  <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="dni" role="alert" aria-live="polite"></span>
+                </div>
+
+                <div>
                   <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.archivo">Archivo de Investigación (PDF) *</label>
                   <div id="form-file-wrapper" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text flex items-center justify-between gap-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/15 transition-all">
                     <label for="form-file" class="flex items-center gap-2 cursor-pointer">
