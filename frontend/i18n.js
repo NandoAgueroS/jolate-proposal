@@ -137,9 +137,6 @@ T.es = {
   'faq.q5': '\u00bfSe puede participar virtualmente?',
   'faq.a5': 'S\u00ed. Quienes quieran participar virtualmente pueden presentar en vivo durante el tiempo asignado, o bien subir una pl\u00e1tica grabada de duraci\u00f3n no mayor a 20 minutos y enviar el link de OneDrive, la cual ser\u00e1 transmitida en el momento correspondiente.',
 
-  'enviar.dni': 'DNI o Pasaporte *',
-  'enviar.placeholder_dni': 'Ej. 12345678',
-
   'inscripcion.badge': 'INSCRIPCI\u00d3N \u00b7 ENV\u00cdO DE PONENCIAS',
   'inscripcion.title': 'Inscripci\u00f3n y Convocatoria',
   'inscripcion.description': 'Complet\u00e1 el formulario para inscribir tu ponencia. El Comit\u00e9 Cient\u00edfico evaluar\u00e1 cada contribuci\u00f3n bajo revisi\u00f3n ciega por pares.',
@@ -152,12 +149,14 @@ T.es = {
   'enviar.placeholder_nombre': 'Ej. Dra. Mar\u00eda Gonz\u00e1lez',
   'enviar.placeholder_institucion': 'Ej. UASLP, UNSL, ULP',
   'enviar.placeholder_email': 'autor@universidad.edu',
+  'enviar.placeholder_dni': 'Ej. 12345678',
   'enviar.file_button': 'Elegir archivo (PDF)',
   'enviar.file_selected': 'Archivo seleccionado',
 
   'enviar.nombre': 'Nombre Completo *',
   'enviar.institucion': 'Universidad / Instituci\u00f3n *',
   'enviar.email': 'Correo Electr\u00f3nico *',
+  'enviar.dni': 'DNI o Pasaporte *',
   'enviar.eje': 'Eje Tem\u00e1tico *',
   'enviar.archivo': 'Archivo de Investigaci\u00f3n (PDF) *',
   'enviar.submit': 'Procesar Registro y Enviar',
@@ -365,9 +364,6 @@ T.en = {
   'faq.q5': 'Can I participate virtually?',
   'faq.a5': 'Yes. Those who wish to participate virtually can present live during their assigned time, or upload a pre-recorded talk of no more than 20 minutes and send the OneDrive link, which will be streamed at the corresponding time.',
 
-  'enviar.dni': 'ID or Passport *',
-  'enviar.placeholder_dni': 'e.g. 12345678',
-
   'inscripcion.badge': 'REGISTRATION \u00b7 PAPER SUBMISSION',
   'inscripcion.title': 'Registration & Call for Papers',
   'inscripcion.description': 'Complete the form to register your paper. The Scientific Committee will evaluate each contribution under blind peer review.',
@@ -380,12 +376,14 @@ T.en = {
   'enviar.placeholder_nombre': 'e.g. Dr. Maria Gonzalez',
   'enviar.placeholder_institucion': 'e.g. UASLP, UNSL, ULP',
   'enviar.placeholder_email': 'author@university.edu',
+  'enviar.placeholder_dni': 'e.g. 12345678',
   'enviar.file_button': 'Choose file (PDF)',
   'enviar.file_selected': 'Selected file',
 
   'enviar.nombre': 'Full Name *',
   'enviar.institucion': 'University / Institution *',
   'enviar.email': 'Email Address *',
+  'enviar.dni': 'ID or Passport *',
   'enviar.eje': 'Thematic Area *',
   'enviar.archivo': 'Research File (PDF) *',
   'enviar.submit': 'Submit Registration',
