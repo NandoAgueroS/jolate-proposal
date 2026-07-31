@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ) +
         '<div>' +
           '<div class="text-xs font-bold text-text whitespace-nowrap">' + escapeHtml(sp.name) + '</div>' +
-          '<div class="text-[10px] text-text/60 font-mono whitespace-nowrap">' + escapeHtml(sp.label) + '</div>' +
+          '<div class="text-[15px] text-text/60 font-mono whitespace-nowrap">' + escapeHtml(sp.label) + '</div>' +
         '</div>';
 
       marqueeContainer.appendChild(item);
@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
             '<img src="' + escapeAttr(t.avatar) + '" alt="' + escapeAttr(t.author) + '" class="w-10 h-10 rounded-full object-cover border border-primary/30">' +
             '<div>' +
               '<h5 class="text-xs font-bold text-text">' + escapeHtml(t.author) + '</h5>' +
-              '<span class="text-[10px] font-mono text-text">' + escapeHtml(t.institution) + '</span>' +
+              '<span class="text-[15px] font-mono text-text">' + escapeHtml(t.institution) + '</span>' +
             '</div>' +
           '</div>' +
         '</div>';
@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       var rowBg = isAlt ? 'bg-white/[0.04]' : 'bg-transparent';
       var timeCls = 'text-white';
-      var durCls = 'font-mono text-[10px] text-white/40 mt-px';
+      var durCls = 'font-mono text-[15px] text-white/40 mt-px';
       var comingBg = 'bg-white/10 text-white/50';
 
       if (isBreak) {
@@ -337,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
           ? 'text-white/50 font-bold text-base italic truncate'
           : 'text-white font-bold text-base truncate';
         var comingBadge = isCompletar
-          ? '<span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full shrink-0 ' + comingBg + '">' + comingSoonText + '</span>'
+          ? '<span class="text-[14px] font-mono font-bold px-1.5 py-0.5 rounded-full shrink-0 ' + comingBg + '">' + comingSoonText + '</span>'
           : '';
 
         parts.push(
@@ -514,13 +514,13 @@ document.addEventListener('DOMContentLoaded', () => {
       var rows = sorted.map(function (m) {
         var isPlaceholder = m.name.indexOf('COMPLETAR') !== -1;
         var badgeHtml = isPlaceholder
-          ? '<span class="inline-block ml-2 text-[9px] font-mono font-bold text-white bg-primary/40 px-1.5 py-0.5 rounded-full align-middle">' + t('expositores.coming') + '</span>'
+          ? '<span class="inline-block ml-2 text-[14px] font-mono font-bold text-white bg-primary/40 px-1.5 py-0.5 rounded-full align-middle">' + t('expositores.coming') + '</span>'
           : '';
         var nameHtml = isPlaceholder ? escapeHtml(m.name) : formatName(m);
 
         return '<div class="bg-white border border-tint/60 rounded-lg p-4 flex flex-col justify-center min-h-[80px] hover:border-primary/30 transition-colors duration-200">' +
           '<div class="text-sm leading-snug text-text">' + nameHtml + badgeHtml + '</div>' +
-          '<div class="font-mono text-[11px] text-text/60 mt-1 leading-tight">' + escapeHtml(m.institution) + '</div>' +
+          '<div class="font-mono text-[16px] text-text/60 mt-1 leading-tight">' + escapeHtml(m.institution) + '</div>' +
         '</div>';
       }).join('');
 
