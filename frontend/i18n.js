@@ -8,6 +8,7 @@ window.T = { es: {}, en: {} };
 
 T.es = {
   'nav.inicio': 'Inicio',
+  'nav.acerca_de': 'Acerca de JOLATE',
   'nav.convocatoria': 'Convocatoria',
   'nav.programa': 'Programa',
   'nav.comite': 'Comit\u00e9',
@@ -232,6 +233,7 @@ T.es = {
 
 T.en = {
   'nav.inicio': 'Home',
+  'nav.acerca_de': 'About JOLATE',
   'nav.convocatoria': 'Call for Papers',
   'nav.programa': 'Program',
   'nav.comite': 'Committee',
