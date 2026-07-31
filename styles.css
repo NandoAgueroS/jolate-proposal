@@ -222,3 +222,52 @@ body {
    - .d-none { display: none !important }
      Omitted: Tailwind provides `hidden` natively.
    ---------------------------------------------------------- */
+
+/* ----------------------------------------------------------
+   11. Language Toggle — Segmented ES/EN (pure CSS)
+   The real text node is rewritten by i18n.js (textContent),
+   so it is hidden and both segments are rendered via
+   ::before/::after. Active segment is highlighted using the
+   <html lang> attribute set by i18n.js (html:lang selector).
+   ---------------------------------------------------------- */
+.lang-toggle-segmented {
+  position: relative;
+  font-size: 0;
+  line-height: 0;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.lang-toggle-segmented::before,
+.lang-toggle-segmented::after {
+  font-size: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1.4;
+  opacity: 0.5;
+  font-weight: 400;
+  transition:
+    opacity 0.2s ease,
+    font-weight 0.2s ease;
+}
+
+.lang-toggle-segmented::before {
+  content: "ES";
+}
+
+.lang-toggle-segmented::after {
+  content: "EN";
+}
+
+#lang-toggle-mobile::before {
+  content: "Español";
+}
+
+#lang-toggle-mobile::after {
+  content: "English";
+}
+
+html:lang(es) .lang-toggle-segmented::before,
+html:lang(en) .lang-toggle-segmented::after {
+  opacity: 1;
+  font-weight: 700;
+}

@@ -112,7 +112,11 @@
 
         <!-- Nav CTA + Mobile button -->
         <div class="flex items-center gap-3">
-          <button id="lang-toggle" class="hidden md:inline text-xs font-mono text-white/80 hover:text-white border border-white/20 rounded-full px-2.5 py-1 transition-colors">EN</button>
+          <button
+            id="lang-toggle"
+            class="hidden md:inline-flex items-center gap-1 font-mono text-white/80 border border-white/20 rounded-full px-2 py-1 transition-colors lang-toggle-segmented"
+            aria-label="Cambiar idioma"
+          >EN</button>
           <button
             id="mobile-menu-btn"
             class="md:hidden text-white/80 hover:text-white p-1"
@@ -172,7 +176,11 @@
               >Ayuda</a
             >
             <div class="pt-3 border-t border-white/20">
-              <button id="lang-toggle-mobile" class="text-white/80 hover:text-white text-xs font-mono transition-colors">English</button>
+              <button
+                id="lang-toggle-mobile"
+                class="inline-flex items-center gap-1 text-xs font-mono text-white/80 transition-colors lang-toggle-segmented"
+                aria-label="Cambiar idioma"
+              >English</button>
             </div>
       </div>
     </header>
