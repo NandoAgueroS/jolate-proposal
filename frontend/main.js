@@ -569,13 +569,56 @@ document.addEventListener('DOMContentLoaded', () => {
   var successMsg    = document.getElementById('form-success-message');
   var generalError  = document.getElementById('form-general-error');
 
+  // ── Rol (Expositor / Asistente): sincroniza visibilidad, required y disabled ──
+  var roleRadios      = document.querySelectorAll('input[name="tipo_participacion"]');
+  var expositorFields = document.getElementById('expositor-fields');
+  var roleAnnounce    = document.getElementById('role-announce');
+
+  function syncRoleFields(announce) {
+    var isExpositor = true;
+    var i;
+    for (i = 0; i < roleRadios.length; i++) {
+      if (roleRadios[i].checked) {
+        isExpositor = (roleRadios[i].value === 'expositor');
+      }
+    }
+    var expositorInputs = ['form-title', 'form-topic', 'form-file'];
+    for (i = 0; i < expositorInputs.length; i++) {
+      var field = document.getElementById(expositorInputs[i]);
+      if (!field) continue;
+      field.disabled = !isExpositor;
+      field.required = isExpositor;
+    }
+    if (expositorFields) {
+      expositorFields.hidden = !isExpositor;
+    }
+    if (roleAnnounce && announce) {
+      roleAnnounce.textContent = isExpositor
+        ? t('enviar.anuncio_expositor')
+        : t('enviar.anuncio_asistente');
+    }
+    clearFieldError('titulo_ponencia');
+    clearFieldError('eje_tematico');
+    clearFieldError('archivo');
+  }
+
+  if (roleRadios.length) {
+    var r;
+    for (r = 0; r < roleRadios.length; r++) {
+      roleRadios[r].addEventListener('change', function () {
+        syncRoleFields(true);
+      });
+    }
+    syncRoleFields();
+  }
+
   function showFieldError(fieldName, message) {
     var span = document.querySelector('.field-error[data-field="' + fieldName + '"]');
     if (span) {
       span.textContent = message || t('enviar.error_send');
       span.classList.remove('hidden');
     }
-    var idMap = { nombre: 'author', institucion: 'institution', eje_tematico: 'topic', archivo: 'file' };
+    var idMap = { nombre: 'author', institucion: 'institution', eje_tematico: 'topic', titulo_ponencia: 'title', archivo: 'file' };
     var input = document.getElementById('form-' + (idMap[fieldName] || fieldName));
     if (input) {
       input.classList.add('border-red-500');
@@ -595,7 +638,7 @@ document.addEventListener('DOMContentLoaded', () => {
       span.textContent = '';
       span.classList.add('hidden');
     }
-    var idMap = { nombre: 'author', institucion: 'institution', eje_tematico: 'topic', archivo: 'file' };
+    var idMap = { nombre: 'author', institucion: 'institution', eje_tematico: 'topic', titulo_ponencia: 'title', archivo: 'file' };
     var input = document.getElementById('form-' + (idMap[fieldName] || fieldName));
     if (input) {
       input.classList.remove('border-red-500');
@@ -748,6 +791,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (resp.success) {
           paperForm.reset();
           resetFileInputState();
+          syncRoleFields();
           if (successMsg) successMsg.classList.remove('hidden');
           if (generalError) generalError.classList.add('hidden');
         } else {
