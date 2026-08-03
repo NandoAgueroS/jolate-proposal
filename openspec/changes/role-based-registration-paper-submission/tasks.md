@@ -41,10 +41,10 @@ Chain strategy: not applicable — keep slice commits on the tracker branch and 
 
 ## Phase 4: Verification (manual, no runner)
 
-- [ ] 4.1 `docker compose up`; all services start healthy; `SHOW`/`DESCRIBE`` both tables
-- [ ] 4.2 curl Expositor POST → 200, row in `inscriptos`, 2 emails in MailHog
-- [ ] 4.3 curl Asistente POST → 200, row, 2 emails; Asistente w/ papel fields → 422
-- [ ] 4.4 Unreachable `SMTP_HOST` + valid Expositor → 500, row + PDF kept; force DB failure after move → 500 + PDF cleanup
-- [ ] 4.5 Read-only frontend preflight: confirm form field names/resp. match contract (no source edit)
+- [x] 4.1 `docker compose up`; all services start healthy; `SHOW`/`DESCRIBE`` both tables
+- [x] 4.2 curl Expositor POST → 200, row in `inscriptos`, 2 emails in MailHog
+- [x] 4.3 curl Asistente POST → 200, row, 2 emails; Asistente w/ papel fields → 422
+- [x] 4.4 Unreachable `SMTP_HOST` + valid Expositor → 500, row + PDF kept; force DB failure after move → 500 + PDF cleanup (remediated: `date_default_timezone_set('UTC')` added to both PHP files)
+- [x] 4.5 Read-only frontend preflight: confirm form field names/resp. match contract (no source edit)
 
 Rollback: `git revert` affected files; `docker compose down -v`.

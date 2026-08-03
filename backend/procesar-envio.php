@@ -2,6 +2,10 @@
 // Backend processor for JOLATE 2026 role-based registration (Expositor / Asistente)
 // PHP 5.3 compatible — no strict_types, no ??, no random_bytes, no http_response_code
 
+// Initialize timezone BEFORE any date() call — without this, PHP emits warnings that
+// corrupt output headers (causing HTTP 200 instead of the intended 500 on error paths).
+date_default_timezone_set('UTC');
+
 header('Content-Type: application/json; charset=utf-8');
 
 // Load PHPMailer 5.2 via explicit require — composer is NOT available on the hosting

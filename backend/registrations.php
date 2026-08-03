@@ -9,6 +9,10 @@
  *   save_registration(array $data) — inserts a row into `inscriptos`; returns new id or false
  */
 
+// Initialize timezone BEFORE any date() call — prevents warnings that corrupt
+// HTTP response headers when this file is loaded without procesar-envio.php.
+date_default_timezone_set('UTC');
+
 /**
  * Create a PDO connection from the 'db' config block.
  *
