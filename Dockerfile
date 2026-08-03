@@ -1,5 +1,10 @@
 FROM reallyenglish/php:5.3-apache-0
 
+# Install pdo_mysql / php5-mysql extension for MariaDB connectivity
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends php5-mysql && \
+    rm -rf /var/lib/apt/lists/*
+
 # Fix missing PHP handler config
 RUN echo 'AddHandler php5-script .php' > /etc/apache2/conf-available/php5.conf && \
     echo 'AddType text/html .php' >> /etc/apache2/conf-available/php5.conf && \
