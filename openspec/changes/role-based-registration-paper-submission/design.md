@@ -46,7 +46,7 @@ Extend `backend/procesar-envio.php` with a `rol`-driven branch and a PHP 5.3 PDO
 | `backend/registrations.php` | Create | `get_pdo(array $config): PDO` (DSN from `DB_*`, `ERRMODE_EXCEPTION`); `save_registration(array $data)` prepared INSERT into `inscriptos`; returns `lastInsertId` or `false` on `PDOException`; logs to `error.log`. PHP 5.3 `array()`. `$data`: `id_tipo_inscripto (int)`, `nombre`, `institucion`, `email`, `dni`, plus three nullable paper fields. |
 | `backend/procesar-envio.php` | Modify | Read `rol`; 422 if not in `array('Expositor','Asistente')`; branch required fields; resolve FK via in-file map; require `registrations.php`; for Expositor store the PDF first, then call `save_registration` with its filename; on DB failure best-effort unlink and return 500; send two PHPMailer messages per `Dual Email Failure Semantics`. |
 | `backend/config.example.php` | Modify | Add `db` block (env `DB_HOST/DB_NAME/DB_USER/DB_PASS`) and `tipo_inscripto_ids` map. Keep existing keys. |
-| `.env` / `.env.example` | Modify | Default to MailHog; add `DB_HOST=db`, `DB_NAME=jolate`, `DB_USER/PASS=example/example`, `DB_ROOT_PASSWORD=example`. |
+| `.env` / `.env.example` | Modify | Default to MailHog; add `DB_HOST=db`, `DB_NAME=jolate`, and non-production example values (`DB_USER=example`, `DB_PASS=example`, `DB_ROOT_PASSWORD=example`) to the committed template. Local `.env` values remain untracked. |
 | `backend/.htaccess` / `frontend/**` | No change | `.htaccess` already blocks `config.php`; `registrations.php` is `require`d. Frontend is external prerequisite. |
 
 ## Testing Strategy

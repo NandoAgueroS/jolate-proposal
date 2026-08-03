@@ -4,16 +4,17 @@
 
 Estimated changed lines: ~400-480 (authored). No threat-matrix RED tests (rows N/A). No frontend edits (external prerequisite). Verification is manual/curl (`strict_tdd: false`, no runner).
 
-Decision needed before apply: Yes
-Chained PRs recommended: Yes
-Chain strategy: pending
+Decision needed before apply: No — maintainer accepted one final PR with a review-size exception
+Chained PRs recommended: Yes, but not selected
+Delivery strategy: exception-ok
+Chain strategy: not applicable — keep slice commits on the tracker branch and open one final PR to main
 400-line budget risk: High
 
 ### Suggested Work Units
 
 | Unit | Goal | Likely PR | Focused test command | Runtime harness | Rollback boundary |
 |------|------|-----------|----------------------|-----------------|-------------------|
-| 1 | MariaDB infra + schema + config | PR 1 | `docker compose up -d db && docker compose exec db mariadb -u example -p example jolate -e 'SHOW TABLES'` | `docker compose up`; MariaDB healthy; schema present | Revert docker-compose/Dockerfile/init.sql/.env/config; `docker compose down -v` |
+| 1 | MariaDB infra + schema + config | PR 1 | `docker compose up -d db && docker compose exec db mariadb -uexample -pexample jolate -e 'SHOW TABLES'` | `docker compose up`; MariaDB healthy; schema present | Revert docker-compose/Dockerfile/init.sql/.env/config; `docker compose down -v` |
 | 2 | PDO repository `registrations.php` | PR 2 (base=PR1) | `php -l backend/registrations.php` + `php -r` insert via PDO, assert id | Insert a row; `SELECT` it back | Delete `registrations.php` (not yet imported) |
 | 3 | Endpoint role branch, PDF order, dual email | PR 3 (base=PR2) | `curl -F rol=Expositor ...` full form → 200; curl role/422 cases; curl failure cases | MailHog UI `localhost:8025` shows 2 msgs; `SELECT` row with FK | Revert `procesar-envio.php` only |
 
@@ -23,12 +24,12 @@ Chain strategy: pending
 - [x] 1.2 `Dockerfile`: install `php5-mysql`/`pdo_mysql` on `reallyenglish/php:5.3-apache-0` before COPY
 - [x] 1.3 `docker/database/init.sql`: `CREATE DATABASE jolate utf8mb4; USE jolate;` create `\`tipo inscripto\`` (id PK, nombre UNIQUE), seed `(1,'Expositor'),(2,'Asistente')`; create `inscriptos` (id PK, `id_tipo_inscripto` FK, nombre, institucion, email, dni, nullable titulo_ponencia/eje_tematico/archivo_filename, `created_at` DEFAULT CURRENT_TIMESTAMP) InnoDB. No UNIQUE/status column
 - [x] 1.4 `backend/config.example.php`: add `db` block (`DB_HOST/DB_NAME/DB_USER/DB_PASS`) + `tipo_inscripto_ids` map; keep existing keys, PHP 5.3 `array()`
-- [x] 1.5 `.env`(+example): `DB_HOST=db`, `DB_NAME=jolate`, `DB_USER/DATABASE_PASS=example/example`, `DB_ROOT_PASSWORD=example`; default `SMTP_HOST=mailhog`/`1025`
+- [x] 1.5 `.env`(+example): `DB_HOST=db`, `DB_NAME=jolate`, committed example credentials set to `example`; default `SMTP_HOST=mailhog`/`1025`
 
 ## Phase 2: Persistence (backend/registrations.php)
 
-- [ ] 2.1 `backend/registrations.php`: `get_pdo(array $config): PDO` — DSN from `DB_*`, `ERRMODE_EXCEPTION`
-- [ ] 2.2 `save_registration(array $data): int|false` — prepared INSERT into `inscriptos` (`id_tipo_inscripto`, nombre, institucion, email, dni, nullable paper 3 cols); return `lastInsertId`, log PDO exception to `error.log` and return `false`; PHP 5.3 `array()`, backtick-quote `\`tipo inscripto\``
+- [x] 2.1 `backend/registrations.php`: `get_pdo(array $config): PDO` — DSN from `DB_*`, `ERRMODE_EXCEPTION`
+- [x] 2.2 `save_registration(array $data): int|false` — prepared INSERT into `inscriptos` (`id_tipo_inscripto`, nombre, institucion, email, dni, nullable paper 3 cols); return `lastInsertId`, log PDO exception to `error.log` and return `false`; PHP 5.3 `array()`, backtick-quote `\`tipo inscripto\``
 
 ## Phase 3: Processor Endpoint (procesar-envio.php)
 
