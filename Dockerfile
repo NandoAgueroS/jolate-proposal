@@ -25,5 +25,6 @@ COPY backend/.htaccess /var/www/html/
 COPY backend/config.php /var/www/html/
 
 # Copy frontend static files
-COPY frontend/index.html frontend/main.js frontend/config.js frontend/i18n.js frontend/styles.css /var/www/html/
+COPY frontend/index.html frontend/styles.css /var/www/html/
+COPY frontend/js/ /var/www/html/js/
 COPY frontend/assets/ /var/www/html/assets/
