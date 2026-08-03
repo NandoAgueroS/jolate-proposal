@@ -33,11 +33,11 @@ Chain strategy: not applicable — keep slice commits on the tracker branch and 
 
 ## Phase 3: Processor Endpoint (procesar-envio.php)
 
-- [ ] 3.1 Read `rol`; 422 if not `array('Expositor','Asistente')`; branch required fields (incl. Asistente rejects paper fields via 422; Expositor requires eje/titulo/archivo)
-- [ ] 3.2 Resolve `id_tipo_inscripto` via in-file map from config; keep nombre/institucion/email/dni validation
-- [ ] 3.3 Expositor only: `finfo` MIME `application/pdf` + 15MB, secure store in uploads, then call `save_registration` with `archivo_filename`; on DB failure best-effort `unlink` of saved PDF + 500; Asistente skips PDF
-- [ ] 3.4 Dual email (participant confirmation + each `SMTP_COMMITTEE_EMAILS`) via PHPMailer 5.2 conventions; Expositor email includes paper details, Asistente includes name/role only
-- [ ] 3.5 Either email failure: log + HTTP 500, keep record/PDF, no rollback/retry; success → 200 `{"success":true,"message":...}`
+- [x] 3.1 Read `rol`; 422 if not `array('Expositor','Asistente')`; branch required fields (incl. Asistente rejects paper fields via 422; Expositor requires eje/titulo/archivo)
+- [x] 3.2 Resolve `id_tipo_inscripto` via in-file map from config; keep nombre/institucion/email/dni validation
+- [x] 3.3 Expositor only: `finfo` MIME `application/pdf` + 15MB, secure store in uploads, then call `save_registration` with `archivo_filename`; on DB failure best-effort `unlink` of saved PDF + 500; Asistente skips PDF
+- [x] 3.4 Dual email (participant confirmation + each `SMTP_COMMITTEE_EMAILS`) via PHPMailer 5.2 conventions; Expositor email includes paper details, Asistente includes name/role only
+- [x] 3.5 Either email failure: log + HTTP 500, keep record/PDF, no rollback/retry; success → 200 `{"success":true,"message":...}`
 
 ## Phase 4: Verification (manual, no runner)
 
