@@ -7,27 +7,33 @@ Sitio web estático informativo del evento académico.
 
 ## Stack
 
-- **HTML**: Index.html semántico con datos en bloque `<script>` (`JOLATE_CONFIG`)
+- **HTML**: `index.html` semántico (monolítico por decisión, sin includes/SSI)
 - **CSS**: Tailwind CSS v3 via CDN + archivo `styles.css` con propiedades personalizadas
-- **JS**: Vanilla JavaScript (`main.js`) — sin bundler, sin framework
-- **CDN Dependencies**: Tailwind v3, GSAP 3.12.5 + ScrollTrigger, Lucide icons, Google Fonts (Inter, JetBrains Mono, Playfair Display)
+- **JS**: Vanilla JavaScript en ES6 modules (`js/main.js` + `js/core/*` + `js/features/*`) — sin bundler, sin framework, sin dependencias
+- **CDN Dependencies**: Tailwind v3, GSAP 3.12.5 + ScrollTrigger, Lucide 0.460.0, Google Fonts (Inter, JetBrains Mono, Playfair Display)
 - **Build**: None — 100% static, sin paso de build
 
 ## File Structure
 
 ```
 /
-├── index.html          ← HTML semántico + JOLATE_CONFIG + CDN imports
+├── index.html          ← HTML semántico + tailwind.config inline + CDN imports
 ├── styles.css          ← CSS custom properties en :root + clases personalizadas
-├── main.js             ← DOMContentLoaded handler: animaciones GSAP, countdown, Lucide
+├── js/
+│   ├── main.js         ← Entry point (type="module"): inicializa idioma y features
+│   ├── core/
+│   │   ├── config.js   ← APP_CONFIG + JOLATE_CONFIG (única fuente de verdad de datos)
+│   │   ├── i18n.js     ← Motor i18n: t(), applyLang(), onLangChange()
+│   │   └── utils.js    ← escapeHtml(), escapeAttr(), refreshIcons()
+│   ├── data/
+│   │   ├── es.js       ← Diccionario español (export const es)
+│   │   └── en.js       ← Diccionario inglés (export const en)
+│   └── features/
+│       ├── countdown.js, faq-accordion.js, testimonials.js,
+│       ├── mobile-menu.js, program-tabs.js, comite.js,
+│       ├── gsap-animations.js, language-toggle.js, form-handler.js
 ├── AGENTS.MD           ← Este archivo
-├── res/                ← Imágenes (logos ULP, UNSL, gov, education, fondos JPG)
-├── current-web.html    ← [ELIMINADO después de la migración] Original single-file
-└── openspec/
-    └── changes/nueva-version-web-jolate-2026/
-        ├── proposal.md
-        ├── specs/web-presentation/spec.md
-        └── design.md
+└── backend/            ← PHP (procesar-envio.php), fuera de este alcance
 ```
 
 ## Palette (CSS Custom Properties)
@@ -62,7 +68,7 @@ Hero → Convocatoria → Programa → Comité → FAQ → Contacto → Footer
 
 ## Content Rules
 
-- `JOLATE_CONFIG` en `<script>` inline en `index.html` es la única fuente de verdad.
+- `JOLATE_CONFIG` en `js/core/config.js` es la única fuente de verdad.
 - Todo el contenido textual viene de `info-del-evento.txt`.
 - Secciones con "COMPLETAR" → badge visible `[Próximamente]`.
 - Sin lorem ipsum en ningún lado.
@@ -82,5 +88,5 @@ Hero → Convocatoria → Programa → Comité → FAQ → Contacto → Footer
 - Tailwind: `https://cdn.tailwindcss.com` (v3, latest CDN)
 - GSAP: `https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js`
 - ScrollTrigger: `https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js`
-- Lucide: `https://unpkg.com/lucide@latest`
+- Lucide: `https://unpkg.com/lucide@0.460.0`
 - Google Fonts: Inter (400,600,700,800), JetBrains Mono (400,500,700), Playfair Display (italic 400,600,700)
