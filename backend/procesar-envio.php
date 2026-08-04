@@ -18,17 +18,13 @@ require __DIR__ . '/registrations.php';
 // Load runtime config — guard against missing file to avoid fatal + path exposure
 $configPath = __DIR__ . '/config.php';
 if (!file_exists($configPath)) {
-    header('HTTP/1.1 500 Internal Server Error');
-    echo json_encode(array('success' => false, 'error' => 'Configuration missing.'));
-    exit;
+    jsonError('Configuration missing.', 500, '', 'server_config');
 }
 $config = require $configPath;
 
 // Validate config structure — fail loudly and safely, never partially
 if (!is_array($config)) {
-    header('HTTP/1.1 500 Internal Server Error');
-    echo json_encode(array('success' => false, 'error' => 'Configuration invalid.'));
-    exit;
+    jsonError('Configuration invalid.', 500, '', 'server_config');
 }
 $requiredKeys = array(
     'smtp', 'upload_dir', 'committee_emails', 'ejes_tematicos_validos',
@@ -36,25 +32,17 @@ $requiredKeys = array(
 );
 foreach ($requiredKeys as $k) {
     if (!array_key_exists($k, $config)) {
-        header('HTTP/1.1 500 Internal Server Error');
-        echo json_encode(array('success' => false, 'error' => 'Configuration invalid.'));
-        exit;
+        jsonError('Configuration invalid.', 500, '', 'server_config');
     }
 }
 if (!is_array($config['committee_emails']) || count($config['committee_emails']) === 0) {
-    header('HTTP/1.1 500 Internal Server Error');
-    echo json_encode(array('success' => false, 'error' => 'Configuration invalid.'));
-    exit;
+    jsonError('Configuration invalid.', 500, '', 'server_config');
 }
 if (!is_array($config['tipo_inscripto_ids']) || count($config['tipo_inscripto_ids']) === 0) {
-    header('HTTP/1.1 500 Internal Server Error');
-    echo json_encode(array('success' => false, 'error' => 'Configuration invalid.'));
-    exit;
+    jsonError('Configuration invalid.', 500, '', 'server_config');
 }
 if (!is_writable(dirname($config['upload_dir'])) && !is_writable($config['upload_dir'])) {
-    header('HTTP/1.1 500 Internal Server Error');
-    echo json_encode(array('success' => false, 'error' => 'Upload directory not writable.'));
-    exit;
+    jsonError('Upload directory not writable.', 500, '', 'server_upload_dir');
 }
 
 // Ensure upload directory exists
@@ -84,12 +72,16 @@ function logError($mensaje) {
 
 /**
  * Return JSON error response and exit
+ * $code is a machine-readable key that the frontend maps to a localized message.
  */
-function jsonError($mensaje, $status, $field = '') {
+function jsonError($mensaje, $status, $field = '', $code = '') {
     header('HTTP/1.1 ' . $status);
     $respuesta = array('success' => false, 'error' => $mensaje);
     if ($field !== '') {
         $respuesta['field'] = $field;
+    }
+    if ($code !== '') {
+        $respuesta['code'] = $code;
     }
     echo json_encode($respuesta);
     exit;
@@ -123,13 +115,13 @@ if (!empty($_POST['website'])) {
 
 // ---------- Request method ----------
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    jsonError('Método no permitido.', 405);
+    jsonError('Método no permitido.', 405, '', 'method_not_allowed');
 }
 
 // ---------- Role validation ----------
 $rol = trim(isset($_POST['rol']) ? $_POST['rol'] : '');
 if (!in_array($rol, $rolesValidos)) {
-    jsonError('Rol inválido. Debe ser Expositor o Asistente.', 422, 'rol');
+    jsonError('Rol inválido. Debe ser Expositor o Asistente.', 422, 'rol', 'rol_invalid');
 }
 
 // ---------- Common field validation (all roles) ----------
@@ -139,19 +131,23 @@ $email       = trim(isset($_POST['email'])        ? $_POST['email']        : '')
 $dni         = trim(isset($_POST['dni'])          ? $_POST['dni']          : '');
 
 if ($nombre === '' || safeStrlen($nombre) < 3 || safeStrlen($nombre) > 150) {
-    jsonError('Nombre completo inválido.', 422, 'nombre');
+    jsonError('Nombre completo inválido.', 422, 'nombre', 'nombre_invalid');
 }
 
 if ($institucion === '' || safeStrlen($institucion) > 200) {
-    jsonError('Universidad / Institución inválida.', 422, 'institucion');
+    jsonError('Universidad / Institución inválida.', 422, 'institucion', 'institucion_invalid');
 }
 
 if ($dni === '' || safeStrlen($dni) < 5 || safeStrlen($dni) > 20) {
-    jsonError('DNI o Pasaporte inválido.', 422, 'dni');
+    jsonError('DNI o Pasaporte inválido.', 422, 'dni', 'dni_invalid');
+}
+
+if (!preg_match('/^[A-Za-z0-9]{5,20}$/', $dni)) {
+    jsonError('DNI o Pasaporte inválido.', 422, 'dni', 'dni_invalid');
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    jsonError('Correo electrónico inválido.', 422, 'email');
+    jsonError('Correo electrónico inválido.', 422, 'email', 'email_invalid');
 }
 
 // ---------- Role-specific field validation ----------
@@ -165,24 +161,35 @@ if ($rol === 'Expositor') {
     $eje    = trim(isset($_POST['eje_tematico'])     ? $_POST['eje_tematico']     : '');
 
     if ($titulo === '' || safeStrlen($titulo) > 300) {
-        jsonError('Título de ponencia inválido.', 422, 'titulo_ponencia');
+        jsonError('Título de ponencia inválido.', 422, 'titulo_ponencia', 'titulo_invalid');
     }
 
     if (!in_array($eje, $config['ejes_tematicos_validos'])) {
-        jsonError('Eje temático inválido.', 422, 'eje_tematico');
+        jsonError('Eje temático inválido.', 422, 'eje_tematico', 'eje_invalid');
     }
 
     // --- PDF validation (Expositor only) ---
     if (!isset($_FILES['archivo']) || $_FILES['archivo']['error'] === UPLOAD_ERR_NO_FILE) {
-        jsonError('Debes adjuntar el archivo PDF.', 422, 'archivo');
+        jsonError('Debes adjuntar el archivo PDF.', 422, 'archivo', 'pdf_missing');
     } elseif ($_FILES['archivo']['error'] !== UPLOAD_ERR_OK) {
-        jsonError('Error al subir el archivo (código ' . $_FILES['archivo']['error'] . ').', 422, 'archivo');
+        // Map PHP upload error codes to machine-readable codes the frontend translates.
+        $uploadError = $_FILES['archivo']['error'];
+        $uploadErrorCodes = array(
+            UPLOAD_ERR_INI_SIZE   => 'upload_ini',
+            UPLOAD_ERR_FORM_SIZE  => 'upload_form',
+            UPLOAD_ERR_PARTIAL    => 'upload_partial',
+            UPLOAD_ERR_NO_TMP_DIR => 'upload_tmp',
+            UPLOAD_ERR_CANT_WRITE => 'upload_tmp',
+            UPLOAD_ERR_EXTENSION  => 'upload_ext',
+        );
+        $uploadCode = isset($uploadErrorCodes[$uploadError]) ? $uploadErrorCodes[$uploadError] : 'upload_unknown';
+        jsonError('Error al subir el archivo (código ' . $uploadError . ').', 422, 'archivo', $uploadCode);
     } else {
         $archivo  = $_FILES['archivo'];
         $maxBytes = $config['max_file_size_mb'] * 1024 * 1024;
 
         if ($archivo['size'] > $maxBytes) {
-            jsonError('El archivo supera el tamaño máximo permitido (' . $config['max_file_size_mb'] . ' MB).', 422, 'archivo');
+            jsonError('El archivo supera el tamaño máximo permitido (' . $config['max_file_size_mb'] . ' MB).', 422, 'archivo', 'pdf_too_large');
         }
 
         // Verify real MIME type via finfo (do not trust browser-provided type)
@@ -190,7 +197,7 @@ if ($rol === 'Expositor') {
         $mimeReal = $finfo->file($archivo['tmp_name']);
 
         if ($mimeReal !== 'application/pdf') {
-            jsonError('El archivo debe ser un PDF válido.', 422, 'archivo');
+            jsonError('El archivo debe ser un PDF válido.', 422, 'archivo', 'pdf_invalid');
         }
     }
 } elseif ($rol === 'Asistente') {
@@ -200,14 +207,14 @@ if ($rol === 'Expositor') {
     $hasArchivo = (isset($_FILES['archivo']) && $_FILES['archivo']['error'] !== UPLOAD_ERR_NO_FILE);
 
     if ($hasTitulo !== '' || $hasEje !== '' || $hasArchivo) {
-        jsonError('El rol Asistente no admite campos de ponencia (titulo_ponencia, eje_tematico, archivo).', 422);
+        jsonError('El rol Asistente no admite campos de ponencia (titulo_ponencia, eje_tematico, archivo).', 422, '', 'asistente_fields');
     }
 }
 
 // ---------- Resolve id_tipo_inscripto from config map ----------
 if (!isset($config['tipo_inscripto_ids'][$rol])) {
     logError('tipo_inscripto_ids map missing role: ' . $rol);
-    jsonError('Error de configuración de rol.', 500);
+    jsonError('Error de configuración de rol.', 500, '', 'server_role_map');
 }
 $idTipoInscripto = (int) $config['tipo_inscripto_ids'][$rol];
 
@@ -217,7 +224,7 @@ if ($rol === 'Expositor') {
     $bytes = openssl_random_pseudo_bytes(16);
     if ($bytes === false) {
         logError('openssl_random_pseudo_bytes() failed — openssl extension may be missing.');
-        jsonError('No se pudo generar un nombre de archivo seguro.', 500);
+        jsonError('No se pudo generar un nombre de archivo seguro.', 500, '', 'server_file_name');
     }
     $nombreArchivo = bin2hex($bytes) . '.pdf';
     $rutaDestino   = rtrim($config['upload_dir'], '/') . '/' . $nombreArchivo;
@@ -225,7 +232,7 @@ if ($rol === 'Expositor') {
     if (!move_uploaded_file($archivo['tmp_name'], $rutaDestino)) {
         $nombreOriginalLog = preg_replace('/[\x00-\x1F\x7F\r\n]/', '', basename($archivo['name']));
         logError('No se pudo guardar el archivo: ' . $nombreOriginalLog);
-        jsonError('No se pudo guardar el archivo en el servidor.', 500);
+        jsonError('No se pudo guardar el archivo. Intentá nuevamente.', 500, '', 'server_move');
     }
 }
 
@@ -252,7 +259,7 @@ if ($idInscripto === false) {
         @unlink($rutaDestino);
     }
     logError('DB FAILED — save_registration returned false for ' . $rol . ' / ' . $email);
-    jsonError('No se pudo registrar la inscripción. Intentá más tarde.', 500);
+    jsonError('No se pudo registrar la inscripción. Intentá más tarde.', 500, '', 'server_db');
 }
 
 // ---------- Dual email notification ----------
@@ -315,7 +322,7 @@ try {
     logError('SMTP PARTICIPANT FAILED — record kept for manual review: ' . $e->getMessage()
         . ' | rol: ' . $rol . ' | email: ' . $email
         . ($nombreArchivo !== null ? ' | file: ' . $nombreArchivo : ''));
-    jsonError('La inscripción se registró pero no se pudo enviar el correo de confirmación. No reenvíes el formulario: contactá al comité para confirmar.', 500);
+    jsonError('La inscripción se registró pero no se pudo enviar el correo de confirmación. No reenvíes el formulario: contactá al comité para confirmar.', 500, '', 'server_smtp_participant');
 }
 
 // --- 2) Committee notification email (all SMTP_COMMITTEE_EMAILS recipients) ---
@@ -385,7 +392,7 @@ try {
     logError('SMTP COMMITTEE FAILED — record kept for manual review: ' . $e->getMessage()
         . ' | rol: ' . $rol . ' | email: ' . $email
         . ($nombreArchivo !== null ? ' | file: ' . $nombreArchivo : ''));
-    jsonError('La inscripción se registró pero no se pudo enviar la notificación al comité. No reenvíes el formulario: contactá al comité para confirmar.', 500);
+    jsonError('La inscripción se registró pero no se pudo enviar la notificación al comité. No reenvíes el formulario: contactá al comité para confirmar.', 500, '', 'server_smtp_committee');
 }
 
 // ---------- Success ----------
