@@ -64,6 +64,12 @@ body {
   overflow-x: hidden;
 }
 
+/* Ajusta el anclaje de scroll para que las secciones no queden tapadas
+   por el navbar fijo (~108px). 7.5rem deja un margen de aire adicional. */
+html {
+  scroll-padding-top: 7.5rem;
+}
+
 /* ----------------------------------------------------------
    4. Custom Scrollbar (Webkit)
    ---------------------------------------------------------- */
