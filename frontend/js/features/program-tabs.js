@@ -76,7 +76,7 @@ export function initProgramTabs() {
       const isAlt = globalIdx % 2 === 1;
       const style = getRowStyle(ev);
       const rowBg = isAlt ? 'bg-white/[0.04]' : 'bg-transparent';
-      const durCls = 'font-mono text-[15px] text-white/40 mt-px';
+      const durCls = 'font-mono text-xs text-white/40 mt-px';
 
       if (isBreak) {
         const breakBg = isAlt ? 'bg-white/[0.03]' : 'bg-transparent';

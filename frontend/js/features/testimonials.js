@@ -30,7 +30,7 @@ export function initTestimonials() {
             '<img src="' + escapeAttr(t.avatar) + '" alt="' + escapeAttr(t.author) + '" class="w-10 h-10 rounded-full object-cover border border-primary/30">' +
             '<div>' +
               '<h5 class="text-xs font-bold text-text">' + escapeHtml(t.author) + '</h5>' +
-              '<span class="text-[15px] font-mono text-text">' + escapeHtml(t.institution) + '</span>' +
+              '<span class="text-xs font-mono text-text">' + escapeHtml(t.institution) + '</span>' +
             '</div>' +
           '</div>' +
         '</div>';
