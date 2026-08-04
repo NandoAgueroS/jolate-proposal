@@ -15,7 +15,7 @@ export function initFormHandler() {
     fileInput: document.getElementById('form-file'),
     successMsg: document.getElementById('form-success-message'),
     generalError: document.getElementById('form-general-error'),
-    roleRadios: document.querySelectorAll('input[name="tipo_participacion"]'),
+    roleRadios: document.querySelectorAll('input[name="rol"]'),
     expositorFields: document.getElementById('expositor-fields'),
     roleAnnounce: document.getElementById('role-announce')
   });
@@ -110,7 +110,7 @@ function initPaperForm(opts) {
     let isExpositor = true;
     roleRadios.forEach((radio) => {
       if (radio.checked) {
-        isExpositor = (radio.value === 'expositor');
+        isExpositor = (radio.value === 'Expositor');
       }
     });
     expositorInputs.forEach((id) => {
