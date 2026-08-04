@@ -1,10 +1,48 @@
 // Formularios de inscripción — validación y envío AJAX (reutilizable).
 
 import { APP_CONFIG, JOLATE_CONFIG } from '../core/config.js';
-import { t } from '../core/i18n.js';
+import { t, onLangChange } from '../core/i18n.js';
 import { refreshIcons } from '../core/utils.js';
 
 const idMap = { nombre: 'author', institucion: 'institution', eje_tematico: 'topic', titulo_ponencia: 'title', archivo: 'file' };
+
+// Límite de tamaño de archivo — debe coincidir con max_file_size_mb del backend.
+const maxFileSizeMB = (JOLATE_CONFIG && JOLATE_CONFIG.maxFileSizeMB) || 15;
+const maxFileSizeBytes = maxFileSizeMB * 1024 * 1024;
+
+// Códigos de error devueltos por procesar-envio.php → clave i18n.
+const codeToKey = {
+  rol_invalid: 'enviar.error_rol',
+  nombre_invalid: 'enviar.error_nombre',
+  institucion_invalid: 'enviar.error_institucion',
+  dni_invalid: 'enviar.error_dni',
+  email_invalid: 'enviar.error_email',
+  titulo_invalid: 'enviar.error_titulo',
+  eje_invalid: 'enviar.error_eje',
+  pdf_missing: 'enviar.error_pdf_missing',
+  pdf_too_large: 'enviar.error_size',
+  pdf_invalid: 'enviar.error_pdf_invalid',
+  upload_ini: 'enviar.error_upload_ini',
+  upload_form: 'enviar.error_upload_form',
+  upload_partial: 'enviar.error_upload_partial',
+  upload_tmp: 'enviar.error_upload_tmp',
+  upload_ext: 'enviar.error_upload_ext',
+  upload_unknown: 'enviar.error_upload_unknown',
+  asistente_fields: 'enviar.error_asistente',
+  method_not_allowed: 'enviar.error_method',
+  server_smtp_participant: 'enviar.error_smtp_participant',
+  server_smtp_committee: 'enviar.error_smtp_committee'
+};
+
+function translateBackendError(resp) {
+  const key = resp && resp.code && codeToKey[resp.code];
+  if (!key) return (resp && resp.error) || '';
+  let msg = t(key);
+  if (msg.indexOf('{max}') !== -1) {
+    msg = msg.replace('{max}', String(maxFileSizeMB));
+  }
+  return msg;
+}
 
 export function initFormHandler() {
   // Formulario #inscripcion — con selector de rol (Expositor / Asistente)
@@ -51,6 +89,22 @@ function initPaperForm(opts) {
   const roleAnnounce    = opts.roleAnnounce || null;
   const expositorInputs = ['form-title', 'form-topic', 'form-file'];
 
+  // Label del botón de archivo con el límite de tamaño interpolado.
+  if (fileEmptyText) {
+    const setFileButtonLabel = () => {
+      fileEmptyText.textContent = t('enviar.file_button').replace('{max}', String(maxFileSizeMB));
+    };
+    setFileButtonLabel();
+    onLangChange(setFileButtonLabel);
+  }
+
+  function setFieldInvalid(fieldName, invalid) {
+    const input = paperForm.querySelector('#' + idPrefix + '-' + (idMap[fieldName] || fieldName));
+    if (!input) return;
+    if (invalid) input.setAttribute('aria-invalid', 'true');
+    else input.removeAttribute('aria-invalid');
+  }
+
   function showFieldError(fieldName, message) {
     const span = paperForm.querySelector('.field-error[data-field="' + fieldName + '"]');
     if (span) {
@@ -62,6 +116,7 @@ function initPaperForm(opts) {
       input.classList.add('border-red-500');
       input.classList.remove('border-tint/60');
     }
+    setFieldInvalid(fieldName, true);
     if (fieldName === 'archivo' && fileWrapper) {
       fileWrapper.classList.add('border-red-500');
       fileWrapper.classList.remove('border-tint/60');
@@ -79,6 +134,7 @@ function initPaperForm(opts) {
       input.classList.remove('border-red-500');
       input.classList.add('border-tint/60');
     }
+    setFieldInvalid(fieldName, false);
     if (fieldName === 'archivo' && fileWrapper) {
       fileWrapper.classList.remove('border-red-500');
       fileWrapper.classList.add('border-tint/60');
@@ -93,6 +149,7 @@ function initPaperForm(opts) {
     paperForm.querySelectorAll('input, select').forEach((input) => {
       input.classList.remove('border-red-500');
       input.classList.add('border-tint/60');
+      input.removeAttribute('aria-invalid');
     });
     if (fileWrapper) {
       fileWrapper.classList.remove('border-red-500');
@@ -182,7 +239,7 @@ function initPaperForm(opts) {
     paperForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
-  // Validación del PDF al seleccionar archivo.
+  // Validación del PDF al seleccionar archivo: extensión, MIME y tamaño.
   if (fileInput) {
     fileInput.addEventListener('change', () => {
       const file = fileInput.files[0];
@@ -206,6 +263,12 @@ function initPaperForm(opts) {
         return;
       }
 
+      if (file.size > maxFileSizeBytes) {
+        showFieldError('archivo', t('enviar.error_size').replace('{max}', String(maxFileSizeMB)));
+        resetFileInputState();
+        return;
+      }
+
       updateFileInputState();
     });
   }
@@ -218,12 +281,19 @@ function initPaperForm(opts) {
 
     const formData = new FormData(paperForm);
 
-    submitBtn.disabled = true;
-    submitBtn.innerHTML =
-      '<svg class="animate-spin w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">' +
-        '<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>' +
-        '<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>' +
-      '</svg><span>' + t('enviar.sending') + '</span>';
+    function setLoading(loading) {
+      if (!submitBtn) return;
+      submitBtn.disabled = loading;
+      submitBtn.innerHTML = loading
+        ? '<svg class="animate-spin w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">' +
+          '<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>' +
+          '<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>' +
+          '</svg><span>' + t('enviar.sending') + '</span>'
+        : '<i data-lucide="send" class="w-5 h-5"></i><span>' + t('enviar.submit') + '</span>';
+      if (!loading) refreshIcons();
+    }
+
+    setLoading(true);
 
     const backendUrl = (APP_CONFIG && APP_CONFIG.backendUrl)
       ? APP_CONFIG.backendUrl
@@ -233,19 +303,39 @@ function initPaperForm(opts) {
 
     const xhr = new XMLHttpRequest();
     xhr.open('POST', backendUrl, true);
+    xhr.timeout = 60000;
+
+    let abortedByTimeout = false;
+
+    xhr.ontimeout = () => {
+      abortedByTimeout = true;
+      setLoading(false);
+      showGeneralError(t('enviar.error_timeout'));
+    };
 
     xhr.onreadystatechange = () => {
-      if (xhr.readyState !== 4) return;
+      if (xhr.readyState !== 4 || abortedByTimeout) return;
 
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = '<i data-lucide="send" class="w-5 h-5"></i><span>' + t('enviar.submit') + '</span>';
-      refreshIcons();
+      setLoading(false);
+
+      if (xhr.status === 0) {
+        showGeneralError(t('enviar.error_connection'));
+        return;
+      }
 
       let resp;
       try {
         resp = JSON.parse(xhr.responseText);
       } catch (err) {
-        showGeneralError(t('enviar.error_unexpected'));
+        showGeneralError(xhr.status >= 500 ? t('enviar.error_server') : t('enviar.error_unexpected'));
+        return;
+      }
+
+      // 5xx: solo mostrar mensajes específicos cuando hay código conocido
+      // (p.ej. SMTP falló pero el registro se guardó); el resto es genérico.
+      if (xhr.status >= 500) {
+        const key = resp.code && codeToKey[resp.code];
+        showGeneralError(key ? t(key) : t('enviar.error_server'));
         return;
       }
 
@@ -256,16 +346,15 @@ function initPaperForm(opts) {
         if (successMsg) successMsg.classList.remove('hidden');
         if (generalError) generalError.classList.add('hidden');
       } else if (resp.field && resp.field !== '') {
-        showFieldError(resp.field, resp.error);
+        showFieldError(resp.field, translateBackendError(resp));
       } else {
-        showGeneralError(resp.error || t('enviar.error_send'));
+        showGeneralError(translateBackendError(resp) || t('enviar.error_send'));
       }
     };
 
     xhr.onerror = () => {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = '<i data-lucide="send" class="w-5 h-5"></i><span>' + t('enviar.submit') + '</span>';
-      refreshIcons();
+      if (abortedByTimeout) return;
+      setLoading(false);
       showGeneralError(t('enviar.error_connection'));
     };
 

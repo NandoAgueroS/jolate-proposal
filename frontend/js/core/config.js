@@ -12,6 +12,7 @@ export const JOLATE_CONFIG = {
     dates: '28, 29 y 30 de Octubre de 2026',
     countdownTarget: 'October 28, 2026 00:00:00'
   },
+  maxFileSizeMB: 15,
   comite: {
     coorganizadores: [
       { name: 'Luis Quintas', lastName: 'Quintas', institution: 'Universidad de La Punta (ULP), Argentina' },
