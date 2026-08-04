@@ -54,5 +54,21 @@ services:
       - "8025:8025"
       - "1025:1025"
 
+  # Web UI for MariaDB — dev convenience: http://localhost:8081
+  phpmyadmin:
+    image: phpmyadmin:5.2
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: ${DB_HOST}
+      PMA_PORT: "3306"
+      PMA_USER: ${DB_USER}
+      PMA_PASSWORD: ${DB_PASS}
+      UPLOAD_LIMIT: 64M
+    depends_on:
+      db:
+        condition: service_healthy
+
 volumes:
   mariadb_data:
