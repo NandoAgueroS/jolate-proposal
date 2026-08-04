@@ -58,7 +58,7 @@ export function initFormHandler() {
     roleAnnounce: document.getElementById('role-announce')
   });
 
-  // Formulario #inscripcion-expositores — solo expositores (rol fijo)
+  // Formulario de expositores — integrado en la sección #convocatoria (rol fijo)
   initPaperForm({
     form: document.getElementById('expositor-submit-form'),
     idPrefix: 'expo-form',
