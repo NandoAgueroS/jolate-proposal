@@ -66,9 +66,10 @@ body {
 
 /* Ajusta el anclaje de scroll para que las secciones no queden tapadas
    por el navbar fijo (~108px). 7.5rem deja un margen de aire adicional.
-   El scroll-snap (mandatory) hace que el scroll avance por sección. */
+   El scroll-snap (proximity) hace que el scroll avance por sección sin
+   forzar snap-back al soltar, dejando accesible el footer. */
 html {
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
   scroll-padding-top: 7.5rem;
 }
 
@@ -76,6 +77,12 @@ html {
    justo debajo del navbar (scroll-padding-top del contenedor). */
 body > section {
   scroll-snap-align: start;
+}
+
+/* La última sección (#faq) también acepta snap al final para que el
+   footer quede visible cuando el usuario llega al final del FAQ. */
+#faq {
+  scroll-snap-align: start end;
 }
 
 /* ----------------------------------------------------------
