@@ -1,21 +1,6 @@
-# Frontend Integration Contract Specification
+# Delta for Frontend Integration Contract
 
-## Purpose
-
-Documents the exact contract between the HTML form and `/backend/procesar-envio.php`. The frontend developer MUST follow these requirements for successful submissions.
-
-## Requirements
-
-### Requirement: Form Method and Encoding
-
-The form MUST use POST with multipart encoding and point to the correct endpoint.
-
-#### Scenario: Correct form setup
-- GIVEN the HTML form element
-- WHEN the user submits
-- THEN `method` MUST be `POST`
-- AND `enctype` MUST be `multipart/form-data`
-- AND `action` MUST point to `/backend/procesar-envio.php`
+## MODIFIED Requirements
 
 ### Requirement: Field Name Attributes
 
@@ -45,43 +30,7 @@ Each form input MUST use the specified `name` attribute. The backend reads `name
 - WHEN the form is submitted
 - THEN `titulo_ponencia`, `eje_tematico`, and `archivo` MUST NOT be present in the POST body
 
-### Requirement: Ejes Temáticos Values
-
-The `eje_tematico` field MUST offer exactly these seven values, matching the backend configuration.
-
-#### Scenario: All topics available
-- WHEN the user interacts with the dropdown
-- THEN the SELECT element MUST contain these options:
-
-1. `Teoría de Juegos`
-2. `Elección Social`
-3. `Crecimiento Económico`
-4. `Economía Pública`
-5. `Equilibrio General`
-6. `Dinámica Económica`
-7. `Áreas Temáticas Afines`
-
-### Requirement: JSON Response Handling
-
-The frontend MUST handle all three response types correctly.
-
-#### Scenario: 200 success
-- GIVEN HTTP 200 with `{"success": true, "message": "..."}`
-- WHEN received
-- THEN display the success message to the user
-- AND MAY clear the form for a new submission
-
-#### Scenario: 422 validation error
-- GIVEN HTTP 422 with `{"success": false, "error": "...", "field": "..."}`
-- WHEN received
-- THEN display the error message near the specified field
-- AND MUST NOT clear the form contents
-
-#### Scenario: 500 server error
-- GIVEN HTTP 500
-- WHEN received
-- THEN display a generic error message to the user
-- AND SHOULD log the error for debugging
+## ADDED Requirements
 
 ### Requirement: Role Field Contract
 

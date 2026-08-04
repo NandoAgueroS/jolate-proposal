@@ -1,10 +1,6 @@
-# Paper Submission Processor Specification
+# Delta for Paper Submission Processor
 
-## Purpose
-
-Handles conference paper submissions via POST to `/backend/procesar-envio.php`. Validates form fields and PDF, stores files securely, notifies organizers by email, and returns structured JSON responses.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Field Validation
 
@@ -91,16 +87,6 @@ The system MUST send two emails via PHPMailer: confirmation to the participant, 
 - GIVEN invalid SMTP settings
 - THEN log error and HTTP 500
 
-### Requirement: Error Logging
-
-The system MUST log all errors to `/backend/logs/error.log`.
-
-#### Scenario: Timestamped error entry
-- GIVEN any validation, file, or email error
-- WHEN logged
-- THEN the entry MUST include a timestamp and error details
-- AND be appended to `/backend/logs/error.log`
-
 ### Requirement: JSON Response
 
 The system MUST return structured JSON with correct HTTP status codes.
@@ -110,6 +96,8 @@ The system MUST return structured JSON with correct HTTP status codes.
 #### Scenario: Role mismatch — 422 `{"success": false, "error": "..."}`
 #### Scenario: Email failure after persist — 500; record kept for manual review
 #### Scenario: Server error (DB/file) — 500 `{"success": false, "error": "..."}`
+
+## ADDED Requirements
 
 ### Requirement: Dual Email Failure Semantics
 

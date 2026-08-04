@@ -1,5 +1,25 @@
 version: "2"
 services:
+  db:
+    image: mariadb:10.11
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASS}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./docker/database/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 20s
+
   php:
     build: .
     ports:
@@ -16,8 +36,15 @@ services:
       SMTP_FROM_EMAIL: ${SMTP_FROM_EMAIL}
       SMTP_FROM_NAME: ${SMTP_FROM_NAME}
       SMTP_COMMITTEE_EMAILS: ${SMTP_COMMITTEE_EMAILS}
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
     depends_on:
-      - mailhog
+      db:
+        condition: service_healthy
+      mailhog:
+        condition: service_started
 
   # Mail catcher for local dev — captures all outbound mail, no real SMTP needed.
   # Web UI: http://localhost:8025
@@ -26,3 +53,6 @@ services:
     ports:
       - "8025:8025"
       - "1025:1025"
+
+volumes:
+  mariadb_data:
