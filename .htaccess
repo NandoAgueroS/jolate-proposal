@@ -1,0 +1,21 @@
+# Make the repo work when dropped as-is into any Apache www folder.
+# The frontend SPA lives in frontend/, the PHP backend in backend/.
+
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Frontend forms reference the backend scripts by their frontend-relative
+    # name ("procesar-envio.php"). Map every variant to the real script in backend/.
+    RewriteRule ^procesar-envio\.php$        backend/procesar-envio.php [L]
+    RewriteRule ^frontend/procesar-envio\.php$ backend/procesar-envio.php [L]
+    RewriteRule ^registrations\.php$         backend/registrations.php [L]
+    RewriteRule ^frontend/registrations\.php$ backend/registrations.php [L]
+
+    # Everything not under backend/ or frontend/ is served from frontend/
+    # (site root and all its relative assets resolve to the SPA folder).
+    RewriteCond %{REQUEST_URI} !/backend/
+    RewriteCond %{REQUEST_URI} !/frontend/
+    RewriteRule ^(.*)$ frontend/$1 [L]
+</IfModule>

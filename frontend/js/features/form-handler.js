@@ -1,6 +1,6 @@
 // Formularios de inscripción — validación y envío AJAX (reutilizable).
 
-import { APP_CONFIG, JOLATE_CONFIG } from '../core/config.js';
+import { JOLATE_CONFIG } from '../core/config.js';
 import { t, onLangChange } from '../core/i18n.js';
 import { refreshIcons } from '../core/utils.js';
 
@@ -295,14 +295,8 @@ function initPaperForm(opts) {
 
     setLoading(true);
 
-    const backendUrl = (APP_CONFIG && APP_CONFIG.backendUrl)
-      ? APP_CONFIG.backendUrl
-      : (JOLATE_CONFIG && JOLATE_CONFIG.meta && JOLATE_CONFIG.meta.backendUrl)
-        ? JOLATE_CONFIG.meta.backendUrl
-        : paperForm.getAttribute('action');
-
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', backendUrl, true);
+    xhr.open('POST', paperForm.getAttribute('action'), true);
     xhr.timeout = 60000;
 
     let abortedByTimeout = false;
