@@ -184,11 +184,24 @@
     </header>
 
     <!-- HERO — #inicio -->
-    <section
-      id="inicio"
-      class="min-h-screen relative flex flex-col justify-center items-center px-4 pt-28 pb-16 bg-gradient-to-b from-tint/30 via-bg to-bg"
-    >
-      <div class="text-center max-w-5xl mx-auto space-y-6">
+    <section id="inicio" class="min-h-screen relative flex flex-col justify-center items-center px-4 pt-28 pb-16 overflow-hidden bg-[#043c41]">
+
+      <div class="absolute inset-0 z-0 pointer-events-none flex">
+          <div class="w-1/2 h-full relative overflow-hidden">
+            <img src="assets/IMASL-HERO.jpeg" alt="Universidad Nacional de San Luis" class="w-full h-full object-cover object-left">
+          </div>
+          <div class="w-1/2 h-full relative overflow-hidden">
+            <img src="assets/ULP-HERO.jpeg" alt="Universidad de La Punta" class="w-full h-full object-cover object-center">
+          </div>
+      </div>
+
+      <div class="absolute inset-0 z-0 pointer-events-none" style="
+          background: 
+              radial-gradient(circle at center, rgba(4, 60, 65, 0.2) 0%, rgba(4, 60, 65, 0.95) 100%),
+              linear-gradient(to right, rgba(4, 60, 65, 0.4) 0%, rgba(4, 60, 65, 0.98) 50%, rgba(4, 60, 65, 0.4) 100%);
+      "></div>
+
+      <div class="text-center max-w-5xl mx-auto space-y-6 relative z-10">
         <!-- Hero Image instead of text title -->
         <div class="flex justify-center hero-image-container">
           <img
@@ -200,10 +213,10 @@
 
         <!-- Context paragraph -->
         <p
-          class="text-base sm:text-lg md:text-xl text-text max-w-2xl mx-auto font-light leading-relaxed hero-subtitle"
+          class="text-base sm:text-lg md:text-xl text-white max-w-2xl mx-auto font-light leading-relaxed hero-subtitle"
           data-i18n="hero.subtitle"
         >
-          Jornadas Latinoamericanas de Teoría Económica — San Luis, 28 al 30 de
+          Misiones Latinoamericanas de Teoría Económica — San Luis, 28 al 30 de
           octubre de 2026.
         </p>
 
@@ -215,11 +228,11 @@
             <div class="text-center">
               <span
                 id="cd-days"
-                class="block font-mono text-sm sm:text-base font-semibold text-text"
+                class="block font-mono text-sm sm:text-base font-semibold text-white"
                 >00</span
               >
               <span
-                class="text-[14px] font-mono tracking-widest text-text uppercase mt-1 block"
+                class="text-[14px] font-mono tracking-widest text-white uppercase mt-1 block"
                 data-i18n="countdown.days"
                 >Días</span
               >
@@ -227,11 +240,11 @@
             <div class="text-center border-l border-tint/60">
               <span
                 id="cd-hours"
-                class="block font-mono text-sm sm:text-base font-semibold text-text"
+                class="block font-mono text-sm sm:text-base font-semibold text-white"
                 >00</span
               >
               <span
-                class="text-[14px] font-mono tracking-widest text-text uppercase mt-1 block"
+                class="text-[14px] font-mono tracking-widest text-white uppercase mt-1 block"
                 data-i18n="countdown.hours"
                 >Horas</span
               >
@@ -239,11 +252,11 @@
             <div class="text-center border-l border-tint/60">
               <span
                 id="cd-minutes"
-                class="block font-mono text-sm sm:text-base font-semibold text-text"
+                class="block font-mono text-sm sm:text-base font-semibold text-white"
                 >00</span
               >
               <span
-                class="text-[14px] font-mono tracking-widest text-text uppercase mt-1 block"
+                class="text-[14px] font-mono tracking-widest text-white uppercase mt-1 block"
                 data-i18n="countdown.minutes"
                 >Minutos</span
               >
@@ -251,11 +264,11 @@
             <div class="text-center border-l border-tint/60">
               <span
                 id="cd-seconds"
-                class="block font-mono text-sm sm:text-base font-semibold text-primary"
+                class="block font-mono text-sm sm:text-base font-semibold text-white"
                 >00</span
               >
               <span
-                class="text-[14px] font-mono tracking-widest text-text uppercase mt-1 block"
+                class="text-[14px] font-mono tracking-widest text-white uppercase mt-1 block"
                 data-i18n="countdown.seconds"
                 >Segundos</span
               >
@@ -266,7 +279,7 @@
         <!-- Muro de sponsors -->
         <div class="pt-6">
           <div
-            class="text-[16px] font-mono font-bold uppercase tracking-widest text-primary/60 mb-5"
+            class="text-[16px] font-mono font-bold uppercase tracking-widest text-white/80 mb-5"
             data-i18n="sponsors.title"
           >
             Instituciones Organizadoras y Patrocinadores Académicos
@@ -288,10 +301,10 @@
               <img src="assets/logos/matematica color.svg" alt="Departamento de Matemática" class="h-9 sm:h-12 w-auto object-contain" />
             </div>
             <div class="w-[calc(33.333%-0.667rem)] sm:flex-1 sm:w-auto bg-white border border-tint/60 rounded-2xl px-4 py-5 flex items-center justify-center shadow-sm">
-              <img src="assets/gob_icon.png" alt="Gobierno de San Luis" class="h-9 sm:h-12 w-auto object-contain" />
+              <img src="assets/logos/sanluis-azul.jpeg" alt="Gobierno de San Luis" class="h-9 sm:h-12 w-auto object-contain" />
             </div>
             <div class="w-[calc(33.333%-0.667rem)] sm:flex-1 sm:w-auto bg-white border border-tint/60 rounded-2xl px-4 py-5 flex items-center justify-center shadow-sm">
-              <img src="assets/education_icon.png" alt="Ministerio de Educación" class="h-9 sm:h-12 w-auto object-contain" />
+              <img src="assets/logos/educacion-azul.jpeg" alt="Ministerio de Educación" class="h-9 sm:h-12 w-auto object-contain" />
             </div>
           </div>
         </div>
@@ -1667,9 +1680,11 @@
         class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-white/10"
       >
         <div class="md:col-span-4 space-y-4">
-          <div class="font-display italic text-2xl font-bold text-white">
-            JOLATE 2026
-          </div>
+          <img
+            src="assets/2026/logo jolate 2.svg"
+            alt="JOLATE 2026"
+            class="h-10 w-auto"
+          />
           <p class="text-xs text-white/60 leading-relaxed font-light" data-i18n="footer.about">
             JOLATE es el foro de referencia continental para la discusión de
             modelos matemáticos avanzados y teoría abstracta, auspiciado y
@@ -1678,7 +1693,7 @@
           </p>
           <!-- Enviar Trabajo in footer -->
           <a
-            href="mailto:jolate2026@gmail.com?subject=Articulo%20para%20XXV%20JOLATE"
+            href="#convocatoria"
             class="inline-block mt-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2 rounded-full transition-all border border-white/20"
             data-i18n="footer.enviar"
           >
@@ -1761,7 +1776,7 @@
         class="max-w-6xl mx-auto pt-8 flex flex-wrap items-center justify-center gap-6 sm:gap-8"
       >
         <a
-          href="http://ulp.edu.ar"
+          href="https://ulp.edu.ar"
           target="_blank"
           rel="noopener noreferrer"
           class="hover:opacity-100 transition-opacity"
@@ -1773,7 +1788,7 @@
           />
         </a>
         <a
-          href="http://unsl.edu.ar"
+          href="https://www.unsl.edu.ar"
           target="_blank"
           rel="noopener noreferrer"
           class="hover:opacity-100 transition-opacity"
@@ -1814,7 +1829,7 @@
           />
         </a>
         <a
-          href="http://sanluis.gov.ar"
+          href="https://sanluis.gov.ar"
           target="_blank"
           rel="noopener noreferrer"
           class="hover:opacity-100 transition-opacity"
