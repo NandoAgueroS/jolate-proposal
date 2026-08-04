@@ -768,7 +768,135 @@
       </div>
     </section>
 
+    <!-- ============================================================
+         INSCRIPCIÓN EXPOSITORES — #inscripcion-expositores
+         ============================================================ -->
+    <section id="inscripcion-expositores" class="py-24 bg-bg border-t border-tint/40">
+      <div class="max-w-6xl mx-auto px-4 space-y-12">
+        <div class="text-center max-w-2xl mx-auto space-y-3">
+          <div
+            class="text-xs font-mono text-primary tracking-widest uppercase font-bold flex items-center justify-center gap-3"
+            data-i18n="expos_form.badge"
+          >
+            ENVÍO DE PONENCIAS · SOLO EXPOSITORES
+            <span
+              class="bg-primary/10 text-primary text-[15px] font-bold px-2 py-0.5 rounded-full border border-primary/20"
+              data-i18n="expos_form.notice_badge"
+              >Solo Expositores</span
+            >
+          </div>
+          <h2
+            class="text-3xl md:text-4xl font-bold tracking-tight text-text"
+            data-i18n="expos_form.title"
+          >
+            Inscripción de Expositores
+          </h2>
+          <p
+            class="text-text font-light text-sm md:text-base"
+            data-i18n="expos_form.description"
+          >
+            Formulario exclusivo para expositores: completá tus datos y enviá tu
+            ponencia en PDF para su evaluación por el Comité Científico. ¿Sos
+            asistente? Usá el formulario de Inscripción.
+          </p>
+        </div>
 
+        <!-- Card full-width con el formulario solo-expositor -->
+        <div class="bg-white border border-tint/60 rounded-premium-lg p-6 sm:p-8 shadow-md">
+          <form
+            id="expositor-submit-form"
+            class="space-y-5"
+            method="POST"
+            action="procesar-envio.php"
+            enctype="multipart/form-data"
+          >
+            <input type="hidden" name="rol" value="Expositor" />
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-mono font-medium text-text mb-1.5" for="expo-form-author" data-i18n="enviar.nombre">Nombre Completo *</label>
+                <input type="text" id="expo-form-author" name="nombre" required autocomplete="name" placeholder="Ej. Dra. María González" data-i18n-placeholder="enviar.placeholder_nombre" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 transition-all" />
+                <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="nombre" role="alert" aria-live="polite"></span>
+              </div>
+              <div>
+                <label class="block text-xs font-mono font-medium text-text mb-1.5" for="expo-form-institution" data-i18n="enviar.institucion">Universidad / Institución *</label>
+                <input type="text" id="expo-form-institution" name="institucion" required autocomplete="organization" placeholder="Ej. UASLP, UNSL, ULP" data-i18n-placeholder="enviar.placeholder_institucion" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 transition-all" />
+                <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="institucion" role="alert" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-mono font-medium text-text mb-1.5" for="expo-form-email" data-i18n="enviar.email">Correo Electrónico *</label>
+                <input type="email" id="expo-form-email" name="email" required autocomplete="email" placeholder="autor@universidad.edu" data-i18n-placeholder="enviar.placeholder_email" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 transition-all" />
+                <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="email" role="alert" aria-live="polite"></span>
+              </div>
+              <div>
+                <label class="block text-xs font-mono font-medium text-text mb-1.5" for="expo-form-dni" data-i18n="enviar.dni">DNI o Pasaporte *</label>
+                <input type="text" id="expo-form-dni" name="dni" required autocomplete="off" placeholder="Ej. 12345678" data-i18n-placeholder="enviar.placeholder_dni" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 transition-all" />
+                <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="dni" role="alert" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-mono font-medium text-text mb-1.5" for="expo-form-title" data-i18n="enviar.titulo_ponencia">Título de la Ponencia *</label>
+                <input type="text" id="expo-form-title" name="titulo_ponencia" required autocomplete="off" placeholder="Ej. Modelos de equilibrio general aplicados" data-i18n-placeholder="enviar.placeholder_titulo" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 transition-all" />
+                <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="titulo_ponencia" role="alert" aria-live="polite"></span>
+              </div>
+              <div>
+                <label class="block text-xs font-mono font-medium text-text mb-1.5" for="expo-form-topic" data-i18n="enviar.eje">Eje Temático *</label>
+                <select id="expo-form-topic" name="eje_tematico" required class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 transition-all appearance-none">
+                  <option value="Teoría de Juegos" data-i18n="convocatoria.topic_01">Teoría de Juegos</option>
+                  <option value="Elección Social" data-i18n="convocatoria.topic_02">Elección Social</option>
+                  <option value="Crecimiento Económico" data-i18n="convocatoria.topic_03">Crecimiento Económico</option>
+                  <option value="Economía Pública" data-i18n="convocatoria.topic_04">Economía Pública</option>
+                  <option value="Equilibrio General" data-i18n="convocatoria.topic_05">Equilibrio General</option>
+                  <option value="Dinámica Económica" data-i18n="convocatoria.topic_06">Dinámica Económica</option>
+                  <option value="Áreas Temáticas Afines" data-i18n="convocatoria.topic_07">Áreas Temáticas Afines</option>
+                </select>
+                <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="eje_tematico" role="alert" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono font-medium text-text mb-1.5" for="expo-form-file" data-i18n="enviar.archivo">Archivo de Investigación (PDF) *</label>
+              <div id="expo-form-file-wrapper" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text flex items-center justify-between gap-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/15 transition-all">
+                <label for="expo-form-file" class="flex items-center gap-2 cursor-pointer">
+                  <i data-lucide="upload" class="w-4 h-4 text-primary"></i>
+                  <span id="expo-file-empty-text" data-i18n="enviar.file_button">Elegir archivo (PDF)</span>
+                  <span id="expo-file-name-display" class="hidden text-xs text-primary font-mono"></span>
+                </label>
+                <input type="file" id="expo-form-file" name="archivo" accept=".pdf" required class="hidden" />
+                <span id="expo-file-selected-check" class="hidden text-primary">
+                  <i data-lucide="check" class="w-4 h-4"></i>
+                </span>
+              </div>
+              <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="archivo" role="alert" aria-live="polite"></span>
+            </div>
+
+            <div id="expo-form-general-error" class="hidden p-4 bg-red-50 border border-red-300 rounded-2xl text-red-600 text-xs text-center font-mono" role="alert" aria-live="assertive">
+              <i data-lucide="alert-circle" class="w-4 h-4 inline-block mr-1 -mt-0.5"></i>
+              <span class="error-text"></span>
+            </div>
+
+            <div style="position:absolute;left:-9999px" aria-hidden="true">
+              <input type="text" name="website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <button type="submit" id="expo-submit-btn" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3.5 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2.5">
+              <i data-lucide="send" class="w-5 h-5"></i>
+              <span data-i18n="enviar.submit">Procesar Registro y Enviar</span>
+            </button>
+          </form>
+
+          <div id="expo-form-success-message" class="hidden p-4 bg-accent/15 border border-accent/30 rounded-2xl text-accent text-xs text-center font-mono mt-4" data-i18n="enviar.exito">
+            <i data-lucide="check-circle" class="w-4 h-4 inline-block mr-1 -mt-0.5"></i>
+            ¡Ponencia cargada correctamente! El Comité Científico la revisará a la brevedad.
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- ============================================================
          PROGRAMA — #programa

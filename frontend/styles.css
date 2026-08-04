@@ -151,14 +151,16 @@ body {
 /* ----------------------------------------------------------
    9. Form Submit Button — Disabled State
    ---------------------------------------------------------- */
-#form-submit-btn:disabled {
+#form-submit-btn:disabled,
+#expo-submit-btn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
   transform: none !important;
   box-shadow: none;
 }
 
-#form-submit-btn:disabled:hover {
+#form-submit-btn:disabled:hover,
+#expo-submit-btn:disabled:hover {
   transform: none !important;
   box-shadow: none;
 }

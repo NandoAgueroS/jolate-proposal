@@ -561,199 +561,200 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ══════════════════════════════════════════════════════════════
-  // 10. Paper Submission Form — AJAX + validation
+  // 10. Paper Submission Forms — AJAX + validation (reusable)
   // ══════════════════════════════════════════════════════════════
-  var paperForm     = document.getElementById('paper-submit-form');
-  var submitBtn     = document.getElementById('form-submit-btn');
-  var fileInput     = document.getElementById('form-file');
-  var successMsg    = document.getElementById('form-success-message');
-  var generalError  = document.getElementById('form-general-error');
+  var idMap = { nombre: 'author', institucion: 'institution', eje_tematico: 'topic', titulo_ponencia: 'title', archivo: 'file' };
 
-  // ── Rol (Expositor / Asistente): sincroniza visibilidad, required y disabled ──
-  var roleRadios      = document.querySelectorAll('input[name="tipo_participacion"]');
-  var expositorFields = document.getElementById('expositor-fields');
-  var roleAnnounce    = document.getElementById('role-announce');
+  function initPaperForm(opts) {
+    var paperForm         = opts.form;
+    var idPrefix          = opts.idPrefix || 'form';
+    var submitBtn         = opts.submitBtn;
+    var fileInput         = opts.fileInput;
+    var successMsg        = opts.successMsg;
+    var generalError      = opts.generalError;
+    var fileWrapper       = opts.fileWrapper;
+    var fileEmptyText     = opts.fileEmptyText;
+    var fileNameDisplay   = opts.fileNameDisplay;
+    var fileSelectedCheck = opts.fileSelectedCheck;
 
-  function syncRoleFields(announce) {
-    var isExpositor = true;
-    var i;
-    for (i = 0; i < roleRadios.length; i++) {
-      if (roleRadios[i].checked) {
-        isExpositor = (roleRadios[i].value === 'expositor');
-      }
-    }
+    if (!paperForm) return;
+
+    // ── Rol (Expositor / Asistente): solo si el form tiene selector ──
+    var roleRadios      = opts.roleRadios || [];
+    var expositorFields = opts.expositorFields || null;
+    var roleAnnounce    = opts.roleAnnounce || null;
     var expositorInputs = ['form-title', 'form-topic', 'form-file'];
-    for (i = 0; i < expositorInputs.length; i++) {
-      var field = document.getElementById(expositorInputs[i]);
-      if (!field) continue;
-      field.disabled = !isExpositor;
-      field.required = isExpositor;
-    }
-    if (expositorFields) {
-      expositorFields.hidden = !isExpositor;
-    }
-    if (roleAnnounce && announce) {
-      roleAnnounce.textContent = isExpositor
-        ? t('enviar.anuncio_expositor')
-        : t('enviar.anuncio_asistente');
-    }
-    clearFieldError('titulo_ponencia');
-    clearFieldError('eje_tematico');
-    clearFieldError('archivo');
-  }
 
-  if (roleRadios.length) {
-    var r;
-    for (r = 0; r < roleRadios.length; r++) {
-      roleRadios[r].addEventListener('change', function () {
-        syncRoleFields(true);
-      });
-    }
-    syncRoleFields();
-  }
-
-  function showFieldError(fieldName, message) {
-    var span = document.querySelector('.field-error[data-field="' + fieldName + '"]');
-    if (span) {
-      span.textContent = message || t('enviar.error_send');
-      span.classList.remove('hidden');
-    }
-    var idMap = { nombre: 'author', institucion: 'institution', eje_tematico: 'topic', titulo_ponencia: 'title', archivo: 'file' };
-    var input = document.getElementById('form-' + (idMap[fieldName] || fieldName));
-    if (input) {
-      input.classList.add('border-red-500');
-      input.classList.remove('border-tint/60');
-    }
-    var wrapperMap = { archivo: 'form-file-wrapper' };
-    var wrapper = document.getElementById(wrapperMap[fieldName]);
-    if (wrapper) {
-      wrapper.classList.add('border-red-500');
-      wrapper.classList.remove('border-tint/60');
-    }
-  }
-
-  function clearFieldError(fieldName) {
-    var span = document.querySelector('.field-error[data-field="' + fieldName + '"]');
-    if (span) {
-      span.textContent = '';
-      span.classList.add('hidden');
-    }
-    var idMap = { nombre: 'author', institucion: 'institution', eje_tematico: 'topic', titulo_ponencia: 'title', archivo: 'file' };
-    var input = document.getElementById('form-' + (idMap[fieldName] || fieldName));
-    if (input) {
-      input.classList.remove('border-red-500');
-      input.classList.add('border-tint/60');
-    }
-    var wrapperMap = { archivo: 'form-file-wrapper' };
-    var wrapper = document.getElementById(wrapperMap[fieldName]);
-    if (wrapper) {
-      wrapper.classList.remove('border-red-500');
-      wrapper.classList.add('border-tint/60');
-    }
-  }
-
-  function clearAllErrors() {
-    var spans = document.querySelectorAll('.field-error');
-    var s;
-    for (s = 0; s < spans.length; s++) {
-      spans[s].textContent = '';
-      spans[s].classList.add('hidden');
-    }
-    var inputs = paperForm.querySelectorAll('input, select');
-    var i;
-    for (i = 0; i < inputs.length; i++) {
-      inputs[i].classList.remove('border-red-500');
-      inputs[i].classList.add('border-tint/60');
-    }
-    var fileWrapper = document.getElementById('form-file-wrapper');
-    if (fileWrapper) {
-      fileWrapper.classList.remove('border-red-500');
-      fileWrapper.classList.add('border-tint/60');
-    }
-    if (generalError) {
-      var errorText = generalError.querySelector('.error-text');
-      if (errorText) errorText.textContent = '';
-      generalError.classList.add('hidden');
-    }
-  }
-
-  function updateFileInputState() {
-    var emptyText = document.getElementById('file-empty-text');
-    var fileNameDisplay = document.getElementById('file-name-display');
-    var check = document.getElementById('file-selected-check');
-    var file = fileInput && fileInput.files && fileInput.files[0];
-    if (file) {
-      if (emptyText) emptyText.classList.add('hidden');
-      if (fileNameDisplay) {
-        fileNameDisplay.textContent = file.name + ' (' + (file.size > 1048576 ? (file.size / 1048576).toFixed(1) + ' MB' : (file.size / 1024).toFixed(0) + ' KB') + ')';
-        fileNameDisplay.classList.remove('hidden');
+    function showFieldError(fieldName, message) {
+      var span = paperForm.querySelector('.field-error[data-field="' + fieldName + '"]');
+      if (span) {
+        span.textContent = message || t('enviar.error_send');
+        span.classList.remove('hidden');
       }
-      if (check) check.classList.remove('hidden');
-    } else {
-      if (emptyText) emptyText.classList.remove('hidden');
+      var input = paperForm.querySelector('#' + idPrefix + '-' + (idMap[fieldName] || fieldName));
+      if (input) {
+        input.classList.add('border-red-500');
+        input.classList.remove('border-tint/60');
+      }
+      if (fieldName === 'archivo') {
+        var wrapper = paperForm.querySelector('#' + idPrefix + '-file-wrapper');
+        if (wrapper) {
+          wrapper.classList.add('border-red-500');
+          wrapper.classList.remove('border-tint/60');
+        }
+      }
+    }
+
+    function clearFieldError(fieldName) {
+      var span = paperForm.querySelector('.field-error[data-field="' + fieldName + '"]');
+      if (span) {
+        span.textContent = '';
+        span.classList.add('hidden');
+      }
+      var input = paperForm.querySelector('#' + idPrefix + '-' + (idMap[fieldName] || fieldName));
+      if (input) {
+        input.classList.remove('border-red-500');
+        input.classList.add('border-tint/60');
+      }
+      if (fieldName === 'archivo') {
+        var wrapper = paperForm.querySelector('#' + idPrefix + '-file-wrapper');
+        if (wrapper) {
+          wrapper.classList.remove('border-red-500');
+          wrapper.classList.add('border-tint/60');
+        }
+      }
+    }
+
+    function clearAllErrors() {
+      var spans = paperForm.querySelectorAll('.field-error');
+      var s;
+      for (s = 0; s < spans.length; s++) {
+        spans[s].textContent = '';
+        spans[s].classList.add('hidden');
+      }
+      var inputs = paperForm.querySelectorAll('input, select');
+      var i;
+      for (i = 0; i < inputs.length; i++) {
+        inputs[i].classList.remove('border-red-500');
+        inputs[i].classList.add('border-tint/60');
+      }
+      if (fileWrapper) {
+        fileWrapper.classList.remove('border-red-500');
+        fileWrapper.classList.add('border-tint/60');
+      }
+      if (generalError) {
+        var errorText = generalError.querySelector('.error-text');
+        if (errorText) errorText.textContent = '';
+        generalError.classList.add('hidden');
+      }
+    }
+
+    function syncRoleFields(announce) {
+      if (!roleRadios.length) return;
+      var isExpositor = true;
+      var i;
+      for (i = 0; i < roleRadios.length; i++) {
+        if (roleRadios[i].checked) {
+          isExpositor = (roleRadios[i].value === 'expositor');
+        }
+      }
+      for (i = 0; i < expositorInputs.length; i++) {
+        var field = paperForm.querySelector('#' + expositorInputs[i]);
+        if (!field) continue;
+        field.disabled = !isExpositor;
+        field.required = isExpositor;
+      }
+      if (expositorFields) {
+        expositorFields.hidden = !isExpositor;
+      }
+      if (roleAnnounce && announce) {
+        roleAnnounce.textContent = isExpositor
+          ? t('enviar.anuncio_expositor')
+          : t('enviar.anuncio_asistente');
+      }
+      clearFieldError('titulo_ponencia');
+      clearFieldError('eje_tematico');
+      clearFieldError('archivo');
+    }
+
+    if (roleRadios.length) {
+      var r;
+      for (r = 0; r < roleRadios.length; r++) {
+        roleRadios[r].addEventListener('change', function () {
+          syncRoleFields(true);
+        });
+      }
+      syncRoleFields();
+    }
+
+    function updateFileInputState() {
+      var file = fileInput && fileInput.files && fileInput.files[0];
+      if (file) {
+        if (fileEmptyText) fileEmptyText.classList.add('hidden');
+        if (fileNameDisplay) {
+          fileNameDisplay.textContent = file.name + ' (' + (file.size > 1048576 ? (file.size / 1048576).toFixed(1) + ' MB' : (file.size / 1024).toFixed(0) + ' KB') + ')';
+          fileNameDisplay.classList.remove('hidden');
+        }
+        if (fileSelectedCheck) fileSelectedCheck.classList.remove('hidden');
+      } else {
+        if (fileEmptyText) fileEmptyText.classList.remove('hidden');
+        if (fileNameDisplay) {
+          fileNameDisplay.textContent = '';
+          fileNameDisplay.classList.add('hidden');
+        }
+        if (fileSelectedCheck) fileSelectedCheck.classList.add('hidden');
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function resetFileInputState() {
+      if (fileEmptyText) fileEmptyText.classList.remove('hidden');
       if (fileNameDisplay) {
         fileNameDisplay.textContent = '';
         fileNameDisplay.classList.add('hidden');
       }
-      if (check) check.classList.add('hidden');
+      if (fileSelectedCheck) fileSelectedCheck.classList.add('hidden');
+      if (fileInput) fileInput.value = '';
     }
-    if (window.lucide) lucide.createIcons();
-  }
 
-  function resetFileInputState() {
-    var emptyText = document.getElementById('file-empty-text');
-    var fileNameDisplay = document.getElementById('file-name-display');
-    var check = document.getElementById('file-selected-check');
-    if (emptyText) emptyText.classList.remove('hidden');
-    if (fileNameDisplay) {
-      fileNameDisplay.textContent = '';
-      fileNameDisplay.classList.add('hidden');
-    }
-    if (check) check.classList.add('hidden');
-    if (fileInput) fileInput.value = '';
-  }
-
-  function showGeneralError(message) {
-    if (generalError) {
-      generalError.querySelector('.error-text').textContent = message;
-      generalError.classList.remove('hidden');
-      if (window.lucide) lucide.createIcons();
-    }
-    if (paperForm) {
+    function showGeneralError(message) {
+      if (generalError) {
+        generalError.querySelector('.error-text').textContent = message;
+        generalError.classList.remove('hidden');
+        if (window.lucide) lucide.createIcons();
+      }
       paperForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-  }
 
-  // Front-end PDF validation on file selection
-  if (fileInput) {
-    fileInput.addEventListener('change', function () {
-      var file = this.files[0];
-      if (!file) {
-        resetFileInputState();
-        return;
-      }
+    // Front-end PDF validation on file selection
+    if (fileInput) {
+      fileInput.addEventListener('change', function () {
+        var file = this.files[0];
+        if (!file) {
+          resetFileInputState();
+          return;
+        }
 
-      clearFieldError('archivo');
+        clearFieldError('archivo');
 
-      var nameLC = file.name.toLowerCase();
-      if (nameLC.indexOf('.pdf') !== nameLC.length - 4) {
-        showFieldError('archivo', t('enviar.error_pdf'));
-        resetFileInputState();
-        return;
-      }
+        var nameLC = file.name.toLowerCase();
+        if (nameLC.indexOf('.pdf') !== nameLC.length - 4) {
+          showFieldError('archivo', t('enviar.error_pdf'));
+          resetFileInputState();
+          return;
+        }
 
-      if (file.type && file.type !== 'application/pdf') {
-        showFieldError('archivo', t('enviar.error_pdf_invalid'));
-        resetFileInputState();
-        return;
-      }
+        if (file.type && file.type !== 'application/pdf') {
+          showFieldError('archivo', t('enviar.error_pdf_invalid'));
+          resetFileInputState();
+          return;
+        }
 
-      updateFileInputState();
-    });
-  }
+        updateFileInputState();
+      });
+    }
 
-  // AJAX form submission
-  if (paperForm) {
+    // AJAX form submission
     paperForm.addEventListener('submit', function (e) {
       e.preventDefault();
       clearAllErrors();
@@ -813,4 +814,35 @@ document.addEventListener('DOMContentLoaded', () => {
       xhr.send(formData);
     });
   }
+
+  // Formulario #inscripcion — con selector de rol (comportamiento actual)
+  initPaperForm({
+    form: document.getElementById('paper-submit-form'),
+    idPrefix: 'form',
+    submitBtn: document.getElementById('form-submit-btn'),
+    fileInput: document.getElementById('form-file'),
+    fileWrapper: document.getElementById('form-file-wrapper'),
+    fileEmptyText: document.getElementById('file-empty-text'),
+    fileNameDisplay: document.getElementById('file-name-display'),
+    fileSelectedCheck: document.getElementById('file-selected-check'),
+    generalError: document.getElementById('form-general-error'),
+    successMsg: document.getElementById('form-success-message'),
+    roleRadios: document.querySelectorAll('input[name="tipo_participacion"]'),
+    expositorFields: document.getElementById('expositor-fields'),
+    roleAnnounce: document.getElementById('role-announce')
+  });
+
+  // Formulario #inscripcion-expositores — solo expositores (rol fijo)
+  initPaperForm({
+    form: document.getElementById('expositor-submit-form'),
+    idPrefix: 'expo-form',
+    submitBtn: document.getElementById('expo-submit-btn'),
+    fileInput: document.getElementById('expo-form-file'),
+    fileWrapper: document.getElementById('expo-form-file-wrapper'),
+    fileEmptyText: document.getElementById('expo-file-empty-text'),
+    fileNameDisplay: document.getElementById('expo-file-name-display'),
+    fileSelectedCheck: document.getElementById('expo-file-selected-check'),
+    generalError: document.getElementById('expo-form-general-error'),
+    successMsg: document.getElementById('expo-form-success-message')
+  });
 });
