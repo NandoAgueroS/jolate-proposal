@@ -129,8 +129,16 @@
       <!-- Mobile Menu -->
       <div
         id="mobile-menu"
-        class="hidden max-w-sm mx-auto mt-2 bg-primary/95 border border-white/20 backdrop-blur-xl rounded-2xl p-6 text-center space-y-4 pointer-events-auto shadow-cinematic"
+        class="hidden relative max-w-sm mx-auto mt-2 bg-primary/95 border border-white/20 backdrop-blur-xl rounded-2xl p-6 text-center space-y-4 pointer-events-auto shadow-cinematic"
       >
+        <button
+          id="mobile-menu-close"
+          type="button"
+          aria-label="Cerrar menú"
+          class="absolute top-3 right-3 text-white/80 hover:text-white p-1"
+        >
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
         <a
           href="#acerca-de"
           class="block text-white/80 hover:text-white font-medium transition-colors"
@@ -201,6 +209,7 @@
               linear-gradient(to right, rgba(4, 60, 65, 0.4) 0%, rgba(4, 60, 65, 0.98) 50%, rgba(4, 60, 65, 0.4) 100%);
       "></div>
 
+      <h1 class="sr-only">XXV Jornadas Latinoamericanas de Teoría Económica</h1>
       <div class="text-center max-w-5xl mx-auto space-y-6 relative z-10">
         <!-- Hero Image instead of text title -->
         <div class="flex justify-center hero-image-container">
@@ -512,12 +521,12 @@
                     class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5"
                     >01.</span
                   >
-                    <h4
+                    <h3
                     class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide"
                     data-i18n="convocatoria.topic_01"
                   >
                     Teoría de Juegos
-                  </h4>
+                  </h3>
                 </div>
               </div>
               <div
@@ -528,12 +537,12 @@
                     class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5"
                     >02.</span
                   >
-                    <h4
+                    <h3
                     class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide"
                     data-i18n="convocatoria.topic_02"
                   >
                     Elección Social
-                  </h4>
+                  </h3>
                 </div>
               </div>
               <div
@@ -544,12 +553,12 @@
                     class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5"
                     >03.</span
                   >
-                    <h4
+                    <h3
                     class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide"
                     data-i18n="convocatoria.topic_03"
                   >
                     Crecimiento Económico
-                  </h4>
+                  </h3>
                 </div>
               </div>
               <div
@@ -560,12 +569,12 @@
                     class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5"
                     >04.</span
                   >
-                    <h4
+                    <h3
                     class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide"
                     data-i18n="convocatoria.topic_04"
                   >
                     Economía Pública
-                  </h4>
+                  </h3>
                 </div>
               </div>
               <div
@@ -576,12 +585,12 @@
                     class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5"
                     >05.</span
                   >
-                    <h4
+                    <h3
                     class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide"
                     data-i18n="convocatoria.topic_05"
                   >
                     Equilibrio General
-                  </h4>
+                  </h3>
                 </div>
               </div>
               <div
@@ -592,12 +601,12 @@
                     class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5"
                     >06.</span
                   >
-                    <h4
+                    <h3
                     class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide"
                     data-i18n="convocatoria.topic_06"
                   >
                     Dinámica Económica
-                  </h4>
+                  </h3>
                 </div>
               </div>
               <div
@@ -608,12 +617,12 @@
                     class="font-mono text-xs text-primary/50 group-hover:text-primary font-bold pt-0.5"
                     >07.</span
                   >
-                    <h4
+                    <h3
                     class="text-text group-hover:text-primary transition-colors font-bold text-sm tracking-wide"
                     data-i18n="convocatoria.topic_07"
                   >
                     Áreas Temáticas Afines
-                  </h4>
+                  </h3>
                 </div>
               </div>
             </div>
@@ -1688,7 +1697,7 @@
           </p>
           <!-- Enviar Trabajo in footer -->
           <a
-            href="#convocatoria"
+            href="#inscripcion"
             class="inline-block mt-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2 rounded-full transition-all border border-white/20"
             data-i18n="footer.enviar"
           >
@@ -1847,6 +1856,8 @@
           <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
           Sitio Desarrollado por Multimedia ULP
         </div>
+      </div>
+    </footer>
 
     <!-- Scripts — App JS (ES modules) -->
     <script type="module" src="js/main.js"></script>
