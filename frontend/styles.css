@@ -65,9 +65,17 @@ body {
 }
 
 /* Ajusta el anclaje de scroll para que las secciones no queden tapadas
-   por el navbar fijo (~108px). 7.5rem deja un margen de aire adicional. */
+   por el navbar fijo (~108px). 7.5rem deja un margen de aire adicional.
+   El scroll-snap (proximity) hace que el scroll avance por sección. */
 html {
+  scroll-snap-type: y proximity;
   scroll-padding-top: 7.5rem;
+}
+
+/* Scroll por sección: al hacer scroll, ancla el inicio de cada sección
+   justo debajo del navbar (scroll-padding-top del contenedor). */
+body > section {
+  scroll-snap-align: start;
 }
 
 /* ----------------------------------------------------------
