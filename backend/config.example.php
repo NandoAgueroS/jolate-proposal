@@ -50,4 +50,22 @@ return array(
         'Dinámica Económica',
         'Áreas Temáticas Afines',
     ),
+
+    // ── Base de datos (MariaDB) ────────────────────────────────────
+    // Configurable via environment variables:
+    //   DB_HOST, DB_NAME, DB_USER, DB_PASS
+    'db' => array(
+        'host' => getenv('DB_HOST'),
+        'name' => getenv('DB_NAME'),
+        'user' => getenv('DB_USER'),
+        'pass' => getenv('DB_PASS'),
+    ),
+
+    // ── Tipo de inscripto ──────────────────────────────────────────
+    // Mapa rol (POST) → id en la tabla `tipo inscripto`.
+    // Debe coincidir con las semillas de docker/database/init.sql.
+    'tipo_inscripto_ids' => array(
+        'Expositor'  => 1,
+        'Asistente'  => 2,
+    ),
 );
