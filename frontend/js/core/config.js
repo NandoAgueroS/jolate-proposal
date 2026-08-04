@@ -1,8 +1,4 @@
-// Configuracion del sitio (ex APP_CONFIG + JOLATE_CONFIG inline).
-
-export const APP_CONFIG = {
-  backendUrl: 'procesar-envio.php'
-};
+// Configuración del sitio.
 
 export const JOLATE_CONFIG = {
   meta: {

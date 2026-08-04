@@ -1,0 +1,9 @@
+.git
+.gitignore
+.env
+.env.example
+.atl/
+dev_resources/
+docs/
+openspec/
+example_pdf.pdf

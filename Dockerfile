@@ -19,23 +19,21 @@ RUN docker-php-ext-install pdo_mysql
 RUN a2enmod rewrite
 
 # Allow .htaccess overrides
-RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/sites-available/default 2>/dev/null; \
-    sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf 2>/dev/null; \
+RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/sites-available/000-default.conf; \
+    sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf; \
     echo 'ServerName localhost' >> /etc/apache2/apache2.conf
 
-# Create writable runtime directories
-RUN mkdir -p /var/www/html/uploads /var/www/html/logs && \
-    chown -R www-data:www-data /var/www/html/uploads /var/www/html/logs && \
-    chmod 755 /var/www/html/uploads /var/www/html/logs
+# DocumentRoot = repo root (like a production vhost pointing at the site folder).
+# The repo's own .htaccess handles routing frontend vs backend.
+# Both the VirtualHost and the global config need updating — apache2.conf has its
+# own DocumentRoot that overrides the site-level one.
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/jolate-proposal|' /etc/apache2/sites-available/000-default.conf; \
+    sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/jolate-proposal|' /etc/apache2/apache2.conf
 
-# Copy backend PHP files
-COPY backend/procesar-envio.php /var/www/html/
-COPY backend/registrations.php /var/www/html/
-COPY backend/vendor/ /var/www/html/vendor/
-COPY backend/.htaccess /var/www/html/
-COPY backend/config.php /var/www/html/
+# Copy entire repository structure into jolate-proposal/
+COPY . /var/www/html/jolate-proposal/
 
-# Copy frontend static files
-COPY frontend/index.html frontend/styles.css /var/www/html/
-COPY frontend/js/ /var/www/html/js/
-COPY frontend/assets/ /var/www/html/assets/
+# Set writable permissions on runtime directories.
+# Git tracks directory existence via .gitkeep but cannot store
+# ownership or mode — both Docker and production need this step.
+RUN /var/www/html/jolate-proposal/bin/setup-runtime.sh /var/www/html/jolate-proposal
