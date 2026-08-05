@@ -23,10 +23,10 @@ INSERT INTO `tipo inscripto` (`id`, `nombre`) VALUES
 CREATE TABLE `inscriptos` (
     `id`                  INT           NOT NULL AUTO_INCREMENT,
     `id_tipo_inscripto`   INT           NOT NULL,
-    `nombre`              VARCHAR(200)  NOT NULL,
+    `nombre`              VARCHAR(150)  NOT NULL,
     `institucion`         VARCHAR(200)  NOT NULL,
     `email`               VARCHAR(200)  NOT NULL,
-    `dni`                 VARCHAR(32)   NOT NULL,
+    `dni`                 VARCHAR(20)   NOT NULL,
     `titulo_ponencia`     VARCHAR(300)  DEFAULT NULL,
     `eje_tematico`        VARCHAR(120)  DEFAULT NULL,
     `archivo_filename`    VARCHAR(255)  DEFAULT NULL,

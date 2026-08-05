@@ -293,7 +293,11 @@ function initPaperForm(opts) {
       showFieldError(field.name, requiredMsg);
       return false;
     }
-    if (field.type === 'email' && !emailRe.test(value)) {
+    if (field.name === 'nombre' && value.length < 3) {
+      showFieldError(field.name, t('enviar.error_nombre'));
+      return false;
+    }
+    if (field.type === 'email' && (value.length > 200 || !emailRe.test(value))) {
       showFieldError(field.name, t('enviar.error_email'));
       return false;
     }
