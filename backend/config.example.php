@@ -68,4 +68,15 @@ return array(
         'Expositor'  => 1,
         'Asistente'  => 2,
     ),
+
+    // ── Admin (rate-limit del login) ───────────────────────────────
+    // Las credenciales viven en la tabla `admins` de la DB.
+    // max_attempts:   cantidad de fallos permitidos dentro de attempt_window
+    // attempt_window: ventana móvil en segundos
+    // lockout_min:    minutos de bloqueo tras alcanzar max_attempts
+    'admin' => array(
+        'max_attempts'   => 5,
+        'attempt_window' => 300,
+        'lockout_min'    => 15,
+    ),
 );

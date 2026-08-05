@@ -35,3 +35,24 @@ CREATE TABLE `inscriptos` (
     CONSTRAINT `fk_inscriptos_tipo`
         FOREIGN KEY (`id_tipo_inscripto`) REFERENCES `tipo inscripto` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Admin accounts for the dashboard at /admin. Credentials checked with bcrypt.
+-- No seed row: create the first admin with `php backend/bin/seed-admin.php <user> <pass>`.
+CREATE TABLE `admins` (
+    `id`            INT           NOT NULL AUTO_INCREMENT,
+    `username`      VARCHAR(64)   NOT NULL,
+    `password_hash` VARCHAR(255)  NOT NULL,
+    `created_at`    TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uk_admins_username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Failed login attempts by IP. Used for brute-force rate-limit.
+CREATE TABLE `admin_auth_attempts` (
+    `id`        INT          NOT NULL AUTO_INCREMENT,
+    `ip`        VARCHAR(45)  NOT NULL,
+    `failed_at` TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    KEY `idx_admin_auth_ip` (`ip`),
+    KEY `idx_admin_auth_ip_failed` (`ip`, `failed_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
