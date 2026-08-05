@@ -33,9 +33,6 @@ RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/jolate-propo
 # Copy entire repository structure into jolate-proposal/
 COPY . /var/www/html/jolate-proposal/
 
-# Expose backend/uploads/ at a clean /uploads/ URL (used in email download links)
-COPY docker/000-uploads-alias.conf /etc/apache2/conf-enabled/000-uploads-alias.conf
-
 # Set writable permissions on runtime directories.
 # Git tracks directory existence via .gitkeep but cannot store
 # ownership or mode — both Docker and production need this step.
