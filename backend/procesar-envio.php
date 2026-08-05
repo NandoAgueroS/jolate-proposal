@@ -188,7 +188,7 @@ if (!preg_match('/^[A-Za-z0-9]{5,20}$/', $dni)) {
     jsonError('DNI o Pasaporte inválido.', 422, 'dni', 'dni_invalid');
 }
 
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+if (!filter_var($email, FILTER_VALIDATE_EMAIL) || safeStrlen($email) > 200) {
     jsonError('Correo electrónico inválido.', 422, 'email', 'email_invalid');
 }
 
