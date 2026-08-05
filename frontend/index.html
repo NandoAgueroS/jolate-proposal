@@ -1181,7 +1181,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <!-- ULP -->
           <div
-            class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 shadow-sm hover-magnetic"
+            class="flex flex-col bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 shadow-sm hover-magnetic"
           >
             <div class="aspect-[16/9] bg-tint/30 overflow-hidden">
               <img
@@ -1192,7 +1192,7 @@
                 class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
               />
             </div>
-            <div class="p-6 space-y-3">
+            <div class="p-6 space-y-3 flex-1">
               <div class="flex items-center gap-2 text-primary">
                 <i data-lucide="building-2" class="w-5 h-5 shrink-0"></i>
                 <span
@@ -1216,11 +1216,23 @@
                 >
               </p>
             </div>
+            <div class="w-full h-[220px] border-t border-tint/30 mt-auto">
+              <iframe
+                src="https://maps.google.com/maps?q=Rectorado%20Universidad%20de%20La%20Punta&amp;hl=es&amp;z=16&amp;output=embed"
+                width="100%"
+                height="100%"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Mapa Rectorado ULP"
+              ></iframe>
+            </div>
           </div>
 
           <!-- IMASL -->
           <div
-            class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 shadow-sm hover-magnetic"
+            class="flex flex-col bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 shadow-sm hover-magnetic"
           >
             <div class="aspect-[16/9] bg-tint/30 overflow-hidden">
               <img
@@ -1231,7 +1243,7 @@
                 class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
               />
             </div>
-            <div class="p-6 space-y-3">
+            <div class="p-6 space-y-3 flex-1">
               <div class="flex items-center gap-2 text-primary">
                 <i data-lucide="landmark" class="w-5 h-5 shrink-0"></i>
                 <span
@@ -1256,64 +1268,17 @@
                 >
               </p>
             </div>
-          </div>
-        </div>
-
-        <!-- Mapas -->
-        <div
-          class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden shadow-sm"
-        >
-          <div class="p-5 border-b border-tint/30 flex items-center gap-2 text-primary">
-            <i data-lucide="map-pin" class="w-5 h-5 shrink-0"></i>
-            <span
-              class="font-bold text-sm"
-              data-i18n="info_local.map_title"
-              >Ubicación en San Luis</span
-            >
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-5">
-            <!-- Rectorado ULP -->
-            <div>
-              <p
-                class="font-mono text-xs font-semibold uppercase tracking-wider text-primary mb-2"
-                data-i18n="info_local.sede_ulp"
-              >
-                Universidad de La Punta (ULP)
-              </p>
-              <div class="w-full h-[220px]">
-                <iframe
-                  src="https://maps.google.com/maps?q=Rectorado%20Universidad%20de%20La%20Punta&amp;hl=es&amp;z=16&amp;output=embed"
-                  width="100%"
-                  height="100%"
-                  style="border: 0"
-                  allowfullscreen=""
-                  loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"
-                  title="Mapa Rectorado ULP"
-                ></iframe>
-              </div>
-            </div>
-
-            <!-- IMASL -->
-            <div>
-              <p
-                class="font-mono text-xs font-semibold uppercase tracking-wider text-primary mb-2"
-                data-i18n="info_local.sede_imasl"
-              >
-                IMASL — CONICET
-              </p>
-              <div class="w-full h-[220px]">
-                <iframe
-                  src="https://maps.google.com/maps?q=Instituto%20de%20Matem%C3%A1tica%20Aplicada%20San%20Luis&amp;hl=es&amp;z=16&amp;output=embed"
-                  width="100%"
-                  height="100%"
-                  style="border: 0"
-                  allowfullscreen=""
-                  loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"
-                  title="Mapa IMASL"
-                ></iframe>
-              </div>
+            <div class="w-full h-[220px] border-t border-tint/30 mt-auto">
+              <iframe
+                src="https://maps.google.com/maps?q=Instituto%20de%20Matem%C3%A1tica%20Aplicada%20San%20Luis&amp;hl=es&amp;z=16&amp;output=embed"
+                width="100%"
+                height="100%"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Mapa IMASL"
+              ></iframe>
             </div>
           </div>
         </div>
