@@ -281,14 +281,6 @@ body > section {
   content: "EN";
 }
 
-#lang-toggle-mobile::before {
-  content: "Español";
-}
-
-#lang-toggle-mobile::after {
-  content: "English";
-}
-
 html:lang(es) .lang-toggle-segmented::before,
 html:lang(en) .lang-toggle-segmented::after {
   opacity: 1;

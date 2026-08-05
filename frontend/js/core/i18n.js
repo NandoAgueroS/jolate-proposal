@@ -58,7 +58,7 @@ export function applyLang(lang) {
   const toggle = document.getElementById('lang-toggle');
   if (toggle) toggle.textContent = lang === 'es' ? 'EN' : 'ES';
   const toggleM = document.getElementById('lang-toggle-mobile');
-  if (toggleM) toggleM.textContent = lang === 'es' ? 'English' : 'Espanol';
+  if (toggleM) toggleM.textContent = lang === 'es' ? 'EN' : 'ES';
 
   langListeners.forEach((cb) => cb(lang));
 }
