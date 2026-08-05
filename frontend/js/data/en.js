@@ -18,7 +18,7 @@ export const en = {
   'acerca_de.badge': 'ABOUT JOLATE',
   'acerca_de.title': 'XXV Latin American Meetings',
   'acerca_de.title_accent': 'on Economic Theory',
-  'acerca_de.p1': 'The <strong class="text-primary">Latin American Meetings on Economic Theory (JOLATE)</strong> are the region\u2019s most relevant academic forum in the area of highly formalized economics. Since its creation, it has brought together researchers, teachers, and graduate students from all over Latin America and the world to discuss the latest advances in economic theory.',
+  'acerca_de.p1': 'The <strong class="text-primary">Latin American Meetings on Economic Theory (JOLATE)</strong> is a relevant academic forum in the region in the area of highly formalized economics. Since its creation, it has brought together researchers, teachers, and graduate students from Latin America and the world to discuss the latest advances in economic theory.',
   'acerca_de.p2': 'In its <strong class="text-text">XXV edition</strong> \u2014a milestone celebrating a quarter of a century of uninterrupted scientific production\u2014 the meetings will be held in <strong class="text-text">San Luis, Argentina</strong>, co-organized by the <strong class="text-text">Universidad de La Punta (ULP)</strong> and the <strong class="text-text">Universidad Nacional de San Luis (UNSL)</strong>, with the support of CONICET and the provincial government.',
   'acerca_de.tag_latam': 'Latin America',
   'acerca_de.tag_dates': 'Oct 28\u201330 2026',

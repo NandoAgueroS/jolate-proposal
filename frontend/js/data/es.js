@@ -18,7 +18,7 @@ export const es = {
   'acerca_de.badge': 'ACERCA DE JOLATE',
   'acerca_de.title': 'XXV Jornadas Latinoamericanas',
   'acerca_de.title_accent': 'de Teoría Económica',
-  'acerca_de.p1': 'Las <strong class="text-primary">Jornadas Latinoamericanas de Teoría Económica (JOLATE)</strong> son el foro académico más relevante de la región en el área de economía altamente formalizada. Desde su creación, han reunido a investigadores, docentes y estudiantes de posgrado de toda América Latina y el mundo para debatir los avances más recientes en teoría económica.',
+  'acerca_de.p1': 'Las <strong class="text-primary">Jornadas Latinoamericanas de Teoría Económica (JOLATE)</strong> es un foro académico relevante de la región en el área de economía altamente formalizada. Desde su creación, han reunido a investigadores, docentes y estudiantes de posgrado de América Latina y el mundo para debatir los avances más recientes en teoría económica.',
   'acerca_de.p2': 'En su <strong class="text-text">XXV edición</strong> —un hito que celebra un cuarto de siglo de producción científica ininterrumpida— las jornadas se realizarán en <strong class="text-text">San Luis, Argentina</strong>, coorganizadas por la <strong class="text-text">Universidad de La Punta (ULP)</strong> y la <strong class="text-text">Universidad Nacional de San Luis (UNSL)</strong>, con el apoyo del CONICET y del gobierno provincial.',
   'acerca_de.tag_latam': 'Latinoamérica',
   'acerca_de.tag_dates': '28–30 Oct 2026',
