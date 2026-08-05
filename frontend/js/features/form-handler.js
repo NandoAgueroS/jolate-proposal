@@ -273,11 +273,87 @@ function initPaperForm(opts) {
     });
   }
 
+  // Validación client-side de un solo campo. Devuelve true si pasa.
+  // Usada tanto en tiempo real (blur/input) como al submit.
+  function validateSingleField(field) {
+    if (field.disabled) return true;
+    const requiredMsg = t('enviar.error_required');
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const dniRe = /^[A-Za-z0-9]{5,20}$/;
+
+    if (field.type === 'file') {
+      const ok = field.files && field.files.length > 0;
+      if (!ok) showFieldError('archivo', requiredMsg);
+      else clearFieldError('archivo');
+      return ok;
+    }
+
+    const value = field.value ? field.value.trim() : '';
+    if (!value) {
+      showFieldError(field.name, requiredMsg);
+      return false;
+    }
+    if (field.type === 'email' && !emailRe.test(value)) {
+      showFieldError(field.name, t('enviar.error_email'));
+      return false;
+    }
+    if (field.name === 'dni' && !dniRe.test(value)) {
+      showFieldError(field.name, t('enviar.error_dni'));
+      return false;
+    }
+    clearFieldError(field.name);
+    return true;
+  }
+
+  // Validación client-side previa al envío (los <form> usan novalidate).
+  function validateClientSide() {
+    const fields = paperForm.querySelectorAll('[required]');
+    let allValid = true;
+    fields.forEach((field) => {
+      if (!validateSingleField(field)) allValid = false;
+    });
+    return allValid;
+  }
+
+  // Validación en tiempo real: blur muestra errores, input los limpia
+  // cuando el valor pasa a ser válido. Evita errores falsos en campos
+  // por los que el usuario pasó con Tab sin tipear (marca "tocado"
+  // solo cuando hay interacción real con el valor).
+  function setupLiveValidation() {
+    const liveFields = paperForm.querySelectorAll(
+      'input:not([type=file]):not([type=radio]):not([type=hidden]), select'
+    );
+    liveFields.forEach((field) => {
+      if (field.disabled) return;
+
+      const markTouched = () => { field.dataset.jolateTouched = 'true'; };
+      field.addEventListener('input', markTouched);
+      field.addEventListener('change', markTouched);
+
+      field.addEventListener('blur', () => {
+        if (field.dataset.jolateTouched !== 'true') return;
+        validateSingleField(field);
+      });
+
+      field.addEventListener('input', () => {
+        const span = paperForm.querySelector('.field-error[data-field="' + field.name + '"]');
+        if (span && !span.classList.contains('hidden')) {
+          validateSingleField(field);
+        }
+      });
+    });
+  }
+
   // Envío AJAX.
   paperForm.addEventListener('submit', (e) => {
     e.preventDefault();
     clearAllErrors();
     if (successMsg) successMsg.classList.add('hidden');
+
+    if (!validateClientSide()) {
+      paperForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
 
     const formData = new FormData(paperForm);
 
@@ -354,4 +430,6 @@ function initPaperForm(opts) {
 
     xhr.send(formData);
   });
+
+  setupLiveValidation();
 }

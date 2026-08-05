@@ -158,6 +158,7 @@ export const es = {
   'enviar.error_pdf_invalid': 'El archivo debe ser un PDF v\u00e1lido.',
   'enviar.error_unexpected': 'Error inesperado. Intent\u00e1 nuevamente.',
   'enviar.error_send': 'Error al enviar. Intent\u00e1 nuevamente.',
+  'enviar.error_required': 'Este campo es obligatorio.',
   'enviar.error_connection': 'Error de conexi\u00f3n. Verific\u00e1 tu internet e intent\u00e1 nuevamente.',
   'enviar.error_size': 'El archivo supera el tama\u00f1o m\u00e1ximo permitido de {max} MB.',
   'enviar.error_pdf_missing': 'Deb\u00e9s adjuntar el archivo PDF.',

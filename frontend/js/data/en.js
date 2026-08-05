@@ -158,6 +158,7 @@ export const en = {
   'enviar.error_pdf_invalid': 'The file must be a valid PDF.',
   'enviar.error_unexpected': 'Unexpected error. Please try again.',
   'enviar.error_send': 'Submission error. Please try again.',
+  'enviar.error_required': 'This field is required.',
   'enviar.error_connection': 'Connection error. Check your internet and try again.',
   'enviar.error_size': 'The file exceeds the maximum allowed size of {max} MB.',
   'enviar.error_pdf_missing': 'You must attach the PDF file.',
