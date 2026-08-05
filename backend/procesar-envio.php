@@ -106,6 +106,51 @@ function safeStrlen($str) {
     return strlen($str);
 }
 
+// ---------- Email HTML template helpers ----------
+// Corporate palette: primary #055c62, accent #11b0bc, tint #cbe3e6, bg #eef9fa, text #043c41.
+// Inline styles only — email clients ignore <style> blocks.
+
+function mailField($label, $valor) {
+    return '<p style="margin:12px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;color:#055c62;">'
+        . htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . '</p>'
+        . '<p style="margin:2px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#043c41;">'
+        . htmlspecialchars($valor, ENT_QUOTES, 'UTF-8') . '</p>';
+}
+
+function mailButton($url, $label) {
+    $href = htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
+    return '<p style="margin:20px 0 0;">'
+        . '<a href="' . $href . '" style="display:inline-block;background-color:#055c62;color:#ffffff;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;text-decoration:none;padding:12px 24px;border-radius:8px;">'
+        . htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . '</a></p>'
+        . '<p style="margin:8px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#6b8a8e;">'
+        . 'Si el botón no funciona, copiá este enlace: <a href="' . $href . '" style="color:#055c62;">'
+        . $href . '</a></p>';
+}
+
+function mailWrap($titulo, $contenido, $badge = '') {
+    $badgeHtml = '';
+    if ($badge !== '') {
+        $badgeHtml = '<p style="margin:0 0 18px;"><span style="display:inline-block;background-color:#cbe3e6;color:#055c62;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;padding:4px 12px;border-radius:999px;">'
+            . htmlspecialchars($badge, ENT_QUOTES, 'UTF-8') . '</span></p>';
+    }
+    return '<div style="background-color:#eef9fa;padding:24px;">'
+        . '<div style="max-width:600px;width:100%;margin:0 auto;background-color:#ffffff;border:1px solid #cbe3e6;border-radius:12px;overflow:hidden;">'
+        . '<div style="background-color:#055c62;padding:22px 28px;">'
+        . '<p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;color:#11b0bc;">XXV JOLATE · San Luis, Argentina</p>'
+        . '<p style="margin:6px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:20px;font-weight:bold;color:#ffffff;">'
+        . htmlspecialchars($titulo, ENT_QUOTES, 'UTF-8') . '</p>'
+        . '</div>'
+        . '<div style="padding:28px;">'
+        . $badgeHtml
+        . $contenido
+        . '</div>'
+        . '<div style="background-color:#eef9fa;border-top:1px solid #cbe3e6;padding:14px 28px;">'
+        . '<p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#043c41;">JOLATE 2026 — XXV Jornadas Latinoamericanas de Teoría Económica · San Luis, Argentina</p>'
+        . '</div>'
+        . '</div>'
+        . '</div>';
+}
+
 // ---------- Honeypot anti-spam ----------
 // A hidden field named "website" should be empty; bots fill it automatically.
 if (!empty($_POST['website'])) {
@@ -288,16 +333,17 @@ try {
     $mailParticipante->isHTML(true);
 
     if ($rol === 'Expositor') {
-        $downloadUrl = $baseUrl . '/uploads/' . $nombreArchivo;
+        $downloadUrl = $baseUrl . '/backend/uploads/' . $nombreArchivo;
         $mailParticipante->Subject = 'Confirmación de recepción de ponencia — JOLATE 2026';
-        $mailParticipante->Body    = '<h2>Tu ponencia fue recibida correctamente</h2>'
-            . '<p><strong>Nombre:</strong> ' . htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8') . '</p>'
-            . '<p><strong>Rol:</strong> Expositor</p>'
-            . '<p><strong>Eje temático:</strong> ' . htmlspecialchars($eje, ENT_QUOTES, 'UTF-8') . '</p>'
-            . '<p><strong>Título:</strong> ' . htmlspecialchars($titulo, ENT_QUOTES, 'UTF-8') . '</p>'
-            . '<p><strong>Archivo:</strong> <a href="' . htmlspecialchars($downloadUrl, ENT_QUOTES, 'UTF-8') . '">'
-            . htmlspecialchars($downloadUrl, ENT_QUOTES, 'UTF-8') . '</a></p>'
-            . '<p>En breve el comité se pondrá en contacto.</p>';
+        $mailParticipante->Body    = mailWrap(
+            'Tu ponencia fue recibida correctamente',
+            mailField('Nombre', $nombre)
+            . mailField('Eje temático', $eje)
+            . mailField('Título de la ponencia', $titulo)
+            . mailButton($downloadUrl, 'Ver PDF')
+            . '<p style="margin:20px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#043c41;">En breve el comité se pondrá en contacto.</p>',
+            'Expositor'
+        );
         $mailParticipante->AltBody = 'Tu ponencia fue recibida correctamente.' . "\n"
             . 'Nombre: ' . $nombre . "\n"
             . 'Rol: Expositor' . "\n"
@@ -307,10 +353,12 @@ try {
             . 'En breve el comité se pondrá en contacto.';
     } else {
         $mailParticipante->Subject = 'Confirmación de inscripción — JOLATE 2026';
-        $mailParticipante->Body    = '<h2>Tu inscripción fue recibida correctamente</h2>'
-            . '<p><strong>Nombre:</strong> ' . htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8') . '</p>'
-            . '<p><strong>Rol:</strong> Asistente</p>'
-            . '<p>En breve el comité se pondrá en contacto.</p>';
+        $mailParticipante->Body    = mailWrap(
+            'Tu inscripción fue recibida correctamente',
+            mailField('Nombre', $nombre)
+            . '<p style="margin:20px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#043c41;">En breve el comité se pondrá en contacto.</p>',
+            'Asistente'
+        );
         $mailParticipante->AltBody = 'Tu inscripción fue recibida correctamente.' . "\n"
             . 'Nombre: ' . $nombre . "\n"
             . 'Rol: Asistente' . "\n"
@@ -348,22 +396,23 @@ try {
     $mailComite->isHTML(true);
 
     if ($rol === 'Expositor') {
-        $downloadUrl = $baseUrl . '/uploads/' . $nombreArchivo;
+        $downloadUrl = $baseUrl . '/backend/uploads/' . $nombreArchivo;
 
         // Attach the saved PDF to the committee notification
         $mailComite->addAttachment($rutaDestino, 'ponencia-' . $nombreSafe . '.pdf');
 
         $mailComite->Subject = 'Nueva ponencia recibida: ' . $nombreSafe . ' (' . $eje . ')';
-        $mailComite->Body    = '<h2>Nueva ponencia / resumen recibido</h2>'
-            . '<p><strong>Nombre:</strong> ' . htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8') . '</p>'
-            . '<p><strong>DNI / Pasaporte:</strong> ' . htmlspecialchars($dni, ENT_QUOTES, 'UTF-8') . '</p>'
-            . '<p><strong>Institución:</strong> ' . htmlspecialchars($institucion, ENT_QUOTES, 'UTF-8') . '</p>'
-            . '<p><strong>Correo:</strong> ' . htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . '</p>'
-            . '<p><strong>Rol:</strong> Expositor</p>'
-            . '<p><strong>Eje temático:</strong> ' . htmlspecialchars($eje, ENT_QUOTES, 'UTF-8') . '</p>'
-            . '<p><strong>Título:</strong> ' . htmlspecialchars($titulo, ENT_QUOTES, 'UTF-8') . '</p>'
-            . '<p><strong>Archivo:</strong> <a href="' . htmlspecialchars($downloadUrl, ENT_QUOTES, 'UTF-8') . '">'
-            . htmlspecialchars($downloadUrl, ENT_QUOTES, 'UTF-8') . '</a></p>';
+        $mailComite->Body    = mailWrap(
+            'Nueva ponencia / resumen recibido',
+            mailField('Nombre', $nombre)
+            . mailField('DNI / Pasaporte', $dni)
+            . mailField('Institución', $institucion)
+            . mailField('Correo', $email)
+            . mailField('Eje temático', $eje)
+            . mailField('Título de la ponencia', $titulo)
+            . mailButton($downloadUrl, 'Ver PDF'),
+            'Expositor'
+        );
         $mailComite->AltBody = 'Nueva ponencia recibida' . "\n"
             . 'Nombre: ' . $nombre . "\n"
             . 'DNI / Pasaporte: ' . $dni . "\n"
@@ -375,11 +424,13 @@ try {
             . 'Archivo: ' . $downloadUrl;
     } else {
         $mailComite->Subject = 'Nueva inscripción: ' . $nombreSafe . ' (Asistente)';
-        $mailComite->Body    = '<h2>Nueva inscripción</h2>'
-            . '<p><strong>Nombre:</strong> ' . htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8') . '</p>'
-            . '<p><strong>Institución:</strong> ' . htmlspecialchars($institucion, ENT_QUOTES, 'UTF-8') . '</p>'
-            . '<p><strong>Correo:</strong> ' . htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . '</p>'
-            . '<p><strong>Rol:</strong> Asistente</p>';
+        $mailComite->Body    = mailWrap(
+            'Nueva inscripción',
+            mailField('Nombre', $nombre)
+            . mailField('Institución', $institucion)
+            . mailField('Correo', $email),
+            'Asistente'
+        );
         $mailComite->AltBody = 'Nueva inscripción' . "\n"
             . 'Nombre: ' . $nombre . "\n"
             . 'Institución: ' . $institucion . "\n"
