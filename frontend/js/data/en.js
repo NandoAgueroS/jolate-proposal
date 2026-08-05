@@ -96,7 +96,7 @@ export const en = {
   'comite.title': 'Academic & Institutional Committee',
   'comite.sectionLabel': 'SCIENTIFIC GOVERNANCE',
   'comite.intro': 'The people who direct, evaluate, and operate the XXV Latin American Meeting on Economic Theory.',
-  'comite.coorganizadores': 'Co-organizers',
+  'comite.coorganizadores': 'Organizers',
   'comite.academico': 'Academic Committee',
   'comite.local': 'Local Committee',
 

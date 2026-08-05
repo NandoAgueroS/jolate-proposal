@@ -96,7 +96,7 @@ export const es = {
   'comite.title': 'Comit\u00e9 Acad\u00e9mico e Institucional',
   'comite.sectionLabel': 'GOBERNANZA CIENTÍFICA',
   'comite.intro': 'Las personas que dirigen, evalúan y operan las XXV Jornadas Latinoamericanas de Teoría Económica.',
-  'comite.coorganizadores': 'Co-organizadores',
+  'comite.coorganizadores': 'Organizadores',
   'comite.academico': 'Comité Académico',
   'comite.local': 'Comité Local',
 
