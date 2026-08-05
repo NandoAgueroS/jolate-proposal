@@ -121,10 +121,7 @@ function mailButton($url, $label) {
     $href = htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
     return '<p style="margin:20px 0 0;">'
         . '<a href="' . $href . '" style="display:inline-block;background-color:#055c62;color:#ffffff;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;text-decoration:none;padding:12px 24px;border-radius:8px;">'
-        . htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . '</a></p>'
-        . '<p style="margin:8px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#6b8a8e;">'
-        . 'Si el botón no funciona, copiá este enlace: <a href="' . $href . '" style="color:#055c62;">'
-        . $href . '</a></p>';
+        . htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . '</a></p>';
 }
 
 function mailWrap($titulo, $contenido, $badge = '') {
@@ -333,7 +330,7 @@ try {
     $mailParticipante->isHTML(true);
 
     if ($rol === 'Expositor') {
-        $downloadUrl = $baseUrl . '/backend/uploads/' . $nombreArchivo;
+        $downloadUrl = $baseUrl . '/uploads/' . $nombreArchivo;
         $mailParticipante->Subject = 'Confirmación de recepción de ponencia — JOLATE 2026';
         $mailParticipante->Body    = mailWrap(
             'Tu ponencia fue recibida correctamente',
@@ -396,7 +393,7 @@ try {
     $mailComite->isHTML(true);
 
     if ($rol === 'Expositor') {
-        $downloadUrl = $baseUrl . '/backend/uploads/' . $nombreArchivo;
+        $downloadUrl = $baseUrl . '/uploads/' . $nombreArchivo;
 
         // Attach the saved PDF to the committee notification
         $mailComite->addAttachment($rutaDestino, 'ponencia-' . $nombreSafe . '.pdf');
