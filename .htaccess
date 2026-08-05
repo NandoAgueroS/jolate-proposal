@@ -13,9 +13,13 @@ Options -Indexes
     RewriteRule ^registrations\.php$         backend/registrations.php [L]
     RewriteRule ^frontend/registrations\.php$ backend/registrations.php [L]
 
+    # Expose uploaded PDFs at /uploads/ while they live in backend/uploads/.
+    RewriteRule ^uploads/(.*)$ backend/uploads/$1 [L]
+
     # Everything not under backend/ or frontend/ is served from frontend/
     # (site root and all its relative assets resolve to the SPA folder).
     RewriteCond %{REQUEST_URI} !/backend/
     RewriteCond %{REQUEST_URI} !/frontend/
+    RewriteCond %{REQUEST_URI} !^/uploads/
     RewriteRule ^(.*)$ frontend/$1 [L]
 </IfModule>
