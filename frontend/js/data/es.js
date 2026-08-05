@@ -115,7 +115,6 @@ export const es = {
   'info_local.sede_imasl': 'IMASL \u2014 CONICET',
   'info_local.sede_imasl_text': 'Instituto de Matem\u00e1tica Aplicada San Luis, co-organizador e instituci\u00f3n anfitriona del evento.',
   'info_local.sede_imasl_dir': 'Ej\u00e9rcito de los Andes 950, San Luis',
-  'info_local.map_title': 'Ubicaci\u00f3n en San Luis',
 
   'faq.title': 'Preguntas Frecuentes',
   'faq.q1': '\u00bfCu\u00e1ndo y d\u00f3nde se realizan las JOLATE XXV?',
