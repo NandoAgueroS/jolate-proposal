@@ -225,7 +225,7 @@
           class="text-base sm:text-lg md:text-xl text-white max-w-2xl mx-auto font-light leading-relaxed hero-subtitle"
           data-i18n="hero.subtitle"
         >
-          Misiones Latinoamericanas de Teoría Económica — San Luis, 28 al 30 de
+          Jornadas Latinoamericanas de Teoría Económica — San Luis, 28 al 30 de
           octubre de 2026.
         </p>
 
@@ -241,7 +241,7 @@
                 >00</span
               >
               <span
-                class="text-[14px] font-mono tracking-widest text-white uppercase mt-1 block"
+                class="text-xs font-mono tracking-widest text-white uppercase mt-1 block"
                 data-i18n="countdown.days"
                 >Días</span
               >
@@ -253,7 +253,7 @@
                 >00</span
               >
               <span
-                class="text-[14px] font-mono tracking-widest text-white uppercase mt-1 block"
+                class="text-xs font-mono tracking-widest text-white uppercase mt-1 block"
                 data-i18n="countdown.hours"
                 >Horas</span
               >
@@ -265,7 +265,7 @@
                 >00</span
               >
               <span
-                class="text-[14px] font-mono tracking-widest text-white uppercase mt-1 block"
+                class="text-xs font-mono tracking-widest text-white uppercase mt-1 block"
                 data-i18n="countdown.minutes"
                 >Minutos</span
               >
@@ -277,7 +277,7 @@
                 >00</span
               >
               <span
-                class="text-[14px] font-mono tracking-widest text-white uppercase mt-1 block"
+                class="text-xs font-mono tracking-widest text-white uppercase mt-1 block"
                 data-i18n="countdown.seconds"
                 >Segundos</span
               >
@@ -371,22 +371,22 @@
           <!-- Right: stats -->
           <div class="grid grid-cols-2 gap-3">
             <div class="bg-white border border-tint/60 rounded-premium-sm p-4 text-center space-y-1">
-              <span class="block font-black text-primary leading-none" style="font-size: clamp(2rem, 4vw, 2.8rem);">25</span>
+              <span class="block font-black text-primary leading-none text-4xl md:text-5xl">25</span>
               <span class="block text-xs font-mono text-text/60 uppercase tracking-wider font-bold" data-i18n="acerca_de.stat_editions">Ediciones</span>
               <p class="text-xs text-text/50 font-light" data-i18n="acerca_de.stat_editions_sub">Trayectoria ininterrumpida desde 1998</p>
             </div>
             <div class="bg-white border border-tint/60 rounded-premium-sm p-4 text-center space-y-1">
-              <span class="block font-black text-primary leading-none" style="font-size: clamp(2rem, 4vw, 2.8rem);">15+</span>
+              <span class="block font-black text-primary leading-none text-4xl md:text-5xl">15+</span>
               <span class="block text-xs font-mono text-text/60 uppercase tracking-wider font-bold" data-i18n="acerca_de.stat_countries">Países</span>
               <p class="text-xs text-text/50 font-light" data-i18n="acerca_de.stat_countries_sub">Participación de toda la región y el mundo</p>
             </div>
             <div class="bg-white border border-tint/60 rounded-premium-sm p-4 text-center space-y-1">
-              <span class="block font-black text-primary leading-none" style="font-size: clamp(2rem, 4vw, 2.8rem);">7</span>
+              <span class="block font-black text-primary leading-none text-4xl md:text-5xl">7</span>
               <span class="block text-xs font-mono text-text/60 uppercase tracking-wider font-bold" data-i18n="acerca_de.stat_areas">Áreas Temáticas</span>
               <p class="text-xs text-text/50 font-light" data-i18n="acerca_de.stat_areas_sub">De teoría de juegos a dinámica económica</p>
             </div>
             <div class="bg-white border border-tint/60 rounded-premium-sm p-4 text-center space-y-1">
-              <span class="block font-black text-primary leading-none" style="font-size: clamp(2rem, 4vw, 2.8rem);">15</span>
+              <span class="block font-black text-primary leading-none text-4xl md:text-5xl">15</span>
               <span class="block text-xs font-mono text-text/60 uppercase tracking-wider font-bold" data-i18n="acerca_de.stat_committee">Comité Científico</span>
               <p class="text-xs text-text/50 font-light" data-i18n="acerca_de.stat_committee_sub">Investigadores de 8 universidades</p>
             </div>
@@ -815,6 +815,7 @@
           <form
             id="expositor-submit-form"
             class="space-y-5"
+            novalidate
             method="POST"
             action="procesar-envio.php"
             enctype="multipart/form-data"
@@ -837,12 +838,12 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label class="block text-xs font-mono font-medium text-text mb-1.5" for="expo-form-email" data-i18n="enviar.email">Correo Electrónico *</label>
-                <input type="email" id="expo-form-email" name="email" required maxlength="254" autocomplete="email" placeholder="autor@universidad.edu" data-i18n-placeholder="enviar.placeholder_email" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
+                <input type="email" id="expo-form-email" name="email" required maxlength="200" autocomplete="email" placeholder="autor@universidad.edu" data-i18n-placeholder="enviar.placeholder_email" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
                 <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="email" role="alert" aria-live="polite"></span>
               </div>
               <div>
                 <label class="block text-xs font-mono font-medium text-text mb-1.5" for="expo-form-dni" data-i18n="enviar.dni">DNI o Pasaporte *</label>
-                <input type="text" id="expo-form-dni" name="dni" required maxlength="20" pattern="[A-Za-z0-9]{5,20}" autocomplete="off" placeholder="Ej. 12345678" data-i18n-placeholder="enviar.placeholder_dni" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
+                <input type="text" id="expo-form-dni" name="dni" required maxlength="20" pattern="[A-Za-z0-9]{5,20}" inputmode="text" autocapitalize="characters" autocomplete="off" placeholder="Ej. 12345678" data-i18n-placeholder="enviar.placeholder_dni" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
                 <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="dni" role="alert" aria-live="polite"></span>
               </div>
             </div>
@@ -873,11 +874,11 @@
               <div id="expo-form-file-wrapper" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text flex items-center justify-between gap-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all">
                 <label for="expo-form-file" class="flex items-center gap-2 cursor-pointer">
                   <i data-lucide="upload" class="w-4 h-4 text-primary"></i>
-                  <span id="expo-file-empty-text">Elegir archivo (PDF · máx. 15 MB)</span>
-                  <span id="expo-file-name-display" class="hidden text-xs text-primary font-mono"></span>
+                  <span id="expo-form-file-empty-text">Elegir archivo (PDF · máx. 15 MB)</span>
+                  <span id="expo-form-file-name-display" class="hidden text-xs text-primary font-mono"></span>
                 </label>
-                <input type="file" id="expo-form-file" name="archivo" accept=".pdf" required class="hidden" />
-                <span id="expo-file-selected-check" class="hidden text-primary">
+                <input type="file" id="expo-form-file" name="archivo" accept=".pdf" required aria-describedby="expo-form-file-empty-text" class="hidden" />
+                <span id="expo-form-file-selected-check" class="hidden text-primary">
                   <i data-lucide="check" class="w-4 h-4"></i>
                 </span>
               </div>
@@ -1180,7 +1181,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <!-- ULP -->
           <div
-            class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 shadow-sm hover-magnetic"
+            class="flex flex-col bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 shadow-sm hover-magnetic"
           >
             <div class="aspect-[16/9] bg-tint/30 overflow-hidden">
               <img
@@ -1191,7 +1192,7 @@
                 class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
               />
             </div>
-            <div class="p-6 space-y-3">
+            <div class="p-6 space-y-3 flex-1">
               <div class="flex items-center gap-2 text-primary">
                 <i data-lucide="building-2" class="w-5 h-5 shrink-0"></i>
                 <span
@@ -1215,11 +1216,23 @@
                 >
               </p>
             </div>
+            <div class="w-full h-[220px] border-t border-tint/30 mt-auto">
+              <iframe
+                src="https://maps.google.com/maps?q=Rectorado%20Universidad%20de%20La%20Punta&amp;hl=es&amp;z=16&amp;output=embed"
+                width="100%"
+                height="100%"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Mapa Rectorado ULP"
+              ></iframe>
+            </div>
           </div>
 
           <!-- IMASL -->
           <div
-            class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 shadow-sm hover-magnetic"
+            class="flex flex-col bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 shadow-sm hover-magnetic"
           >
             <div class="aspect-[16/9] bg-tint/30 overflow-hidden">
               <img
@@ -1230,7 +1243,7 @@
                 class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
               />
             </div>
-            <div class="p-6 space-y-3">
+            <div class="p-6 space-y-3 flex-1">
               <div class="flex items-center gap-2 text-primary">
                 <i data-lucide="landmark" class="w-5 h-5 shrink-0"></i>
                 <span
@@ -1255,32 +1268,18 @@
                 >
               </p>
             </div>
-          </div>
-        </div>
-
-        <!-- Mapa -->
-        <div
-          class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden shadow-sm"
-        >
-          <div class="p-5 border-b border-tint/30 flex items-center gap-2 text-primary">
-            <i data-lucide="map-pin" class="w-5 h-5 shrink-0"></i>
-            <span
-              class="font-bold text-sm"
-              data-i18n="info_local.map_title"
-              >Ubicación en San Luis</span
-            >
-          </div>
-          <div class="w-full h-[220px]">
-            <iframe
-              src="https://maps.google.com/maps?q=Instituto%20de%20Matem%C3%A1tica%20Aplicada%20San%20Luis&amp;hl=es&amp;z=16&amp;output=embed"
-              width="100%"
-              height="100%"
-              style="border: 0"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              title="Mapa de San Luis"
-            ></iframe>
+            <div class="w-full h-[220px] border-t border-tint/30 mt-auto">
+              <iframe
+                src="https://maps.google.com/maps?q=Instituto%20de%20Matem%C3%A1tica%20Aplicada%20San%20Luis&amp;hl=es&amp;z=16&amp;output=embed"
+                width="100%"
+                height="100%"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Mapa IMASL"
+              ></iframe>
+            </div>
           </div>
         </div>
 
@@ -1317,6 +1316,7 @@
                 href="https://conexionsanluis.ar/"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Conexión San Luis (enlace externo)"
                 class="inline-flex items-center gap-2.5 bg-white hover:bg-white/90 text-primary font-semibold rounded-full px-8 py-3.5 md:py-4 transition-all hover:scale-[1.03] text-sm md:text-base shadow-lg hover-magnetic"
               >
                 <span data-i18n="san_luis.cta">Conexión San Luis</span>
@@ -1387,7 +1387,7 @@
           <!-- Right column: form card -->
           <div class="lg:col-span-7">
             <div class="bg-white border border-tint/60 rounded-premium-lg p-6 sm:p-8 shadow-md enviar-form-card">
-              <form id="paper-submit-form" class="space-y-5" method="POST" action="procesar-envio.php" enctype="multipart/form-data">
+              <form id="paper-submit-form" class="space-y-5" method="POST" action="procesar-envio.php" enctype="multipart/form-data" novalidate>
 
                 <!-- Tipo de participación (Expositor / Asistente) -->
                 <fieldset>
@@ -1441,12 +1441,12 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.email">Correo Electrónico *</label>
-                    <input type="email" id="form-email" name="email" required maxlength="254" autocomplete="email" placeholder="autor@universidad.edu" data-i18n-placeholder="enviar.placeholder_email" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
+                    <input type="email" id="form-email" name="email" required maxlength="200" autocomplete="email" placeholder="autor@universidad.edu" data-i18n-placeholder="enviar.placeholder_email" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
                     <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="email" role="alert" aria-live="polite"></span>
                   </div>
                   <div>
                     <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.dni">DNI o Pasaporte *</label>
-                    <input type="text" id="form-dni" name="dni" required maxlength="20" pattern="[A-Za-z0-9]{5,20}" autocomplete="off" placeholder="Ej. 12345678" data-i18n-placeholder="enviar.placeholder_dni" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
+                    <input type="text" id="form-dni" name="dni" required maxlength="20" pattern="[A-Za-z0-9]{5,20}" inputmode="text" autocapitalize="characters" autocomplete="off" placeholder="Ej. 12345678" data-i18n-placeholder="enviar.placeholder_dni" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
                     <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="dni" role="alert" aria-live="polite"></span>
                   </div>
                 </div>
@@ -1479,11 +1479,11 @@
                     <div id="form-file-wrapper" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text flex items-center justify-between gap-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all">
                       <label for="form-file" class="flex items-center gap-2 cursor-pointer">
                         <i data-lucide="upload" class="w-4 h-4 text-primary"></i>
-                        <span id="file-empty-text">Elegir archivo (PDF · máx. 15 MB)</span>
-                        <span id="file-name-display" class="hidden text-xs text-primary font-mono"></span>
+                        <span id="form-file-empty-text">Elegir archivo (PDF · máx. 15 MB)</span>
+                        <span id="form-file-name-display" class="hidden text-xs text-primary font-mono"></span>
                       </label>
-                      <input type="file" id="form-file" name="archivo" accept=".pdf" required class="hidden" />
-                      <span id="file-selected-check" class="hidden text-primary">
+                      <input type="file" id="form-file" name="archivo" accept=".pdf" required aria-describedby="form-file-empty-text" class="hidden" />
+                      <span id="form-file-selected-check" class="hidden text-primary">
                         <i data-lucide="check" class="w-4 h-4"></i>
                       </span>
                     </div>

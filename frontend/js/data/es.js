@@ -18,7 +18,7 @@ export const es = {
   'acerca_de.badge': 'ACERCA DE JOLATE',
   'acerca_de.title': 'XXV Jornadas Latinoamericanas',
   'acerca_de.title_accent': 'de Teoría Económica',
-  'acerca_de.p1': 'Las <strong class="text-primary">Jornadas Latinoamericanas de Teoría Económica (JOLATE)</strong> son el foro académico más relevante de la región en el área de economía altamente formalizada. Desde su creación, han reunido a investigadores, docentes y estudiantes de posgrado de toda América Latina y el mundo para debatir los avances más recientes en teoría económica.',
+  'acerca_de.p1': 'Las <strong class="text-primary">Jornadas Latinoamericanas de Teoría Económica (JOLATE)</strong> es un foro académico relevante de la región en el área de economía altamente formalizada. Desde su creación, han reunido a investigadores, docentes y estudiantes de posgrado de América Latina y el mundo para debatir los avances más recientes en teoría económica.',
   'acerca_de.p2': 'En su <strong class="text-text">XXV edición</strong> —un hito que celebra un cuarto de siglo de producción científica ininterrumpida— las jornadas se realizarán en <strong class="text-text">San Luis, Argentina</strong>, coorganizadas por la <strong class="text-text">Universidad de La Punta (ULP)</strong> y la <strong class="text-text">Universidad Nacional de San Luis (UNSL)</strong>, con el apoyo del CONICET y del gobierno provincial.',
   'acerca_de.tag_latam': 'Latinoamérica',
   'acerca_de.tag_dates': '28–30 Oct 2026',
@@ -96,7 +96,7 @@ export const es = {
   'comite.title': 'Comit\u00e9 Acad\u00e9mico e Institucional',
   'comite.sectionLabel': 'GOBERNANZA CIENTÍFICA',
   'comite.intro': 'Las personas que dirigen, evalúan y operan las XXV Jornadas Latinoamericanas de Teoría Económica.',
-  'comite.coorganizadores': 'Co-organizadores',
+  'comite.coorganizadores': 'Organizadores',
   'comite.academico': 'Comité Académico',
   'comite.local': 'Comité Local',
 
@@ -115,7 +115,6 @@ export const es = {
   'info_local.sede_imasl': 'IMASL \u2014 CONICET',
   'info_local.sede_imasl_text': 'Instituto de Matem\u00e1tica Aplicada San Luis, co-organizador e instituci\u00f3n anfitriona del evento.',
   'info_local.sede_imasl_dir': 'Ej\u00e9rcito de los Andes 950, San Luis',
-  'info_local.map_title': 'Ubicaci\u00f3n en San Luis',
 
   'faq.title': 'Preguntas Frecuentes',
   'faq.q1': '\u00bfCu\u00e1ndo y d\u00f3nde se realizan las JOLATE XXV?',
@@ -158,6 +157,7 @@ export const es = {
   'enviar.error_pdf_invalid': 'El archivo debe ser un PDF v\u00e1lido.',
   'enviar.error_unexpected': 'Error inesperado. Intent\u00e1 nuevamente.',
   'enviar.error_send': 'Error al enviar. Intent\u00e1 nuevamente.',
+  'enviar.error_required': 'Este campo es obligatorio.',
   'enviar.error_connection': 'Error de conexi\u00f3n. Verific\u00e1 tu internet e intent\u00e1 nuevamente.',
   'enviar.error_size': 'El archivo supera el tama\u00f1o m\u00e1ximo permitido de {max} MB.',
   'enviar.error_pdf_missing': 'Deb\u00e9s adjuntar el archivo PDF.',

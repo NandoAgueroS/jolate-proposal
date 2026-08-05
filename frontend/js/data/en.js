@@ -18,7 +18,7 @@ export const en = {
   'acerca_de.badge': 'ABOUT JOLATE',
   'acerca_de.title': 'XXV Latin American Meetings',
   'acerca_de.title_accent': 'on Economic Theory',
-  'acerca_de.p1': 'The <strong class="text-primary">Latin American Meetings on Economic Theory (JOLATE)</strong> are the region\u2019s most relevant academic forum in the area of highly formalized economics. Since its creation, it has brought together researchers, teachers, and graduate students from all over Latin America and the world to discuss the latest advances in economic theory.',
+  'acerca_de.p1': 'The <strong class="text-primary">Latin American Meetings on Economic Theory (JOLATE)</strong> is a relevant academic forum in the region in the area of highly formalized economics. Since its creation, it has brought together researchers, teachers, and graduate students from Latin America and the world to discuss the latest advances in economic theory.',
   'acerca_de.p2': 'In its <strong class="text-text">XXV edition</strong> \u2014a milestone celebrating a quarter of a century of uninterrupted scientific production\u2014 the meetings will be held in <strong class="text-text">San Luis, Argentina</strong>, co-organized by the <strong class="text-text">Universidad de La Punta (ULP)</strong> and the <strong class="text-text">Universidad Nacional de San Luis (UNSL)</strong>, with the support of CONICET and the provincial government.',
   'acerca_de.tag_latam': 'Latin America',
   'acerca_de.tag_dates': 'Oct 28\u201330 2026',
@@ -96,7 +96,7 @@ export const en = {
   'comite.title': 'Academic & Institutional Committee',
   'comite.sectionLabel': 'SCIENTIFIC GOVERNANCE',
   'comite.intro': 'The people who direct, evaluate, and operate the XXV Latin American Meeting on Economic Theory.',
-  'comite.coorganizadores': 'Co-organizers',
+  'comite.coorganizadores': 'Organizers',
   'comite.academico': 'Academic Committee',
   'comite.local': 'Local Committee',
 
@@ -115,7 +115,6 @@ export const en = {
   'info_local.sede_imasl': 'IMASL \u2014 CONICET',
   'info_local.sede_imasl_text': 'Instituto de Matem\u00e1tica Aplicada San Luis, co-organizer and host institution of the event.',
   'info_local.sede_imasl_dir': 'Ej\u00e9rcito de los Andes 950, San Luis',
-  'info_local.map_title': 'Location in San Luis',
 
   'faq.title': 'Frequently Asked Questions',
   'faq.q1': 'When and where will JOLATE XXV take place?',
@@ -158,6 +157,7 @@ export const en = {
   'enviar.error_pdf_invalid': 'The file must be a valid PDF.',
   'enviar.error_unexpected': 'Unexpected error. Please try again.',
   'enviar.error_send': 'Submission error. Please try again.',
+  'enviar.error_required': 'This field is required.',
   'enviar.error_connection': 'Connection error. Check your internet and try again.',
   'enviar.error_size': 'The file exceeds the maximum allowed size of {max} MB.',
   'enviar.error_pdf_missing': 'You must attach the PDF file.',
