@@ -11,6 +11,7 @@ import { initComite } from './features/comite.js';
 import { initGsapAnimations } from './features/gsap-animations.js';
 import { initLanguageToggle } from './features/language-toggle.js';
 import { initFormHandler } from './features/form-handler.js';
+import { initScrollSnap } from './features/scroll-snap.js';
 
 initI18n();
 initCountdown();
@@ -22,4 +23,5 @@ initComite();
 initGsapAnimations();
 initLanguageToggle();
 initFormHandler();
+initScrollSnap();
 refreshIcons();
