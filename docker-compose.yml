@@ -1,4 +1,3 @@
-version: "2"
 services:
   db:
     image: mariadb:10.11
@@ -24,9 +23,6 @@ services:
     build: .
     ports:
       - "8080:80"
-    volumes:
-      - ./backend/uploads:/var/www/html/jolate-proposal/backend/uploads
-      - ./backend/logs:/var/www/html/jolate-proposal/backend/logs
     environment:
       SMTP_HOST: ${SMTP_HOST}
       SMTP_PORT: ${SMTP_PORT}
