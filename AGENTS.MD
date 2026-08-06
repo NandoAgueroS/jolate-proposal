@@ -3,37 +3,66 @@
 ## Project
 
 JOLATE 2026 — XXV Jornadas Latinoamericanas de Teoría Económica
-Sitio web estático informativo del evento académico.
+Sitio web estático informativo del evento académico + panel de administración protegido.
 
 ## Stack
 
-- **HTML**: `index.html` semántico (monolítico por decisión, sin includes/SSI)
-- **CSS**: Tailwind CSS v3 via CDN + archivo `styles.css` con propiedades personalizadas
-- **JS**: Vanilla JavaScript en ES6 modules (`js/main.js` + `js/core/*` + `js/features/*`) — sin bundler, sin framework, sin dependencias
-- **CDN Dependencies**: Tailwind v3, GSAP 3.12.5 + ScrollTrigger, Lucide 0.460.0, Google Fonts (Inter, JetBrains Mono, Playfair Display)
-- **Build**: None — 100% static, sin paso de build
+- **Frontend público**: `frontend/index.html` monolítico + Tailwind v3 CDN + JS vanilla en ES6 modules (`js/main.js` + `js/core/*` + `js/data/*` + `js/features/*`) — sin bundler, sin framework.
+- **Frontend admin**: `frontend/admin.html` + `frontend/js/admin.js` (ES6 module) + jQuery 3.7.1 y DataTables 1.13.11 **autohospedados** en `frontend/vendor/`. Solo el panel, no el sitio público.
+- **Backend**: PHP 5.3 (imagen `reallyenglish/php:5.3-apache-0`) en `backend/`, con `procesar-envio.php` (form público), `registrations.php` (repositorio PDO), `auth.php` + `admin/*` (panel), `bin/seed-admin.php` (CLI para crear admins). PHPMailer 5.2 hand-vendored.
+- **DB**: MariaDB 10.11 (Docker) con tablas `tipo inscripto`, `inscriptos`, `admins`, `admin_auth_attempts`. Schema en `docker/database/init.sql`.
+- **CDN (sitio público)**: Tailwind v3, GSAP 3.12.5 + ScrollTrigger, Lucide 0.460.0, Google Fonts (Inter, JetBrains Mono, Playfair Display).
+- **Build**: None — 100% static en frontend; backend es PHP interpretado por Apache.
 
 ## File Structure
 
 ```
 /
-├── index.html          ← HTML semántico + tailwind.config inline + CDN imports
-├── styles.css          ← CSS custom properties en :root + clases personalizadas
-├── js/
-│   ├── main.js         ← Entry point (type="module"): inicializa idioma y features
-│   ├── core/
-│   │   ├── config.js   ← APP_CONFIG + JOLATE_CONFIG (única fuente de verdad de datos)
-│   │   ├── i18n.js     ← Motor i18n: t(), applyLang(), onLangChange()
-│   │   └── utils.js    ← escapeHtml(), escapeAttr(), refreshIcons()
-│   ├── data/
-│   │   ├── es.js       ← Diccionario español (export const es)
-│   │   └── en.js       ← Diccionario inglés (export const en)
-│   └── features/
-│       ├── countdown.js, faq-accordion.js, testimonials.js,
-│       ├── mobile-menu.js, program-tabs.js, comite.js,
-│       ├── gsap-animations.js, language-toggle.js, form-handler.js
-├── AGENTS.MD           ← Este archivo
-└── backend/            ← PHP (procesar-envio.php), fuera de este alcance
+├── .htaccess                       ← Raíz: ruteo frontend/backend + rutas /admin/*
+├── .env.example                    ← Plantilla env vars (DB, SMTP) para docker-compose
+├── .gitattributes                   ← Fuerza LF en *.sh (evita CRLF en Docker)
+├── index.html (legacy)             ← Obsoleto: el sitio real vive en frontend/
+├── AGENTS.md                       ← Este archivo
+├── README.md                       ← Setup, deploy, panel admin
+├── frontend/                       ← Sitio público + panel admin
+│   ├── index.html                  ← SPA monolítica + tailwind.config inline
+│   ├── styles.css                  ← CSS custom properties + clases
+│   ├── js/
+│   │   ├── main.js                 ← Entry point (type="module")
+│   │   ├── core/                   ← config.js, i18n.js, utils.js
+│   │   ├── data/                   ← es.js, en.js (diccionarios i18n)
+│   │   ├── features/               ← countdown, faq-accordion, comite, form-handler, etc.
+│   │   └── admin.js                ← Cliente del panel /admin
+│   ├── admin.html                  ← Login + dashboard del panel
+│   └── vendor/                     ← Autohospedados (solo /admin los usa)
+│       ├── jquery/jquery-3.7.1.min.js
+│       └── datatables/jquery.dataTables.{min.js,min.css}
+├── backend/                        ← PHP 5.3
+│   ├── .htaccess                   ← Bloquea config.php, vendor/, logs, seed-*.php
+│   ├── config.php                  ← Credenciales (gitignored; copiar de config.example.php)
+│   ├── config.example.php          ← Plantilla con bloque admin (rate-limit)
+│   ├── procesar-envio.php          ← Endpoint POST del form público
+│   ├── registrations.php           ← get_pdo() + save_registration() (PDO nativo)
+│   ├── auth.php                    ← Sesión + bcrypt + CSRF; usado por /admin/*
+│   ├── admin/
+│   │   ├── list.php                ← DataTables server-side (JSON)
+│   │   ├── detail.php              ← Ficha 1 inscripto (JSON)
+│   │   ├── download_pdf.php        ← Stream PDF autenticado
+│   │   └── export_csv.php          ← Export CSV (;) con BOM UTF-8
+│   ├── bin/
+│   │   └── seed-admin.php          ← CLI: crear/resetear admin (bcrypt)
+│   ├── uploads/                    ← PDFs recibidos (writable, *.pdf bloqueado por .htaccess)
+│   ├── logs/                       ← error.log (writable, *.log bloqueado por .htaccess)
+│   └── vendor/phpmailer/           ← PHPMailer 5.2 hand-vendored
+├── docker/                         ← Configuración Docker
+│   ├── database/init.sql           ← Schema completo (4 tablas)
+│   └── ... 
+├── bin/
+│   └── setup-runtime.sh            ← Permisos writables en deploy
+└── docs/                           ← Planes y auditorías
+    ├── plan-dashboard-admin-jolate.md
+    ├── plan-envio-ponencias.md
+    └── ...
 ```
 
 ## Palette (CSS Custom Properties)
