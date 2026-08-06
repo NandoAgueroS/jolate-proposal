@@ -57,8 +57,9 @@ if ($rol === 'Expositor' || $rol === 'Asistente') {
     $params[':rol'] = $rol;
 }
 if ($search !== '') {
-    $where .= ' AND (i.nombre LIKE :q OR i.institucion LIKE :q OR i.email LIKE :q'
-            . ' OR i.dni LIKE :q OR i.titulo_ponencia LIKE :q)';
+    // Single placeholder :q — native prepares (EMULATE_PREPARES=false) reject
+    // reusing a named placeholder within the same statement.
+    $where .= ' AND CONCAT_WS(\' \', i.nombre, i.institucion, i.email, i.dni, i.titulo_ponencia) LIKE :q';
     $params[':q'] = '%' . $search . '%';
 }
 
