@@ -43,9 +43,7 @@ $cols = array(
     3 => 'i.institucion',
     4 => 'i.email',
     5 => 'i.dni',
-    6 => 'i.titulo_ponencia',
-    7 => 'i.eje_tematico',
-    8 => 'i.created_at',
+    6 => 'i.created_at',
 );
 $orderCol = isset($cols[$orderColIdx]) ? $cols[$orderColIdx] : 'i.id';
 $orderDir = ($orderDirRaw === 'asc') ? 'ASC' : 'DESC';

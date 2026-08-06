@@ -60,6 +60,12 @@ function escapeHtml(s) {
     .replace(/'/g, '&#39;');
 }
 
+function truncCell(d, max) {
+  if (!d) return '<span class="text-text/40">—</span>';
+  return '<div class="truncate" style="max-width:' + max + 'px" title="' + escapeHtml(d) + '">'
+       + escapeHtml(d) + '</div>';
+}
+
 function fmtDate(s) {
   if (!s) return '';
   // DB stores "YYYY-MM-DD HH:MM:SS" treated as UTC.
@@ -153,6 +159,10 @@ async function onLogout() {
   renderLogin(null);
 }
 
+function onRefresh() {
+  if (state.dt) state.dt.ajax.reload();
+}
+
 function renderDashboard() {
   const app = document.getElementById('app');
   app.innerHTML = '';
@@ -171,6 +181,14 @@ function renderDashboard() {
           }, [
             el('i', { 'data-lucide': 'download', class: 'w-4 h-4' }),
             'Exportar CSV',
+          ]),
+          el('button', {
+            id: 'btn-refresh', type: 'button',
+            class: 'inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-md text-sm font-medium',
+            on: { click: onRefresh },
+          }, [
+            el('i', { 'data-lucide': 'refresh-cw', class: 'w-4 h-4' }),
+            'Actualizar',
           ]),
           el('button', {
             id: 'btn-logout', type: 'button',
@@ -206,8 +224,6 @@ function renderDashboard() {
               el('th', null, 'Institución'),
               el('th', null, 'Email'),
               el('th', null, 'DNI'),
-              el('th', null, 'Título'),
-              el('th', null, 'Eje'),
               el('th', null, 'Fecha'),
               el('th', null, 'Acciones'),
             ]),
@@ -257,44 +273,50 @@ function initDataTable() {
   state.dt = $tbl.DataTable({
     serverSide: true,
     processing: true,
+    autoWidth: false,
     ajax: {
       url: 'admin/list.php',
       type: 'GET',
       data: (d) => { d.rol = state.rolFilter ? state.rolFilter.value : ''; },
     },
     columns: [
-      { data: 'id', width: '60px' },
+      { data: 'id', width: '40px' },
       {
         data: 'rol',
+        width: '80px',
         render: (d) => {
           const cls = d === 'Expositor' ? 'bg-primary/10 text-primary' : 'bg-tint text-text';
           return '<span class="inline-block px-2 py-0.5 rounded text-xs font-medium ' + cls + '">'
                + escapeHtml(d) + '</span>';
         },
       },
-      { data: 'nombre' },
-      { data: 'institucion' },
-      { data: 'email' },
+      { data: 'nombre', render: (d) => truncCell(d, 200) },
+      { data: 'institucion', render: (d) => truncCell(d, 160) },
+      { data: 'email', render: (d) => truncCell(d, 220) },
       { data: 'dni', width: '90px' },
       {
-        data: 'titulo_ponencia',
-        render: (d) => d ? escapeHtml(d) : '<span class="text-text/40">—</span>',
-      },
-      {
-        data: 'eje_tematico',
-        render: (d) => d ? escapeHtml(d) : '<span class="text-text/40">—</span>',
-      },
-      { data: 'created_at', render: fmtDate, width: '140px' },
-      {
-        data: null, orderable: false, searchable: false, width: '150px',
+        data: 'created_at',
+        width: '80px',
         render: (d) => {
-          let html = '<button data-ver="' + d.id + '" class="ver-btn inline-flex items-center gap-1 text-accent hover:text-primary text-xs font-medium mr-2">'
+          if (!d) return '';
+          const f = fmtDate(d).split(' ');
+          return '<div class="flex flex-col text-xs leading-tight">' +
+                 '<span>' + escapeHtml(f[0] || '') + '</span>' +
+                 '<span class="text-text/60">' + escapeHtml(f[1] || '') + '</span>' +
+                 '</div>';
+        },
+      },
+      {
+        data: null, orderable: false, searchable: false, width: '70px',
+        render: (d) => {
+          let html = '<div class="flex flex-col gap-0.5">'
+                   + '<button data-ver="' + d.id + '" class="ver-btn inline-flex items-center gap-1 text-accent hover:text-primary text-xs font-medium">'
                    + '<i data-lucide="eye" class="w-3.5 h-3.5"></i>Ver</button>';
           if (d.tiene_pdf) {
             html += '<a href="admin/download.php?id=' + d.id + '" class="inline-flex items-center gap-1 text-accent hover:text-primary text-xs font-medium">'
                   + '<i data-lucide="file-text" class="w-3.5 h-3.5"></i>PDF</a>';
           }
-          return html;
+          return html + '</div>';
         },
       },
     ],

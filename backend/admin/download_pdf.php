@@ -61,7 +61,8 @@ try {
     }
 
     header('Content-Type: application/pdf');
-    header('Content-Disposition: attachment; filename="ponencia-' . $id . '.pdf"');
+    $fname = !empty($row['archivo_filename']) ? $row['archivo_filename'] : $id . '.pdf';
+    header('Content-Disposition: attachment; filename="ponencia-' . $fname . '"');
     header('Content-Length: ' . filesize($real));
     header('Cache-Control: private, no-store');
 
