@@ -13,6 +13,14 @@ Options -Indexes
     RewriteRule ^registrations\.php$         backend/registrations.php [L]
     RewriteRule ^frontend/registrations\.php$ backend/registrations.php [L]
 
+    # Admin dashboard routes (mapped BEFORE the catch-all below).
+    RewriteRule ^admin/?$              frontend/admin.html              [L]
+    RewriteRule ^admin/auth\.php$      backend/auth.php                 [L]
+    RewriteRule ^admin/list\.php$      backend/admin/list.php           [L]
+    RewriteRule ^admin/detail\.php$    backend/admin/detail.php         [L]
+    RewriteRule ^admin/download\.php$  backend/admin/download_pdf.php   [L]
+    RewriteRule ^admin/export\.php$    backend/admin/export_csv.php     [L]
+
     # Expose uploaded PDFs at /uploads/ while they live in backend/uploads/.
     RewriteRule ^uploads/(.*)$ backend/uploads/$1 [L]
 
@@ -21,5 +29,6 @@ Options -Indexes
     RewriteCond %{REQUEST_URI} !/backend/
     RewriteCond %{REQUEST_URI} !/frontend/
     RewriteCond %{REQUEST_URI} !^/uploads/
+    RewriteCond %{REQUEST_URI} !^/admin/
     RewriteRule ^(.*)$ frontend/$1 [L]
 </IfModule>

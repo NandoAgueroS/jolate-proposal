@@ -1,0 +1,3 @@
+# Force LF line endings for shell scripts so they stay executable in
+# Linux containers (CRLF breaks the shebang).
+*.sh text eol=lf

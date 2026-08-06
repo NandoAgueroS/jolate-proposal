@@ -9,5 +9,17 @@
     </IfModule>
 </FilesMatch>
 
+# Block direct HTTP access to uploaded PDFs — only the authenticated
+# download_pdf.php endpoint may serve them.
+<FilesMatch "\.pdf$">
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+</FilesMatch>
+
 # Disable directory listing
 Options -Indexes

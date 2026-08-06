@@ -3,15 +3,20 @@
 ## Estructura
 
 ```
-backend/          PHP 5.3 backend (procesar-envio.php, registrations.php)
+backend/          PHP 5.3 backend (procesar-envio.php, registrations.php, auth.php, admin/)
   uploads/        PDFs recibidos (writable)
   logs/           Logs de error (writable)
   vendor/         PHPMailer
   config.php      Credenciales (excluido de git, copiar desde config.example.php)
-frontend/         SPA estática (index.html, JS vanilla, Tailwind CDN)
+  admin/          Endpoints JSON del panel de administración
+  bin/            Scripts CLI (seed-admin.php para crear el admin)
+frontend/         SPA estática (index.html, admin.html, JS vanilla, Tailwind CDN)
+  vendor/         jQuery + DataTables autohospedados (solo para /admin)
 docker/           Docker Compose services (MariaDB, MailHog, phpMyAdmin)
 bin/              Scripts de setup
   setup-runtime.sh   Permisos de directorios writables
+docs/             Documentación y planes
+  plan-dashboard-admin-jolate.md   Plan del panel de administración
 ```
 
 ## Requisitos
@@ -58,4 +63,37 @@ no requiere configuración extra del VirtualHost.
 - `/` → sirve `frontend/index.html` (rewrite interno vía `.htaccess`)
 - `/procesar-envio.php` → `backend/procesar-envio.php` (form POST)
 - `/registrations.php` → `backend/registrations.php`
+- `/admin` → sirve `frontend/admin.html` (panel de administración)
+- `/admin/{auth,list,detail,download,export}.php` → endpoints JSON del panel
 - `/backend/*` → acceso directo a scripts PHP (config.php bloqueado por `.htaccess`)
+
+## Panel de administración (`/admin`)
+
+Acceso protegido por login para que el organizador del evento gestione los
+inscriptos (Expositores y Asistentes): ver, buscar, filtrar por rol, descargar
+los PDFs de las ponencias, exportar a CSV y ver el detalle de cada registro.
+
+**Acceso:** `http://localhost:8080/admin` (en desarrollo con Docker).
+
+**Crear el primer admin** (la contraseña se guarda hasheada con bcrypt):
+
+```bash
+# Con Docker (recomendado en este repo):
+docker compose exec php php //var/www/html/jolate-proposal/backend/bin/seed-admin.php <usuario> '<password>'
+
+# Sin Docker (PHP local, Laragon, hosting):
+php backend/bin/seed-admin.php <usuario> '<password>'
+```
+
+El usuario puede ser cualquier string (no tiene que ser literalmente `admin`).
+Para resetear la clave de un usuario existente, volver a correr el comando con
+el mismo usuario y la nueva contraseña.
+
+**Protecciones activas:**
+
+- Rate-limit por IP: 5 intentos fallidos en 5 minutos → bloqueo 15 minutos.
+- PDFs de ponencias: solo descargables desde el panel (URL directa bloqueada).
+- Sesión con `SameSite=Lax`, regenerada al login.
+- Credenciales hasheadas con bcrypt (PHP 5.3 compatible vía `crypt()`).
+
+> Documentación completa: `docs/plan-dashboard-admin-jolate.md`.
