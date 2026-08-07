@@ -323,6 +323,10 @@ function initDataTable() {
     order: [[0, 'desc']],
     pageLength: 25,
     lengthMenu: [10, 25, 50, 100],
+    responsive: true,
+    rowReorder: {
+      selector: 'td:nth-child(2)',
+    },
     language: {
       processing:     'Procesando...',
       search:         'Buscar:',
