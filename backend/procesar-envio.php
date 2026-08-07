@@ -261,7 +261,7 @@ if ($rol === 'Expositor') {
         logError('openssl_random_pseudo_bytes() failed — openssl extension may be missing.');
         jsonError('No se pudo generar un nombre de archivo seguro.', 500, '', 'server_file_name');
     }
-    $nombreArchivo = bin2hex($bytes) . '.pdf';
+    $nombreArchivo = $dni . '-' . bin2hex($bytes) . '.pdf';
     $rutaDestino   = rtrim($config['upload_dir'], '/') . '/' . $nombreArchivo;
 
     if (!move_uploaded_file($archivo['tmp_name'], $rutaDestino)) {
