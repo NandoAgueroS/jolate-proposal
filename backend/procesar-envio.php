@@ -117,13 +117,6 @@ function mailField($label, $valor) {
         . htmlspecialchars($valor, ENT_QUOTES, 'UTF-8') . '</p>';
 }
 
-function mailButton($url, $label) {
-    $href = htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
-    return '<p style="margin:20px 0 0;">'
-        . '<a href="' . $href . '" style="display:inline-block;background-color:#055c62;color:#ffffff;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:bold;text-decoration:none;padding:12px 24px;border-radius:8px;">'
-        . htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . '</a></p>';
-}
-
 function mailWrap($titulo, $contenido, $badge = '') {
     $badgeHtml = '';
     if ($badge !== '') {
@@ -308,10 +301,6 @@ if ($idInscripto === false) {
 // Sanitize user-supplied name to prevent CR/LF injection in email headers
 $nombreSafe = preg_replace('/[\r\n]/', '', $nombre);
 
-// Build public download URL (used in Expositor emails)
-$scheme   = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-$baseUrl  = $scheme . '://' . $_SERVER['HTTP_HOST'];
-
 // --- 1) Participant confirmation email ---
 try {
     $mailParticipante = new PHPMailer(true);
@@ -330,14 +319,16 @@ try {
     $mailParticipante->isHTML(true);
 
     if ($rol === 'Expositor') {
-        $downloadUrl = $baseUrl . '/uploads/' . $nombreArchivo;
+        // Attach the saved PDF so the participant keeps a copy of their paper
+        $mailParticipante->addAttachment($rutaDestino, 'ponencia-' . $nombreSafe . '.pdf');
+
         $mailParticipante->Subject = 'Confirmación de recepción de ponencia — JOLATE 2026';
         $mailParticipante->Body    = mailWrap(
             'Tu ponencia fue recibida correctamente',
             mailField('Nombre', $nombre)
             . mailField('Eje temático', $eje)
             . mailField('Título de la ponencia', $titulo)
-            . mailButton($downloadUrl, 'Ver PDF')
+            . '<p style="margin:20px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#043c41;">Tu ponencia se adjunta a este correo.</p>'
             . '<p style="margin:20px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#043c41;">En breve el comité se pondrá en contacto.</p>',
             'Expositor'
         );
@@ -346,7 +337,7 @@ try {
             . 'Rol: Expositor' . "\n"
             . 'Eje: ' . $eje . "\n"
             . 'Título: ' . $titulo . "\n"
-            . 'Archivo: ' . $downloadUrl . "\n"
+            . 'Archivo: adjunto a este correo' . "\n"
             . 'En breve el comité se pondrá en contacto.';
     } else {
         $mailParticipante->Subject = 'Confirmación de inscripción — JOLATE 2026';
@@ -393,8 +384,6 @@ try {
     $mailComite->isHTML(true);
 
     if ($rol === 'Expositor') {
-        $downloadUrl = $baseUrl . '/uploads/' . $nombreArchivo;
-
         // Attach the saved PDF to the committee notification
         $mailComite->addAttachment($rutaDestino, 'ponencia-' . $nombreSafe . '.pdf');
 
@@ -407,7 +396,7 @@ try {
             . mailField('Correo', $email)
             . mailField('Eje temático', $eje)
             . mailField('Título de la ponencia', $titulo)
-            . mailButton($downloadUrl, 'Ver PDF'),
+            . '<p style="margin:20px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#043c41;">La ponencia se adjunta a este correo.</p>',
             'Expositor'
         );
         $mailComite->AltBody = 'Nueva ponencia recibida' . "\n"
@@ -418,7 +407,7 @@ try {
             . 'Rol: Expositor' . "\n"
             . 'Eje: ' . $eje . "\n"
             . 'Título: ' . $titulo . "\n"
-            . 'Archivo: ' . $downloadUrl;
+            . 'Archivo: adjunto a este correo';
     } else {
         $mailComite->Subject = 'Nueva inscripción: ' . $nombreSafe . ' (Asistente)';
         $mailComite->Body    = mailWrap(
