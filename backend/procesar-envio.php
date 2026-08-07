@@ -320,7 +320,7 @@ try {
 
     if ($rol === 'Expositor') {
         // Attach the saved PDF so the participant keeps a copy of their paper
-        $mailParticipante->addAttachment($rutaDestino, 'ponencia-' . $nombreSafe . '.pdf');
+        $mailParticipante->addAttachment($rutaDestino, 'ponencia-' . $dni . '.pdf');
 
         $mailParticipante->Subject = 'Confirmación de recepción de ponencia — JOLATE 2026';
         $mailParticipante->Body    = mailWrap(
@@ -385,7 +385,7 @@ try {
 
     if ($rol === 'Expositor') {
         // Attach the saved PDF to the committee notification
-        $mailComite->addAttachment($rutaDestino, 'ponencia-' . $nombreSafe . '.pdf');
+        $mailComite->addAttachment($rutaDestino, 'ponencia-' . $dni . '.pdf');
 
         $mailComite->Subject = 'Nueva ponencia recibida: ' . $nombreSafe . ' (' . $eje . ')';
         $mailComite->Body    = mailWrap(
