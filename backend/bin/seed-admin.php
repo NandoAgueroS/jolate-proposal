@@ -1,6 +1,6 @@
 <?php
 /**
- * JOLATE 2026 — Admin: bcrypt seeding (uses crypt() $2y$, PHP 5.3 compatible).
+ * JOLATE 2026 — Admin: bcrypt seeding via password_hash().
  *
  * Uso CLI:
  *   php backend/bin/seed-admin.php <username> <password>
@@ -32,20 +32,14 @@ if (!file_exists($configPath)) {
 $config = require $configPath;
 require __DIR__ . '/../registrations.php';
 
-$alphabet = './ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-$salt = '';
-for ($i = 0; $i < 22; $i++) {
-    $r = ord(openssl_random_pseudo_bytes(1));
-    $salt .= $alphabet[$r % 64];
-}
-$hash = crypt($pass, '$2y$10$' . $salt);
+$hash = password_hash($pass, PASSWORD_BCRYPT);
 
 try {
     $pdo = get_pdo($config);
-    $sql = "INSERT INTO `admins` (`username`, `password_hash`) VALUES (:u, :h)"
-         . " ON DUPLICATE KEY UPDATE `password_hash` = VALUES(`password_hash`)";
+    $sql = "INSERT INTO `jolate_admins` (`username`, `password_hash`) VALUES (:u, :h)"
+         . " AS new ON DUPLICATE KEY UPDATE `password_hash` = new.password_hash";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute(array(':u' => $user, ':h' => $hash));
+    $stmt->execute([':u' => $user, ':h' => $hash]);
     echo "Admin '{$user}' creado/actualizado.\n";
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage() . "\n";

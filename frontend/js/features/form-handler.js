@@ -7,7 +7,7 @@ import { refreshIcons } from '../core/utils.js';
 const idMap = { nombre: 'author', institucion: 'institution', eje_tematico: 'topic', titulo_ponencia: 'title', archivo: 'file' };
 
 // Límite de tamaño de archivo — debe coincidir con max_file_size_mb del backend.
-const maxFileSizeMB = (JOLATE_CONFIG && JOLATE_CONFIG.maxFileSizeMB) || 15;
+const maxFileSizeMB = (JOLATE_CONFIG && JOLATE_CONFIG.maxFileSizeMB) || 7;
 const maxFileSizeBytes = maxFileSizeMB * 1024 * 1024;
 
 // Códigos de error devueltos por procesar-envio.php → clave i18n.

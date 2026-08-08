@@ -9,8 +9,9 @@ Sitio web estático informativo del evento académico + panel de administración
 
 - **Frontend público**: `frontend/index.html` monolítico + Tailwind v3 CDN + JS vanilla en ES6 modules (`js/main.js` + `js/core/*` + `js/data/*` + `js/features/*`) — sin bundler, sin framework.
 - **Frontend admin**: `frontend/admin.html` + `frontend/js/admin.js` (ES6 module) + jQuery 3.7.1 y DataTables 1.13.11 **autohospedados** en `frontend/vendor/`. Solo el panel, no el sitio público.
-- **Backend**: PHP 5.3 (imagen `reallyenglish/php:5.3-apache-0`) en `backend/`, con `procesar-envio.php` (form público), `registrations.php` (repositorio PDO), `auth.php` + `admin/*` (panel), `bin/seed-admin.php` (CLI para crear admins). PHPMailer 5.2 hand-vendored.
-- **DB**: MariaDB 10.11 (Docker) con tablas `tipo inscripto`, `inscriptos`, `admins`, `admin_auth_attempts`. Schema en `docker/database/init.sql`.
+- **Backend**: PHP 8.3 en `backend/`, con `procesar-envio.php` (form público → registro en DB sin envío síncrono), `registrations.php` (repositorio PDO), `mailer.php` (funciones SMTP reutilizables), `auth.php` + `admin/*` (panel), `bin/seed-admin.php` (CLI para crear admins), `bin/send-pending-emails.php` (worker cron de cola de correos). PHPMailer 6.9.3 hand-vendored.
+- **DB**: MySQL 8.0.20 con tablas `jolate_tipo_inscripto`, `jolate_inscriptos`, `jolate_admins`, `jolate_admin_auth_attempts`. Schema en `docker/database/init.sql`. Base: `devulp`.
+- **Email**: Envío asíncrono vía cron cada 5 min. El worker CLI (`send-pending-emails.php`) procesa la cola con 5 reintentos por tipo de email (participante y comité, trackeados por separado). El panel `/admin` muestra badges de estado.
 - **CDN (sitio público)**: Tailwind v3, GSAP 3.12.5 + ScrollTrigger, Lucide 0.460.0, Google Fonts (Inter, JetBrains Mono, Playfair Display).
 - **Build**: None — 100% static en frontend; backend es PHP interpretado por Apache.
 
@@ -37,7 +38,7 @@ Sitio web estático informativo del evento académico + panel de administración
 │   └── vendor/                     ← Autohospedados (solo /admin los usa)
 │       ├── jquery/jquery-3.7.1.min.js
 │       └── datatables/jquery.dataTables.{min.js,min.css}
-├── backend/                        ← PHP 5.3
+├── backend/                        ← PHP 8.3
 │   ├── .htaccess                   ← Bloquea config.php, vendor/, logs, seed-*.php
 │   ├── config.php                  ← Credenciales (gitignored; copiar de config.example.php)
 │   ├── config.example.php          ← Plantilla con bloque admin (rate-limit)
@@ -50,12 +51,16 @@ Sitio web estático informativo del evento académico + panel de administración
 │   │   ├── download_pdf.php        ← Stream PDF autenticado
 │   │   └── export_csv.php          ← Export CSV (;) con BOM UTF-8
 │   ├── bin/
-│   │   └── seed-admin.php          ← CLI: crear/resetear admin (bcrypt)
+│   │   └── seed-admin.php          ← CLI: crear/resetear admin (password_hash)
+│   │   └── send-pending-emails.php  ← CLI: worker cron de cola de correos
+│   ├── mailer.php                   ← Funciones SMTP compartidas (web + cron)
 │   ├── uploads/                    ← PDFs recibidos (writable, *.pdf bloqueado por .htaccess)
 │   ├── logs/                       ← error.log (writable, *.log bloqueado por .htaccess)
-│   └── vendor/phpmailer/           ← PHPMailer 5.2 hand-vendored
+│   └── vendor/phpmailer/           ← PHPMailer 6.9.3 hand-vendored
 ├── docker/                         ← Configuración Docker
-│   ├── database/init.sql           ← Schema completo (4 tablas)
+│   ├── database/init.sql           ← Schema: DB devulp, 4 tablas jolate_*
+│   ├── entrypoint.sh               ← Arranca cron + Apache
+│   ├── crontab                     ← Worker email cada 5 min
 │   └── ... 
 ├── bin/
 │   └── setup-runtime.sh            ← Permisos writables en deploy

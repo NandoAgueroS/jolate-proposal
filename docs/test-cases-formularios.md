@@ -138,17 +138,17 @@ Rol fijo: **Expositor**. Sin selector de tipo de participación.
 - [ ] **TC-33:** Seleccionar un archivo `.txt` renombrado a `.pdf` y enviar  
   **Esperado:** El backend detecta MIME real con `finfo` y responde con `pdf_invalid`.
 
-- [ ] **TC-34:** Seleccionar un archivo `.pdf` de más de 15 MB  
-  **Esperado:** El frontend lo rechaza inmediatamente al seleccionarlo (no espera al submit). Error "El archivo supera el tamaño máximo permitido (15 MB)".
+- [ ] **TC-34:** Seleccionar un archivo `.pdf` de más de 7 MB  
+  **Esperado:** El frontend lo rechaza inmediatamente al seleccionarlo (no espera al submit). Error "El archivo supera el tamaño máximo permitido (7 MB)".
 
-- [ ] **TC-35:** Seleccionar un PDF de < 15 MB y enviar  
+- [ ] **TC-35:** Seleccionar un PDF de < 7 MB y enviar  
   **Esperado:** Se acepta. Al seleccionarlo se muestra: nombre del archivo + tamaño (KB o MB) y un ícono de check verde.
 
 - [ ] **TC-36:** Seleccionar un archivo, luego seleccionar otro distinto  
   **Esperado:** La UI se actualiza con el nombre y tamaño del nuevo archivo.
 
 - [ ] **TC-37:** Seleccionar un archivo válido, luego hacer clic en "Elegir archivo" y cancelar la selección (Esc)  
-  **Esperado:** La UI vuelve al estado inicial ("Elegir archivo (PDF · máx. 15 MB)").
+  **Esperado:** La UI vuelve al estado inicial ("Elegir archivo (PDF · máx. 7 MB)").
 
 ### 1.3 Estados de UI
 
@@ -184,7 +184,7 @@ Rol fijo: **Expositor**. Sin selector de tipo de participación.
   - DNI: `12345678`
   - Título: `Modelos de equilibrio general con agentes heterogéneos`
   - Eje: `Equilibrio General`
-  - Archivo: PDF válido < 15 MB
+  - Archivo: PDF válido < 7 MB
   - Hacer clic en "Procesar Registro y Enviar"  
   **Esperado:** Spinner → mensaje de éxito verde. El Comité recibe email con los datos + PDF adjunto. El participante recibe email de confirmación.
 
@@ -272,10 +272,10 @@ Se repiten los mismos casos de TC-05 a TC-25 para los campos compartidos:
 - [ ] **TC-68:** Seleccionar un archivo `documento.pdf.exe`  
   **Esperado:** Rechazado (la extensión final es `.exe`, no `.pdf`).
 
-- [ ] **TC-69:** Seleccionar un archivo de exactamente 15 MB (15,728,640 bytes si MB = 1024²)  
+- [ ] **TC-69:** Seleccionar un archivo de exactamente 7 MB (15,728,640 bytes si MB = 1024²)  
   **Esperado:** Aceptado por el frontend (<= 15 × 1024 × 1024 bytes).
 
-- [ ] **TC-70:** Seleccionar un archivo de 15 MB + 1 byte  
+- [ ] **TC-70:** Seleccionar un archivo de 7 MB + 1 byte  
   **Esperado:** Rechazado. Error de tamaño.
 
 - [ ] **TC-71:** Seleccionar un archivo PDF pero con MIME type `application/octet-stream`  
@@ -327,11 +327,11 @@ Se repiten los mismos casos de TC-05 a TC-25 para los campos compartidos:
 
 ### 3.7 Configuración de tamaño de archivo
 
-- [ ] **TC-84:** Verificar que el límite de 15 MB se lee de `JOLATE_CONFIG.maxFileSizeMB` si existe, o usa 15 como default  
-  **Esperado:** El texto "PDF · máx. 15 MB" coincide con la variable de configuración. Si se cambia `maxFileSizeMB` en `config.js`, la UI y la validación reflejan el nuevo valor.
+- [ ] **TC-84:** Verificar que el límite de 7 MB se lee de `JOLATE_CONFIG.maxFileSizeMB` si existe, o usa 15 como default  
+  **Esperado:** El texto "PDF · máx. 7 MB" coincide con la variable de configuración. Si se cambia `maxFileSizeMB` en `config.js`, la UI y la validación reflejan el nuevo valor.
 
 - [ ] **TC-85:** Verificar que el límite del frontend (`maxFileSizeBytes`) coincide con el del backend (`max_file_size_mb` × 1024 × 1024)  
-  **Esperado:** Ambos rechazan archivos > 15 MB. No hay discrepancia que permita enviar un archivo que el backend luego rechaza por tamaño.
+  **Esperado:** Ambos rechazan archivos > 7 MB. No hay discrepancia que permita enviar un archivo que el backend luego rechaza por tamaño.
 
 ---
 

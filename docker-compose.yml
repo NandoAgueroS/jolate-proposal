@@ -1,14 +1,14 @@
 services:
   db:
-    image: mariadb:10.11
+    image: mysql:8.0.20
     restart: unless-stopped
     environment:
-      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MARIADB_DATABASE: ${DB_NAME}
-      MARIADB_USER: ${DB_USER}
-      MARIADB_PASSWORD: ${DB_PASS}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
       - ./docker/database/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
     ports:
       - "3306:3306"
@@ -50,7 +50,7 @@ services:
       - "8025:8025"
       - "1025:1025"
 
-  # Web UI for MariaDB — dev convenience: http://localhost:8081
+  # Web UI for MySQL — dev convenience: http://localhost:8081
   phpmyadmin:
     image: phpmyadmin:5.2
     restart: unless-stopped
@@ -67,4 +67,4 @@ services:
         condition: service_healthy
 
 volumes:
-  mariadb_data:
+  mysql_data:

@@ -11,7 +11,7 @@ $configPath = __DIR__ . '/../config.php';
 if (!file_exists($configPath)) {
     http_response_code(500);
     header('Content-Type: application/json; charset=utf-8');
-    echo json_encode(array('error' => 'server_config'));
+    echo json_encode(['error' => 'server_config']);
     exit;
 }
 $config = require $configPath;
@@ -22,7 +22,7 @@ header('Content-Type: application/json; charset=utf-8');
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 if ($id <= 0) {
     http_response_code(400);
-    echo json_encode(array('error' => 'bad_id'));
+    echo json_encode(['error' => 'bad_id']);
     exit;
 }
 
@@ -30,16 +30,18 @@ try {
     $pdo = get_pdo($config);
     $sql = "SELECT i.id, i.nombre, i.institucion, i.email, i.dni,"
          . " i.titulo_ponencia, i.eje_tematico, i.archivo_filename,"
+         . " i.email_part_status, i.email_part_attempts, i.email_part_error,"
+         . " i.email_comm_status, i.email_comm_attempts, i.email_comm_error,"
          . " i.created_at, t.nombre AS rol"
-         . " FROM `inscriptos` i"
-         . " JOIN `tipo inscripto` t ON t.id = i.id_tipo_inscripto"
+         . " FROM `jolate_inscriptos` i"
+         . " JOIN `jolate_tipo_inscripto` t ON t.id = i.id_tipo_inscripto"
          . " WHERE i.id = :id LIMIT 1";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute(array(':id' => $id));
+    $stmt->execute([':id' => $id]);
     $row = $stmt->fetch();
     if (!$row) {
         http_response_code(404);
-        echo json_encode(array('error' => 'not_found'));
+        echo json_encode(['error' => 'not_found']);
         exit;
     }
     $row['id'] = (int)$row['id'];
@@ -48,5 +50,5 @@ try {
 } catch (Exception $e) {
     admin_log_error('admin/detail.php: ' . $e->getMessage());
     http_response_code(500);
-    echo json_encode(array('error' => 'server'));
+    echo json_encode(['error' => 'server']);
 }

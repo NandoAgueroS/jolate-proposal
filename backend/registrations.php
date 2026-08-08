@@ -2,11 +2,9 @@
 /**
  * JOLATE 2026 — PDO repository seam for registration persistence.
  *
- * PHP 5.3 compatible — no strict_types, no ??, no [] arrays, no random_bytes.
- *
  * Provides:
  *   get_pdo(array $config)         — returns a PDO connection from the 'db' config block
- *   save_registration(array $data) — inserts a row into `inscriptos`; returns new id or false
+ *   save_registration(array $data) — inserts a row into `jolate_inscriptos`; returns new id or false
  */
 
 // Initialize timezone BEFORE any date() call — prevents warnings that corrupt
@@ -24,17 +22,18 @@ function get_pdo(array $config) {
     $db  = $config['db'];
     $dsn = 'mysql:host=' . $db['host'] . ';dbname=' . $db['name'] . ';charset=utf8mb4';
 
-    $pdo = new PDO($dsn, $db['user'], $db['pass'], array(
+    $pdo = new PDO($dsn, $db['user'], $db['pass'], [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_EMULATE_PREPARES   => false,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    ));
+        PDO::MYSQL_ATTR_MULTI_STATEMENTS => false,
+    ]);
 
     return $pdo;
 }
 
 /**
- * Persist a registration row into `inscriptos`.
+ * Persist a registration row into `jolate_inscriptos`.
  *
  * Expected $data keys:
  *   - id_tipo_inscripto  (int, required)
@@ -65,25 +64,26 @@ function save_registration(array $data) {
         $pdo = get_pdo($config);
 
         // All identifiers are backtick-quoted.
-        // The table `tipo inscripto` (with space) is referenced only via FK column
-        // `id_tipo_inscripto` — no direct reference in this INSERT.
-        $sql = 'INSERT INTO `inscriptos` '
+        // `id_tipo_inscripto` is a FK to `jolate_tipo_inscripto`.
+        $sql = 'INSERT INTO `jolate_inscriptos` '
              . '(`id_tipo_inscripto`, `nombre`, `institucion`, `email`, `dni`, '
-             . '`titulo_ponencia`, `eje_tematico`, `archivo_filename`) '
+             . '`titulo_ponencia`, `eje_tematico`, `archivo_filename`, '
+             . '`email_part_status`, `email_comm_status`) '
              . 'VALUES (:id_tipo_inscripto, :nombre, :institucion, :email, :dni, '
-             . ':titulo_ponencia, :eje_tematico, :archivo_filename)';
+             . ':titulo_ponencia, :eje_tematico, :archivo_filename, '
+             . "'pending', 'pending')";
 
         $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
+        $stmt->execute([
             ':id_tipo_inscripto' => (int) $data['id_tipo_inscripto'],
             ':nombre'            => $data['nombre'],
             ':institucion'       => $data['institucion'],
             ':email'             => $data['email'],
             ':dni'               => $data['dni'],
-            ':titulo_ponencia'   => isset($data['titulo_ponencia'])   ? $data['titulo_ponencia']   : null,
-            ':eje_tematico'      => isset($data['eje_tematico'])      ? $data['eje_tematico']      : null,
-            ':archivo_filename'  => isset($data['archivo_filename'])  ? $data['archivo_filename']  : null,
-        ));
+            ':titulo_ponencia'   => $data['titulo_ponencia']     ?? null,
+            ':eje_tematico'      => $data['eje_tematico']      ?? null,
+            ':archivo_filename'  => $data['archivo_filename']  ?? null,
+        ]);
 
         return (int) $pdo->lastInsertId();
 
