@@ -68,7 +68,7 @@ try {
 
     // Flush the output buffer started by admin_require()/ensure_session()
     // so headers are sent to the client and readfile() can stream directly
-    // without buffering the (up to 15 MB) PDF in memory.
+    // without buffering the (up to 7 MB) PDF in memory.
     while (ob_get_level() > 0) {
         ob_end_flush();
     }

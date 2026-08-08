@@ -8,9 +8,12 @@ date_default_timezone_set('UTC');
 
 header('Content-Type: application/json; charset=utf-8');
 
-// Load PHPMailer 5.2 via explicit require — composer is NOT available on the hosting
-require __DIR__ . '/vendor/phpmailer/class.phpmailer.php';
-require __DIR__ . '/vendor/phpmailer/class.smtp.php';
+// Load PHPMailer 6 via explicit require — composer is NOT available on the hosting
+require __DIR__ . '/vendor/phpmailer/PHPMailer.php';
+require __DIR__ . '/vendor/phpmailer/SMTP.php';
+require __DIR__ . '/vendor/phpmailer/Exception.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
 
 // Load PDO repository seam for registration persistence
 require __DIR__ . '/registrations.php';

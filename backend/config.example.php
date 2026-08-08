@@ -37,7 +37,7 @@ return array(
     // upload_dir: carpeta física donde se guardan los PDFs.
     //             Debe estar fuera del webroot si es posible.
     'upload_dir'        => __DIR__ . '/uploads/',
-    'max_file_size_mb'  => 15,
+    'max_file_size_mb'  => 7,
 
     // ── Ejes temáticos válidos ────────────────────────────────────
     // Deben coincidir exactamente con las opciones del <select> del formulario.
@@ -51,7 +51,7 @@ return array(
         'Áreas Temáticas Afines',
     ),
 
-    // ── Base de datos (MariaDB) ────────────────────────────────────
+    // ── Base de datos (MySQL 8) ────────────────────────────────
     // Configurable via environment variables:
     //   DB_HOST, DB_NAME, DB_USER, DB_PASS
     'db' => array(

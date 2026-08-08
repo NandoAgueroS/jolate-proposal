@@ -1,5 +1,5 @@
 -- JOLATE 2026 — Registration schema
--- Runs once on first MariaDB container start (docker-entrypoint-initdb.d).
+-- Runs once on first MySQL container start (docker-entrypoint-initdb.d).
 
 CREATE DATABASE IF NOT EXISTS `jolate` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE `jolate`;

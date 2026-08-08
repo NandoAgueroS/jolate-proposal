@@ -43,7 +43,7 @@ $hash = crypt($pass, '$2y$10$' . $salt);
 try {
     $pdo = get_pdo($config);
     $sql = "INSERT INTO `admins` (`username`, `password_hash`) VALUES (:u, :h)"
-         . " ON DUPLICATE KEY UPDATE `password_hash` = VALUES(`password_hash`)";
+         . " AS new ON DUPLICATE KEY UPDATE `password_hash` = new.password_hash";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(array(':u' => $user, ':h' => $hash));
     echo "Admin '{$user}' creado/actualizado.\n";
