@@ -30,6 +30,8 @@ try {
     $pdo = get_pdo($config);
     $sql = "SELECT i.id, i.nombre, i.institucion, i.email, i.dni,"
          . " i.titulo_ponencia, i.eje_tematico, i.archivo_filename,"
+         . " i.email_part_status, i.email_part_attempts, i.email_part_error,"
+         . " i.email_comm_status, i.email_comm_attempts, i.email_comm_error,"
          . " i.created_at, t.nombre AS rol"
          . " FROM `jolate_inscriptos` i"
          . " JOIN `jolate_tipo_inscripto` t ON t.id = i.id_tipo_inscripto"

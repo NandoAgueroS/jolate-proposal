@@ -44,6 +44,8 @@ $cols = [
     4 => 'i.email',
     5 => 'i.dni',
     6 => 'i.created_at',
+    7 => 'i.email_part_status',
+    8 => 'i.email_comm_status',
 ];
 $orderCol = $cols[$orderColIdx] ?? 'i.id';
 $orderDir = ($orderDirRaw === 'asc') ? 'ASC' : 'DESC';
@@ -79,6 +81,7 @@ try {
 
     $sqlD = "SELECT i.id, i.nombre, i.institucion, i.email, i.dni,"
           . " i.titulo_ponencia, i.eje_tematico, i.archivo_filename,"
+          . " i.email_part_status, i.email_comm_status,"
           . " i.created_at, t.nombre AS rol"
           . " FROM `jolate_inscriptos` i"
           . " JOIN `jolate_tipo_inscripto` t ON t.id = i.id_tipo_inscripto"
@@ -101,6 +104,8 @@ try {
             'titulo_ponencia' => $r['titulo_ponencia'],
             'eje_tematico'    => $r['eje_tematico'],
             'tiene_pdf'       => !empty($r['archivo_filename']),
+            'email_part_status'  => $r['email_part_status'],
+            'email_comm_status'  => $r['email_comm_status'],
             'created_at'      => $r['created_at'],
         ];
     }

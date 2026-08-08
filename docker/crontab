@@ -1,0 +1,2 @@
+*/5 * * * * www-data bash -c '. /var/www/env_vars; /usr/local/bin/php /var/www/html/jolate-proposal/backend/bin/send-pending-emails.php' >> /var/log/jolate-cron.log 2>&1
+

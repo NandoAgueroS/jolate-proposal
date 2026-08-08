@@ -265,6 +265,21 @@ function renderDashboard() {
   refreshIcons();
 }
 
+function renderEmailBadge(status, attempts, error) {
+  if (status === 'sent') {
+    return '<span class="inline-block px-2 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-800">Enviado</span>';
+  }
+  if (status === 'pending') {
+    const label = attempts > 0 ? 'Pendiente (' + attempts + ')' : 'Pendiente';
+    return '<span class="inline-block px-2 py-0.5 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800">' + label + '</span>';
+  }
+  if (status === 'failed') {
+    const title = error ? ' title="' + escapeHtml(error) + '"' : '';
+    return '<span class="inline-block px-2 py-0.5 rounded-full text-xs font-semibold bg-red-100 text-red-800"' + title + '>Fallido</span>';
+  }
+  return '';
+}
+
 function initDataTable() {
   const $tbl = $('#inscriptos-table');
   if ($.fn.DataTable.isDataTable($tbl)) {
@@ -305,6 +320,22 @@ function initDataTable() {
                  '<span class="text-text/60">' + escapeHtml(f[1] || '') + '</span>' +
                  '</div>';
         },
+      },
+      {
+        data: 'email_part_status',
+        title: 'Email Participante',
+        width: '80px',
+        orderable: true,
+        searchable: false,
+        render: (d, t, row) => renderEmailBadge(d, row.email_part_attempts, row.email_part_error),
+      },
+      {
+        data: 'email_comm_status',
+        title: 'Email Comité',
+        width: '80px',
+        orderable: true,
+        searchable: false,
+        render: (d, t, row) => renderEmailBadge(d, row.email_comm_attempts, row.email_comm_error),
       },
       {
         data: null, orderable: false, searchable: false, width: '70px',

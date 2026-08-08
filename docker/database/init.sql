@@ -28,6 +28,12 @@ CREATE TABLE `jolate_inscriptos` (
     `titulo_ponencia`     VARCHAR(300)  DEFAULT NULL,
     `eje_tematico`        VARCHAR(120)  DEFAULT NULL,
     `archivo_filename`    VARCHAR(255)  DEFAULT NULL,
+    `email_part_status`   VARCHAR(20)   NOT NULL DEFAULT 'pending',
+    `email_part_attempts` TINYINT       NOT NULL DEFAULT 0,
+    `email_part_error`    VARCHAR(500)  DEFAULT NULL,
+    `email_comm_status`   VARCHAR(20)   NOT NULL DEFAULT 'pending',
+    `email_comm_attempts` TINYINT       NOT NULL DEFAULT 0,
+    `email_comm_error`    VARCHAR(500)  DEFAULT NULL,
     `created_at`          TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
     CONSTRAINT `fk_inscriptos_tipo`

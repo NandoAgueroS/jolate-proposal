@@ -17,28 +17,30 @@
 
 ## Fase 1 — Envío asíncrono de correos
 
-- [ ] 1.1 `init.sql`: 6 columnas `email_*_status/attempts/error`
-- [ ] 1.2 `backend/config.example.php`: `email_max_attempts => 5`
-- [ ] 1.3 `backend/mailer.php` (nuevo)
-- [ ] 1.4 `backend/procesar-envio.php`: simplificar
-- [ ] 1.5 `backend/registrations.php`: INSERT con `email_*_status`
-- [ ] 1.6 `backend/bin/send-pending-emails.php` (nuevo)
+- [x] 1.1 `init.sql`: 6 columnas `email_*_status/attempts/error`
+- [x] 1.2 `backend/config.example.php`: `email_max_attempts => 5`
+- [x] 1.3 `backend/mailer.php` (nuevo)
+- [x] 1.4 `backend/procesar-envio.php`: simplificar (SMTP extraído, sin PHPMailer inline)
+- [x] 1.5 `backend/registrations.php`: INSERT con `email_part_status`, `email_comm_status`
+- [x] 1.6 `backend/bin/send-pending-emails.php` (nuevo)
 
 ## Fase 2 — Panel admin: visualización de estados
 
-- [ ] 2.1 `backend/admin/list.php`: SELECT + response con estados
-- [ ] 2.2 `backend/admin/detail.php`: SELECT con estados
-- [ ] 2.3 `backend/admin/export_csv.php`: 2 columnas de estado
-- [ ] 2.4 `frontend/admin.html`: 2 `<th>` nuevas
-- [ ] 2.5 `frontend/js/admin.js`: render de badges
+- [x] 2.1 `backend/admin/list.php`: SELECT + response con `email_part_status`, `email_comm_status` + índices ORDER BY 7, 8
+- [x] 2.2 `backend/admin/detail.php`: SELECT con 6 columnas de email
+- [x] 2.3 `backend/admin/export_csv.php`: columnas "Email Participante", "Email Comité"
+- [x] 2.4 `frontend/admin.html`: sin cambios (tabla 100% definida en JS)
+- [x] 2.5 `frontend/js/admin.js`: 2 columnas nuevas + función `renderEmailBadge()`
 
 ## Fase 3 — Cron (dev + prod)
 
-- [ ] 3.1 `docker/entrypoint.sh` (nuevo)
-- [ ] 3.2 `docker/crontab` (nuevo)
-- [ ] 3.3 `Dockerfile`: instalar cron + entrypoint
+- [x] 3.1 `docker/entrypoint.sh` (nuevo): arranca cron + apache2-foreground
+- [x] 3.2 `docker/crontab` (nuevo): `*/5 * * * *` como www-data
+- [x] 3.3 `Dockerfile`: `apt-get install cron`, copia crontab + entrypoint, `ENTRYPOINT`
 
 ## Fase 4 — Documentación
 
-- [ ] 4.1 `AGENTS.md`
-- [ ] 4.2 `README.md`
+- [x] 4.1 `AGENTS.md`: DB `devulp`, tablas `jolate_*`, PHP 8.3, PHPMailer 6, cron worker
+- [x] 4.2 `README.md`: requisitos actualizados, worker cron documentado, verificación y crontab prod
+- [x] 4.3 `docs/plan-envio-asincrono-correos.md`: sincronizado con fixes reales (entrypoint quoting, crontab env vars, admin.html sin cambios)
+- [x] 4.4 `docs/implementacion-asincrono.md`: Fase 4 marcada completa

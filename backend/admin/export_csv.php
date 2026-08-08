@@ -39,6 +39,7 @@ try {
     $pdo = get_pdo($config);
     $sql = "SELECT i.id, i.nombre, i.institucion, i.email, i.dni,"
          . " i.titulo_ponencia, i.eje_tematico, i.archivo_filename,"
+         . " i.email_part_status, i.email_comm_status,"
          . " i.created_at, t.nombre AS rol"
          . " FROM `jolate_inscriptos` i"
          . " JOIN `jolate_tipo_inscripto` t ON t.id = i.id_tipo_inscripto"
@@ -57,7 +58,8 @@ try {
     // UTF-8 BOM so Excel detects encoding (acentos correctos).
     fwrite($out, "\xEF\xBB\xBF");
     fputcsv($out, ['ID', 'Rol', 'Nombre', 'Institución', 'Email', 'DNI',
-                        'Título de ponencia', 'Eje temático', '¿Tiene PDF?', 'Fecha de inscripción'],
+                        'Título de ponencia', 'Eje temático', '¿Tiene PDF?',
+                        'Email Participante', 'Email Comité', 'Fecha de inscripción'],
                   ';');
     foreach ($rows as $r) {
         fputcsv($out, [
@@ -70,6 +72,8 @@ try {
             $r['titulo_ponencia'],
             $r['eje_tematico'],
             !empty($r['archivo_filename']) ? 'Sí' : 'No',
+            $r['email_part_status'],
+            $r['email_comm_status'],
             $r['created_at'],
         ], ';');
     }

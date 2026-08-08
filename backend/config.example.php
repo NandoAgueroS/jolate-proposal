@@ -77,4 +77,10 @@ return [
         'attempt_window' => 300,
         'lockout_min'    => 15,
     ],
+
+    // ── Email worker ──────────────────────────────────────────────
+    // Cantidad máxima de reintentos por tipo de email antes de marcar
+    // como 'failed'. El worker de cron (send-pending-emails.php)
+    // incrementa el contador en cada intento fallido.
+    'email_max_attempts' => 5,
 ];

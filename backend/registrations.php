@@ -67,9 +67,11 @@ function save_registration(array $data) {
         // `id_tipo_inscripto` is a FK to `jolate_tipo_inscripto`.
         $sql = 'INSERT INTO `jolate_inscriptos` '
              . '(`id_tipo_inscripto`, `nombre`, `institucion`, `email`, `dni`, '
-             . '`titulo_ponencia`, `eje_tematico`, `archivo_filename`) '
+             . '`titulo_ponencia`, `eje_tematico`, `archivo_filename`, '
+             . '`email_part_status`, `email_comm_status`) '
              . 'VALUES (:id_tipo_inscripto, :nombre, :institucion, :email, :dni, '
-             . ':titulo_ponencia, :eje_tematico, :archivo_filename)';
+             . ':titulo_ponencia, :eje_tematico, :archivo_filename, '
+             . "'pending', 'pending')";
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute([

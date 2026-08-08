@@ -3,16 +3,18 @@
 ## Estructura
 
 ```
-backend/          PHP 5.3 backend (procesar-envio.php, registrations.php, auth.php, admin/)
+backend/          PHP 8.3 backend (procesar-envio.php, registrations.php, mailer.php, auth.php, admin/)
   uploads/        PDFs recibidos (writable)
   logs/           Logs de error (writable)
-  vendor/         PHPMailer
+  vendor/         PHPMailer 6.9.3
   config.php      Credenciales (excluido de git, copiar desde config.example.php)
   admin/          Endpoints JSON del panel de administración
-  bin/            Scripts CLI (seed-admin.php para crear el admin)
+  bin/            Scripts CLI (seed-admin.php, send-pending-emails.php)
 frontend/         SPA estática (index.html, admin.html, JS vanilla, Tailwind CDN)
   vendor/         jQuery + DataTables autohospedados (solo para /admin)
-docker/           Docker Compose services (MariaDB, MailHog, phpMyAdmin)
+docker/           Docker Compose services (MySQL 8.0, MailHog, phpMyAdmin)
+  entrypoint.sh   Arranca cron + Apache
+  crontab         Worker de email cada 5 min
 bin/              Scripts de setup
   setup-runtime.sh   Permisos de directorios writables
 docs/             Documentación y planes
@@ -21,10 +23,11 @@ docs/             Documentación y planes
 
 ## Requisitos
 
-- PHP 5.3 (no compatible con 5.4+)
-- Apache 2.x con `mod_rewrite`
-- MariaDB / MySQL
+- PHP 8.3
+- Apache 2.4 con `mod_rewrite`
+- MySQL 8.0 (base `devulp`, tablas con prefijo `jolate_`)
 - SMTP (o MailHog para desarrollo local)
+- Cron (para el worker de envío de correos)
 
 ## Setup local (Docker)
 
@@ -94,6 +97,27 @@ el mismo usuario y la nueva contraseña.
 - Rate-limit por IP: 5 intentos fallidos en 5 minutos → bloqueo 15 minutos.
 - PDFs de ponencias: solo descargables desde el panel (URL directa bloqueada).
 - Sesión con `SameSite=Lax`, regenerada al login.
-- Credenciales hasheadas con bcrypt (PHP 5.3 compatible vía `crypt()`).
+- Credenciales hasheadas con bcrypt vía `password_hash()`.
+- Envío asíncrono de correos: el formulario registra la inscripción y responde instantáneamente. Un worker cron (`send-pending-emails.php`) procesa la cola cada 5 min con hasta 5 reintentos por tipo de email (participante y comité). El panel muestra el estado de cada envío con badges (Pendiente / Enviado / Fallido).
+
+### Verificar el worker de correos
+
+```bash
+# Ver el log del cron
+docker compose exec php tail -f /var/log/jolate-cron.log
+
+# Forzar ejecución manual
+docker compose exec php php /var/www/html/jolate-proposal/backend/bin/send-pending-emails.php
+```
+
+### Entrada de cron en producción (Ubuntu)
+
+```bash
+sudo crontab -e -u www-data
+```
+
+```
+*/5 * * * * php /var/www/ulpdev/jolate/backend/bin/send-pending-emails.php >> /var/log/jolate-cron.log 2>&1
+```
 
 > Documentación completa: `docs/plan-dashboard-admin-jolate.md`.

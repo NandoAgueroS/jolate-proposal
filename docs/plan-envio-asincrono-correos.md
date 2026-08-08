@@ -280,16 +280,7 @@ fputcsv($out, [
 
 ### 2.4 `frontend/admin.html`
 
-Agregar 2 `<th>` en `<thead>` y 2 `<th>` en `<tfoot>` (DataTables lo requiere para calcular ancho de columnas):
-
-```html
-<th>Email Participante</th>
-<th>Email Comité</th>
-```
-
-Ubicación sugerida: entre "Fecha" y "Acciones" (penúltimas columnas).
-
-La tabla pasa de 7 a 9 columnas visibles. DataTables se ajusta automáticamente.
+Sin cambios. DataTables 3.0 genera los `<th>` automáticamente desde las propiedades `title` del array `columns` en JS — no hay markup de tabla hardcodeado en el HTML.
 
 ### 2.5 `frontend/js/admin.js`
 
@@ -345,6 +336,11 @@ function renderEmailBadge(status, attempts, error) {
 #!/bin/bash
 set -e
 
+# Capture environment for cron with proper quoting
+while IFS='=' read -r key value; do
+  printf 'export %s="%s"\n' "$key" "$value"
+done < <(printenv) > /var/www/env_vars
+
 # Start cron daemon
 cron
 
@@ -352,36 +348,46 @@ cron
 exec apache2-foreground
 ```
 
+El `while read` con `IFS='='` parte solo por el primer `=`, evitando que valores con `=` internos (ej. flags del compilador) rompan el quoting. `printf 'export KEY="VALUE"'` asegura que valores con espacios y acentos sobrevivan al source.
+
 ### 3.2 `docker/crontab` (nuevo archivo)
 
 ```
-*/5 * * * * www-data php /var/www/html/jolate-proposal/backend/bin/send-pending-emails.php >> /var/log/jolate-cron.log 2>&1
-# Blank line required by cron
+*/5 * * * * www-data bash -c '. /var/www/env_vars; /usr/local/bin/php /var/www/html/jolate-proposal/backend/bin/send-pending-emails.php' >> /var/log/jolate-cron.log 2>&1
+
 ```
 
-### 3.3 `Dockerfile` — modificaciones
+- `. /var/www/env_vars` carga las variables de Docker en el entorno de cron (que por defecto está vacío).
+- `/usr/local/bin/php` (path absoluto) porque el PATH de cron es mínimo y no incluye `/usr/local/bin`.
+- Línea en blanco al final: requerida por cron.
 
-Agregar **antes del `COPY`** (para cachear la capa de instalación):
+### 3.3 `Dockerfile` — modificaciones
 
 ```dockerfile
 # Install cron for async email worker
 RUN apt-get update && apt-get install -y cron && rm -rf /var/lib/apt/lists/*
 
+# Allow .htaccess overrides (existing, unchanged)
+...
+
+# Copy entire repository structure into jolate-proposal/
+COPY . /var/www/html/jolate-proposal/
+
 # Cron configuration
 COPY docker/crontab /etc/cron.d/jolate
 RUN chmod 0644 /etc/cron.d/jolate && crontab -u www-data /etc/cron.d/jolate
 
-# Create cron log file
-RUN touch /var/log/jolate-cron.log && chown www-data:www-data /var/log/jolate-cron.log
-
-# Entrypoint that starts cron + Apache
+# Entrypoint starts cron + Apache
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["apache2-foreground"]
 ```
 
-El `ENTRYPOINT` reemplaza el CMD por defecto de `php:8.3-apache` (que es `apache2-foreground`). `entrypoint.sh` arranca cron en background y luego exec Apache en foreground.
+- `cron` se instala antes del COPY (cache Docker).
+- El `ENTRYPOINT` reemplaza el CMD por defecto de `php:8.3-apache`.
+- `entrypoint.sh` genera `/var/www/env_vars` al iniciar y arranca cron + Apache.
+- El log de cron se crea automáticamente al primer `>>` en el crontab.
 
 ### 3.4 Producción (Ubuntu, sin Docker)
 
@@ -392,6 +398,8 @@ sudo crontab -e -u www-data
 ```cron
 */5 * * * * php /var/www/ulpdev/jolate/backend/bin/send-pending-emails.php >> /var/log/jolate-cron.log 2>&1
 ```
+
+A diferencia de Docker, en producción no es necesario el workaround de `env_vars` porque el crontab hereda el entorno del usuario `www-data` y `php` está en el PATH del sistema.
 
 ---
 
@@ -440,13 +448,11 @@ Actualizar:
 | 9 | `backend/admin/detail.php` | 0 + 2 |
 | 10 | `backend/admin/export_csv.php` | 0 + 2 |
 | 11 | `backend/admin/download_pdf.php` | 0 |
-| 12 | `backend/bin/seed-admin.php` | 0 |
-| 13 | `Dockerfile` | 3 |
-| 14 | `frontend/admin.html` | 2 |
-| 15 | `frontend/js/admin.js` | 2 |
-| 16 | `AGENTS.md` | 4 |
-| 17 | `README.md` | 4 |
-| 18 | `docs/plan-migracion-mysql-8.md` | 4 |
+| 17 | `backend/bin/seed-admin.php` | 0 |
+| 18 | `Dockerfile` | 3 |
+| 14 | `frontend/js/admin.js` | 2 |
+| 15 | `AGENTS.md` | 4 |
+| 16 | `README.md` | 4 |
 
 ---
 
