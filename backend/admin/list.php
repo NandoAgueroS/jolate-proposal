@@ -64,13 +64,13 @@ if ($search !== '') {
 try {
     $pdo = get_pdo($config);
 
-    $stmtT = $pdo->prepare("SELECT COUNT(*) AS c FROM `inscriptos`");
+    $stmtT = $pdo->prepare("SELECT COUNT(*) AS c FROM `jolate_inscriptos`");
     $stmtT->execute();
     $rowT = $stmtT->fetch();
     $recordsTotal = (int)$rowT['c'];
 
-    $sqlF = "SELECT COUNT(*) AS c FROM `inscriptos` i"
-          . " JOIN `tipo inscripto` t ON t.id = i.id_tipo_inscripto"
+    $sqlF = "SELECT COUNT(*) AS c FROM `jolate_inscriptos` i"
+          . " JOIN `jolate_tipo_inscripto` t ON t.id = i.id_tipo_inscripto"
           . " WHERE 1=1" . $where;
     $stmtF = $pdo->prepare($sqlF);
     $stmtF->execute($params);
@@ -80,8 +80,8 @@ try {
     $sqlD = "SELECT i.id, i.nombre, i.institucion, i.email, i.dni,"
           . " i.titulo_ponencia, i.eje_tematico, i.archivo_filename,"
           . " i.created_at, t.nombre AS rol"
-          . " FROM `inscriptos` i"
-          . " JOIN `tipo inscripto` t ON t.id = i.id_tipo_inscripto"
+          . " FROM `jolate_inscriptos` i"
+          . " JOIN `jolate_tipo_inscripto` t ON t.id = i.id_tipo_inscripto"
           . " WHERE 1=1" . $where
           . " ORDER BY " . $orderCol . " " . $orderDir
           . " LIMIT "  . (int)$length . " OFFSET " . (int)$start;

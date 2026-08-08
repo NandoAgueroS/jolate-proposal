@@ -36,7 +36,7 @@ $hash = password_hash($pass, PASSWORD_BCRYPT);
 
 try {
     $pdo = get_pdo($config);
-    $sql = "INSERT INTO `admins` (`username`, `password_hash`) VALUES (:u, :h)"
+    $sql = "INSERT INTO `jolate_admins` (`username`, `password_hash`) VALUES (:u, :h)"
          . " AS new ON DUPLICATE KEY UPDATE `password_hash` = new.password_hash";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([':u' => $user, ':h' => $hash]);

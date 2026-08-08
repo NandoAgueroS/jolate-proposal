@@ -1,6 +1,6 @@
 <?php
 /**
- * JOLATE 2026 — Admin: CSV export of all inscriptos (filtered).
+ * JOLATE 2026 — Admin: CSV export of all jolate_inscriptos (filtered).
  *
  * UTF-8 BOM + ";" delimiter (Excel es-AR friendly).
  */
@@ -40,15 +40,15 @@ try {
     $sql = "SELECT i.id, i.nombre, i.institucion, i.email, i.dni,"
          . " i.titulo_ponencia, i.eje_tematico, i.archivo_filename,"
          . " i.created_at, t.nombre AS rol"
-         . " FROM `inscriptos` i"
-         . " JOIN `tipo inscripto` t ON t.id = i.id_tipo_inscripto"
+         . " FROM `jolate_inscriptos` i"
+         . " JOIN `jolate_tipo_inscripto` t ON t.id = i.id_tipo_inscripto"
          . " WHERE 1=1" . $where
          . " ORDER BY i.created_at DESC, i.id DESC";
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
     $rows = $stmt->fetchAll();
 
-    $fname = 'inscriptos-jolate-' . date('Ymd') . '.csv';
+    $fname = 'jolate_inscriptos-jolate-' . date('Ymd') . '.csv';
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename="' . $fname . '"');
     header('Cache-Control: private, no-store');

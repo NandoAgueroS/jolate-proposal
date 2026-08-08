@@ -4,7 +4,7 @@
  *
  * Provides:
  *   get_pdo(array $config)         — returns a PDO connection from the 'db' config block
- *   save_registration(array $data) — inserts a row into `inscriptos`; returns new id or false
+ *   save_registration(array $data) — inserts a row into `jolate_inscriptos`; returns new id or false
  */
 
 // Initialize timezone BEFORE any date() call — prevents warnings that corrupt
@@ -33,7 +33,7 @@ function get_pdo(array $config) {
 }
 
 /**
- * Persist a registration row into `inscriptos`.
+ * Persist a registration row into `jolate_inscriptos`.
  *
  * Expected $data keys:
  *   - id_tipo_inscripto  (int, required)
@@ -64,9 +64,8 @@ function save_registration(array $data) {
         $pdo = get_pdo($config);
 
         // All identifiers are backtick-quoted.
-        // The table `tipo inscripto` (with space) is referenced only via FK column
-        // `id_tipo_inscripto` — no direct reference in this INSERT.
-        $sql = 'INSERT INTO `inscriptos` '
+        // `id_tipo_inscripto` is a FK to `jolate_tipo_inscripto`.
+        $sql = 'INSERT INTO `jolate_inscriptos` '
              . '(`id_tipo_inscripto`, `nombre`, `institucion`, `email`, `dni`, '
              . '`titulo_ponencia`, `eje_tematico`, `archivo_filename`) '
              . 'VALUES (:id_tipo_inscripto, :nombre, :institucion, :email, :dni, '

@@ -29,7 +29,7 @@ if ($id <= 0) {
 
 try {
     $pdo = get_pdo($config);
-    $sql = "SELECT archivo_filename, id_tipo_inscripto FROM `inscriptos` WHERE id = :id LIMIT 1";
+    $sql = "SELECT archivo_filename, id_tipo_inscripto FROM `jolate_inscriptos` WHERE id = :id LIMIT 1";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([':id' => $id]);
     $row = $stmt->fetch();

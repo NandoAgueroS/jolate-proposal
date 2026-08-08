@@ -44,11 +44,11 @@ function admin_rate_limit_state($ip, $pdo, $config) {
 
     // opportunistic cleanup of stale rows (>1 day)
     $cutoff = date('Y-m-d H:i:s', time() - 86400);
-    $c = $pdo->prepare("DELETE FROM `admin_auth_attempts` WHERE failed_at < :c");
+    $c = $pdo->prepare("DELETE FROM `jolate_admin_auth_attempts` WHERE failed_at < :c");
     $c->execute([':c' => $cutoff]);
 
     $since = date('Y-m-d H:i:s', time() - $window);
-    $s = $pdo->prepare("SELECT COUNT(*) AS c, MIN(failed_at) AS first FROM `admin_auth_attempts` WHERE ip = :ip AND failed_at >= :s");
+    $s = $pdo->prepare("SELECT COUNT(*) AS c, MIN(failed_at) AS first FROM `jolate_admin_auth_attempts` WHERE ip = :ip AND failed_at >= :s");
     $s->execute([':ip' => $ip, ':s' => $since]);
     $row = $s->fetch();
     $count = $row ? (int)$row['c'] : 0;
@@ -64,7 +64,7 @@ function admin_rate_limit_state($ip, $pdo, $config) {
 }
 
 function admin_rate_limit_record_failure($ip, $pdo) {
-    $s = $pdo->prepare("INSERT INTO `admin_auth_attempts` (`ip`) VALUES (:ip)");
+    $s = $pdo->prepare("INSERT INTO `jolate_admin_auth_attempts` (`ip`) VALUES (:ip)");
     $s->execute([':ip' => $ip]);
 }
 
@@ -127,7 +127,7 @@ function admin_dispatch() {
             return;
         }
 
-        $stmt = $pdo->prepare("SELECT id, username, password_hash FROM `admins` WHERE username = :u LIMIT 1");
+        $stmt = $pdo->prepare("SELECT id, username, password_hash FROM `jolate_admins` WHERE username = :u LIMIT 1");
         $stmt->execute([':u' => $user]);
         $row = $stmt->fetch();
 

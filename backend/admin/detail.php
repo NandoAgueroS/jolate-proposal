@@ -31,8 +31,8 @@ try {
     $sql = "SELECT i.id, i.nombre, i.institucion, i.email, i.dni,"
          . " i.titulo_ponencia, i.eje_tematico, i.archivo_filename,"
          . " i.created_at, t.nombre AS rol"
-         . " FROM `inscriptos` i"
-         . " JOIN `tipo inscripto` t ON t.id = i.id_tipo_inscripto"
+         . " FROM `jolate_inscriptos` i"
+         . " JOIN `jolate_tipo_inscripto` t ON t.id = i.id_tipo_inscripto"
          . " WHERE i.id = :id LIMIT 1";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([':id' => $id]);

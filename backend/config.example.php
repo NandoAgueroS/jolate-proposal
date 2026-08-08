@@ -60,7 +60,7 @@ return [
     ],
 
     // ── Tipo de inscripto ──────────────────────────────────────────
-    // Mapa rol (POST) → id en la tabla `tipo inscripto`.
+    // Mapa rol (POST) → id en la tabla `jolate_tipo_inscripto`.
     // Debe coincidir con las semillas de docker/database/init.sql.
     'tipo_inscripto_ids' => [
         'Expositor'  => 1,
@@ -68,7 +68,7 @@ return [
     ],
 
     // ── Admin (rate-limit del login) ───────────────────────────────
-    // Las credenciales viven en la tabla `admins` de la DB.
+    // Las credenciales viven en la tabla `jolate_admins` de la DB.
     // max_attempts:   cantidad de fallos permitidos dentro de attempt_window
     // attempt_window: ventana móvil en segundos
     // lockout_min:    minutos de bloqueo tras alcanzar max_attempts
