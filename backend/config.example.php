@@ -4,11 +4,9 @@
  *
  * Copiar este archivo a config.php y completar con los datos reales del servidor.
  * config.php debe quedar FUERA del control de versiones (.gitignore ya lo excluye).
- *
- * PHP 5.3 compatible — sin sintaxis moderna.
  */
 
-return array(
+return [
 
     // ── SMTP (correo de notificación) ─────────────────────────────
     // Configurable via environment variables:
@@ -16,7 +14,7 @@ return array(
     //   SMTP_FROM_EMAIL, SMTP_FROM_NAME
     //
     // Todos los valores deben configurarse via env vars en producción.
-    'smtp' => array(
+    'smtp' => [
         'host'       => getenv('SMTP_HOST'),
         'port'       => getenv('SMTP_PORT'),
         'username'   => getenv('SMTP_USER'),
@@ -24,14 +22,14 @@ return array(
         'encryption' => getenv('SMTP_ENCRYPTION'),
         'from_email' => getenv('SMTP_FROM_EMAIL'),
         'from_name'  => getenv('SMTP_FROM_NAME'),
-    ),
+    ],
 
     // ── Destinatarios ─────────────────────────────────────────────
     // Emails que reciben la notificación con la ponencia adjunta.
     // Configurable via SMTP_COMMITTEE_EMAILS (comma-separated).
     'committee_emails' => getenv('SMTP_COMMITTEE_EMAILS')
         ? explode(',', getenv('SMTP_COMMITTEE_EMAILS'))
-        : array('comite@ejemplo.com'),
+        : ['comite@ejemplo.com'],
 
     // ── Almacenamiento de archivos ─────────────────────────────────
     // upload_dir: carpeta física donde se guardan los PDFs.
@@ -41,7 +39,7 @@ return array(
 
     // ── Ejes temáticos válidos ────────────────────────────────────
     // Deben coincidir exactamente con las opciones del <select> del formulario.
-    'ejes_tematicos_validos' => array(
+    'ejes_tematicos_validos' => [
         'Teoría de Juegos',
         'Elección Social',
         'Crecimiento Económico',
@@ -49,34 +47,34 @@ return array(
         'Equilibrio General',
         'Dinámica Económica',
         'Áreas Temáticas Afines',
-    ),
+    ],
 
     // ── Base de datos (MySQL 8) ────────────────────────────────
     // Configurable via environment variables:
     //   DB_HOST, DB_NAME, DB_USER, DB_PASS
-    'db' => array(
+    'db' => [
         'host' => getenv('DB_HOST'),
         'name' => getenv('DB_NAME'),
         'user' => getenv('DB_USER'),
         'pass' => getenv('DB_PASS'),
-    ),
+    ],
 
     // ── Tipo de inscripto ──────────────────────────────────────────
     // Mapa rol (POST) → id en la tabla `tipo inscripto`.
     // Debe coincidir con las semillas de docker/database/init.sql.
-    'tipo_inscripto_ids' => array(
+    'tipo_inscripto_ids' => [
         'Expositor'  => 1,
         'Asistente'  => 2,
-    ),
+    ],
 
     // ── Admin (rate-limit del login) ───────────────────────────────
     // Las credenciales viven en la tabla `admins` de la DB.
     // max_attempts:   cantidad de fallos permitidos dentro de attempt_window
     // attempt_window: ventana móvil en segundos
     // lockout_min:    minutos de bloqueo tras alcanzar max_attempts
-    'admin' => array(
+    'admin' => [
         'max_attempts'   => 5,
         'attempt_window' => 300,
         'lockout_min'    => 15,
-    ),
-);
+    ],
+];

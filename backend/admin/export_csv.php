@@ -13,7 +13,7 @@ $configPath = __DIR__ . '/../config.php';
 if (!file_exists($configPath)) {
     http_response_code(500);
     header('Content-Type: application/json; charset=utf-8');
-    echo json_encode(array('error' => 'server_config'));
+    echo json_encode(['error' => 'server_config']);
     exit;
 }
 $config = require $configPath;
@@ -23,7 +23,7 @@ $rol = isset($_GET['rol']) ? (string)$_GET['rol'] : '';
 $q   = isset($_GET['q'])   ? (string)$_GET['q']   : '';
 
 $where = '';
-$params = array();
+$params = [];
 if ($rol === 'Expositor' || $rol === 'Asistente') {
     $where .= ' AND t.nombre = :rol';
     $params[':rol'] = $rol;
@@ -56,11 +56,11 @@ try {
     $out = fopen('php://output', 'w');
     // UTF-8 BOM so Excel detects encoding (acentos correctos).
     fwrite($out, "\xEF\xBB\xBF");
-    fputcsv($out, array('ID', 'Rol', 'Nombre', 'Institución', 'Email', 'DNI',
-                        'Título de ponencia', 'Eje temático', '¿Tiene PDF?', 'Fecha de inscripción'),
+    fputcsv($out, ['ID', 'Rol', 'Nombre', 'Institución', 'Email', 'DNI',
+                        'Título de ponencia', 'Eje temático', '¿Tiene PDF?', 'Fecha de inscripción'],
                   ';');
     foreach ($rows as $r) {
-        fputcsv($out, array(
+        fputcsv($out, [
             $r['id'],
             $r['rol'],
             $r['nombre'],
@@ -71,12 +71,12 @@ try {
             $r['eje_tematico'],
             !empty($r['archivo_filename']) ? 'Sí' : 'No',
             $r['created_at'],
-        ), ';');
+        ], ';');
     }
     fclose($out);
 } catch (Exception $e) {
     admin_log_error('admin/export_csv.php: ' . $e->getMessage());
     http_response_code(500);
     header('Content-Type: application/json; charset=utf-8');
-    echo json_encode(array('error' => 'server'));
+    echo json_encode(['error' => 'server']);
 }

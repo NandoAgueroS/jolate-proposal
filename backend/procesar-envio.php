@@ -1,6 +1,5 @@
 <?php
 // Backend processor for JOLATE 2026 role-based registration (Expositor / Asistente)
-// PHP 5.3 compatible — no strict_types, no ??, no random_bytes, no http_response_code
 
 // Initialize timezone BEFORE any date() call — without this, PHP emits warnings that
 // corrupt output headers (causing HTTP 200 instead of the intended 500 on error paths).
@@ -29,10 +28,10 @@ $config = require $configPath;
 if (!is_array($config)) {
     jsonError('Configuration invalid.', 500, '', 'server_config');
 }
-$requiredKeys = array(
+$requiredKeys = [
     'smtp', 'upload_dir', 'committee_emails', 'ejes_tematicos_validos',
     'max_file_size_mb', 'db', 'tipo_inscripto_ids',
-);
+];
 foreach ($requiredKeys as $k) {
     if (!array_key_exists($k, $config)) {
         jsonError('Configuration invalid.', 500, '', 'server_config');
@@ -62,7 +61,7 @@ if (!is_dir($logDir)) {
 $logFile = $logDir . '/error.log';
 
 // Valid roles — must match config['tipo_inscripto_ids'] keys and init.sql seeds
-$rolesValidos = array('Expositor', 'Asistente');
+$rolesValidos = ['Expositor', 'Asistente'];
 
 /**
  * Append timestamped error to log file
@@ -78,8 +77,8 @@ function logError($mensaje) {
  * $code is a machine-readable key that the frontend maps to a localized message.
  */
 function jsonError($mensaje, $status, $field = '', $code = '') {
-    header('HTTP/1.1 ' . $status);
-    $respuesta = array('success' => false, 'error' => $mensaje);
+    http_response_code($status);
+    $respuesta = ['success' => false, 'error' => $mensaje];
     if ($field !== '') {
         $respuesta['field'] = $field;
     }
@@ -94,19 +93,8 @@ function jsonError($mensaje, $status, $field = '', $code = '') {
  * Return JSON success response and exit
  */
 function jsonSuccess($mensaje) {
-    echo json_encode(array('success' => true, 'message' => $mensaje));
+    echo json_encode(['success' => true, 'message' => $mensaje]);
     exit;
-}
-
-/**
- * Safe string length — uses mb_strlen when mbstring is available,
- * falls back to strlen (ASCII-safe for validation purposes).
- */
-function safeStrlen($str) {
-    if (extension_loaded('mbstring')) {
-        return mb_strlen($str);
-    }
-    return strlen($str);
 }
 
 // ---------- Email HTML template helpers ----------
@@ -157,26 +145,26 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // ---------- Role validation ----------
-$rol = trim(isset($_POST['rol']) ? $_POST['rol'] : '');
+$rol = trim($_POST['rol'] ?? '');
 if (!in_array($rol, $rolesValidos)) {
     jsonError('Rol inválido. Debe ser Expositor o Asistente.', 422, 'rol', 'rol_invalid');
 }
 
 // ---------- Common field validation (all roles) ----------
-$nombre      = trim(isset($_POST['nombre'])      ? $_POST['nombre']      : '');
-$institucion = trim(isset($_POST['institucion'])  ? $_POST['institucion']  : '');
-$email       = trim(isset($_POST['email'])        ? $_POST['email']        : '');
-$dni         = trim(isset($_POST['dni'])          ? $_POST['dni']          : '');
+$nombre      = trim($_POST['nombre']      ?? '');
+$institucion = trim($_POST['institucion'] ?? '');
+$email       = trim($_POST['email']       ?? '');
+$dni         = trim($_POST['dni']         ?? '');
 
-if ($nombre === '' || safeStrlen($nombre) < 3 || safeStrlen($nombre) > 150) {
+if ($nombre === '' || mb_strlen($nombre) < 3 || mb_strlen($nombre) > 150) {
     jsonError('Nombre completo inválido.', 422, 'nombre', 'nombre_invalid');
 }
 
-if ($institucion === '' || safeStrlen($institucion) > 200) {
+if ($institucion === '' || mb_strlen($institucion) > 200) {
     jsonError('Universidad / Institución inválida.', 422, 'institucion', 'institucion_invalid');
 }
 
-if ($dni === '' || safeStrlen($dni) < 5 || safeStrlen($dni) > 20) {
+if ($dni === '' || mb_strlen($dni) < 5 || mb_strlen($dni) > 20) {
     jsonError('DNI o Pasaporte inválido.', 422, 'dni', 'dni_invalid');
 }
 
@@ -184,7 +172,7 @@ if (!preg_match('/^[A-Za-z0-9]{5,20}$/', $dni)) {
     jsonError('DNI o Pasaporte inválido.', 422, 'dni', 'dni_invalid');
 }
 
-if (!filter_var($email, FILTER_VALIDATE_EMAIL) || safeStrlen($email) > 200) {
+if (!filter_var($email, FILTER_VALIDATE_EMAIL) || mb_strlen($email) > 200) {
     jsonError('Correo electrónico inválido.', 422, 'email', 'email_invalid');
 }
 
@@ -195,10 +183,10 @@ $rutaDestino  = null;
 $nombreArchivo = null;
 
 if ($rol === 'Expositor') {
-    $titulo = trim(isset($_POST['titulo_ponencia']) ? $_POST['titulo_ponencia'] : '');
-    $eje    = trim(isset($_POST['eje_tematico'])     ? $_POST['eje_tematico']     : '');
+    $titulo = trim($_POST['titulo_ponencia'] ?? '');
+    $eje    = trim($_POST['eje_tematico']    ?? '');
 
-    if ($titulo === '' || safeStrlen($titulo) > 300) {
+    if ($titulo === '' || mb_strlen($titulo) > 300) {
         jsonError('Título de ponencia inválido.', 422, 'titulo_ponencia', 'titulo_invalid');
     }
 
@@ -212,15 +200,15 @@ if ($rol === 'Expositor') {
     } elseif ($_FILES['archivo']['error'] !== UPLOAD_ERR_OK) {
         // Map PHP upload error codes to machine-readable codes the frontend translates.
         $uploadError = $_FILES['archivo']['error'];
-        $uploadErrorCodes = array(
+        $uploadErrorCodes = [
             UPLOAD_ERR_INI_SIZE   => 'upload_ini',
             UPLOAD_ERR_FORM_SIZE  => 'upload_form',
             UPLOAD_ERR_PARTIAL    => 'upload_partial',
             UPLOAD_ERR_NO_TMP_DIR => 'upload_tmp',
             UPLOAD_ERR_CANT_WRITE => 'upload_tmp',
             UPLOAD_ERR_EXTENSION  => 'upload_ext',
-        );
-        $uploadCode = isset($uploadErrorCodes[$uploadError]) ? $uploadErrorCodes[$uploadError] : 'upload_unknown';
+        ];
+        $uploadCode = $uploadErrorCodes[$uploadError] ?? 'upload_unknown';
         jsonError('Error al subir el archivo (código ' . $uploadError . ').', 422, 'archivo', $uploadCode);
     } else {
         $archivo  = $_FILES['archivo'];
@@ -240,8 +228,8 @@ if ($rol === 'Expositor') {
     }
 } elseif ($rol === 'Asistente') {
     // Asistente MUST NOT send paper fields — reject with 422 if any are present
-    $hasTitulo  = trim(isset($_POST['titulo_ponencia']) ? $_POST['titulo_ponencia'] : '');
-    $hasEje     = trim(isset($_POST['eje_tematico'])    ? $_POST['eje_tematico']    : '');
+    $hasTitulo  = trim($_POST['titulo_ponencia'] ?? '');
+    $hasEje     = trim($_POST['eje_tematico']    ?? '');
     $hasArchivo = (isset($_FILES['archivo']) && $_FILES['archivo']['error'] !== UPLOAD_ERR_NO_FILE);
 
     if ($hasTitulo !== '' || $hasEje !== '' || $hasArchivo) {
@@ -259,11 +247,7 @@ $idTipoInscripto = (int) $config['tipo_inscripto_ids'][$rol];
 // ---------- Expositor: secure file storage ----------
 // Random filename prevents collisions and enumeration
 if ($rol === 'Expositor') {
-    $bytes = openssl_random_pseudo_bytes(16);
-    if ($bytes === false) {
-        logError('openssl_random_pseudo_bytes() failed — openssl extension may be missing.');
-        jsonError('No se pudo generar un nombre de archivo seguro.', 500, '', 'server_file_name');
-    }
+    $bytes = random_bytes(16);
     $nombreArchivo = $dni . '-' . bin2hex($bytes) . '.pdf';
     $rutaDestino   = rtrim($config['upload_dir'], '/') . '/' . $nombreArchivo;
 
@@ -275,13 +259,13 @@ if ($rol === 'Expositor') {
 }
 
 // ---------- Persistence ----------
-$registrationData = array(
+$registrationData = [
     'id_tipo_inscripto' => $idTipoInscripto,
     'nombre'            => $nombre,
     'institucion'       => $institucion,
     'email'             => $email,
     'dni'               => $dni,
-);
+];
 
 if ($rol === 'Expositor') {
     $registrationData['titulo_ponencia']  = $titulo;

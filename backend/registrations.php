@@ -2,8 +2,6 @@
 /**
  * JOLATE 2026 — PDO repository seam for registration persistence.
  *
- * PHP 5.3 compatible — no strict_types, no ??, no [] arrays, no random_bytes.
- *
  * Provides:
  *   get_pdo(array $config)         — returns a PDO connection from the 'db' config block
  *   save_registration(array $data) — inserts a row into `inscriptos`; returns new id or false
@@ -24,11 +22,12 @@ function get_pdo(array $config) {
     $db  = $config['db'];
     $dsn = 'mysql:host=' . $db['host'] . ';dbname=' . $db['name'] . ';charset=utf8mb4';
 
-    $pdo = new PDO($dsn, $db['user'], $db['pass'], array(
+    $pdo = new PDO($dsn, $db['user'], $db['pass'], [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_EMULATE_PREPARES   => false,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    ));
+        PDO::MYSQL_ATTR_MULTI_STATEMENTS => false,
+    ]);
 
     return $pdo;
 }
@@ -74,16 +73,16 @@ function save_registration(array $data) {
              . ':titulo_ponencia, :eje_tematico, :archivo_filename)';
 
         $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
+        $stmt->execute([
             ':id_tipo_inscripto' => (int) $data['id_tipo_inscripto'],
             ':nombre'            => $data['nombre'],
             ':institucion'       => $data['institucion'],
             ':email'             => $data['email'],
             ':dni'               => $data['dni'],
-            ':titulo_ponencia'   => isset($data['titulo_ponencia'])   ? $data['titulo_ponencia']   : null,
-            ':eje_tematico'      => isset($data['eje_tematico'])      ? $data['eje_tematico']      : null,
-            ':archivo_filename'  => isset($data['archivo_filename'])  ? $data['archivo_filename']  : null,
-        ));
+            ':titulo_ponencia'   => $data['titulo_ponencia']     ?? null,
+            ':eje_tematico'      => $data['eje_tematico']      ?? null,
+            ':archivo_filename'  => $data['archivo_filename']  ?? null,
+        ]);
 
         return (int) $pdo->lastInsertId();
 

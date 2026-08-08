@@ -11,13 +11,13 @@
 
 ## Fase 2: ALTO (pendiente de autorización)
 
-- [ ] 2.1 `password_hash()` / `password_verify()` + `hash_equals()` en `auth.php`
-- [ ] 2.2 `session_regenerate_id(true)` + SameSite nativo en `auth.php`
-- [ ] 2.3 `safeStrlen()` → `mb_strlen()` en `procesar-envio.php`
-- [ ] 2.4 Agregar `PDO::MYSQL_ATTR_MULTI_STATEMENTS => false` en `registrations.php`
-- [ ] 2.5 Eliminar polyfill `http_response_code()` en `auth.php`
-- [ ] 2.6 `random_bytes()` en vez de `openssl_random_pseudo_bytes()`
-- [ ] 2.7 `seed-admin.php`: `password_hash()` + `random_bytes()`
+- [x] 2.1 `password_hash()` / `password_verify()` + `hash_equals()` en `auth.php`
+- [x] 2.2 `session_regenerate_id(true)` + SameSite nativo en `auth.php`
+- [x] 2.3 `safeStrlen()` → `mb_strlen()` en `procesar-envio.php`
+- [x] 2.4 Agregar `PDO::MYSQL_ATTR_MULTI_STATEMENTS => false` en `registrations.php`
+- [x] 2.5 Eliminar polyfill `http_response_code()` en `auth.php`
+- [x] 2.6 `random_bytes()` en vez de `openssl_random_pseudo_bytes()` en `procesar-envio.php`
+- [x] 2.7 `seed-admin.php`: `password_hash()` + `random_bytes()`
 
 ## Fase 3: DEV (parity con prod)
 
@@ -29,6 +29,6 @@
 
 ## Fase 4: BAJO (limpieza opcional)
 
-- [ ] 4.1 `array()` → `[]` en todos los `.php`
-- [ ] 4.2 `isset($x) ? $x : default` → `$x ?? default`
-- [ ] 4.3 Actualizar comentarios "PHP 5.3 compatible" y "MariaDB"
+- [x] 4.1 `array()` → `[]` en todos los `.php` (vía tokenizer + fixes manuales de sintaxis)
+- [x] 4.2 `isset($x) ? $x : default` → `$x ?? default` (14 ocurrencias en 5 archivos)
+- [x] 4.3 Actualizar comentarios "PHP 5.3 compatible" y "MariaDB" (procesar-envio.php, registrations.php, config.example.php, config.php)

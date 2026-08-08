@@ -3,8 +3,6 @@
  * JOLATE 2026 — Admin: authenticated PDF download for Expositor submissions.
  *
  * Path-traversal-safe: basename() + realpath() must stay under backend/uploads/.
- * The SameSite cookie is in the output buffer from admin_require(); we flush
- * the buffer before readfile() so the binary stream isn't held in memory.
  */
 
 date_default_timezone_set('UTC');
@@ -15,7 +13,7 @@ $configPath = __DIR__ . '/../config.php';
 if (!file_exists($configPath)) {
     http_response_code(500);
     header('Content-Type: application/json; charset=utf-8');
-    echo json_encode(array('error' => 'server_config'));
+    echo json_encode(['error' => 'server_config']);
     exit;
 }
 $config = require $configPath;
@@ -25,7 +23,7 @@ $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 if ($id <= 0) {
     http_response_code(400);
     header('Content-Type: application/json; charset=utf-8');
-    echo json_encode(array('error' => 'bad_id'));
+    echo json_encode(['error' => 'bad_id']);
     exit;
 }
 
@@ -33,13 +31,13 @@ try {
     $pdo = get_pdo($config);
     $sql = "SELECT archivo_filename, id_tipo_inscripto FROM `inscriptos` WHERE id = :id LIMIT 1";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute(array(':id' => $id));
+    $stmt->execute([':id' => $id]);
     $row = $stmt->fetch();
 
     if (!$row || empty($row['archivo_filename']) || (int)$row['id_tipo_inscripto'] !== 1) {
         http_response_code(404);
         header('Content-Type: application/json; charset=utf-8');
-        echo json_encode(array('error' => 'not_found'));
+        echo json_encode(['error' => 'not_found']);
         exit;
     }
 
@@ -47,7 +45,7 @@ try {
     if ($uploadsDir === false) {
         http_response_code(500);
         header('Content-Type: application/json; charset=utf-8');
-        echo json_encode(array('error' => 'server_uploads'));
+        echo json_encode(['error' => 'server_uploads']);
         exit;
     }
 
@@ -56,7 +54,7 @@ try {
     if ($real === false || strpos($real, $uploadsDir . DIRECTORY_SEPARATOR) !== 0) {
         http_response_code(404);
         header('Content-Type: application/json; charset=utf-8');
-        echo json_encode(array('error' => 'not_found'));
+        echo json_encode(['error' => 'not_found']);
         exit;
     }
 
@@ -66,9 +64,8 @@ try {
     header('Content-Length: ' . filesize($real));
     header('Cache-Control: private, no-store');
 
-    // Flush the output buffer started by admin_require()/ensure_session()
-    // so headers are sent to the client and readfile() can stream directly
-    // without buffering the (up to 7 MB) PDF in memory.
+    // Flush any pending output buffers so headers are sent to the client
+    // and readfile() can stream directly without buffering in memory.
     while (ob_get_level() > 0) {
         ob_end_flush();
     }
@@ -78,5 +75,5 @@ try {
     admin_log_error('admin/download_pdf.php: ' . $e->getMessage());
     http_response_code(500);
     header('Content-Type: application/json; charset=utf-8');
-    echo json_encode(array('error' => 'server'));
+    echo json_encode(['error' => 'server']);
 }

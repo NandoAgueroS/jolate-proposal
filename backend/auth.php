@@ -2,16 +2,9 @@
 /**
  * JOLATE 2026 — Admin auth module
  *
- * PHP 5.3 compatible — no `??`, no `[]` short arrays, no `password_hash`
- * (uses `crypt()` with `$2y$` bcrypt instead), no `hash_equals` (uses a
- * custom constant-time compare), no native SameSite API (re-emits the
- * session cookie with SameSite=Lax manually via `header()`).
- *
  * Exposes helpers:
- *   ensure_session()             — starts a session and a SameSite=Lax cookie
+ *   ensure_session()             — starts a session with SameSite=Lax cookie
  *   require_admin()              — exits with 401 JSON if not authenticated
- *   bcrypt_hash($plain)          — bcrypt hash with random salt
- *   bcrypt_verify($plain,$hash)  — constant-time verify
  *   rate_limit_login(...)        — returns lockout state for an IP
  *   rate_limit_record_failure()  — records a failed attempt
  *   log_error($msg)              — append to backend/logs/error.log
@@ -21,16 +14,6 @@
  */
 
 date_default_timezone_set('UTC');
-
-// PHP 5.4 polyfill: http_response_code() doesn't exist in 5.3.
-if (!function_exists('http_response_code')) {
-    function http_response_code($code = null) {
-        if ($code !== null) {
-            header(' ', true, $code);
-        }
-        return 200;
-    }
-}
 
 function admin_log_error($msg) {
     $dir = __DIR__ . '/logs';
@@ -42,52 +25,16 @@ function admin_ensure_session() {
     if (session_id() !== '') {
         return;
     }
-    if (ob_get_level() === 0) {
-        ob_start();
-    }
-    // Cookie params: lifetime 0 (session), path /, no domain, secure=false, httponly=true.
-    // SameSite is added manually below (PHP 5.3 has no API for it).
-    session_set_cookie_params(0, '/', '', false, true);
-    session_start();
-    header_remove('Set-Cookie');
     $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
-    $cookie = session_name() . '=' . session_id()
-            . '; path=/; HttpOnly; SameSite=Lax'
-            . ($secure ? '; Secure' : '');
-    header('Set-Cookie: ' . $cookie, false);
-}
-
-function admin_ct_compare($a, $b) {
-    if (!is_string($a) || !is_string($b)) { return false; }
-    $la = strlen($a);
-    $lb = strlen($b);
-    if ($la !== $lb) { return false; }
-    $r = 0;
-    for ($i = 0; $i < $la; $i++) {
-        $r |= ord($a[$i]) ^ ord($b[$i]);
-    }
-    return $r === 0;
-}
-
-function admin_bcrypt_salt_22() {
-    $alphabet = './ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    $salt = '';
-    for ($i = 0; $i < 22; $i++) {
-        $r = ord(openssl_random_pseudo_bytes(1));
-        // 256 is a multiple of 64 — no modulo bias.
-        $salt .= $alphabet[$r % 64];
-    }
-    return $salt;
-}
-
-function admin_bcrypt_hash($plain) {
-    return crypt($plain, '$2y$10$' . admin_bcrypt_salt_22());
-}
-
-function admin_bcrypt_verify($plain, $hash) {
-    if (!is_string($hash) || strlen($hash) < 4) { return false; }
-    $calc = crypt($plain, $hash);
-    return admin_ct_compare($calc, $hash);
+    session_set_cookie_params([
+        'lifetime' => 0,
+        'path'     => '/',
+        'domain'   => '',
+        'secure'   => $secure,
+        'httponly' => true,
+        'samesite' => 'Lax',
+    ]);
+    session_start();
 }
 
 function admin_rate_limit_state($ip, $pdo, $config) {
@@ -98,11 +45,11 @@ function admin_rate_limit_state($ip, $pdo, $config) {
     // opportunistic cleanup of stale rows (>1 day)
     $cutoff = date('Y-m-d H:i:s', time() - 86400);
     $c = $pdo->prepare("DELETE FROM `admin_auth_attempts` WHERE failed_at < :c");
-    $c->execute(array(':c' => $cutoff));
+    $c->execute([':c' => $cutoff]);
 
     $since = date('Y-m-d H:i:s', time() - $window);
     $s = $pdo->prepare("SELECT COUNT(*) AS c, MIN(failed_at) AS first FROM `admin_auth_attempts` WHERE ip = :ip AND failed_at >= :s");
-    $s->execute(array(':ip' => $ip, ':s' => $since));
+    $s->execute([':ip' => $ip, ':s' => $since]);
     $row = $s->fetch();
     $count = $row ? (int)$row['c'] : 0;
     $first = ($row && !empty($row['first'])) ? strtotime($row['first']) : time();
@@ -110,15 +57,15 @@ function admin_rate_limit_state($ip, $pdo, $config) {
     if ($count >= $max) {
         $unlockAt = $first + $window + ($lock * 60);
         if (time() < $unlockAt) {
-            return array('locked' => true, 'retry_after' => $unlockAt - time());
+            return ['locked' => true, 'retry_after' => $unlockAt - time()];
         }
     }
-    return array('locked' => false, 'retry_after' => 0);
+    return ['locked' => false, 'retry_after' => 0];
 }
 
 function admin_rate_limit_record_failure($ip, $pdo) {
     $s = $pdo->prepare("INSERT INTO `admin_auth_attempts` (`ip`) VALUES (:ip)");
-    $s->execute(array(':ip' => $ip));
+    $s->execute([':ip' => $ip]);
 }
 
 function admin_require() {
@@ -126,7 +73,7 @@ function admin_require() {
     if (empty($_SESSION['admin'])) {
         http_response_code(401);
         header('Content-Type: application/json; charset=utf-8');
-        echo json_encode(array('error' => 'unauthorized'));
+        echo json_encode(['error' => 'unauthorized']);
         exit;
     }
 }
@@ -136,7 +83,7 @@ function admin_dispatch() {
     if (!file_exists($configPath)) {
         http_response_code(500);
         header('Content-Type: application/json; charset=utf-8');
-        echo json_encode(array('error' => 'server_config'));
+        echo json_encode(['error' => 'server_config']);
         exit;
     }
     $config = require $configPath;
@@ -145,10 +92,10 @@ function admin_dispatch() {
     admin_ensure_session();
     header('Content-Type: application/json; charset=utf-8');
 
-    $action = isset($_GET['action']) ? $_GET['action'] : 'me';
+    $action = $_GET['action'] ?? 'me';
 
     if ($action === 'me') {
-        echo json_encode(array('authenticated' => !empty($_SESSION['admin'])));
+        echo json_encode(['authenticated' => !empty($_SESSION['admin'])]);
         return;
     }
 
@@ -164,60 +111,59 @@ function admin_dispatch() {
         } catch (Exception $e) {
             admin_log_error('auth: db connect failed: ' . $e->getMessage());
             http_response_code(500);
-            echo json_encode(array('ok' => false, 'code' => 'server'));
+            echo json_encode(['ok' => false, 'code' => 'server']);
             return;
         }
 
         $rl = admin_rate_limit_state($ip, $pdo, $config);
         if ($rl['locked']) {
             http_response_code(429);
-            echo json_encode(array('ok' => false, 'code' => 'account_locked', 'retry_after' => (int)$rl['retry_after']));
+            echo json_encode(['ok' => false, 'code' => 'account_locked', 'retry_after' => (int)$rl['retry_after']]);
             return;
         }
 
         if ($user === '' || $pass === '') {
-            echo json_encode(array('ok' => false, 'code' => 'invalid_credentials'));
+            echo json_encode(['ok' => false, 'code' => 'invalid_credentials']);
             return;
         }
 
         $stmt = $pdo->prepare("SELECT id, username, password_hash FROM `admins` WHERE username = :u LIMIT 1");
-        $stmt->execute(array(':u' => $user));
+        $stmt->execute([':u' => $user]);
         $row = $stmt->fetch();
 
-        $valid = ($row && isset($row['password_hash']) && $row['password_hash'] !== ''
-                  && admin_bcrypt_verify($pass, $row['password_hash']));
+        $valid = ($row && !empty($row['password_hash'])
+                  && password_verify($pass, $row['password_hash']));
 
         if (!$valid) {
             admin_rate_limit_record_failure($ip, $pdo);
             admin_log_error('auth: login failed user=' . $user . ' ip=' . $ip);
-            echo json_encode(array('ok' => false, 'code' => 'invalid_credentials'));
+            echo json_encode(['ok' => false, 'code' => 'invalid_credentials']);
             return;
         }
 
-        // PHP 5.3: session_regenerate_id() takes no argument.
-        session_regenerate_id();
-        $_SESSION['admin'] = array(
+        session_regenerate_id(true);
+        $_SESSION['admin'] = [
             'id'   => (int)$row['id'],
             'user' => $row['username'],
             'at'   => time(),
-        );
-        echo json_encode(array('ok' => true));
+        ];
+        echo json_encode(['ok' => true]);
         return;
     }
 
     if ($action === 'logout' && isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
-        $_SESSION = array();
+        $_SESSION = [];
         if (ini_get('session.use_cookies')) {
             $p = session_get_cookie_params();
             setcookie(session_name(), '', time() - 42000, $p['path'], $p['domain'], $p['secure'], $p['httponly']);
         }
         session_destroy();
-        echo json_encode(array('ok' => true));
+        echo json_encode(['ok' => true]);
         return;
     }
 
     http_response_code(400);
-    echo json_encode(array('error' => 'bad_request'));
+    echo json_encode(['error' => 'bad_request']);
 }
 
 if (PHP_SAPI !== 'cli' && isset($_SERVER['SCRIPT_FILENAME']) && realpath($_SERVER['SCRIPT_FILENAME']) === __FILE__) {

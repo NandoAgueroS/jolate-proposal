@@ -16,7 +16,7 @@ $configPath = __DIR__ . '/../config.php';
 if (!file_exists($configPath)) {
     http_response_code(500);
     header('Content-Type: application/json; charset=utf-8');
-    echo json_encode(array('error' => 'server_config'));
+    echo json_encode(['error' => 'server_config']);
     exit;
 }
 $config = require $configPath;
@@ -36,7 +36,7 @@ $rol    = isset($_GET['rol'])             ? (string)$_GET['rol']             : '
 $orderColIdx = isset($_GET['order'][0]['column']) ? (int)$_GET['order'][0]['column'] : 0;
 $orderDirRaw = isset($_GET['order'][0]['dir'])    ? strtolower((string)$_GET['order'][0]['dir']) : 'desc';
 
-$cols = array(
+$cols = [
     0 => 'i.id',
     1 => 't.nombre',
     2 => 'i.nombre',
@@ -44,12 +44,12 @@ $cols = array(
     4 => 'i.email',
     5 => 'i.dni',
     6 => 'i.created_at',
-);
-$orderCol = isset($cols[$orderColIdx]) ? $cols[$orderColIdx] : 'i.id';
+];
+$orderCol = $cols[$orderColIdx] ?? 'i.id';
 $orderDir = ($orderDirRaw === 'asc') ? 'ASC' : 'DESC';
 
 $where = '';
-$params = array();
+$params = [];
 if ($rol === 'Expositor' || $rol === 'Asistente') {
     $where .= ' AND t.nombre = :rol';
     $params[':rol'] = $rol;
@@ -89,9 +89,9 @@ try {
     $stmtD->execute($params);
     $rows = $stmtD->fetchAll();
 
-    $data = array();
+    $data = [];
     foreach ($rows as $r) {
-        $data[] = array(
+        $data[] = [
             'id'              => (int)$r['id'],
             'rol'             => $r['rol'],
             'nombre'          => $r['nombre'],
@@ -102,17 +102,17 @@ try {
             'eje_tematico'    => $r['eje_tematico'],
             'tiene_pdf'       => !empty($r['archivo_filename']),
             'created_at'      => $r['created_at'],
-        );
+        ];
     }
 
-    echo json_encode(array(
+    echo json_encode([
         'draw'            => $draw,
         'recordsTotal'    => $recordsTotal,
         'recordsFiltered' => $recordsFiltered,
         'data'            => $data,
-    ));
+    ]);
 } catch (Exception $e) {
     admin_log_error('admin/list.php: ' . $e->getMessage());
     http_response_code(500);
-    echo json_encode(array('error' => 'server'));
+    echo json_encode(['error' => 'server']);
 }

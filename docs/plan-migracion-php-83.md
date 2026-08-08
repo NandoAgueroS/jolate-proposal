@@ -389,12 +389,13 @@ FROM reallyenglish/php:5.3-apache-0 RUN docker-php-ext-install pdo_mysql ...
 # Después:
 FROM php:8.3-apache
 RUN a2enmod rewrite
+RUN docker-php-ext-install pdo_mysql
 RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/sites-available/000-default.conf ...
 COPY . /var/www/html/jolate-proposal/
 RUN /var/www/html/jolate-proposal/bin/setup-runtime.sh /var/www/html/jolate-proposal
 ```
 
-- `pdo_mysql` ya viene en `php:8.3-apache`. No necesita `docker-php-ext-install`.
+- `pdo_mysql` necesita `docker-php-ext-install pdo_mysql` (no viene incluido por defecto en `php:8.3-apache`).
 - `php:8.3-apache` es Debian Bookworm — repos vigentes, sin problemas de APT.
 - El `sed` para DocumentRoot sigue igual.
 - Posiblemente necesite `docker-php-ext-install calendar` si `procesar-envio.php` usa `cal_days_in_month()` (no lo usa, solo tiene `date()`).
