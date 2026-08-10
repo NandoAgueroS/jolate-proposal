@@ -239,10 +239,10 @@ Se repiten los mismos casos de TC-05 a TC-25 para los campos compartidos:
 ### 2.4 Estados de UI
 
 - [ ] **TC-60:** Envío exitoso como Expositor  
-  **Esperado:** Spinner → mensaje verde "¡Ponencia cargada correctamente!". Formulario reseteado. Rol vuelve a Expositor. Campos de ponencia visibles y vacíos.
+  **Esperado:** Spinner → mensaje verde "¡Ponencia cargada correctamente!". Formulario reseteado. Rol se conserva en Expositor. Campos de ponencia visibles y vacíos.
 
 - [ ] **TC-61:** Envío exitoso como Asistente  
-  **Esperado:** Spinner → mensaje verde "¡Inscripción recibida correctamente!". Formulario reseteado. Rol vuelve a Expositor.
+  **Esperado:** Spinner → mensaje verde "¡Inscripción registrada correctamente! Recibirás un correo de confirmación en breve.". Formulario reseteado (datos personales y campos de ponencia vacíos). Rol se conserva en Asistente.
 
 - [ ] **TC-62:** Error del backend en formulario de Inscripción  
   **Esperado:** Recuadro rojo general con mensaje. Formulario NO se resetea. Los datos persisten para corregir.

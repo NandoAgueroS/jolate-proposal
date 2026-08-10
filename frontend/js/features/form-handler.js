@@ -189,6 +189,14 @@ function initPaperForm(opts) {
     clearFieldError('archivo');
   }
 
+  function getSelectedRole() {
+    if (!roleRadios.length) return 'Expositor';
+    for (const radio of roleRadios) {
+      if (radio.checked) return radio.value === 'Asistente' ? 'Asistente' : 'Expositor';
+    }
+    return 'Expositor';
+  }
+
   if (roleRadios.length) {
     roleRadios.forEach((radio) => {
       radio.addEventListener('change', () => syncRoleFields(true));
@@ -414,10 +422,20 @@ function initPaperForm(opts) {
       }
 
       if (resp.success) {
+        const savedRole = getSelectedRole();
         paperForm.reset();
+        if (roleRadios.length) {
+          const radio = paperForm.querySelector('input[name="rol"][value="' + savedRole + '"]');
+          if (radio) radio.checked = true;
+        }
         resetFileInputState();
         syncRoleFields();
-        if (successMsg) successMsg.classList.remove('hidden');
+        const successKey = savedRole === 'Asistente' ? 'enviar.exito_asistente' : 'enviar.exito_expositor';
+        if (successMsg) {
+          successMsg.setAttribute('data-i18n', successKey);
+          successMsg.textContent = t(successKey);
+          successMsg.classList.remove('hidden');
+        }
         if (generalError) generalError.classList.add('hidden');
       } else if (resp.field && resp.field !== '') {
         showFieldError(resp.field, translateBackendError(resp));
