@@ -9,7 +9,7 @@ Sitio web estático informativo del evento académico + panel de administración
 
 - **Frontend público**: `frontend/index.html` monolítico + Tailwind v3 CDN + JS vanilla en ES6 modules (`js/main.js` + `js/core/*` + `js/data/*` + `js/features/*`) — sin bundler, sin framework.
 - **Frontend admin**: `frontend/admin.html` + `frontend/js/admin.js` (ES6 module) + jQuery 3.7.1 y DataTables 1.13.11 **autohospedados** en `frontend/vendor/`. Solo el panel, no el sitio público.
-- **Backend**: PHP 8.3 en `backend/`, con `procesar-envio.php` (form público → registro en DB sin envío síncrono), `registrations.php` (repositorio PDO), `mailer.php` (funciones SMTP reutilizables), `auth.php` + `admin/*` (panel), `bin/seed-admin.php` (CLI para crear admins), `bin/send-pending-emails.php` (worker cron de cola de correos). PHPMailer 6.9.3 hand-vendored.
+- **Backend**: PHP 8.3 en `backend/`, con `procesar-envio.php` (form público → registro en DB sin envío síncrono), `registrations.php` (repositorio PDO), `mailer.php` (funciones SMTP reutilizables), `auth.php` + `admin/*` (panel), `certificado.php` + `certificado-lib.php` (descarga de certificados por DNI, generados con FPDF y cacheados en `backend/certificados/`), `bin/seed-admin.php` (CLI para crear admins), `bin/send-pending-emails.php` (worker cron de cola de correos). PHPMailer 6.9.3 y FPDF 1.9 hand-vendored.
 - **DB**: MySQL 8.0.20 con tablas `jolate_tipo_inscripto`, `jolate_inscriptos`, `jolate_admins`, `jolate_admin_auth_attempts`. Schema en `docker/database/init.sql`. Base: `devulp`.
 - **Email**: Envío asíncrono vía cron cada 5 min. El worker CLI (`send-pending-emails.php`) procesa la cola con 5 reintentos por tipo de email (participante y comité, trackeados por separado). El panel `/admin` muestra badges de estado.
 - **CDN (sitio público)**: Tailwind v3, GSAP 3.12.5 + ScrollTrigger, Lucide 0.460.0, Google Fonts (Inter, JetBrains Mono, Playfair Display).
@@ -32,14 +32,14 @@ Sitio web estático informativo del evento académico + panel de administración
 │   │   ├── main.js                 ← Entry point (type="module")
 │   │   ├── core/                   ← config.js, i18n.js, utils.js
 │   │   ├── data/                   ← es.js, en.js (diccionarios i18n)
-│   │   ├── features/               ← countdown, faq-accordion, comite, form-handler, etc.
+│   │   ├── features/               ← countdown, faq-accordion, comite, form-handler, certificados, etc.
 │   │   └── admin.js                ← Cliente del panel /admin
 │   ├── admin.html                  ← Login + dashboard del panel
 │   └── vendor/                     ← Autohospedados (solo /admin los usa)
 │       ├── jquery/jquery-3.7.1.min.js
 │       └── datatables/jquery.dataTables.{min.js,min.css}
 ├── backend/                        ← PHP 8.3
-│   ├── .htaccess                   ← Bloquea config.php, vendor/, logs, seed-*.php
+│   ├── .htaccess                   ← Bloquea config.php, vendor/, logs, seed-*.php, certificado-lib.php
 │   ├── config.php                  ← Credenciales (gitignored; copiar de config.example.php)
 │   ├── config.example.php          ← Plantilla con bloque admin (rate-limit)
 │   ├── procesar-envio.php          ← Endpoint POST del form público
@@ -54,9 +54,14 @@ Sitio web estático informativo del evento académico + panel de administración
 │   │   └── seed-admin.php          ← CLI: crear/resetear admin (password_hash)
 │   │   └── send-pending-emails.php  ← CLI: worker cron de cola de correos
 │   ├── mailer.php                   ← Funciones SMTP compartidas (web + cron)
+│   ├── certificado.php             ← Endpoint público: buscar por DNI + descargar PDF
+│   ├── certificado-lib.php         ← Generación del certificado (FPDF) + caché
+│   ├── certificados/               ← Caché de PDFs (bloqueada por .htaccess, gitignored)
 │   ├── uploads/                    ← PDFs recibidos (writable, *.pdf bloqueado por .htaccess)
 │   ├── logs/                       ← error.log (writable, *.log bloqueado por .htaccess)
-│   └── vendor/phpmailer/           ← PHPMailer 6.9.3 hand-vendored
+│   └── vendor/
+│       ├── phpmailer/              ← PHPMailer 6.9.3 hand-vendored
+│       └── fpdf/                   ← FPDF 1.9 + font/*.json (core fonts) hand-vendored
 ├── docker/                         ← Configuración Docker
 │   ├── database/init.sql           ← Schema: DB devulp, 4 tablas jolate_*
 │   ├── entrypoint.sh               ← Arranca cron + Apache

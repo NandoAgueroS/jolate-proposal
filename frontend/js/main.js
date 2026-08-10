@@ -12,6 +12,7 @@ import { initGsapAnimations } from './features/gsap-animations.js';
 import { initLanguageToggle } from './features/language-toggle.js';
 import { initFormHandler } from './features/form-handler.js';
 import { initScrollSnap } from './features/scroll-snap.js';
+import { initCertificadosModal } from './features/certificados.js';
 
 initI18n();
 initCountdown();
@@ -24,4 +25,5 @@ initGsapAnimations();
 initLanguageToggle();
 initFormHandler();
 initScrollSnap();
+initCertificadosModal();
 refreshIcons();

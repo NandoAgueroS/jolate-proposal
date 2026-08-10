@@ -37,6 +37,12 @@ return [
     'upload_dir'        => __DIR__ . '/uploads/',
     'max_file_size_mb'  => 7,
 
+    // ── Certificados ───────────────────────────────────────────────
+    // certificado_dir: carpeta física donde se cachean los certificados
+    // generados (backend/certificados/{dni}/{id}.pdf).
+    // Bloqueada por .htaccess — solo se sirve vía certificado.php.
+    'certificado_dir'   => __DIR__ . '/certificados/',
+
     // ── Ejes temáticos válidos ────────────────────────────────────
     // Deben coincidir exactamente con las opciones del <select> del formulario.
     'ejes_tematicos_validos' => [

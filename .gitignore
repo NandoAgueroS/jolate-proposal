@@ -1,11 +1,17 @@
 .atl/
 /others
+docker-compose.override.yml
 .env
 backend/config.php
 backend/logs/*.log
 backend/uploads/*
 !backend/uploads/.gitkeep
+backend/certificados/*
+!backend/certificados/.gitkeep
+!backend/certificados/.htaccess
 backend/vendor/*
 !backend/vendor/phpmailer/
 !backend/vendor/phpmailer/**
+!backend/vendor/fpdf/
+!backend/vendor/fpdf/**
 /dev_resources

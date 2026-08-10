@@ -12,6 +12,8 @@ Options -Indexes
     RewriteRule ^frontend/procesar-envio\.php$ backend/procesar-envio.php [L]
     RewriteRule ^registrations\.php$         backend/registrations.php [L]
     RewriteRule ^frontend/registrations\.php$ backend/registrations.php [L]
+    RewriteRule ^certificado\.php$           backend/certificado.php [L]
+    RewriteRule ^frontend/certificado\.php$  backend/certificado.php [L]
 
     # Admin dashboard routes (mapped BEFORE the catch-all below).
     RewriteRule ^admin/?$              frontend/admin.html              [L]

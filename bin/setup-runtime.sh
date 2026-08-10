@@ -15,9 +15,9 @@ APP_DIR="${1:-.}"
 WARN=0
 
 # ── Runtime directories ──────────────────────────────────────────
-mkdir -p "${APP_DIR}/backend/uploads" "${APP_DIR}/backend/logs"
-chown -R www-data:www-data "${APP_DIR}/backend/uploads" "${APP_DIR}/backend/logs"
-chmod 755                      "${APP_DIR}/backend/uploads" "${APP_DIR}/backend/logs"
+mkdir -p "${APP_DIR}/backend/uploads" "${APP_DIR}/backend/logs" "${APP_DIR}/backend/certificados"
+chown -R www-data:www-data "${APP_DIR}/backend/uploads" "${APP_DIR}/backend/logs" "${APP_DIR}/backend/certificados"
+chmod 755                      "${APP_DIR}/backend/uploads" "${APP_DIR}/backend/logs" "${APP_DIR}/backend/certificados"
 
 echo "✓ Directorios de runtime listos en ${APP_DIR}/backend/"
 

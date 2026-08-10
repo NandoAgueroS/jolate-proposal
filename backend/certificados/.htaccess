@@ -1,0 +1,11 @@
+# Caché de certificados generados — sin acceso HTTP directo.
+# Solo se sirven a través de backend/certificado.php.
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>
+
+Options -Indexes
