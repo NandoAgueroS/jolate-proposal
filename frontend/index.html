@@ -106,6 +106,12 @@
             >Inscripción</a
           >
           <a href="#faq" class="hover:text-white transition-colors" data-i18n="nav.faq">Ayuda</a>
+          <button
+            id="btn-certificados"
+            type="button"
+            class="hover:text-white transition-colors"
+            data-i18n="nav.certificados"
+          >Certificados</button>
         </div>
 
         <!-- Nav CTA + Mobile button -->
@@ -181,6 +187,12 @@
               data-i18n="nav.faq"
               >Ayuda</a
             >
+            <button
+              id="btn-certificados-mobile"
+              type="button"
+              class="block w-full text-white/80 hover:text-white font-medium transition-colors"
+              data-i18n="nav.certificados"
+            >Certificados</button>
             <div class="pt-3 border-t border-white/20">
               <button
                 id="lang-toggle-mobile"
@@ -1882,6 +1894,60 @@
         </div>
       </div>
     </footer>
+
+    <!-- Certificados Modal -->
+    <div
+      id="cert-modal"
+      class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cert-modal-title"
+    >
+      <div id="cert-modal-backdrop" class="absolute inset-0 bg-text/70 backdrop-blur-sm"></div>
+      <div
+        class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl border border-tint p-6"
+      >
+        <button
+          id="cert-modal-close"
+          type="button"
+          class="absolute top-3 right-3 text-text/50 hover:text-text transition-colors"
+          aria-label="Cerrar"
+        >
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+        <h3 id="cert-modal-title" class="text-xl font-bold text-primary" data-i18n="certificados.titulo">
+          Descargá tu certificado
+        </h3>
+        <p class="mt-1 text-sm text-text/70" data-i18n="certificados.descripcion">
+          Ingresá el DNI o pasaporte con el que te inscribiste al evento.
+        </p>
+
+        <form id="cert-form" class="mt-4 space-y-3" method="POST" action="certificado.php" novalidate>
+          <input type="hidden" name="website" value="" />
+          <label for="cert-dni" class="sr-only" data-i18n="certificados.dni">DNI o pasaporte</label>
+          <input
+            id="cert-dni"
+            name="dni"
+            type="text"
+            inputmode="numeric"
+            autocomplete="off"
+            maxlength="20"
+            placeholder="DNI o pasaporte"
+            data-i18n-placeholder="certificados.placeholder"
+            class="w-full rounded-xl border border-tint/60 bg-bg px-4 py-3 text-text focus:outline-none focus:ring-2 focus:ring-accent"
+          />
+          <button
+            id="cert-submit-btn"
+            type="submit"
+            class="w-full rounded-xl bg-primary text-white font-semibold py-3 hover:bg-accent transition-colors"
+          >
+            <span data-i18n="certificados.buscar">Buscar</span>
+          </button>
+        </form>
+
+        <div id="cert-result" class="mt-4 text-sm"></div>
+      </div>
+    </div>
 
     <!-- Scripts — App JS (ES modules) -->
     <script type="module" src="js/main.js"></script>

@@ -8,6 +8,7 @@ export const en = {
   'nav.inscripcion': 'Registration',
   'nav.faq': 'FAQ',
   'nav.enviar': 'Submit Paper',
+  'nav.certificados': 'Certificates',
 
   'aria.open_menu': 'Open Menu',
   'aria.previous': 'Previous',
@@ -210,6 +211,21 @@ export const en = {
   'footer.faq_link': 'Frequently Asked Questions',
   'footer.institutions_title': 'Institutions',
   'footer.dev': 'Site Developed by Multimedia ULP',
+
+  'certificados.titulo': 'Download your certificate',
+  'certificados.descripcion': 'Enter the ID or passport you used to register for the event.',
+  'certificados.dni': 'ID or passport',
+  'certificados.placeholder': 'ID or passport',
+  'certificados.buscar': 'Search',
+  'certificados.buscando': 'Searching...',
+  'certificados.descargar': 'Download',
+  'certificados.ok': '\u2713 Your certificate is being downloaded.',
+  'certificados.vacio': 'Enter an ID or passport number.',
+  'certificados.no_encontrado': 'We could not find a certificate for that ID. If you registered recently, please try again in a few days.',
+  'certificados.error_conexion': 'Connection error. Check your internet and try again.',
+  'certificados.error_generico': 'There was an error looking up your certificate. Please try again in a few minutes.',
+  'certificados.ya_descargado': 'A certificate for that ID was already downloaded once. If you need it again, write to us at',
+  'certificados.email': 'jolate2026@gmail.com',
 
   sponsors: [
     { name: 'UNSL', label: 'National University of San Luis', image: 'assets/logos/UNSL.svg' },

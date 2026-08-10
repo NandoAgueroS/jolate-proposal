@@ -8,6 +8,7 @@ export const es = {
   'nav.inscripcion': 'Inscripci\u00f3n',
   'nav.faq': 'Ayuda',
   'nav.enviar': 'Enviar Trabajo',
+  'nav.certificados': 'Certificados',
 
   'aria.open_menu': 'Abrir Menú',
   'aria.previous': 'Anterior',
@@ -210,6 +211,21 @@ export const es = {
   'footer.faq_link': 'Preguntas Frecuentes',
   'footer.institutions_title': 'Instituciones',
   'footer.dev': 'Sitio Desarrollado por Multimedia ULP',
+
+  'certificados.titulo': 'Descarg\u00e1 tu certificado',
+  'certificados.descripcion': 'Ingres\u00e1 el DNI o pasaporte con el que te inscribiste al evento.',
+  'certificados.dni': 'DNI o pasaporte',
+  'certificados.placeholder': 'DNI o pasaporte',
+  'certificados.buscar': 'Buscar',
+  'certificados.buscando': 'Buscando...',
+  'certificados.descargar': 'Descargar',
+  'certificados.ok': '\u2713 Tu certificado se est\u00e1 descargando.',
+  'certificados.vacio': 'Ingres\u00e1 un n\u00famero de DNI o pasaporte.',
+  'certificados.no_encontrado': 'No encontramos un certificado con ese DNI. Si te inscribiste recientemente, intent\u00e1 nuevamente en unos d\u00edas.',
+  'certificados.error_conexion': 'Error de conexi\u00f3n. Verific\u00e1 tu internet e intent\u00e1 nuevamente.',
+  'certificados.error_generico': 'Ocurri\u00f3 un error al buscar tu certificado. Intent\u00e1 nuevamente en unos minutos.',
+  'certificados.ya_descargado': 'El certificado con ese DNI ya fue descargado una vez. Si lo necesit\u00e1s nuevamente, escribinos a',
+  'certificados.email': 'jolate2026@gmail.com',
 
   // ── Dynamic data ──
   sponsors: [
