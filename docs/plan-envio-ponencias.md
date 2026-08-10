@@ -274,7 +274,8 @@ Se agrega una sección nueva al final de `main.js` dentro del `DOMContentLoaded`
 
 **c) Manejo de respuesta:**
 - `onreadystatechange` parsea `responseJSON`
-- Si `{ success: true }`: muestra `#form-success-message`, resetea el form,
+- Si `{ success: true }`: muestra `#form-success-message` con el texto según
+  el rol (expositor/asistente), resetea el form conservando el rol seleccionado,
   limpia todos los errores inline
 - Si `{ success: false, field: "nombre", error: "..." }`: muestra el error
   debajo del campo correspondiente, bordea el input en rojo
