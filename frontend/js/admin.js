@@ -252,7 +252,11 @@ function renderDashboard() {
 
   state.rolFilter = document.getElementById('rol-filter');
   state.rolFilter.addEventListener('change', () => {
-    if (state.dt) state.dt.ajax.reload();
+    if (state.dt) {
+      state.dt.search('');
+      $('#inscriptos-table_wrapper input[type="search"]').val('');
+      state.dt.ajax.reload();
+    }
   });
 
   document.getElementById('export-csv').addEventListener('click', (ev) => {
@@ -371,12 +375,14 @@ function initDataTable() {
       paginate: { first: '«', previous: '‹', next: '›', last: '»' },
     },
     drawCallback: function () {
-      document.querySelectorAll('.ver-btn').forEach((b) => {
-        b.onclick = () => openDetail(b.getAttribute('data-ver'));
-      });
       refreshIcons();
     },
   });
+
+  $tbl.on('click', '.ver-btn', (ev) => {
+    openDetail(ev.currentTarget.getAttribute('data-ver'));
+  });
+  $tbl.on('responsive-display.dt', refreshIcons);
 }
 
 async function openDetail(id) {
