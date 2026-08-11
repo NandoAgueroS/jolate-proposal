@@ -200,6 +200,7 @@ export const en = {
   'footer.enviar': 'Submit Paper',
   'footer.nav_title': 'Navigation',
   'footer.inicio': 'Home',
+  'footer.acerca_de': 'About JOLATE',
   'footer.convocatoria': 'Call for Papers',
   'footer.programa': 'Program',
   'footer.expositores': 'Speakers',

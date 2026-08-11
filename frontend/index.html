@@ -86,8 +86,8 @@
           <a href="#acerca-de" class="hover:text-white transition-colors" data-i18n="nav.acerca_de"
             >Acerca de JOLATE</a
           >
-          <a href="#convocatoria" class="hover:text-white transition-colors" data-i18n="nav.convocatoria"
-            >Convocatoria</a
+          <a href="#comite" class="hover:text-white transition-colors" data-i18n="nav.comite"
+            >Comité</a
           >
           <a href="#programa" class="hover:text-white transition-colors" data-i18n="nav.programa"
             >Programa</a
@@ -95,14 +95,14 @@
           <a href="#expositores" class="hover:text-white transition-colors" data-i18n="nav.expositores"
             >Expositores</a
           >
-          <a href="#comite" class="hover:text-white transition-colors" data-i18n="nav.comite"
-            >Comité</a
-          >
-          <a href="#info-local" class="hover:text-white transition-colors" data-i18n="nav.info_local"
-            >Info Local</a
+          <a href="#convocatoria" class="hover:text-white transition-colors" data-i18n="nav.convocatoria"
+            >Convocatoria</a
           >
           <a href="#inscripcion" class="hover:text-white transition-colors" data-i18n="nav.inscripcion"
             >Inscripción</a
+          >
+          <a href="#info-local" class="hover:text-white transition-colors" data-i18n="nav.info_local"
+            >Info Local</a
           >
           <a href="#faq" class="hover:text-white transition-colors" data-i18n="nav.faq">Ayuda</a>
           <button
@@ -151,10 +151,10 @@
           >Acerca de JOLATE</a
         >
         <a
-          href="#convocatoria"
+          href="#comite"
           class="block text-white/80 hover:text-white font-medium transition-colors"
-          data-i18n="nav.convocatoria"
-          >Convocatoria</a
+          data-i18n="nav.comite"
+          >Comité</a
         >
         <a
           href="#programa"
@@ -169,22 +169,22 @@
           >Expositores</a
         >
         <a
-          href="#comite"
+          href="#convocatoria"
           class="block text-white/80 hover:text-white font-medium transition-colors"
-          data-i18n="nav.comite"
-          >Comité</a
+          data-i18n="nav.convocatoria"
+          >Convocatoria</a
         >
-          <a
-              href="#info-local"
-              class="block text-white/80 hover:text-white font-medium transition-colors"
-              data-i18n="nav.info_local"
-              >Info Local</a
-            >
           <a
               href="#inscripcion"
               class="block text-white/80 hover:text-white font-medium transition-colors"
               data-i18n="nav.inscripcion"
               >Inscripción</a
+            >
+          <a
+              href="#info-local"
+              class="block text-white/80 hover:text-white font-medium transition-colors"
+              data-i18n="nav.info_local"
+              >Info Local</a
             >
           <a
               href="#faq"
@@ -435,6 +435,250 @@
           </div>
         </div>
 
+      </div>
+    </section>
+
+    <!-- COMITÉ — #comite -->
+    <section id="comite" class="view pt-28 md:pt-32 pb-24 bg-bg border-t border-tint/40 relative">
+      <div class="max-w-6xl mx-auto px-4 space-y-12">
+        <!-- Header centered -->
+        <div class="text-center max-w-2xl mx-auto space-y-3">
+          <div class="text-xs font-mono font-bold uppercase tracking-widest text-primary" data-i18n="comite.sectionLabel">GOBERNANZA CIENTÍFICA</div>
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text" data-i18n="comite.title">Comité Académico<br>e Institucional</h2>
+          <p class="text-base leading-relaxed text-text/80" data-i18n="comite.intro">Las personas que dirigen, evalúan y operan las XXV Jornadas Latinoamericanas de Teoría Económica.</p>
+          <div class="inline-flex items-center gap-2 font-mono text-sm text-primary pt-2">
+            <i data-lucide="mail" class="w-4 h-4"></i>
+            <a href="mailto:jolate2026@gmail.com" class="border-b border-primary/30 pb-0.5 hover:border-primary transition-colors">jolate2026@gmail.com</a>
+          </div>
+        </div>
+
+        <!-- 3 columns: one per group -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-start">
+          <div id="comite-coorganizadores" class="space-y-3"></div>
+          <div id="comite-academico" class="space-y-3"></div>
+          <div id="comite-local" class="space-y-3"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROGRAMA — #programa -->
+    <section id="programa" class="view pt-28 md:pt-32 pb-24 bg-bg border-t border-tint/40 relative">
+      <div class="max-w-5xl mx-auto px-4 space-y-12">
+        <div class="text-center max-w-2xl mx-auto space-y-3">
+          <div
+            class="text-xs font-mono text-primary tracking-widest uppercase font-bold"
+            data-i18n="programa.badge"
+          >
+            CRONOGRAMA E ITINERARIO
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text" data-i18n="programa.title">
+            Programa del Encuentro Científico
+          </h2>
+        </div>
+
+        <!-- Day tabs -->
+        <div
+          id="program-tabs"
+          class="flex flex-wrap justify-center gap-2 md:gap-4"
+        >
+          <button
+            class="px-5 py-2 rounded-full border text-xs font-mono transition-all duration-300 program-tab-btn bg-primary text-white border-primary font-bold shadow-sm"
+            data-day="0"
+            data-i18n="programa.day1"
+          >
+            Día 1 — 28 Oct
+          </button>
+          <button
+            class="px-5 py-2 rounded-full border text-xs font-mono transition-all duration-300 program-tab-btn bg-white text-text border-tint hover:text-text hover:border-primary/40"
+            data-day="1"
+            data-i18n="programa.day2"
+          >
+            Día 2 — 29 Oct
+          </button>
+          <button
+            class="px-5 py-2 rounded-full border text-xs font-mono transition-all duration-300 program-tab-btn bg-white text-text border-tint hover:text-text hover:border-primary/40"
+            data-day="2"
+            data-i18n="programa.day3"
+          >
+            Día 3 — 30 Oct
+          </button>
+        </div>
+
+        <!-- Timeline -->
+        <div
+          id="program-timeline-frame"
+          class="bg-primary border border-white/10 rounded-2xl overflow-hidden shadow-xl -mx-2 sm:-mx-0"
+        >
+          <div
+            id="timeline-events-container"
+          ></div>
+        </div>
+
+        <!-- Note about COMPLETAR events -->
+        <p class="text-center text-xs font-mono text-text" data-i18n="programa.note">
+          * Las sesiones marcadas como
+          <span class="text-primary font-bold">[Próximamente]</span> se
+          confirmarán en las próximas semanas.
+        </p>
+      </div>
+    </section>
+
+    <!-- EXPOSITORES — #expositores -->
+    <section
+      id="expositores"
+      class="view pt-28 md:pt-32 pb-24 bg-bg border-t border-tint/40 relative"
+    >
+      <div class="max-w-6xl mx-auto px-4 space-y-12">
+        <div class="text-center max-w-2xl mx-auto space-y-3">
+          <div
+            class="text-xs font-mono text-primary tracking-widest uppercase font-bold flex items-center justify-center gap-3"
+            data-i18n="expositores.badge"
+          >
+            CONFERENCISTAS DE HONOR
+            <span
+              class="bg-primary/10 text-primary text-xs font-bold px-2 py-0.5 rounded-full border border-primary/20"
+              data-i18n="expositores.coming"
+              >Próximamente</span
+            >
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text" data-i18n="expositores.title">
+            Sesiones Plenarias
+          </h2>
+          <p class="text-text text-sm font-light" data-i18n="expositores.text">
+            Conferencistas confirmados — la lista completa de plenarias se
+            publicará próximamente.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Speaker 1 -->
+          <div
+            class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 hover-magnetic flex flex-col justify-between shadow-sm"
+          >
+            <div class="relative overflow-hidden aspect-[4/3] bg-tint/30">
+              <img
+                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80"
+                alt="Prof. Dr. Hugo Sonnenschein"
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
+              />
+            </div>
+            <div class="p-6 space-y-2 flex-1 flex flex-col justify-between">
+              <div class="space-y-1">
+                <h3
+                  class="text-text font-bold text-base tracking-tight group-hover:text-primary transition-colors"
+                >
+                  Prof. Dr. Hugo Sonnenschein
+                </h3>
+                <p class="text-xs text-primary/70 font-mono">
+                  Princeton University
+                </p>
+              </div>
+              <p
+                class="text-xs text-text pt-2 border-t border-tint/30 font-light leading-relaxed"
+                data-i18n="expositores.area_01"
+              >
+                Teoría del Equilibrio General Avanzado
+              </p>
+            </div>
+          </div>
+          <!-- Speaker 2 -->
+          <div
+            class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 hover-magnetic flex flex-col justify-between shadow-sm"
+          >
+            <div class="relative overflow-hidden aspect-[4/3] bg-tint/30">
+              <img
+                src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80"
+                alt="Dra. Mariana G. Villalba"
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
+              />
+            </div>
+            <div class="p-6 space-y-2 flex-1 flex flex-col justify-between">
+              <div class="space-y-1">
+                <h3
+                  class="text-text font-bold text-base tracking-tight group-hover:text-primary transition-colors"
+                >
+                  Dra. Mariana G. Villalba
+                </h3>
+                <p class="text-xs text-primary/70 font-mono">
+                  Universidad de San Andrés
+                </p>
+              </div>
+              <p
+                class="text-xs text-text pt-2 border-t border-tint/30 font-light leading-relaxed"
+                data-i18n="expositores.area_02"
+              >
+                Mecanismos de Incentivos y Teoría de Juegos
+              </p>
+            </div>
+          </div>
+          <!-- Speaker 3 -->
+          <div
+            class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 hover-magnetic flex flex-col justify-between shadow-sm"
+          >
+            <div class="relative overflow-hidden aspect-[4/3] bg-tint/30">
+              <img
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80"
+                alt="Dr. Roberto Chang"
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
+              />
+            </div>
+            <div class="p-6 space-y-2 flex-1 flex flex-col justify-between">
+              <div class="space-y-1">
+                <h3
+                  class="text-text font-bold text-base tracking-tight group-hover:text-primary transition-colors"
+                >
+                  Dr. Roberto Chang
+                </h3>
+                <p class="text-xs text-primary/70 font-mono">
+                  Rutgers University
+                </p>
+              </div>
+              <p
+                class="text-xs text-text pt-2 border-t border-tint/30 font-light leading-relaxed"
+                data-i18n="expositores.area_03"
+              >
+                Macroeconomía Estocástica de Economías Abiertas
+              </p>
+            </div>
+          </div>
+          <!-- Speaker 4 -->
+          <div
+            class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 hover-magnetic flex flex-col justify-between shadow-sm"
+          >
+            <div class="relative overflow-hidden aspect-[4/3] bg-tint/30">
+              <img
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
+                alt="Dra. Beatriz R. Alves"
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
+              />
+            </div>
+            <div class="p-6 space-y-2 flex-1 flex flex-col justify-between">
+              <div class="space-y-1">
+                <h3
+                  class="text-text font-bold text-base tracking-tight group-hover:text-primary transition-colors"
+                >
+                  Dra. Beatriz R. Alves
+                </h3>
+                <p class="text-xs text-primary/70 font-mono">
+                  Universidade de São Paulo
+                </p>
+              </div>
+              <p
+                class="text-xs text-text pt-2 border-t border-tint/30 font-light leading-relaxed"
+                data-i18n="expositores.area_04"
+              >
+                Métodos Numéricos y Economía Computacional
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -913,246 +1157,174 @@
       </div>
     </section>
 
-    <!-- PROGRAMA — #programa -->
-    <section id="programa" class="view pt-28 md:pt-32 pb-24 bg-bg border-t border-tint/40 relative">
-      <div class="max-w-5xl mx-auto px-4 space-y-12">
-        <div class="text-center max-w-2xl mx-auto space-y-3">
-          <div
-            class="text-xs font-mono text-primary tracking-widest uppercase font-bold"
-            data-i18n="programa.badge"
-          >
-            CRONOGRAMA E ITINERARIO
-          </div>
-          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text" data-i18n="programa.title">
-            Programa del Encuentro Científico
-          </h2>
-        </div>
-
-        <!-- Day tabs -->
-        <div
-          id="program-tabs"
-          class="flex flex-wrap justify-center gap-2 md:gap-4"
-        >
-          <button
-            class="px-5 py-2 rounded-full border text-xs font-mono transition-all duration-300 program-tab-btn bg-primary text-white border-primary font-bold shadow-sm"
-            data-day="0"
-            data-i18n="programa.day1"
-          >
-            Día 1 — 28 Oct
-          </button>
-          <button
-            class="px-5 py-2 rounded-full border text-xs font-mono transition-all duration-300 program-tab-btn bg-white text-text border-tint hover:text-text hover:border-primary/40"
-            data-day="1"
-            data-i18n="programa.day2"
-          >
-            Día 2 — 29 Oct
-          </button>
-          <button
-            class="px-5 py-2 rounded-full border text-xs font-mono transition-all duration-300 program-tab-btn bg-white text-text border-tint hover:text-text hover:border-primary/40"
-            data-day="2"
-            data-i18n="programa.day3"
-          >
-            Día 3 — 30 Oct
-          </button>
-        </div>
-
-        <!-- Timeline -->
-        <div
-          id="program-timeline-frame"
-          class="bg-primary border border-white/10 rounded-2xl overflow-hidden shadow-xl -mx-2 sm:-mx-0"
-        >
-          <div
-            id="timeline-events-container"
-          ></div>
-        </div>
-
-        <!-- Note about COMPLETAR events -->
-        <p class="text-center text-xs font-mono text-text" data-i18n="programa.note">
-          * Las sesiones marcadas como
-          <span class="text-primary font-bold">[Próximamente]</span> se
-          confirmarán en las próximas semanas.
-        </p>
-      </div>
-    </section>
-
-    <!-- EXPOSITORES — #expositores -->
-    <section
-      id="expositores"
-      class="view pt-28 md:pt-32 pb-24 bg-bg border-t border-tint/40 relative"
-    >
+    <!-- INSCRIPCIÓN — #inscripcion -->
+    <section id="inscripcion" class="view pt-28 md:pt-32 pb-24 bg-bg border-t border-tint/40">
       <div class="max-w-6xl mx-auto px-4 space-y-12">
-        <div class="text-center max-w-2xl mx-auto space-y-3">
-          <div
-            class="text-xs font-mono text-primary tracking-widest uppercase font-bold flex items-center justify-center gap-3"
-            data-i18n="expositores.badge"
-          >
-            CONFERENCISTAS DE HONOR
-            <span
-              class="bg-primary/10 text-primary text-xs font-bold px-2 py-0.5 rounded-full border border-primary/20"
-              data-i18n="expositores.coming"
-              >Próximamente</span
-            >
-          </div>
-          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text" data-i18n="expositores.title">
-            Sesiones Plenarias
-          </h2>
-          <p class="text-text text-sm font-light" data-i18n="expositores.text">
-            Conferencistas confirmados — la lista completa de plenarias se
-            publicará próximamente.
-          </p>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <!-- Speaker 1 -->
-          <div
-            class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 hover-magnetic flex flex-col justify-between shadow-sm"
-          >
-            <div class="relative overflow-hidden aspect-[4/3] bg-tint/30">
-              <img
-                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80"
-                alt="Prof. Dr. Hugo Sonnenschein"
-                loading="lazy"
-                decoding="async"
-                class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
-              />
-            </div>
-            <div class="p-6 space-y-2 flex-1 flex flex-col justify-between">
-              <div class="space-y-1">
-                <h3
-                  class="text-text font-bold text-base tracking-tight group-hover:text-primary transition-colors"
-                >
-                  Prof. Dr. Hugo Sonnenschein
-                </h3>
-                <p class="text-xs text-primary/70 font-mono">
-                  Princeton University
-                </p>
-              </div>
-              <p
-                class="text-xs text-text pt-2 border-t border-tint/30 font-light leading-relaxed"
-                data-i18n="expositores.area_01"
-              >
-                Teoría del Equilibrio General Avanzado
-              </p>
-            </div>
-          </div>
-          <!-- Speaker 2 -->
-          <div
-            class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 hover-magnetic flex flex-col justify-between shadow-sm"
-          >
-            <div class="relative overflow-hidden aspect-[4/3] bg-tint/30">
-              <img
-                src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80"
-                alt="Dra. Mariana G. Villalba"
-                loading="lazy"
-                decoding="async"
-                class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
-              />
-            </div>
-            <div class="p-6 space-y-2 flex-1 flex flex-col justify-between">
-              <div class="space-y-1">
-                <h3
-                  class="text-text font-bold text-base tracking-tight group-hover:text-primary transition-colors"
-                >
-                  Dra. Mariana G. Villalba
-                </h3>
-                <p class="text-xs text-primary/70 font-mono">
-                  Universidad de San Andrés
-                </p>
-              </div>
-              <p
-                class="text-xs text-text pt-2 border-t border-tint/30 font-light leading-relaxed"
-                data-i18n="expositores.area_02"
-              >
-                Mecanismos de Incentivos y Teoría de Juegos
-              </p>
-            </div>
-          </div>
-          <!-- Speaker 3 -->
-          <div
-            class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 hover-magnetic flex flex-col justify-between shadow-sm"
-          >
-            <div class="relative overflow-hidden aspect-[4/3] bg-tint/30">
-              <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80"
-                alt="Dr. Roberto Chang"
-                loading="lazy"
-                decoding="async"
-                class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
-              />
-            </div>
-            <div class="p-6 space-y-2 flex-1 flex flex-col justify-between">
-              <div class="space-y-1">
-                <h3
-                  class="text-text font-bold text-base tracking-tight group-hover:text-primary transition-colors"
-                >
-                  Dr. Roberto Chang
-                </h3>
-                <p class="text-xs text-primary/70 font-mono">
-                  Rutgers University
-                </p>
-              </div>
-              <p
-                class="text-xs text-text pt-2 border-t border-tint/30 font-light leading-relaxed"
-                data-i18n="expositores.area_03"
-              >
-                Macroeconomía Estocástica de Economías Abiertas
-              </p>
-            </div>
-          </div>
-          <!-- Speaker 4 -->
-          <div
-            class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 hover-magnetic flex flex-col justify-between shadow-sm"
-          >
-            <div class="relative overflow-hidden aspect-[4/3] bg-tint/30">
-              <img
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
-                alt="Dra. Beatriz R. Alves"
-                loading="lazy"
-                decoding="async"
-                class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
-              />
-            </div>
-            <div class="p-6 space-y-2 flex-1 flex flex-col justify-between">
-              <div class="space-y-1">
-                <h3
-                  class="text-text font-bold text-base tracking-tight group-hover:text-primary transition-colors"
-                >
-                  Dra. Beatriz R. Alves
-                </h3>
-                <p class="text-xs text-primary/70 font-mono">
-                  Universidade de São Paulo
-                </p>
-              </div>
-              <p
-                class="text-xs text-text pt-2 border-t border-tint/30 font-light leading-relaxed"
-                data-i18n="expositores.area_04"
-              >
-                Métodos Numéricos y Economía Computacional
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
 
-    <!-- COMITÉ — #comite -->
-    <section id="comite" class="view pt-28 md:pt-32 pb-24 bg-bg border-t border-tint/40 relative">
-      <div class="max-w-6xl mx-auto px-4 space-y-12">
-        <!-- Header centered -->
-        <div class="text-center max-w-2xl mx-auto space-y-3">
-          <div class="text-xs font-mono font-bold uppercase tracking-widest text-primary" data-i18n="comite.sectionLabel">GOBERNANZA CIENTÍFICA</div>
-          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text" data-i18n="comite.title">Comité Académico<br>e Institucional</h2>
-          <p class="text-base leading-relaxed text-text/80" data-i18n="comite.intro">Las personas que dirigen, evalúan y operan las XXV Jornadas Latinoamericanas de Teoría Económica.</p>
-          <div class="inline-flex items-center gap-2 font-mono text-sm text-primary pt-2">
-            <i data-lucide="mail" class="w-4 h-4"></i>
-            <a href="mailto:jolate2026@gmail.com" class="border-b border-primary/30 pb-0.5 hover:border-primary transition-colors">jolate2026@gmail.com</a>
-          </div>
-        </div>
+          <!-- Left column: context + info (sticky) -->
+          <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-28 enviar-info">
+            <div>
+              <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text mt-3" data-i18n="inscripcion.title">Inscripción y Convocatoria</h2>
+              <p class="text-text font-light leading-relaxed text-sm md:text-base mt-3" data-i18n="inscripcion.description">
+                La inscripción a las XXV Jornadas Latinoamericanas de Teoría Económica (JOLATE 2026) está abierta a investigadores, docentes, estudiantes de grado y de posgrado, y profesionales interesados en la Economía Matemática y la Teoría Económica.
+              </p>
+              <p class="text-text font-light leading-relaxed text-sm md:text-base mt-3" data-i18n="inscripcion.description_invitation">
+                Los invitamos a formar parte de esta XXV edición, que celebra 25 años de intercambio académico y colaboración científica en América Latina.
+              </p>
+              <p class="text-text font-light leading-relaxed text-sm md:text-base mt-3" data-i18n="inscripcion.description_participation">
+                Para participar en las jornadas, complete el formulario de inscripción disponible a continuación.
+              </p>
+            </div>
 
-        <!-- 3 columns: one per group -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-start">
-          <div id="comite-coorganizadores" class="space-y-3"></div>
-          <div id="comite-academico" class="space-y-3"></div>
-          <div id="comite-local" class="space-y-3"></div>
+            <!-- Deadlines -->
+            <div class="flex flex-wrap gap-3">
+              <div class="bg-white border border-tint/50 px-4 py-2 rounded-full text-xs font-mono">
+                <span class="text-text" data-i18n="inscripcion.deadline_label">Envío hasta: </span>
+                <span class="text-primary font-bold">4 Sept 2026</span>
+              </div>
+              <div class="bg-white border border-tint/50 px-4 py-2 rounded-full text-xs font-mono">
+                <span class="text-text" data-i18n="inscripcion.acceptance_label">Aceptación: </span>
+                <span class="text-primary font-bold">18 Sept 2026</span>
+              </div>
+            </div>
+
+            <!-- Contacto -->
+            <div class="inline-flex items-center gap-2 font-mono text-sm text-primary">
+              <i data-lucide="mail" class="w-4 h-4"></i>
+              <a href="mailto:jolate2026@gmail.com" class="border-b border-primary/30 pb-0.5 hover:border-primary transition-colors">jolate2026@gmail.com</a>
+            </div>
+          </div>
+
+          <!-- Right column: form card -->
+          <div class="lg:col-span-7">
+            <div class="bg-white border border-tint/60 rounded-premium-lg p-6 sm:p-8 shadow-md enviar-form-card">
+              <form id="paper-submit-form" class="space-y-5" method="POST" action="procesar-envio.php" enctype="multipart/form-data" novalidate>
+
+                <!-- Tipo de participación (Expositor / Asistente) -->
+                <fieldset>
+                  <legend class="block text-xs font-mono font-medium text-text mb-3" data-i18n="enviar.tipo_participacion">Tipo de participación *</legend>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <input type="radio" id="rol-expositor" name="rol" value="Expositor" checked class="peer sr-only" />
+                      <label for="rol-expositor" class="flex items-start gap-3 rounded-xl border border-tint/60 bg-white p-4 sm:py-5 cursor-pointer select-none transition-all hover:border-primary/50 peer-checked:border-primary peer-checked:bg-tint/40 peer-checked:[&_.role-check]:inline-flex peer-checked:[&_.role-indicator]:border-primary peer-checked:[&_.role-indicator]:bg-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary/20">
+                        <span class="role-indicator mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-text/30 transition-all"></span>
+                        <span class="flex-1">
+                          <span class="block text-sm font-bold text-text" data-i18n="enviar.rol_expositor">Expositor</span>
+                          <span class="block text-xs text-text/60 leading-snug mt-0.5" data-i18n="enviar.rol_expositor_desc">Enviar una ponencia o resumen para evaluación por el Comité</span>
+                        </span>
+                        <span class="role-check hidden items-center gap-1 text-xs font-mono font-bold text-primary shrink-0">
+                          <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                        </span>
+                      </label>
+                    </div>
+                    <div>
+                      <input type="radio" id="rol-asistente" name="rol" value="Asistente" class="peer sr-only" />
+                      <label for="rol-asistente" class="flex items-start gap-3 rounded-xl border border-tint/60 bg-white p-4 sm:py-5 cursor-pointer select-none transition-all hover:border-primary/50 peer-checked:border-primary peer-checked:bg-tint/40 peer-checked:[&_.role-check]:inline-flex peer-checked:[&_.role-indicator]:border-primary peer-checked:[&_.role-indicator]:bg-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary/20">
+                        <span class="role-indicator mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-text/30 transition-all"></span>
+                        <span class="flex-1">
+                          <span class="block text-sm font-bold text-text" data-i18n="enviar.rol_asistente">Asistente</span>
+                          <span class="block text-xs text-text/60 leading-snug mt-0.5" data-i18n="enviar.rol_asistente_desc">Participar del congreso sin presentar trabajo</span>
+                        </span>
+                        <span class="role-check hidden items-center gap-1 text-xs font-mono font-bold text-primary shrink-0">
+                          <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <!-- Anuncio para lectores de pantalla al cambiar de rol -->
+                <div id="role-announce" aria-live="polite" class="sr-only" role="status"></div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.nombre">Nombre Completo *</label>
+                    <input type="text" id="form-author" name="nombre" required maxlength="150" autocomplete="name" placeholder="Ej. Dra. María González" data-i18n-placeholder="enviar.placeholder_nombre" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
+                    <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="nombre" role="alert" aria-live="polite"></span>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.institucion">Universidad / Institución *</label>
+                    <input type="text" id="form-institution" name="institucion" required maxlength="200" autocomplete="organization" placeholder="Ej. UASLP, UNSL, ULP" data-i18n-placeholder="enviar.placeholder_institucion" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
+                    <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="institucion" role="alert" aria-live="polite"></span>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.email">Correo Electrónico *</label>
+                    <input type="email" id="form-email" name="email" required maxlength="200" autocomplete="email" placeholder="autor@universidad.edu" data-i18n-placeholder="enviar.placeholder_email" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
+                    <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="email" role="alert" aria-live="polite"></span>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.dni">DNI o Pasaporte *</label>
+                    <input type="text" id="form-dni" name="dni" required maxlength="20" pattern="[A-Za-z0-9]{5,20}" inputmode="text" autocapitalize="characters" autocomplete="off" placeholder="Ej. 12345678" data-i18n-placeholder="enviar.placeholder_dni" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
+                    <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="dni" role="alert" aria-live="polite"></span>
+                  </div>
+                </div>
+
+                <!-- Campos exclusivos del rol Expositor (ocultos y deshabilitados para Asistente) -->
+                <div id="expositor-fields" class="space-y-5">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.titulo_ponencia">Título de la Ponencia *</label>
+                      <input type="text" id="form-title" name="titulo_ponencia" required maxlength="300" autocomplete="off" placeholder="Ej. Modelos de equilibrio general aplicados" data-i18n-placeholder="enviar.placeholder_titulo" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
+                      <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="titulo_ponencia" role="alert" aria-live="polite"></span>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.eje">Eje Temático *</label>
+                      <select id="form-topic" name="eje_tematico" required class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all appearance-none">
+                        <option value="Teoría de Juegos" data-i18n="convocatoria.topic_01">Teoría de Juegos</option>
+                        <option value="Elección Social" data-i18n="convocatoria.topic_02">Elección Social</option>
+                        <option value="Crecimiento Económico" data-i18n="convocatoria.topic_03">Crecimiento Económico</option>
+                        <option value="Economía Pública" data-i18n="convocatoria.topic_04">Economía Pública</option>
+                        <option value="Equilibrio General" data-i18n="convocatoria.topic_05">Equilibrio General</option>
+                        <option value="Dinámica Económica" data-i18n="convocatoria.topic_06">Dinámica Económica</option>
+                        <option value="Áreas Temáticas Afines" data-i18n="convocatoria.topic_07">Áreas Temáticas Afines</option>
+                      </select>
+                      <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="eje_tematico" role="alert" aria-live="polite"></span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.archivo">Archivo de Investigación (PDF) *</label>
+                    <div id="form-file-wrapper" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text flex items-center justify-between gap-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all">
+                      <label for="form-file" class="flex items-center gap-2 cursor-pointer">
+                        <i data-lucide="upload" class="w-4 h-4 text-primary"></i>
+                        <span id="form-file-empty-text">Elegir archivo (PDF · máx. 7 MB)</span>
+                        <span id="form-file-name-display" class="hidden text-xs text-primary font-mono"></span>
+                      </label>
+                      <input type="file" id="form-file" name="archivo" accept=".pdf" required aria-describedby="form-file-empty-text" class="hidden" />
+                      <span id="form-file-selected-check" class="hidden text-primary">
+                        <i data-lucide="check" class="w-4 h-4"></i>
+                      </span>
+                    </div>
+                    <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="archivo" role="alert" aria-live="polite"></span>
+                  </div>
+                </div>
+
+                <div id="form-general-error" class="hidden p-4 bg-red-50 border border-red-300 rounded-2xl text-red-600 text-xs text-center font-mono" role="alert" aria-live="assertive">
+                  <i data-lucide="alert-circle" class="w-4 h-4 inline-block mr-1 -mt-0.5"></i>
+                  <span class="error-text"></span>
+                </div>
+
+                <div style="position:absolute;left:-9999px" aria-hidden="true">
+                  <input type="text" name="website" tabindex="-1" autocomplete="off">
+                </div>
+
+                <button type="submit" id="form-submit-btn" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3.5 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2.5">
+                  <i data-lucide="send" class="w-5 h-5"></i>
+                  <span data-i18n="enviar.submit">Procesar Registro y Enviar</span>
+                </button>
+              </form>
+
+              <div id="form-success-message" class="hidden p-4 bg-accent/15 border border-accent/30 rounded-2xl text-accent text-xs text-center font-mono mt-4" data-i18n="enviar.exito_expositor">
+                <i data-lucide="check-circle" class="w-4 h-4 inline-block mr-1 -mt-0.5"></i>
+                ¡Ponencia cargada correctamente! El Comité Científico la revisará a la brevedad.
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -1323,178 +1495,6 @@
               </a>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- INSCRIPCIÓN — #inscripcion -->
-    <section id="inscripcion" class="view pt-28 md:pt-32 pb-24 bg-bg border-t border-tint/40">
-      <div class="max-w-6xl mx-auto px-4 space-y-12">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-
-          <!-- Left column: context + info (sticky) -->
-          <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-28 enviar-info">
-            <div>
-              <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text mt-3" data-i18n="inscripcion.title">Inscripción y Convocatoria</h2>
-              <p class="text-text font-light leading-relaxed text-sm md:text-base mt-3" data-i18n="inscripcion.description">
-                La inscripción a las XXV Jornadas Latinoamericanas de Teoría Económica (JOLATE 2026) está abierta a investigadores, docentes, estudiantes de grado y de posgrado, y profesionales interesados en la Economía Matemática y la Teoría Económica.
-              </p>
-              <p class="text-text font-light leading-relaxed text-sm md:text-base mt-3" data-i18n="inscripcion.description_invitation">
-                Los invitamos a formar parte de esta XXV edición, que celebra 25 años de intercambio académico y colaboración científica en América Latina.
-              </p>
-              <p class="text-text font-light leading-relaxed text-sm md:text-base mt-3" data-i18n="inscripcion.description_participation">
-                Para participar en las jornadas, complete el formulario de inscripción disponible a continuación.
-              </p>
-            </div>
-
-            <!-- Deadlines -->
-            <div class="flex flex-wrap gap-3">
-              <div class="bg-white border border-tint/50 px-4 py-2 rounded-full text-xs font-mono">
-                <span class="text-text" data-i18n="inscripcion.deadline_label">Envío hasta: </span>
-                <span class="text-primary font-bold">4 Sept 2026</span>
-              </div>
-              <div class="bg-white border border-tint/50 px-4 py-2 rounded-full text-xs font-mono">
-                <span class="text-text" data-i18n="inscripcion.acceptance_label">Aceptación: </span>
-                <span class="text-primary font-bold">18 Sept 2026</span>
-              </div>
-            </div>
-
-            <!-- Contacto -->
-            <div class="inline-flex items-center gap-2 font-mono text-sm text-primary">
-              <i data-lucide="mail" class="w-4 h-4"></i>
-              <a href="mailto:jolate2026@gmail.com" class="border-b border-primary/30 pb-0.5 hover:border-primary transition-colors">jolate2026@gmail.com</a>
-            </div>
-          </div>
-
-          <!-- Right column: form card -->
-          <div class="lg:col-span-7">
-            <div class="bg-white border border-tint/60 rounded-premium-lg p-6 sm:p-8 shadow-md enviar-form-card">
-              <form id="paper-submit-form" class="space-y-5" method="POST" action="procesar-envio.php" enctype="multipart/form-data" novalidate>
-
-                <!-- Tipo de participación (Expositor / Asistente) -->
-                <fieldset>
-                  <legend class="block text-xs font-mono font-medium text-text mb-3" data-i18n="enviar.tipo_participacion">Tipo de participación *</legend>
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <input type="radio" id="rol-expositor" name="rol" value="Expositor" checked class="peer sr-only" />
-                      <label for="rol-expositor" class="flex items-start gap-3 rounded-xl border border-tint/60 bg-white p-4 sm:py-5 cursor-pointer select-none transition-all hover:border-primary/50 peer-checked:border-primary peer-checked:bg-tint/40 peer-checked:[&_.role-check]:inline-flex peer-checked:[&_.role-indicator]:border-primary peer-checked:[&_.role-indicator]:bg-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary/20">
-                        <span class="role-indicator mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-text/30 transition-all"></span>
-                        <span class="flex-1">
-                          <span class="block text-sm font-bold text-text" data-i18n="enviar.rol_expositor">Expositor</span>
-                          <span class="block text-xs text-text/60 leading-snug mt-0.5" data-i18n="enviar.rol_expositor_desc">Enviar una ponencia o resumen para evaluación por el Comité</span>
-                        </span>
-                        <span class="role-check hidden items-center gap-1 text-xs font-mono font-bold text-primary shrink-0">
-                          <i data-lucide="check-circle-2" class="w-4 h-4"></i>
-                        </span>
-                      </label>
-                    </div>
-                    <div>
-                      <input type="radio" id="rol-asistente" name="rol" value="Asistente" class="peer sr-only" />
-                      <label for="rol-asistente" class="flex items-start gap-3 rounded-xl border border-tint/60 bg-white p-4 sm:py-5 cursor-pointer select-none transition-all hover:border-primary/50 peer-checked:border-primary peer-checked:bg-tint/40 peer-checked:[&_.role-check]:inline-flex peer-checked:[&_.role-indicator]:border-primary peer-checked:[&_.role-indicator]:bg-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary/20">
-                        <span class="role-indicator mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-text/30 transition-all"></span>
-                        <span class="flex-1">
-                          <span class="block text-sm font-bold text-text" data-i18n="enviar.rol_asistente">Asistente</span>
-                          <span class="block text-xs text-text/60 leading-snug mt-0.5" data-i18n="enviar.rol_asistente_desc">Participar del congreso sin presentar trabajo</span>
-                        </span>
-                        <span class="role-check hidden items-center gap-1 text-xs font-mono font-bold text-primary shrink-0">
-                          <i data-lucide="check-circle-2" class="w-4 h-4"></i>
-                        </span>
-                      </label>
-                    </div>
-                  </div>
-                </fieldset>
-
-                <!-- Anuncio para lectores de pantalla al cambiar de rol -->
-                <div id="role-announce" aria-live="polite" class="sr-only" role="status"></div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.nombre">Nombre Completo *</label>
-                    <input type="text" id="form-author" name="nombre" required maxlength="150" autocomplete="name" placeholder="Ej. Dra. María González" data-i18n-placeholder="enviar.placeholder_nombre" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
-                    <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="nombre" role="alert" aria-live="polite"></span>
-                  </div>
-                  <div>
-                    <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.institucion">Universidad / Institución *</label>
-                    <input type="text" id="form-institution" name="institucion" required maxlength="200" autocomplete="organization" placeholder="Ej. UASLP, UNSL, ULP" data-i18n-placeholder="enviar.placeholder_institucion" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
-                    <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="institucion" role="alert" aria-live="polite"></span>
-                  </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.email">Correo Electrónico *</label>
-                    <input type="email" id="form-email" name="email" required maxlength="200" autocomplete="email" placeholder="autor@universidad.edu" data-i18n-placeholder="enviar.placeholder_email" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
-                    <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="email" role="alert" aria-live="polite"></span>
-                  </div>
-                  <div>
-                    <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.dni">DNI o Pasaporte *</label>
-                    <input type="text" id="form-dni" name="dni" required maxlength="20" pattern="[A-Za-z0-9]{5,20}" inputmode="text" autocapitalize="characters" autocomplete="off" placeholder="Ej. 12345678" data-i18n-placeholder="enviar.placeholder_dni" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
-                    <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="dni" role="alert" aria-live="polite"></span>
-                  </div>
-                </div>
-
-                <!-- Campos exclusivos del rol Expositor (ocultos y deshabilitados para Asistente) -->
-                <div id="expositor-fields" class="space-y-5">
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.titulo_ponencia">Título de la Ponencia *</label>
-                      <input type="text" id="form-title" name="titulo_ponencia" required maxlength="300" autocomplete="off" placeholder="Ej. Modelos de equilibrio general aplicados" data-i18n-placeholder="enviar.placeholder_titulo" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
-                      <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="titulo_ponencia" role="alert" aria-live="polite"></span>
-                    </div>
-                    <div>
-                      <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.eje">Eje Temático *</label>
-                      <select id="form-topic" name="eje_tematico" required class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all appearance-none">
-                        <option value="Teoría de Juegos" data-i18n="convocatoria.topic_01">Teoría de Juegos</option>
-                        <option value="Elección Social" data-i18n="convocatoria.topic_02">Elección Social</option>
-                        <option value="Crecimiento Económico" data-i18n="convocatoria.topic_03">Crecimiento Económico</option>
-                        <option value="Economía Pública" data-i18n="convocatoria.topic_04">Economía Pública</option>
-                        <option value="Equilibrio General" data-i18n="convocatoria.topic_05">Equilibrio General</option>
-                        <option value="Dinámica Económica" data-i18n="convocatoria.topic_06">Dinámica Económica</option>
-                        <option value="Áreas Temáticas Afines" data-i18n="convocatoria.topic_07">Áreas Temáticas Afines</option>
-                      </select>
-                      <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="eje_tematico" role="alert" aria-live="polite"></span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label class="block text-xs font-mono font-medium text-text mb-1.5" data-i18n="enviar.archivo">Archivo de Investigación (PDF) *</label>
-                    <div id="form-file-wrapper" class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text flex items-center justify-between gap-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all">
-                      <label for="form-file" class="flex items-center gap-2 cursor-pointer">
-                        <i data-lucide="upload" class="w-4 h-4 text-primary"></i>
-                        <span id="form-file-empty-text">Elegir archivo (PDF · máx. 7 MB)</span>
-                        <span id="form-file-name-display" class="hidden text-xs text-primary font-mono"></span>
-                      </label>
-                      <input type="file" id="form-file" name="archivo" accept=".pdf" required aria-describedby="form-file-empty-text" class="hidden" />
-                      <span id="form-file-selected-check" class="hidden text-primary">
-                        <i data-lucide="check" class="w-4 h-4"></i>
-                      </span>
-                    </div>
-                    <span class="field-error hidden text-xs text-red-500 font-mono mt-1" data-field="archivo" role="alert" aria-live="polite"></span>
-                  </div>
-                </div>
-
-                <div id="form-general-error" class="hidden p-4 bg-red-50 border border-red-300 rounded-2xl text-red-600 text-xs text-center font-mono" role="alert" aria-live="assertive">
-                  <i data-lucide="alert-circle" class="w-4 h-4 inline-block mr-1 -mt-0.5"></i>
-                  <span class="error-text"></span>
-                </div>
-
-                <div style="position:absolute;left:-9999px" aria-hidden="true">
-                  <input type="text" name="website" tabindex="-1" autocomplete="off">
-                </div>
-
-                <button type="submit" id="form-submit-btn" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3.5 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2.5">
-                  <i data-lucide="send" class="w-5 h-5"></i>
-                  <span data-i18n="enviar.submit">Procesar Registro y Enviar</span>
-                </button>
-              </form>
-
-              <div id="form-success-message" class="hidden p-4 bg-accent/15 border border-accent/30 rounded-2xl text-accent text-xs text-center font-mono mt-4" data-i18n="enviar.exito_expositor">
-                <i data-lucide="check-circle" class="w-4 h-4 inline-block mr-1 -mt-0.5"></i>
-                ¡Ponencia cargada correctamente! El Comité Científico la revisará a la brevedad.
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
     </section>
@@ -1711,11 +1711,11 @@
             <a href="#inicio" class="block hover:text-white transition-colors" data-i18n="footer.inicio"
               >Inicio</a
             >
-            <a
-              href="#convocatoria"
-              class="block hover:text-white transition-colors"
-              data-i18n="footer.convocatoria"
-              >Convocatoria</a
+            <a href="#acerca-de" class="block hover:text-white transition-colors" data-i18n="footer.acerca_de"
+              >Acerca de JOLATE</a
+            >
+            <a href="#comite" class="block hover:text-white transition-colors" data-i18n="footer.comite"
+              >Comité</a
             >
             <a href="#programa" class="block hover:text-white transition-colors" data-i18n="footer.programa"
               >Programa</a
@@ -1723,14 +1723,17 @@
             <a href="#expositores" class="block hover:text-white transition-colors" data-i18n="footer.expositores"
               >Expositores</a
             >
-            <a href="#comite" class="block hover:text-white transition-colors" data-i18n="footer.comite"
-              >Comité</a
-            >
-            <a href="#info-local" class="block hover:text-white transition-colors" data-i18n="footer.info_local"
-              >Info Local</a
+            <a
+              href="#convocatoria"
+              class="block hover:text-white transition-colors"
+              data-i18n="footer.convocatoria"
+              >Convocatoria</a
             >
             <a href="#inscripcion" class="block hover:text-white transition-colors" data-i18n="footer.inscripcion"
               >Inscripción</a
+            >
+            <a href="#info-local" class="block hover:text-white transition-colors" data-i18n="footer.info_local"
+              >Info Local</a
             >
             <a href="#faq" class="block hover:text-white transition-colors" data-i18n="footer.faq"
               >Preguntas Frecuentes</a

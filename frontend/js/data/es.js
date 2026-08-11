@@ -200,6 +200,7 @@ export const es = {
   'footer.enviar': 'Enviar Trabajo',
   'footer.nav_title': 'Navegaci\u00f3n',
   'footer.inicio': 'Inicio',
+  'footer.acerca_de': 'Acerca de JOLATE',
   'footer.convocatoria': 'Convocatoria',
   'footer.programa': 'Programa',
   'footer.expositores': 'Expositores',

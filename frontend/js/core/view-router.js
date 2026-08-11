@@ -7,12 +7,12 @@
 export const VIEWS = [
   'inicio',
   'acerca-de',
-  'convocatoria',
+  'comite',
   'programa',
   'expositores',
-  'comite',
-  'info-local',
+  'convocatoria',
   'inscripcion',
+  'info-local',
   'faq',
 ];
 
