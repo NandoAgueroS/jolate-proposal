@@ -71,6 +71,11 @@ body {
 html {
   scroll-snap-type: y proximity;
   scroll-padding-top: 7.5rem;
+  /* Standard scrollbar styling (Firefox, Chrome 121+, Safari 18.2+).
+     Firefox no entiende ::-webkit-scrollbar, así que usa estas propiedades.
+     Orden: <thumb> <track>. */
+  scrollbar-color: var(--color-primary) var(--color-tint);
+  scrollbar-width: auto;
 }
 
 /* Scroll por sección: al hacer scroll, ancla el inicio de cada sección
@@ -86,7 +91,10 @@ body > section {
 }
 
 /* ----------------------------------------------------------
-   4. Custom Scrollbar (Webkit)
+   4. Custom Scrollbar
+   Webkit (Chrome/Edge/Safari): ::-webkit-scrollbar on <html>.
+   Standard (Firefox, Chrome 121+, Safari 18.2+): scrollbar-color
+   + scrollbar-width declared on the <html> rule above.
    ---------------------------------------------------------- */
 html::-webkit-scrollbar {
   width: 8px;
