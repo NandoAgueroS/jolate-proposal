@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,9 +49,8 @@
       };
     </script>
 
-    <!-- GSAP + ScrollTrigger -->
+    <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@0.460.0"></script>
@@ -92,6 +91,9 @@
           >
           <a href="#programa" class="hover:text-white transition-colors" data-i18n="nav.programa"
             >Programa</a
+          >
+          <a href="#expositores" class="hover:text-white transition-colors" data-i18n="nav.expositores"
+            >Expositores</a
           >
           <a href="#comite" class="hover:text-white transition-colors" data-i18n="nav.comite"
             >Comité</a
@@ -161,6 +163,12 @@
           >Programa</a
         >
         <a
+          href="#expositores"
+          class="block text-white/80 hover:text-white font-medium transition-colors"
+          data-i18n="nav.expositores"
+          >Expositores</a
+        >
+        <a
           href="#comite"
           class="block text-white/80 hover:text-white font-medium transition-colors"
           data-i18n="nav.comite"
@@ -201,7 +209,7 @@
     </header>
 
     <!-- HERO — #inicio -->
-    <section id="inicio" class="min-h-screen relative flex flex-col justify-center items-center px-4 pt-24 pb-10 sm:pb-12 overflow-hidden bg-[#043c41]">
+    <section id="inicio" class="view min-h-screen relative flex flex-col justify-center items-center px-4 pt-24 pb-10 sm:pb-12 overflow-hidden bg-[#043c41]">
 
       <div class="absolute inset-0 z-0 pointer-events-none">
         <img src="assets/fotos-san-luis/HERO-DESKTOP.jpg" alt="" class="w-full h-full object-cover object-center hidden md:block">
@@ -320,7 +328,7 @@
     </section>
 
     <!-- ACERCA DE — #acerca-de -->
-    <section id="acerca-de" class="py-16 md:py-20 bg-bg border-t border-tint/40">
+    <section id="acerca-de" class="view pt-28 md:pt-32 pb-16 md:pb-20 bg-bg border-t border-tint/40">
       <div class="max-w-6xl mx-auto px-4 space-y-10">
 
         <!-- Header -->
@@ -433,7 +441,7 @@
     <!-- CONVOCATORIA — #convocatoria -->
     <section
       id="convocatoria"
-      class="py-24 bg-bg relative border-t border-tint/40"
+      class="view pt-28 md:pt-32 pb-24 bg-bg relative border-t border-tint/40"
     >
       <div class="max-w-6xl mx-auto px-4 space-y-16">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
@@ -906,7 +914,7 @@
     </section>
 
     <!-- PROGRAMA — #programa -->
-    <section id="programa" class="py-24 bg-bg border-t border-tint/40 relative">
+    <section id="programa" class="view pt-28 md:pt-32 pb-24 bg-bg border-t border-tint/40 relative">
       <div class="max-w-5xl mx-auto px-4 space-y-12">
         <div class="text-center max-w-2xl mx-auto space-y-3">
           <div
@@ -970,7 +978,7 @@
     <!-- EXPOSITORES — #expositores -->
     <section
       id="expositores"
-      class="py-24 bg-bg border-t border-tint/40 relative"
+      class="view pt-28 md:pt-32 pb-24 bg-bg border-t border-tint/40 relative"
     >
       <div class="max-w-6xl mx-auto px-4 space-y-12">
         <div class="text-center max-w-2xl mx-auto space-y-3">
@@ -1127,7 +1135,7 @@
     </section>
 
     <!-- COMITÉ — #comite -->
-    <section id="comite" class="py-24 bg-bg border-t border-tint/40 relative">
+    <section id="comite" class="view pt-28 md:pt-32 pb-24 bg-bg border-t border-tint/40 relative">
       <div class="max-w-6xl mx-auto px-4 space-y-12">
         <!-- Header centered -->
         <div class="text-center max-w-2xl mx-auto space-y-3">
@@ -1150,8 +1158,8 @@
     </section>
 
     <!-- INFORMACIÓN LOCAL — #info-local -->
-    <section id="info-local" class="py-24 bg-bg border-t border-tint/40 relative">
-      <div class="max-w-6xl mx-auto px-4 space-y-16">
+    <section id="info-local" class="view bg-bg border-t border-tint/40 relative">
+      <div class="max-w-6xl mx-auto px-4 pt-28 md:pt-32 pb-24 space-y-16">
         <div class="text-center max-w-2xl mx-auto space-y-3">
           <div
             class="text-xs font-mono text-primary tracking-widest uppercase font-bold"
@@ -1220,7 +1228,6 @@
                 height="100%"
                 style="border: 0"
                 allowfullscreen=""
-                loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
                 title="Mapa Rectorado ULP"
               ></iframe>
@@ -1272,21 +1279,16 @@
                 height="100%"
                 style="border: 0"
                 allowfullscreen=""
-                loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
                 title="Mapa IMASL"
               ></iframe>
             </div>
           </div>
         </div>
-
-
       </div>
-    </section>
 
-    <!-- SAN LUIS — #san-luis -->
-    <section id="san-luis" class="relative border-t border-tint/40 bg-bg">
-      <div class="relative h-[440px] md:h-[520px] overflow-hidden">
+      <!-- SAN LUIS — banner integrado en Info Local -->
+      <div class="relative h-[440px] md:h-[520px] overflow-hidden border-t border-tint/40">
         <img
           src="assets/fotos-san-luis/Foto9.jpg"
           alt="San Luis, Argentina"
@@ -1326,7 +1328,7 @@
     </section>
 
     <!-- INSCRIPCIÓN — #inscripcion -->
-    <section id="inscripcion" class="py-24 bg-bg border-t border-tint/40">
+    <section id="inscripcion" class="view pt-28 md:pt-32 pb-24 bg-bg border-t border-tint/40">
       <div class="max-w-6xl mx-auto px-4 space-y-12">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
 
@@ -1498,7 +1500,7 @@
     </section>
 
     <!-- FAQ — #faq -->
-    <section id="faq" class="py-24 bg-bg border-t border-tint/40 relative">
+    <section id="faq" class="view pt-28 md:pt-32 pb-24 bg-bg border-t border-tint/40 relative">
       <div class="max-w-3xl mx-auto px-4 space-y-12">
         <div class="text-center space-y-3">
           <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text" data-i18n="faq.title">
@@ -1717,6 +1719,9 @@
             >
             <a href="#programa" class="block hover:text-white transition-colors" data-i18n="footer.programa"
               >Programa</a
+            >
+            <a href="#expositores" class="block hover:text-white transition-colors" data-i18n="footer.expositores"
+              >Expositores</a
             >
             <a href="#comite" class="block hover:text-white transition-colors" data-i18n="footer.comite"
               >Comité</a

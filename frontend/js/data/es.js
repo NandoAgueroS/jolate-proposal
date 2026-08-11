@@ -1,8 +1,8 @@
 export const es = {
-  'nav.inicio': 'Inicio',
   'nav.acerca_de': 'Acerca de JOLATE',
   'nav.convocatoria': 'Convocatoria',
   'nav.programa': 'Programa',
+  'nav.expositores': 'Expositores',
   'nav.comite': 'Comit\u00e9',
   'nav.info_local': 'Info Local',
   'nav.inscripcion': 'Inscripci\u00f3n',
@@ -202,6 +202,7 @@ export const es = {
   'footer.inicio': 'Inicio',
   'footer.convocatoria': 'Convocatoria',
   'footer.programa': 'Programa',
+  'footer.expositores': 'Expositores',
   'footer.comite': 'Comit\u00e9',
   'footer.info_local': 'Info Local',
   'footer.inscripcion': 'Inscripci\u00f3n',

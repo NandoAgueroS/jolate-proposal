@@ -1,29 +1,29 @@
-// Entry point — inicializa idioma y todas las features.
+// Entry point — inicializa idioma, router de vistas y todas las features.
 
 import { initI18n } from './core/i18n.js';
 import { refreshIcons } from './core/utils.js';
+import { initViewRouter } from './core/view-router.js';
 import { initCountdown } from './features/countdown.js';
 import { initFaqAccordion } from './features/faq-accordion.js';
 import { initTestimonials } from './features/testimonials.js';
 import { initMobileMenu } from './features/mobile-menu.js';
 import { initProgramTabs } from './features/program-tabs.js';
 import { initComite } from './features/comite.js';
-import { initGsapAnimations } from './features/gsap-animations.js';
+import { initEntranceAnimations } from './features/gsap-animations.js';
 import { initLanguageToggle } from './features/language-toggle.js';
 import { initFormHandler } from './features/form-handler.js';
-import { initScrollSnap } from './features/scroll-snap.js';
 import { initCertificadosModal } from './features/certificados.js';
 
 initI18n();
+initEntranceAnimations();
+initViewRouter('inicio');
 initCountdown();
 initFaqAccordion();
 initTestimonials();
 initMobileMenu();
 initProgramTabs();
 initComite();
-initGsapAnimations();
 initLanguageToggle();
 initFormHandler();
-initScrollSnap();
 initCertificadosModal();
 refreshIcons();

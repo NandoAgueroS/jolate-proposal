@@ -1,8 +1,8 @@
 export const en = {
-  'nav.inicio': 'Home',
   'nav.acerca_de': 'About JOLATE',
   'nav.convocatoria': 'Call for Papers',
   'nav.programa': 'Program',
+  'nav.expositores': 'Speakers',
   'nav.comite': 'Committee',
   'nav.info_local': 'Local Info',
   'nav.inscripcion': 'Registration',
@@ -202,6 +202,7 @@ export const en = {
   'footer.inicio': 'Home',
   'footer.convocatoria': 'Call for Papers',
   'footer.programa': 'Program',
+  'footer.expositores': 'Speakers',
   'footer.comite': 'Committee',
   'footer.info_local': 'Local Info',
   'footer.inscripcion': 'Registration',
