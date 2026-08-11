@@ -88,20 +88,20 @@ body > section {
 /* ----------------------------------------------------------
    4. Custom Scrollbar (Webkit)
    ---------------------------------------------------------- */
-::-webkit-scrollbar {
+html::-webkit-scrollbar {
   width: 8px;
 }
 
-::-webkit-scrollbar-track {
+html::-webkit-scrollbar-track {
   background: var(--color-tint);
 }
 
-::-webkit-scrollbar-thumb {
+html::-webkit-scrollbar-thumb {
   background: var(--color-primary);
   border-radius: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover {
+html::-webkit-scrollbar-thumb:hover {
   background: var(--color-accent);
 }
 
