@@ -61,9 +61,6 @@
   </head>
 
   <body class="font-sans antialiased bg-bg text-text relative">
-    <!-- Noise Overlay -->
-    <div class="noise-overlay"></div>
-
     <!-- HEADER — Sticky Navbar -->
     <header
       class="fixed top-0 left-0 w-full z-40 px-4 md:px-8 py-4 pointer-events-none"
@@ -206,15 +203,10 @@
     <!-- HERO — #inicio -->
     <section id="inicio" class="min-h-screen relative flex flex-col justify-center items-center px-4 pt-28 pb-16 overflow-hidden bg-[#043c41]">
 
-      <div class="absolute inset-0 z-0 pointer-events-none flex">
-          <div class="w-1/2 h-full relative overflow-hidden">
-            <img src="assets/ULP-HERO.jpg" alt="Universidad de La Punta" class="w-full h-full object-cover object-center">
-          </div>
-          <div class="w-1/2 h-full relative overflow-hidden">
-            <img src="assets/IMASL-HERO.jpeg" alt="Universidad Nacional de San Luis" class="w-full h-full object-cover object-left">
-          </div>
+      <div class="absolute inset-0 z-0 pointer-events-none">
+        <img src="assets/fotos-san-luis/HERO-DESKTOP.jpg" alt="" class="w-full h-full object-cover object-center hidden md:block">
+        <img src="assets/fotos-san-luis/HERO-MOBILE.jpg" alt="" class="w-full h-full object-cover object-center block md:hidden">
       </div>
-
       <div class="absolute inset-0 z-0 pointer-events-none" style="
           background: linear-gradient(to right, rgba(4, 60, 65, 0.15) 0%, rgba(4, 60, 65, 0.95) 42%, rgba(4, 60, 65, 0.95) 58%, rgba(4, 60, 65, 0.15) 100%);
       "></div>
