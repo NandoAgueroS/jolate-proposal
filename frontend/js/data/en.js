@@ -55,7 +55,7 @@ export const en = {
 
   'convocatoria.badge': 'CALL FOR PAPERS \u00b7 JOLATE XXV',
   'convocatoria.title': 'International Call for Papers',
-  'convocatoria.text': 'The XXV Latin American Meeting on Economic Theory invites researchers and graduate students to submit original papers in highly formalized economics. The Scientific Committee will rigorously evaluate the analytical contribution of each submission. Papers are accepted until September 4, 2026, and acceptance confirmations will be communicated before September 18, 2026.',
+  'convocatoria.text': 'The XXV Latin American Meetings on Economic Theory (JOLATE 2026) invite researchers, including those in training, as well as graduate students, to submit original papers in the fields of Mathematical Economics and Economic Theory, with a special emphasis on highly formalized approaches. All contributions will be evaluated by the Scientific Committee, which will consider their quality, originality, and analytical contribution. The deadline for submitting papers is September 4, 2026. Acceptance notifications will be sent before September 18, 2026.',
   'convocatoria.support_title': 'Support & Funding',
   'convocatoria.support_text': 'Limited funds are available to cover accommodation and living expenses for speakers and participating students. Those requiring this type of support should request it by email:',
   'convocatoria.deadline_label': 'Submission deadline:',

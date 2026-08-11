@@ -55,7 +55,7 @@ export const es = {
 
   'convocatoria.badge': 'CONVOCATORIA \u00b7 JOLATE XXV',
   'convocatoria.title': 'Convocatoria Cient\u00edfica Internacional',
-  'convocatoria.text': 'Las XXV Jornadas Latinoamericanas de Teor\u00eda Econ\u00f3mica convocan a investigadores y estudiantes de posgrado a presentar trabajos originales en econom\u00eda altamente formalizada. El comit\u00e9 cient\u00edfico evaluar\u00e1 rigurosamente el aporte anal\u00edtico de cada contribuci\u00f3n. Los trabajos se reciben hasta el 4 de septiembre de 2026 y la confirmaci\u00f3n de aceptaci\u00f3n se comunica antes del 18 de septiembre de 2026.',
+  'convocatoria.text': 'Las XXV Jornadas Latinoamericanas de Teor\u00eda Econ\u00f3mica (JOLATE 2026) invitan a investigadores e investigadores en formaci\u00f3n, as\u00ed como a estudiantes de posgrado, a presentar trabajos originales en el \u00e1mbito de la Econom\u00eda Matem\u00e1tica y la Teor\u00eda Econ\u00f3mica, con especial \u00e9nfasis en enfoques altamente formalizados. Todas las contribuciones ser\u00e1n evaluadas por el Comit\u00e9 Cient\u00edfico, que considerar\u00e1 su calidad, originalidad y aporte anal\u00edtico. La fecha l\u00edmite para la recepci\u00f3n de trabajos es el 4 de septiembre de 2026. La notificaci\u00f3n de aceptaci\u00f3n ser\u00e1 comunicada antes del 18 de septiembre de 2026.',
   'convocatoria.support_title': 'Apoyo y Financiamiento',
   'convocatoria.support_text': 'Se cuenta con algunos recursos para cubrir alojamiento y mantenci\u00f3n destinados a expositores y alumnos participantes del evento. Quienes requieran de este tipo de apoyo deber\u00e1n solicitarlo al mail:',
   'convocatoria.deadline_label': 'Env\u00edo hasta:',
