@@ -56,8 +56,6 @@ export const es = {
   'convocatoria.badge': 'CONVOCATORIA \u00b7 JOLATE XXV',
   'convocatoria.title': 'Convocatoria Cient\u00edfica Internacional',
   'convocatoria.text': 'Las XXV Jornadas Latinoamericanas de Teor\u00eda Econ\u00f3mica (JOLATE 2026) invitan a investigadores e investigadores en formaci\u00f3n, as\u00ed como a estudiantes de posgrado, a presentar trabajos originales en el \u00e1mbito de la Econom\u00eda Matem\u00e1tica y la Teor\u00eda Econ\u00f3mica, con especial \u00e9nfasis en enfoques altamente formalizados. Todas las contribuciones ser\u00e1n evaluadas por el Comit\u00e9 Cient\u00edfico, que considerar\u00e1 su calidad, originalidad y aporte anal\u00edtico. La fecha l\u00edmite para la recepci\u00f3n de trabajos es el 4 de septiembre de 2026. La notificaci\u00f3n de aceptaci\u00f3n ser\u00e1 comunicada antes del 18 de septiembre de 2026.',
-  'convocatoria.support_title': 'Apoyo y Financiamiento',
-  'convocatoria.support_text': 'Se cuenta con algunos recursos para cubrir alojamiento y mantenci\u00f3n destinados a expositores y alumnos participantes del evento. Quienes requieran de este tipo de apoyo deber\u00e1n solicitarlo al mail:',
   'convocatoria.deadline_label': 'Env\u00edo hasta:',
   'convocatoria.acceptance_label': 'Aceptaci\u00f3n:',
   'convocatoria.topics_title': 'Areas Tem\u00e1ticas de Recepci\u00f3n',
@@ -191,8 +189,6 @@ export const es = {
   'enviar.anuncio_asistente': 'Seleccionaste Asistente. Se ocultaron los campos: t\u00edtulo de la ponencia, eje tem\u00e1tico y archivo PDF.',
   'enviar.titulo_ponencia': 'T\u00edtulo de la Ponencia *',
   'enviar.placeholder_titulo': 'Ej. Modelos de equilibrio general aplicados',
-  'expos_form.badge': 'ENV\u00cdO DE PONENCIAS \u00b7 SOLO EXPOSITORES',
-  'expos_form.notice_badge': 'Solo Expositores',
   'expos_form.title': 'Inscripci\u00f3n de Expositores',
   'expos_form.description': 'Formulario exclusivo para expositores: complet\u00e1 tus datos y envi\u00e1 tu ponencia en PDF para su evaluaci\u00f3n por el Comit\u00e9 Cient\u00edfico. \u00bfSos asistente? Us\u00e1 el formulario de Inscripci\u00f3n.',
 

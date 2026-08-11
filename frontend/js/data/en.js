@@ -56,8 +56,6 @@ export const en = {
   'convocatoria.badge': 'CALL FOR PAPERS \u00b7 JOLATE XXV',
   'convocatoria.title': 'International Call for Papers',
   'convocatoria.text': 'The XXV Latin American Meetings on Economic Theory (JOLATE 2026) invite researchers, including those in training, as well as graduate students, to submit original papers in the fields of Mathematical Economics and Economic Theory, with a special emphasis on highly formalized approaches. All contributions will be evaluated by the Scientific Committee, which will consider their quality, originality, and analytical contribution. The deadline for submitting papers is September 4, 2026. Acceptance notifications will be sent before September 18, 2026.',
-  'convocatoria.support_title': 'Support & Funding',
-  'convocatoria.support_text': 'Limited funds are available to cover accommodation and living expenses for speakers and participating students. Those requiring this type of support should request it by email:',
   'convocatoria.deadline_label': 'Submission deadline:',
   'convocatoria.acceptance_label': 'Acceptance:',
   'convocatoria.topics_title': 'Thematic Areas',
@@ -191,8 +189,6 @@ export const en = {
   'enviar.anuncio_asistente': 'You selected Attendee. The following fields were removed: paper title, thematic area, and PDF file.',
   'enviar.titulo_ponencia': 'Paper Title *',
   'enviar.placeholder_titulo': 'e.g. Applied general equilibrium models',
-  'expos_form.badge': 'PAPER SUBMISSION \u00b7 EXPOSITORS ONLY',
-  'expos_form.notice_badge': 'Expositors Only',
   'expos_form.title': 'Expositor Registration',
   'expos_form.description': 'Form reserved for expositors. Fill in your details and submit your PDF paper for review by the Scientific Committee. Attending only? Use the Registration form.',
 
