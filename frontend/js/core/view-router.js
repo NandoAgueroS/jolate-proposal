@@ -9,6 +9,7 @@ export const VIEWS = [
   'acerca-de',
   'comite',
   'programa',
+  'expositores',
   'convocatoria',
   'inscripcion',
   'info-local',

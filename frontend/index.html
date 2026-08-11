@@ -92,6 +92,12 @@
           <a href="#programa" class="hover:text-white transition-colors" data-i18n="nav.programa"
             >Programa</a
           >
+          <!-- Reactivar Expositores: descomentar el link de abajo + quitar 'hidden' de la seccion -->
+          <!--
+          <a href="#expositores" class="hover:text-white transition-colors" data-i18n="nav.expositores"
+            >Expositores</a
+          >
+          -->
           <a href="#convocatoria" class="hover:text-white transition-colors" data-i18n="nav.convocatoria"
             >Convocatoria</a
           >
@@ -159,6 +165,15 @@
           data-i18n="nav.programa"
           >Programa</a
         >
+        <!-- Reactivar Expositores: descomentar el link de abajo + quitar 'hidden' de la seccion -->
+        <!--
+        <a
+          href="#expositores"
+          class="block text-white/80 hover:text-white font-medium transition-colors"
+          data-i18n="nav.expositores"
+          >Expositores</a
+        >
+        -->
         <a
           href="#convocatoria"
           class="block text-white/80 hover:text-white font-medium transition-colors"
@@ -511,6 +526,165 @@
           <span class="text-primary font-bold">[Próximamente]</span> se
           confirmarán en las próximas semanas.
         </p>
+      </div>
+    </section>
+
+    <!-- EXPOSITORES — #expositores (OCULTA: quitar 'hidden' y descomentar links para reactivar) -->
+    <section
+      id="expositores"
+      class="hidden view pt-28 md:pt-32 pb-24 bg-bg border-t border-tint/40 relative"
+    >
+      <div class="max-w-6xl mx-auto px-4 space-y-12">
+        <div class="text-center max-w-2xl mx-auto space-y-3">
+          <div
+            class="text-xs font-mono text-primary tracking-widest uppercase font-bold flex items-center justify-center gap-3"
+            data-i18n="expositores.badge"
+          >
+            CONFERENCISTAS DE HONOR
+            <span
+              class="bg-primary/10 text-primary text-xs font-bold px-2 py-0.5 rounded-full border border-primary/20"
+              data-i18n="expositores.coming"
+              >Próximamente</span
+            >
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text" data-i18n="expositores.title">
+            Sesiones Plenarias
+          </h2>
+          <p class="text-text text-sm font-light" data-i18n="expositores.text">
+            Conferencistas confirmados — la lista completa de plenarias se
+            publicará próximamente.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Speaker 1 -->
+          <div
+            class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 hover-magnetic flex flex-col justify-between shadow-sm"
+          >
+            <div class="relative overflow-hidden aspect-[4/3] bg-tint/30">
+              <img
+                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80"
+                alt="Prof. Dr. Hugo Sonnenschein"
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
+              />
+            </div>
+            <div class="p-6 space-y-2 flex-1 flex flex-col justify-between">
+              <div class="space-y-1">
+                <h3
+                  class="text-text font-bold text-base tracking-tight group-hover:text-primary transition-colors"
+                >
+                  Prof. Dr. Hugo Sonnenschein
+                </h3>
+                <p class="text-xs text-primary/70 font-mono">
+                  Princeton University
+                </p>
+              </div>
+              <p
+                class="text-xs text-text pt-2 border-t border-tint/30 font-light leading-relaxed"
+                data-i18n="expositores.area_01"
+              >
+                Teoría del Equilibrio General Avanzado
+              </p>
+            </div>
+          </div>
+          <!-- Speaker 2 -->
+          <div
+            class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 hover-magnetic flex flex-col justify-between shadow-sm"
+          >
+            <div class="relative overflow-hidden aspect-[4/3] bg-tint/30">
+              <img
+                src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80"
+                alt="Dra. Mariana G. Villalba"
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
+              />
+            </div>
+            <div class="p-6 space-y-2 flex-1 flex flex-col justify-between">
+              <div class="space-y-1">
+                <h3
+                  class="text-text font-bold text-base tracking-tight group-hover:text-primary transition-colors"
+                >
+                  Dra. Mariana G. Villalba
+                </h3>
+                <p class="text-xs text-primary/70 font-mono">
+                  Universidad de San Andrés
+                </p>
+              </div>
+              <p
+                class="text-xs text-text pt-2 border-t border-tint/30 font-light leading-relaxed"
+                data-i18n="expositores.area_02"
+              >
+                Mecanismos de Incentivos y Teoría de Juegos
+              </p>
+            </div>
+          </div>
+          <!-- Speaker 3 -->
+          <div
+            class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 hover-magnetic flex flex-col justify-between shadow-sm"
+          >
+            <div class="relative overflow-hidden aspect-[4/3] bg-tint/30">
+              <img
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80"
+                alt="Dr. Roberto Chang"
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
+              />
+            </div>
+            <div class="p-6 space-y-2 flex-1 flex flex-col justify-between">
+              <div class="space-y-1">
+                <h3
+                  class="text-text font-bold text-base tracking-tight group-hover:text-primary transition-colors"
+                >
+                  Dr. Roberto Chang
+                </h3>
+                <p class="text-xs text-primary/70 font-mono">
+                  Rutgers University
+                </p>
+              </div>
+              <p
+                class="text-xs text-text pt-2 border-t border-tint/30 font-light leading-relaxed"
+                data-i18n="expositores.area_03"
+              >
+                Macroeconomía Estocástica de Economías Abiertas
+              </p>
+            </div>
+          </div>
+          <!-- Speaker 4 -->
+          <div
+            class="bg-white border border-tint/60 rounded-premium-sm overflow-hidden group hover:border-primary/30 transition-all duration-500 hover-magnetic flex flex-col justify-between shadow-sm"
+          >
+            <div class="relative overflow-hidden aspect-[4/3] bg-tint/30">
+              <img
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
+                alt="Dra. Beatriz R. Alves"
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
+              />
+            </div>
+            <div class="p-6 space-y-2 flex-1 flex flex-col justify-between">
+              <div class="space-y-1">
+                <h3
+                  class="text-text font-bold text-base tracking-tight group-hover:text-primary transition-colors"
+                >
+                  Dra. Beatriz R. Alves
+                </h3>
+                <p class="text-xs text-primary/70 font-mono">
+                  Universidade de São Paulo
+                </p>
+              </div>
+              <p
+                class="text-xs text-text pt-2 border-t border-tint/30 font-light leading-relaxed"
+                data-i18n="expositores.area_04"
+              >
+                Métodos Numéricos y Economía Computacional
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1552,6 +1726,8 @@
             <a href="#programa" class="block hover:text-white transition-colors" data-i18n="footer.programa"
               >Programa</a
             >
+            <!-- Reactivar Expositores: descomentar el link de abajo + quitar 'hidden' de la seccion -->
+            <!-- <a href="#expositores" class="block hover:text-white transition-colors" data-i18n="footer.expositores">Expositores</a> -->
             <a
               href="#convocatoria"
               class="block hover:text-white transition-colors"
