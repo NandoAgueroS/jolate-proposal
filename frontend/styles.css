@@ -64,30 +64,28 @@ body {
   overflow-x: hidden;
 }
 
-/* Ajusta el anclaje de scroll para que las secciones no queden tapadas
-   por el navbar fijo (~108px). 7.5rem deja un margen de aire adicional.
-   El scroll-snap (proximity) hace que el scroll avance por sección sin
-   forzar snap-back al soltar, dejando accesible el footer. */
+/* Barra de scroll estándar (Firefox, Chrome 121+, Safari 18.2+).
+   Firefox no entiende ::-webkit-scrollbar, así que usa estas propiedades.
+   Orden: <thumb> <track>. */
 html {
-  scroll-snap-type: y proximity;
-  scroll-padding-top: 7.5rem;
-  /* Standard scrollbar styling (Firefox, Chrome 121+, Safari 18.2+).
-     Firefox no entiende ::-webkit-scrollbar, así que usa estas propiedades.
-     Orden: <thumb> <track>. */
   scrollbar-color: var(--color-primary) var(--color-tint);
   scrollbar-width: auto;
 }
 
-/* Scroll por sección: al hacer scroll, ancla el inicio de cada sección
-   justo debajo del navbar (scroll-padding-top del contenedor). */
-body > section {
-  scroll-snap-align: start;
+/* Sistema de vistas (SPA): solo la sección activa (.is-active) es visible.
+   El router (js/core/view-router.js) alterna la clase .is-active al navegar.
+   Usamos :not(.is-active) para ocultar, de modo que la vista activa conserve
+   su display natural (p. ej. #inicio usa .flex para centrar su contenido). */
+.view:not(.is-active) {
+  display: none;
 }
 
-/* La última sección (#faq) también acepta snap al final para que el
-   footer quede visible cuando el usuario llega al final del FAQ. */
-#faq {
-  scroll-snap-align: start end;
+/* Enlace de navegación de la vista activa. Gana a text-white/80 base
+   porque styles.css se inyecta después de los estilos generados por
+   el CDN de Tailwind. */
+.active-view-link {
+  color: #ffffff;
+  font-weight: 700;
 }
 
 /* ----------------------------------------------------------

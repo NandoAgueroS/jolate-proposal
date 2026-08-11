@@ -244,7 +244,9 @@ function initPaperForm(opts) {
       generalError.classList.remove('hidden');
       refreshIcons();
     }
-    paperForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (paperForm.offsetParent) {
+      paperForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   }
 
   // Validación del PDF al seleccionar archivo: extensión, MIME y tamaño.
@@ -363,7 +365,9 @@ function initPaperForm(opts) {
     if (successMsg) successMsg.classList.add('hidden');
 
     if (!validateClientSide()) {
-      paperForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (paperForm.offsetParent) {
+        paperForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
       return;
     }
 
