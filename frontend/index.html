@@ -438,7 +438,7 @@
       <div class="max-w-6xl mx-auto px-4 space-y-16">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           <!-- Left column: heading, objectives, support -->
-          <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-28">
+          <div class="lg:col-span-6 space-y-6 lg:sticky lg:top-28">
             <div
               class="text-xs font-mono text-primary tracking-widest uppercase font-bold"
               data-i18n="convocatoria.badge"
@@ -452,39 +452,20 @@
               class="text-text font-light leading-relaxed text-lg"
               data-i18n="convocatoria.text"
             >
-              Las XXV Jornadas Latinoamericanas de Teoría Económica convocan a
-              investigadores y estudiantes de posgrado a presentar trabajos
-              originales en economía altamente formalizada. El comité científico
-              evaluará rigurosamente el aporte analítico de cada contribución.
-              Los trabajos se reciben hasta el 4 de septiembre de 2026 y la
-              confirmación de aceptación se comunica antes del 18 de septiembre
-              de 2026.
+              Las XXV Jornadas Latinoamericanas de Teoría Económica (JOLATE 2026) invitan a investigadores e investigadores en formación, así como a estudiantes de posgrado, a presentar trabajos originales en el ámbito de la Economía Matemática y la Teoría Económica, con especial énfasis en enfoques altamente formalizados.
             </p>
-
-            <!-- Apoyo y Financiamiento -->
-            <div
-              class="p-6 bg-white border border-tint/60 rounded-premium-sm space-y-4"
+            <p
+              class="text-text font-light leading-relaxed text-lg"
+              data-i18n="convocatoria.text_evaluation"
             >
-              <div class="flex items-center gap-3 text-primary">
-                <i data-lucide="award" class="w-5 h-5"></i>
-                <span
-                  class="font-bold text-base tracking-wider uppercase font-mono"
-                  data-i18n="convocatoria.support_title"
-                  >Apoyo y Financiamiento</span
-                >
-              </div>
-              <p class="text-base text-text leading-relaxed" data-i18n="convocatoria.support_text">
-                Se cuenta con algunos recursos para cubrir alojamiento y
-                mantención destinados a expositores y alumnos participantes del
-                evento. Quienes requieran de este tipo de apoyo deberán
-                solicitarlo al mail:
-              </p>
-              <a
-                href="mailto:jolate2026@gmail.com"
-                class="text-primary font-mono text-base font-bold hover:underline"
-                >jolate2026@gmail.com</a
-              >
-            </div>
+              Todas las contribuciones serán evaluadas por el Comité Científico, que considerará su calidad, originalidad y aporte analítico.
+            </p>
+            <p
+              class="text-text font-light leading-relaxed text-lg"
+              data-i18n="convocatoria.text_deadline"
+            >
+              La fecha límite para la recepción de trabajos es el 4 de septiembre de 2026. La notificación de aceptación será comunicada antes del 18 de septiembre de 2026.
+            </p>
 
             <!-- Deadline info -->
             <div class="flex flex-wrap gap-4 pt-2">
@@ -501,10 +482,32 @@
                 <span class="text-primary font-bold">18 Septiembre 2026</span>
               </div>
             </div>
+
+            <!-- Required format -->
+            <div class="p-5 bg-white border border-tint/60 rounded-premium-sm space-y-3">
+              <div class="flex items-center gap-2 text-primary">
+                <i data-lucide="file-check" class="w-4 h-4"></i>
+                <span class="font-bold text-xs tracking-wider uppercase font-mono" data-i18n="convocatoria.format_title">Formato Requerido</span>
+              </div>
+              <ul class="space-y-2 text-xs text-text leading-relaxed">
+                <li class="flex items-start gap-2">
+                  <span class="text-primary mt-0.5">•</span>
+                  <span data-i18n-html="convocatoria.format_01">Formato <strong>PDF</strong> exclusivamente</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-primary mt-0.5">•</span>
+                  <span data-i18n="convocatoria.format_02">Incluir título, autores y afiliación institucional</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-primary mt-0.5">•</span>
+                  <span data-i18n="convocatoria.format_03">Respetar los lineamientos del eje temático seleccionado</span>
+                </li>
+              </ul>
+            </div>
           </div>
 
           <!-- Right column: topic areas -->
-          <div class="lg:col-span-7 space-y-4">
+          <div class="lg:col-span-6 space-y-4">
             <div
               class="text-xs font-mono text-text uppercase tracking-widest pb-2 font-bold"
               data-i18n="convocatoria.topics_title"
@@ -782,17 +785,6 @@
         <!-- ENVÍO DE PONENCIAS — formulario integrado en Convocatoria -->
 
         <div class="text-center max-w-2xl mx-auto space-y-3">
-          <div
-            class="text-xs font-mono text-primary tracking-widest uppercase font-bold flex items-center justify-center gap-3"
-            data-i18n="expos_form.badge"
-          >
-            ENVÍO DE PONENCIAS · SOLO EXPOSITORES
-            <span
-              class="bg-primary/10 text-primary text-xs font-bold px-2 py-0.5 rounded-full border border-primary/20"
-              data-i18n="expos_form.notice_badge"
-              >Solo Expositores</span
-            >
-          </div>
           <h2
             class="text-3xl md:text-4xl font-bold tracking-tight text-text"
             data-i18n="expos_form.title"
@@ -803,9 +795,15 @@
             class="text-text font-light text-sm md:text-base"
             data-i18n="expos_form.description"
           >
-            Formulario exclusivo para expositores: completá tus datos y enviá tu
-            ponencia en PDF para su evaluación por el Comité Científico. ¿Sos
-            asistente? Usá el formulario de Inscripción.
+            Por favor, complete sus datos personales exactamente como desea que
+            figuren en el certificado de expositor.
+          </p>
+          <p
+            class="text-text font-light text-sm md:text-base"
+            data-i18n="expos_form.description_abstract"
+          >
+            A continuación, adjunte el resumen de su trabajo de investigación en
+            formato PDF. El resumen no debe superar una (1) página.
           </p>
         </div>
 
@@ -1335,33 +1333,16 @@
           <!-- Left column: context + info (sticky) -->
           <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-28 enviar-info">
             <div>
-              <div class="text-xs font-mono text-primary tracking-widest uppercase font-bold" data-i18n="inscripcion.badge">INSCRIPCIÓN · ENVÍO DE PONENCIAS</div>
               <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-text mt-3" data-i18n="inscripcion.title">Inscripción y Convocatoria</h2>
               <p class="text-text font-light leading-relaxed text-sm md:text-base mt-3" data-i18n="inscripcion.description">
-                Completá el formulario para inscribir tu ponencia. El Comité Científico evaluará cada contribución bajo revisión ciega por pares.
+                La inscripción a las XXV Jornadas Latinoamericanas de Teoría Económica (JOLATE 2026) está abierta a investigadores, docentes, estudiantes de grado y de posgrado, y profesionales interesados en la Economía Matemática y la Teoría Económica.
               </p>
-            </div>
-
-            <!-- Requisitos del archivo -->
-            <div class="p-5 bg-white border border-tint/60 rounded-premium-sm space-y-3">
-              <div class="flex items-center gap-2 text-primary">
-                <i data-lucide="file-check" class="w-4 h-4"></i>
-                <span class="font-bold text-xs tracking-wider uppercase font-mono" data-i18n="inscripcion.format_title">Formato Requerido</span>
-              </div>
-              <ul class="space-y-2 text-xs text-text leading-relaxed">
-                <li class="flex items-start gap-2">
-                  <span class="text-primary mt-0.5">•</span>
-                  <span data-i18n-html="inscripcion.format_01">Formato <strong>PDF</strong> exclusivamente</span>
-                </li>
-                <li class="flex items-start gap-2">
-                  <span class="text-primary mt-0.5">•</span>
-                  <span data-i18n="inscripcion.format_02">Incluir título, autores y afiliación institucional</span>
-                </li>
-                <li class="flex items-start gap-2">
-                  <span class="text-primary mt-0.5">•</span>
-                  <span data-i18n="inscripcion.format_03">Respetar los lineamientos del eje temático seleccionado</span>
-                </li>
-              </ul>
+              <p class="text-text font-light leading-relaxed text-sm md:text-base mt-3" data-i18n="inscripcion.description_invitation">
+                Los invitamos a formar parte de esta XXV edición, que celebra 25 años de intercambio académico y colaboración científica en América Latina.
+              </p>
+              <p class="text-text font-light leading-relaxed text-sm md:text-base mt-3" data-i18n="inscripcion.description_participation">
+                Para participar en las jornadas, complete el formulario de inscripción disponible a continuación.
+              </p>
             </div>
 
             <!-- Deadlines -->
