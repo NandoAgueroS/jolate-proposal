@@ -47,8 +47,11 @@ export const en = {
     "The 2026 edition marks a quarter of a century of scientific production. San Luis hosts the international community to celebrate this milestone with an excellent program.",
 
   "hero.badge": "JOLATE XXV \u00b7 ANNIVERSARY EDITION \u00b7 SAN LUIS 2026",
-  "hero.subtitle":
+  "hero.subtitle2":
     "Latin American Meeting on Economic Theory \u2014 San Luis, October 28\u201330, 2026.",
+  "hero.subtitle":
+    "Venues: Universidad de La Punta (ULP) and Universidad Nacional de San Luis (UNSL)",
+  "hero.dates": "October 28\u201330, 2026.",
   "hero.cta_primary": "Submit Paper",
   "hero.cta_secondary": "View Call for Papers",
 

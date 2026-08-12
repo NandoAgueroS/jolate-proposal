@@ -48,8 +48,11 @@ export const es = {
 
   "hero.badge":
     "JOLATE XXV \u00b7 EDICI\u00d3N ANIVERSARIO \u00b7 SAN LUIS 2026",
-  "hero.subtitle":
+  "hero.subtitle2":
     "Jornadas Latinoamericanas de Teor\u00eda Econ\u00f3mica \u2014 San Luis, 28 al 30 de octubre de 2026.",
+  "hero.subtitle":
+    "Sedes Universidad de La Punta (ULP) y Universidad Nacional de San Luis (UNSL)",
+  "hero.dates": "28 al 30 de octubre de 2026.",
   "hero.cta_primary": "Enviar Trabajo",
   "hero.cta_secondary": "Ver Convocatoria",
 
