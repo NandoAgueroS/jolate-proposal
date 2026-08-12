@@ -22,7 +22,8 @@ if (!is_array($config) || !isset($config['db']) || !isset($config['certificado_d
 /**
  * Respuesta de error JSON (o fallback si ya se enviaron headers de PDF).
  */
-function certificado_error($mensaje, $status, $field = '', $code = '') {
+function certificado_error($mensaje, $status, $field = '', $code = '')
+{
     if (!headers_sent()) {
         http_response_code($status);
         header('Content-Type: application/json; charset=utf-8');
@@ -41,7 +42,8 @@ function certificado_error($mensaje, $status, $field = '', $code = '') {
 /**
  * Respuesta JSON de éxito y salida.
  */
-function certificado_exit_json(array $data) {
+function certificado_exit_json(array $data)
+{
     if (!headers_sent()) {
         header('Content-Type: application/json; charset=utf-8');
     }
@@ -52,7 +54,8 @@ function certificado_exit_json(array $data) {
 /**
  * Log de errores del endpoint (mismo archivo que el resto del backend).
  */
-function certificado_log(string $mensaje): void {
+function certificado_log(string $mensaje): void
+{
     $logDir = __DIR__ . '/logs';
     if (!is_dir($logDir)) {
         @mkdir($logDir, 0755, true);
@@ -65,7 +68,8 @@ function certificado_log(string $mensaje): void {
  * Rate-limit por IP (archivos en logs/, sin tabla nueva).
  * Máximo 40 solicitudes por hora por bucket y por IP.
  */
-function certificado_rate_limit(string $bucket): void {
+function certificado_rate_limit(string $bucket): void
+{
     $dir = __DIR__ . '/logs';
     if (!is_dir($dir)) {
         @mkdir($dir, 0755, true);

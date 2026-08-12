@@ -270,7 +270,7 @@ html::-webkit-scrollbar-thumb:hover {
 .lang-toggle-segmented::before,
 .lang-toggle-segmented::after {
   font-size: 0.75rem;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
   line-height: 1.4;
   opacity: 0.5;
   font-weight: 400;
