@@ -5,15 +5,15 @@
 // y la entrante la anima gsap-animations.js (fade + rise).
 
 export const VIEWS = [
-  'inicio',
-  'acerca-de',
-  'comite',
-  'programa',
-  'expositores',
-  'convocatoria',
-  'inscripcion',
-  'info-local',
-  'faq',
+  "inicio",
+  "acerca-de",
+  "comite",
+  "programa",
+  "expositores",
+  "convocatoria",
+  "inscripcion",
+  "info-local",
+  "faq",
 ];
 
 const viewListeners = [];
@@ -29,7 +29,7 @@ function notifyViewShown(id) {
 
 // Obtiene la vista desde el hash. Devuelve null si no es una vista válida.
 export function resolveViewFromHash() {
-  const raw = window.location.hash.replace(/^#\/?/, '').replace(/\/+$/, '');
+  const raw = window.location.hash.replace(/^#\/?/, "").replace(/\/+$/, "");
   return VIEWS.indexOf(raw) !== -1 ? raw : null;
 }
 
@@ -38,16 +38,18 @@ function getSection(id) {
 }
 
 function setActiveNav(viewId) {
-  document.querySelectorAll('header a[href="#' + viewId + '"]').forEach((link) => {
-    link.classList.add('text-white', 'active-view-link');
-    link.setAttribute('aria-current', 'page');
-  });
+  document
+    .querySelectorAll('header a[href="#' + viewId + '"]')
+    .forEach((link) => {
+      link.classList.add("text-white", "active-view-link");
+      link.setAttribute("aria-current", "page");
+    });
 }
 
 function clearActiveNav() {
-  document.querySelectorAll('header .active-view-link').forEach((link) => {
-    link.classList.remove('text-white', 'active-view-link');
-    link.removeAttribute('aria-current');
+  document.querySelectorAll("header .active-view-link").forEach((link) => {
+    link.classList.remove("text-white", "active-view-link");
+    link.removeAttribute("aria-current");
   });
 }
 
@@ -60,8 +62,8 @@ export function showView(viewId) {
   VIEWS.forEach((id) => {
     const section = getSection(id);
     if (!section) return;
-    if (id === viewId) section.classList.add('is-active');
-    else section.classList.remove('is-active');
+    if (id === viewId) section.classList.add("is-active");
+    else section.classList.remove("is-active");
   });
 
   currentId = viewId;
@@ -77,22 +79,26 @@ export function initViewRouter(defaultView) {
   const initial = current || defaultView;
 
   if (!current) {
-    history.replaceState(null, '', '#' + initial);
+    history.replaceState(null, "", "#" + initial);
   }
 
   showView(initial);
 
-  window.addEventListener('hashchange', () => {
+  window.addEventListener("hashchange", () => {
     const next = resolveViewFromHash();
     if (next) showView(next);
   });
 
   // Intercepta clics en anclas internas cuya vista exista.
-  document.addEventListener('click', (e) => {
-    const anchor = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+  document.addEventListener("click", (e) => {
+    const anchor =
+      e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
     if (!anchor) return;
 
-    const raw = anchor.getAttribute('href').replace(/^#\/?/, '').replace(/\/+$/, '');
+    const raw = anchor
+      .getAttribute("href")
+      .replace(/^#\/?/, "")
+      .replace(/\/+$/, "");
     if (VIEWS.indexOf(raw) === -1) return;
 
     e.preventDefault();

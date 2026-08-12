@@ -1,57 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin · Inscriptos · JOLATE 2026</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin · Inscriptos · JOLATE 2026</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@1,400;1,600;1,700&display=swap"
-    rel="stylesheet"
-  />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@1,400;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Tailwind CSS CDN v3 — mirror site's config (colors + fonts) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: "#055c62",
-            accent:  "#11b0bc",
-            bg:      "#eef9fa",
-            tint:    "#cbe3e6",
-            text:    "#043c41",
-          },
-          fontFamily: {
-            sans:    ["Inter", "sans-serif"],
-            display: ["Playfair Display", "serif"],
-            mono:    ["JetBrains Mono", "monospace"],
+    <!-- Tailwind CSS CDN v3 — mirror site's config (colors + fonts) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#055c62",
+              accent: "#11b0bc",
+              bg: "#eef9fa",
+              tint: "#cbe3e6",
+              text: "#043c41",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              display: ["Playfair Display", "serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
           },
         },
-      },
-    };
-  </script>
+      };
+    </script>
 
-  <!-- DataTables CSS (CDN v3) -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/3.0.1/css/dataTables.dataTables.min.css" />
-  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/4.0.1/css/responsive.dataTables.min.css" />
-  <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/2.0.0/css/rowReorder.dataTables.min.css" />
+    <!-- DataTables CSS (CDN v3) -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/3.0.1/css/dataTables.dataTables.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/responsive/4.0.1/css/responsive.dataTables.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/rowreorder/2.0.0/css/rowReorder.dataTables.min.css"
+    />
 
-  <!-- Lucide Icons (CDN, same version as public site) -->
-  <script src="https://unpkg.com/lucide@0.460.0"></script>
-</head>
-<body class="font-sans antialiased bg-bg text-text min-h-screen">
-  <div id="app" class="min-h-screen"></div>
+    <!-- Lucide Icons (CDN, same version as public site) -->
+    <script src="https://unpkg.com/lucide@0.460.0"></script>
+  </head>
+  <body class="font-sans antialiased bg-bg text-text min-h-screen">
+    <div id="app" class="min-h-screen"></div>
 
-  <script src="vendor/jquery/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.datatables.net/3.0.1/js/dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/responsive/4.0.1/js/dataTables.responsive.min.js"></script>
-  <script src="https://cdn.datatables.net/responsive/4.0.1/js/responsive.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/rowreorder/2.0.0/js/dataTables.rowReorder.min.js"></script>
-  <script src="https://cdn.datatables.net/rowreorder/2.0.0/js/rowReorder.dataTables.min.js"></script>
-  <script type="module" src="js/admin.js"></script>
-</body>
+    <script src="vendor/jquery/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/3.0.1/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/4.0.1/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/4.0.1/js/responsive.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/rowreorder/2.0.0/js/dataTables.rowReorder.min.js"></script>
+    <script src="https://cdn.datatables.net/rowreorder/2.0.0/js/rowReorder.dataTables.min.js"></script>
+    <script type="module" src="js/admin.js"></script>
+  </body>
 </html>
