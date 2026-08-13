@@ -171,6 +171,8 @@ export const en = {
   "inscripcion.acceptance_label": "Acceptance:",
   "enviar.placeholder_nombre": "e.g. Dr. Maria Gonzalez",
   "enviar.placeholder_institucion": "e.g. UASLP, UNSL, ULP",
+  "enviar.placeholder_pais": "Select your country",
+  "enviar.placeholder_trabajo_conjunto": "e.g. Dr. John Doe",
   "enviar.placeholder_email": "author@university.edu",
   "enviar.placeholder_dni": "e.g. 12345678",
   "enviar.file_button": "Choose file (PDF \u00b7 max {max} MB)",
@@ -178,6 +180,8 @@ export const en = {
 
   "enviar.nombre": "Full Name *",
   "enviar.institucion": "University / Institution *",
+  "enviar.pais": "Country *",
+  "enviar.trabajo_conjunto": "Joint work with:",
   "enviar.email": "Email Address *",
   "enviar.dni": "ID or Passport *",
   "enviar.eje": "Thematic Area *",
@@ -217,6 +221,8 @@ export const en = {
   "enviar.error_dni": "Invalid ID or passport.",
   "enviar.error_email": "Invalid email address.",
   "enviar.error_titulo": "Invalid presentation title.",
+  "enviar.error_pais": "Invalid country.",
+  "enviar.error_trabajo_conjunto": "The joint work field is invalid.",
   "enviar.error_eje": "Invalid thematic area.",
   "enviar.error_asistente": "The Attendee role does not accept presentation fields.",
   "enviar.error_method": "Method not allowed.",
@@ -231,9 +237,9 @@ export const en = {
   "enviar.rol_asistente": "Attendee",
   "enviar.rol_asistente_desc": "Join the conference without presenting a paper",
   "enviar.anuncio_expositor":
-    "You selected Expositor. The following fields appeared: presentation title, thematic area, and abstract PDF.",
+    "You selected Expositor. The following fields appeared: presentation title, thematic area, abstract PDF, country, and joint work.",
   "enviar.anuncio_asistente":
-    "You selected Attendee. The following fields were removed: presentation title, thematic area, and abstract PDF.",
+    "You selected Attendee. The following fields were removed: presentation title, thematic area, abstract PDF, country, and joint work.",
   "enviar.titulo_ponencia": "Presentation Title *",
   "enviar.placeholder_titulo": "e.g. Applied general equilibrium models",
   "expos_form.title": "Scientific Communications Submission",

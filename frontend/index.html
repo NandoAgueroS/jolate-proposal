@@ -1442,6 +1442,62 @@
               <div>
                 <label
                   class="block text-xs font-mono font-medium text-text mb-1.5"
+                  for="expo-form-country"
+                  data-i18n="enviar.pais"
+                  >País *</label
+                >
+                <select
+                  id="expo-form-country"
+                  name="pais"
+                  required
+                  data-country-select
+                  class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all appearance-none"
+                >
+                  <option
+                    value=""
+                    disabled
+                    selected
+                    data-i18n="enviar.placeholder_pais"
+                    >Seleccioná tu país</option
+                  >
+                </select>
+                <span
+                  class="field-error hidden text-xs text-red-500 font-mono mt-1"
+                  data-field="pais"
+                  role="alert"
+                  aria-live="polite"
+                ></span>
+              </div>
+              <div>
+                <label
+                  class="block text-xs font-mono font-medium text-text mb-1.5"
+                  for="expo-form-trabajo-conjunto"
+                  data-i18n="enviar.trabajo_conjunto"
+                  >Trabajo en conjunto con:</label
+                >
+                <input
+                  type="text"
+                  id="expo-form-trabajo-conjunto"
+                  name="trabajo_conjunto"
+                  maxlength="300"
+                  autocomplete="off"
+                  placeholder="Ej. Dr. Juan Pérez"
+                  data-i18n-placeholder="enviar.placeholder_trabajo_conjunto"
+                  class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                />
+                <span
+                  class="field-error hidden text-xs text-red-500 font-mono mt-1"
+                  data-field="trabajo_conjunto"
+                  role="alert"
+                  aria-live="polite"
+                ></span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label
+                  class="block text-xs font-mono font-medium text-text mb-1.5"
                   for="expo-form-email"
                   data-i18n="enviar.email"
                   >Correo Electrónico *</label
@@ -1966,6 +2022,62 @@
 
                 <!-- Campos exclusivos del rol Expositor (ocultos y deshabilitados para Asistente) -->
                 <div id="expositor-fields" class="space-y-5">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label
+                        class="block text-xs font-mono font-medium text-text mb-1.5"
+                        for="form-country"
+                        data-i18n="enviar.pais"
+                        >País *</label
+                      >
+                      <select
+                        id="form-country"
+                        name="pais"
+                        required
+                        data-country-select
+                        class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all appearance-none"
+                      >
+                        <option
+                          value=""
+                          disabled
+                          selected
+                          data-i18n="enviar.placeholder_pais"
+                          >Seleccioná tu país</option
+                        >
+                      </select>
+                      <span
+                        class="field-error hidden text-xs text-red-500 font-mono mt-1"
+                        data-field="pais"
+                        role="alert"
+                        aria-live="polite"
+                      ></span>
+                    </div>
+                    <div>
+                      <label
+                        class="block text-xs font-mono font-medium text-text mb-1.5"
+                        for="form-trabajo-conjunto"
+                        data-i18n="enviar.trabajo_conjunto"
+                        >Trabajo en conjunto con:</label
+                      >
+                      <input
+                        type="text"
+                        id="form-trabajo-conjunto"
+                        name="trabajo_conjunto"
+                        maxlength="300"
+                        autocomplete="off"
+                        placeholder="Ej. Dr. Juan Pérez"
+                        data-i18n-placeholder="enviar.placeholder_trabajo_conjunto"
+                        class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                      />
+                      <span
+                        class="field-error hidden text-xs text-red-500 font-mono mt-1"
+                        data-field="trabajo_conjunto"
+                        role="alert"
+                        aria-live="polite"
+                      ></span>
+                    </div>
+                  </div>
+
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label

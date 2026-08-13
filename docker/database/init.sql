@@ -17,12 +17,14 @@ INSERT INTO `jolate_tipo_inscripto` (`id`, `nombre`) VALUES
     (2, 'Asistente');
 
 -- One row per registration submission.
--- Paper-related columns are nullable (Asistente does not submit a paper).
+-- Expositor-specific columns are nullable (Asistente does not submit them).
 CREATE TABLE `jolate_inscriptos` (
     `id`                  INT           NOT NULL AUTO_INCREMENT,
     `id_tipo_inscripto`   INT           NOT NULL,
     `nombre`              VARCHAR(150)  NOT NULL,
     `institucion`         VARCHAR(200)  NOT NULL,
+    `pais`                VARCHAR(100)  DEFAULT NULL,
+    `trabajo_conjunto`    VARCHAR(300)  DEFAULT NULL,
     `email`               VARCHAR(200)  NOT NULL,
     `dni`                 VARCHAR(20)   NOT NULL,
     `titulo_ponencia`     VARCHAR(300)  DEFAULT NULL,

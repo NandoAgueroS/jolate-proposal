@@ -41,6 +41,8 @@ function get_pdo(array $config) {
  *   - institucion        (string, required)
  *   - email              (string, required)
  *   - dni                (string, required)
+ *   - pais               (string|null, optional — Asistente passes null)
+ *   - trabajo_conjunto   (string|null, optional — Asistente passes null)
  *   - titulo_ponencia    (string|null, optional — Asistente passes null)
  *   - eje_tematico       (string|null, optional — Asistente passes null)
  *   - archivo_filename   (string|null, optional — Asistente passes null)
@@ -67,10 +69,10 @@ function save_registration(array $data) {
         // `id_tipo_inscripto` is a FK to `jolate_tipo_inscripto`.
         $sql = 'INSERT INTO `jolate_inscriptos` '
              . '(`id_tipo_inscripto`, `nombre`, `institucion`, `email`, `dni`, '
-             . '`titulo_ponencia`, `eje_tematico`, `archivo_filename`, '
+             . '`pais`, `trabajo_conjunto`, `titulo_ponencia`, `eje_tematico`, `archivo_filename`, '
              . '`email_part_status`, `email_comm_status`) '
              . 'VALUES (:id_tipo_inscripto, :nombre, :institucion, :email, :dni, '
-             . ':titulo_ponencia, :eje_tematico, :archivo_filename, '
+             . ':pais, :trabajo_conjunto, :titulo_ponencia, :eje_tematico, :archivo_filename, '
              . "'pending', 'pending')";
 
         $stmt = $pdo->prepare($sql);
@@ -80,6 +82,8 @@ function save_registration(array $data) {
             ':institucion'       => $data['institucion'],
             ':email'             => $data['email'],
             ':dni'               => $data['dni'],
+            ':pais'              => $data['pais']             ?? null,
+            ':trabajo_conjunto'  => $data['trabajo_conjunto'] ?? null,
             ':titulo_ponencia'   => $data['titulo_ponencia']     ?? null,
             ':eje_tematico'      => $data['eje_tematico']      ?? null,
             ':archivo_filename'  => $data['archivo_filename']  ?? null,

@@ -178,6 +178,8 @@ export const es = {
   "inscripcion.acceptance_label": "Aceptaci\u00f3n:",
   "enviar.placeholder_nombre": "Ej. Dra. Mar\u00eda Gonz\u00e1lez",
   "enviar.placeholder_institucion": "Ej. UASLP, UNSL, ULP",
+  "enviar.placeholder_pais": "Seleccion\u00e1 tu pa\u00eds",
+  "enviar.placeholder_trabajo_conjunto": "Ej. Dr. Juan P\u00e9rez",
   "enviar.placeholder_email": "autor@universidad.edu",
   "enviar.placeholder_dni": "Ej. 12345678",
   "enviar.file_button": "Elegir archivo (PDF \u00b7 m\u00e1x. {max} MB)",
@@ -185,6 +187,8 @@ export const es = {
 
   "enviar.nombre": "Nombre Completo *",
   "enviar.institucion": "Universidad / Instituci\u00f3n *",
+  "enviar.pais": "Pa\u00eds *",
+  "enviar.trabajo_conjunto": "Trabajo en conjunto con:",
   "enviar.email": "Correo Electr\u00f3nico *",
   "enviar.dni": "DNI o Pasaporte *",
   "enviar.eje": "Eje Tem\u00e1tico *",
@@ -227,6 +231,8 @@ export const es = {
   "enviar.error_dni": "DNI o Pasaporte inv\u00e1lido.",
   "enviar.error_email": "Correo electr\u00f3nico inv\u00e1lido.",
   "enviar.error_titulo": "T\u00edtulo de la presentaci\u00f3n inv\u00e1lido.",
+  "enviar.error_pais": "Pa\u00eds inv\u00e1lido.",
+  "enviar.error_trabajo_conjunto": "El campo Trabajo en conjunto con es inv\u00e1lido.",
   "enviar.error_eje": "Eje tem\u00e1tico inv\u00e1lido.",
   "enviar.error_asistente": "El rol Asistente no admite campos de la presentaci\u00f3n.",
   "enviar.error_method": "M\u00e9todo no permitido.",
@@ -241,9 +247,9 @@ export const es = {
   "enviar.rol_asistente": "Asistente",
   "enviar.rol_asistente_desc": "Participar del congreso sin presentar trabajo",
   "enviar.anuncio_expositor":
-    "Seleccionaste Expositor. Se muestran los campos: t\u00edtulo de la presentaci\u00f3n, eje tem\u00e1tico y resumen PDF.",
+    "Seleccionaste Expositor. Se muestran los campos: t\u00edtulo de la presentaci\u00f3n, eje tem\u00e1tico, resumen PDF, pa\u00eds y trabajo en conjunto.",
   "enviar.anuncio_asistente":
-    "Seleccionaste Asistente. Se ocultaron los campos: t\u00edtulo de la presentaci\u00f3n, eje tem\u00e1tico y resumen PDF.",
+    "Seleccionaste Asistente. Se ocultaron los campos: t\u00edtulo de la presentaci\u00f3n, eje tem\u00e1tico, resumen PDF, pa\u00eds y trabajo en conjunto.",
   "enviar.titulo_ponencia": "T\u00edtulo de la presentaci\u00f3n *",
   "enviar.placeholder_titulo": "Ej. Modelos de equilibrio general aplicados",
   "expos_form.title": "Env\u00edo de Comunicaciones Cient\u00edficas",

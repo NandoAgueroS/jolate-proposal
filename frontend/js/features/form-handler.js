@@ -7,6 +7,8 @@ import { refreshIcons } from "../core/utils.js";
 const idMap = {
   nombre: "author",
   institucion: "institution",
+  pais: "country",
+  trabajo_conjunto: "trabajo-conjunto",
   eje_tematico: "topic",
   titulo_ponencia: "title",
   archivo: "file",
@@ -24,6 +26,8 @@ const codeToKey = {
   dni_invalid: "enviar.error_dni",
   email_invalid: "enviar.error_email",
   titulo_invalid: "enviar.error_titulo",
+  pais_invalid: "enviar.error_pais",
+  trabajo_conjunto_invalid: "enviar.error_trabajo_conjunto",
   eje_invalid: "enviar.error_eje",
   pdf_missing: "enviar.error_pdf_missing",
   pdf_too_large: "enviar.error_size",
@@ -99,7 +103,17 @@ function initPaperForm(opts) {
   const roleRadios = opts.roleRadios || [];
   const expositorFields = opts.expositorFields || null;
   const roleAnnounce = opts.roleAnnounce || null;
-  const expositorInputs = ["form-title", "form-topic", "form-file"];
+  const expositorRequiredInputs = [
+    "form-title",
+    "form-topic",
+    "form-file",
+    "form-country",
+  ];
+  const expositorOptionalInputs = ["form-trabajo-conjunto"];
+  const expositorInputs = [
+    ...expositorRequiredInputs,
+    ...expositorOptionalInputs,
+  ];
 
   // Label del botón de archivo con el límite de tamaño interpolado.
   if (fileEmptyText) {
@@ -199,7 +213,7 @@ function initPaperForm(opts) {
       const field = paperForm.querySelector("#" + id);
       if (!field) return;
       field.disabled = !isExpositor;
-      field.required = isExpositor;
+      field.required = isExpositor && !expositorOptionalInputs.includes(id);
     });
     if (expositorFields) {
       expositorFields.hidden = !isExpositor;
@@ -212,6 +226,8 @@ function initPaperForm(opts) {
     clearFieldError("titulo_ponencia");
     clearFieldError("eje_tematico");
     clearFieldError("archivo");
+    clearFieldError("pais");
+    clearFieldError("trabajo_conjunto");
   }
 
   function getSelectedRole() {
@@ -330,6 +346,10 @@ function initPaperForm(opts) {
 
     const value = field.value ? field.value.trim() : "";
     if (!value) {
+      if (!field.required) {
+        clearFieldError(field.name);
+        return true;
+      }
       showFieldError(field.name, requiredMsg);
       return false;
     }

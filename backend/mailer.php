@@ -85,6 +85,8 @@ function sendParticipantEmail(array $config, array $row, $pdfPath = null) {
         $mail->Body    = mailWrap(
             'Tu presentación fue recibida correctamente',
             mailField('Nombre', $nombre)
+            . mailField('País', $row['pais'])
+            . (!empty($row['trabajo_conjunto']) ? mailField('Trabajo en conjunto con', $row['trabajo_conjunto']) : '')
             . mailField('Eje temático', $row['eje_tematico'])
             . mailField('Título de la presentación', $row['titulo_ponencia'])
             . '<p style="margin:20px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#043c41;">Tu presentación se adjunta a este correo.</p>'
@@ -93,6 +95,8 @@ function sendParticipantEmail(array $config, array $row, $pdfPath = null) {
         );
         $mail->AltBody = 'Tu presentación fue recibida correctamente.' . "\n"
             . 'Nombre: ' . $nombre . "\n"
+            . 'País: ' . $row['pais'] . "\n"
+            . (!empty($row['trabajo_conjunto']) ? 'Trabajo en conjunto con: ' . $row['trabajo_conjunto'] . "\n" : '')
             . 'Rol: Expositor' . "\n"
             . 'Eje: ' . $row['eje_tematico'] . "\n"
             . 'Título: ' . $row['titulo_ponencia'] . "\n"
@@ -159,6 +163,8 @@ function sendCommitteeEmail(array $config, array $row, $pdfPath = null) {
             mailField('Nombre', $nombre)
             . mailField('DNI / Pasaporte', $dni)
             . mailField('Institución', $row['institucion'])
+            . mailField('País', $row['pais'])
+            . (!empty($row['trabajo_conjunto']) ? mailField('Trabajo en conjunto con', $row['trabajo_conjunto']) : '')
             . mailField('Correo', $email)
             . mailField('Eje temático', $row['eje_tematico'])
             . mailField('Título de la presentación', $row['titulo_ponencia'])
@@ -169,6 +175,8 @@ function sendCommitteeEmail(array $config, array $row, $pdfPath = null) {
             . 'Nombre: ' . $nombre . "\n"
             . 'DNI / Pasaporte: ' . $dni . "\n"
             . 'Institución: ' . $row['institucion'] . "\n"
+            . 'País: ' . $row['pais'] . "\n"
+            . (!empty($row['trabajo_conjunto']) ? 'Trabajo en conjunto con: ' . $row['trabajo_conjunto'] . "\n" : '')
             . 'Correo: ' . $email . "\n"
             . 'Rol: Expositor' . "\n"
             . 'Eje: ' . $row['eje_tematico'] . "\n"

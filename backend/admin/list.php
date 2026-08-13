@@ -41,11 +41,12 @@ $cols = [
     1 => 't.nombre',
     2 => 'i.nombre',
     3 => 'i.institucion',
-    4 => 'i.email',
-    5 => 'i.dni',
-    6 => 'i.created_at',
-    7 => 'i.email_part_status',
-    8 => 'i.email_comm_status',
+    4 => 'i.pais',
+    5 => 'i.email',
+    6 => 'i.dni',
+    7 => 'i.created_at',
+    8 => 'i.email_part_status',
+    9 => 'i.email_comm_status',
 ];
 $orderCol = $cols[$orderColIdx] ?? 'i.id';
 $orderDir = ($orderDirRaw === 'asc') ? 'ASC' : 'DESC';
@@ -59,7 +60,7 @@ if ($rol === 'Expositor' || $rol === 'Asistente') {
 if ($search !== '') {
     // Single placeholder :q — native prepares (EMULATE_PREPARES=false) reject
     // reusing a named placeholder within the same statement.
-    $where .= ' AND CONCAT_WS(\' \', i.nombre, i.institucion, i.email, i.dni, i.titulo_ponencia) LIKE :q';
+    $where .= ' AND CONCAT_WS(\' \', i.nombre, i.institucion, i.pais, i.trabajo_conjunto, i.email, i.dni, i.titulo_ponencia) LIKE :q';
     $params[':q'] = '%' . $search . '%';
 }
 
@@ -79,7 +80,7 @@ try {
     $rowF = $stmtF->fetch();
     $recordsFiltered = (int)$rowF['c'];
 
-    $sqlD = "SELECT i.id, i.nombre, i.institucion, i.email, i.dni,"
+    $sqlD = "SELECT i.id, i.nombre, i.institucion, i.pais, i.trabajo_conjunto, i.email, i.dni,"
           . " i.titulo_ponencia, i.eje_tematico, i.archivo_filename,"
           . " i.email_part_status, i.email_comm_status,"
           . " i.created_at, t.nombre AS rol"
@@ -99,6 +100,8 @@ try {
             'rol'             => $r['rol'],
             'nombre'          => $r['nombre'],
             'institucion'     => $r['institucion'],
+            'pais'            => $r['pais'],
+            'trabajo_conjunto' => $r['trabajo_conjunto'],
             'email'           => $r['email'],
             'dni'             => $r['dni'],
             'titulo_ponencia' => $r['titulo_ponencia'],
