@@ -171,6 +171,8 @@ export const en = {
   "inscripcion.acceptance_label": "Acceptance:",
   "enviar.placeholder_nombre": "e.g. Dr. Maria Gonzalez",
   "enviar.placeholder_institucion": "e.g. UASLP, UNSL, ULP",
+  "enviar.placeholder_pais": "Select your country",
+  "enviar.placeholder_trabajo_conjunto": "e.g. Dr. John Doe",
   "enviar.placeholder_email": "author@university.edu",
   "enviar.placeholder_dni": "e.g. 12345678",
   "enviar.file_button": "Choose file (PDF \u00b7 max {max} MB)",
@@ -178,13 +180,15 @@ export const en = {
 
   "enviar.nombre": "Full Name *",
   "enviar.institucion": "University / Institution *",
+  "enviar.pais": "Country *",
+  "enviar.trabajo_conjunto": "Joint work with:",
   "enviar.email": "Email Address *",
   "enviar.dni": "ID or Passport *",
   "enviar.eje": "Thematic Area *",
-  "enviar.archivo": "Research File (PDF) *",
+  "enviar.archivo": "Abstract (PDF) *",
   "enviar.submit": "Submit Registration",
   "enviar.exito_expositor":
-    "\u2713 Paper submitted successfully! It has been registered in the public system activity. You'll receive a confirmation email shortly.",
+    "\u2713 Presentation submitted successfully! It has been registered in the public system activity. You'll receive a confirmation email shortly.",
   "enviar.exito_asistente":
     "\u2713 Registration registered successfully! You'll receive a confirmation email shortly.",
   "enviar.sending": "Submitting...",
@@ -196,7 +200,7 @@ export const en = {
   "enviar.error_connection":
     "Connection error. Check your internet and try again.",
   "enviar.error_size": "The file exceeds the maximum allowed size of {max} MB.",
-  "enviar.error_pdf_missing": "You must attach the PDF file.",
+  "enviar.error_pdf_missing": "You must attach the abstract PDF.",
   "enviar.error_upload_ini":
     "The file exceeds the allowed upload limit. Compress the PDF and try again.",
   "enviar.error_upload_form":
@@ -216,9 +220,11 @@ export const en = {
   "enviar.error_institucion": "Invalid university / institution.",
   "enviar.error_dni": "Invalid ID or passport.",
   "enviar.error_email": "Invalid email address.",
-  "enviar.error_titulo": "Invalid paper title.",
+  "enviar.error_titulo": "Invalid presentation title.",
+  "enviar.error_pais": "Invalid country.",
+  "enviar.error_trabajo_conjunto": "The joint work field is invalid.",
   "enviar.error_eje": "Invalid thematic area.",
-  "enviar.error_asistente": "The Attendee role does not accept paper fields.",
+  "enviar.error_asistente": "The Attendee role does not accept presentation fields.",
   "enviar.error_method": "Method not allowed.",
   "enviar.error_smtp_participant":
     "Your registration was saved but the confirmation email could not be sent. Do not resubmit the form: contact the committee to confirm.",
@@ -231,10 +237,10 @@ export const en = {
   "enviar.rol_asistente": "Attendee",
   "enviar.rol_asistente_desc": "Join the conference without presenting a paper",
   "enviar.anuncio_expositor":
-    "You selected Expositor. The following fields appeared: paper title, thematic area, and PDF file.",
+    "You selected Expositor. The following fields appeared: presentation title, thematic area, abstract PDF, country, and joint work.",
   "enviar.anuncio_asistente":
-    "You selected Attendee. The following fields were removed: paper title, thematic area, and PDF file.",
-  "enviar.titulo_ponencia": "Paper Title *",
+    "You selected Attendee. The following fields were removed: presentation title, thematic area, abstract PDF, country, and joint work.",
+  "enviar.titulo_ponencia": "Presentation Title *",
   "enviar.placeholder_titulo": "e.g. Applied general equilibrium models",
   "expos_form.title": "Scientific Communications Submission",
   "expos_form.description":

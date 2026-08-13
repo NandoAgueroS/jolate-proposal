@@ -144,9 +144,19 @@ $nombreArchivo = null;
 if ($rol === 'Expositor') {
     $titulo = trim($_POST['titulo_ponencia'] ?? '');
     $eje    = trim($_POST['eje_tematico']    ?? '');
+    $pais   = trim($_POST['pais']            ?? '');
+    $trabajoConjunto = trim($_POST['trabajo_conjunto'] ?? '');
 
     if ($titulo === '' || mb_strlen($titulo) > 300) {
-        jsonError('Título de ponencia inválido.', 422, 'titulo_ponencia', 'titulo_invalid');
+        jsonError('Título de la presentación inválido.', 422, 'titulo_ponencia', 'titulo_invalid');
+    }
+
+    if ($pais === '' || mb_strlen($pais) > 100) {
+        jsonError('País inválido.', 422, 'pais', 'pais_invalid');
+    }
+
+    if (mb_strlen($trabajoConjunto) > 300) {
+        jsonError('Trabajo en conjunto con inválido.', 422, 'trabajo_conjunto', 'trabajo_conjunto_invalid');
     }
 
     if (!in_array($eje, $config['ejes_tematicos_validos'])) {
@@ -155,7 +165,7 @@ if ($rol === 'Expositor') {
 
     // --- PDF validation (Expositor only) ---
     if (!isset($_FILES['archivo']) || $_FILES['archivo']['error'] === UPLOAD_ERR_NO_FILE) {
-        jsonError('Debes adjuntar el archivo PDF.', 422, 'archivo', 'pdf_missing');
+        jsonError('Debés adjuntar el resumen PDF.', 422, 'archivo', 'pdf_missing');
     } elseif ($_FILES['archivo']['error'] !== UPLOAD_ERR_OK) {
         // Map PHP upload error codes to machine-readable codes the frontend translates.
         $uploadError = $_FILES['archivo']['error'];
@@ -187,12 +197,14 @@ if ($rol === 'Expositor') {
     }
 } elseif ($rol === 'Asistente') {
     // Asistente MUST NOT send paper fields — reject with 422 if any are present
-    $hasTitulo  = trim($_POST['titulo_ponencia'] ?? '');
-    $hasEje     = trim($_POST['eje_tematico']    ?? '');
+    $hasTitulo        = trim($_POST['titulo_ponencia']     ?? '');
+    $hasEje           = trim($_POST['eje_tematico']        ?? '');
+    $hasPais          = trim($_POST['pais']                ?? '');
+    $hasTrabajoConjunto = trim($_POST['trabajo_conjunto']  ?? '');
     $hasArchivo = (isset($_FILES['archivo']) && $_FILES['archivo']['error'] !== UPLOAD_ERR_NO_FILE);
 
-    if ($hasTitulo !== '' || $hasEje !== '' || $hasArchivo) {
-        jsonError('El rol Asistente no admite campos de ponencia (titulo_ponencia, eje_tematico, archivo).', 422, '', 'asistente_fields');
+    if ($hasTitulo !== '' || $hasEje !== '' || $hasPais !== '' || $hasTrabajoConjunto !== '' || $hasArchivo) {
+        jsonError('El rol Asistente no admite campos de la presentación (titulo_ponencia, eje_tematico, archivo, pais, trabajo_conjunto).', 422, '', 'asistente_fields');
     }
 }
 
@@ -227,6 +239,8 @@ $registrationData = [
 ];
 
 if ($rol === 'Expositor') {
+    $registrationData['pais']             = $pais;
+    $registrationData['trabajo_conjunto'] = $trabajoConjunto !== '' ? $trabajoConjunto : null;
     $registrationData['titulo_ponencia']  = $titulo;
     $registrationData['eje_tematico']     = $eje;
     $registrationData['archivo_filename'] = $nombreArchivo;

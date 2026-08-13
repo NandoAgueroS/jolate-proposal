@@ -12,6 +12,7 @@ import { initComite } from "./features/comite.js";
 import { initEntranceAnimations } from "./features/gsap-animations.js";
 import { initLanguageToggle } from "./features/language-toggle.js";
 import { initFormHandler } from "./features/form-handler.js";
+import { initCountrySelects } from "./data/paises.js";
 import { initCertificadosModal } from "./features/certificados.js";
 
 initI18n();
@@ -25,5 +26,6 @@ initProgramTabs();
 initComite();
 initLanguageToggle();
 initFormHandler();
+initCountrySelects();
 initCertificadosModal();
 refreshIcons();
