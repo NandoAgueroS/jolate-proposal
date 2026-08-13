@@ -631,7 +631,7 @@ async function openDetail(id) {
     ["Institución", d.institucion],
     ["Email", d.email],
     ["DNI", d.dni],
-    ["Título de ponencia", d.titulo_ponencia],
+    ["Título de la presentación", d.titulo_ponencia],
     ["Eje temático", d.eje_tematico],
     ["Tiene PDF", d.tiene_pdf ? "Sí" : "No"],
     ["Fecha de inscripción", fmtDate(d.created_at)],

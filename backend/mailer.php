@@ -79,24 +79,24 @@ function sendParticipantEmail(array $config, array $row, $pdfPath = null) {
     $mail->isHTML(true);
 
     if ($isExpositor) {
-        $mail->addAttachment($pdfPath, 'ponencia-' . $dni . '.pdf');
+        $mail->addAttachment($pdfPath, 'presentacion-' . $dni . '.pdf');
 
-        $mail->Subject = 'Confirmación de recepción de ponencia — JOLATE 2026';
+        $mail->Subject = 'Confirmación de recepción de presentación — JOLATE 2026';
         $mail->Body    = mailWrap(
-            'Tu ponencia fue recibida correctamente',
+            'Tu presentación fue recibida correctamente',
             mailField('Nombre', $nombre)
             . mailField('Eje temático', $row['eje_tematico'])
-            . mailField('Título de la ponencia', $row['titulo_ponencia'])
-            . '<p style="margin:20px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#043c41;">Tu ponencia se adjunta a este correo.</p>'
+            . mailField('Título de la presentación', $row['titulo_ponencia'])
+            . '<p style="margin:20px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#043c41;">Tu presentación se adjunta a este correo.</p>'
             . '<p style="margin:20px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#043c41;">En breve el comité se pondrá en contacto.</p>',
             'Expositor'
         );
-        $mail->AltBody = 'Tu ponencia fue recibida correctamente.' . "\n"
+        $mail->AltBody = 'Tu presentación fue recibida correctamente.' . "\n"
             . 'Nombre: ' . $nombre . "\n"
             . 'Rol: Expositor' . "\n"
             . 'Eje: ' . $row['eje_tematico'] . "\n"
             . 'Título: ' . $row['titulo_ponencia'] . "\n"
-            . 'Archivo: adjunto a este correo' . "\n"
+            . 'Resumen: adjunto a este correo' . "\n"
             . 'En breve el comité se pondrá en contacto.';
     } else {
         $mail->Subject = 'Confirmación de inscripción — JOLATE 2026';
@@ -151,21 +151,21 @@ function sendCommitteeEmail(array $config, array $row, $pdfPath = null) {
     $mail->isHTML(true);
 
     if ($isExpositor) {
-        $mail->addAttachment($pdfPath, 'ponencia-' . $dni . '.pdf');
+        $mail->addAttachment($pdfPath, 'presentacion-' . $dni . '.pdf');
 
-        $mail->Subject = 'Nueva ponencia recibida: ' . $nombreSafe . ' (' . $row['eje_tematico'] . ')';
+        $mail->Subject = 'Nueva presentación recibida: ' . $nombreSafe . ' (' . $row['eje_tematico'] . ')';
         $mail->Body    = mailWrap(
-            'Nueva ponencia / resumen recibido',
+            'Nueva presentación / resumen recibido',
             mailField('Nombre', $nombre)
             . mailField('DNI / Pasaporte', $dni)
             . mailField('Institución', $row['institucion'])
             . mailField('Correo', $email)
             . mailField('Eje temático', $row['eje_tematico'])
-            . mailField('Título de la ponencia', $row['titulo_ponencia'])
-            . '<p style="margin:20px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#043c41;">La ponencia se adjunta a este correo.</p>',
+            . mailField('Título de la presentación', $row['titulo_ponencia'])
+            . '<p style="margin:20px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#043c41;">La presentación se adjunta a este correo.</p>',
             'Expositor'
         );
-        $mail->AltBody = 'Nueva ponencia recibida' . "\n"
+        $mail->AltBody = 'Nueva presentación recibida' . "\n"
             . 'Nombre: ' . $nombre . "\n"
             . 'DNI / Pasaporte: ' . $dni . "\n"
             . 'Institución: ' . $row['institucion'] . "\n"
@@ -173,7 +173,7 @@ function sendCommitteeEmail(array $config, array $row, $pdfPath = null) {
             . 'Rol: Expositor' . "\n"
             . 'Eje: ' . $row['eje_tematico'] . "\n"
             . 'Título: ' . $row['titulo_ponencia'] . "\n"
-            . 'Archivo: adjunto a este correo';
+            . 'Resumen: adjunto a este correo';
     } else {
         $mail->Subject = 'Nueva inscripción: ' . $nombreSafe . ' (Asistente)';
         $mail->Body    = mailWrap(

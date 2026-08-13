@@ -58,7 +58,7 @@ try {
     // UTF-8 BOM so Excel detects encoding (acentos correctos).
     fwrite($out, "\xEF\xBB\xBF");
     fputcsv($out, ['ID', 'Rol', 'Nombre', 'Institución', 'Email', 'DNI',
-                        'Título de ponencia', 'Eje temático', '¿Tiene PDF?',
+                        'Título de la presentación', 'Eje temático', '¿Tiene PDF?',
                         'Email Participante', 'Email Comité', 'Fecha de inscripción'],
                   ';');
     foreach ($rows as $r) {

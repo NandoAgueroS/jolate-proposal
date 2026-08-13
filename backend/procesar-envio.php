@@ -146,7 +146,7 @@ if ($rol === 'Expositor') {
     $eje    = trim($_POST['eje_tematico']    ?? '');
 
     if ($titulo === '' || mb_strlen($titulo) > 300) {
-        jsonError('Título de ponencia inválido.', 422, 'titulo_ponencia', 'titulo_invalid');
+        jsonError('Título de la presentación inválido.', 422, 'titulo_ponencia', 'titulo_invalid');
     }
 
     if (!in_array($eje, $config['ejes_tematicos_validos'])) {
@@ -155,7 +155,7 @@ if ($rol === 'Expositor') {
 
     // --- PDF validation (Expositor only) ---
     if (!isset($_FILES['archivo']) || $_FILES['archivo']['error'] === UPLOAD_ERR_NO_FILE) {
-        jsonError('Debes adjuntar el archivo PDF.', 422, 'archivo', 'pdf_missing');
+        jsonError('Debés adjuntar el resumen PDF.', 422, 'archivo', 'pdf_missing');
     } elseif ($_FILES['archivo']['error'] !== UPLOAD_ERR_OK) {
         // Map PHP upload error codes to machine-readable codes the frontend translates.
         $uploadError = $_FILES['archivo']['error'];
@@ -192,7 +192,7 @@ if ($rol === 'Expositor') {
     $hasArchivo = (isset($_FILES['archivo']) && $_FILES['archivo']['error'] !== UPLOAD_ERR_NO_FILE);
 
     if ($hasTitulo !== '' || $hasEje !== '' || $hasArchivo) {
-        jsonError('El rol Asistente no admite campos de ponencia (titulo_ponencia, eje_tematico, archivo).', 422, '', 'asistente_fields');
+        jsonError('El rol Asistente no admite campos de la presentación (titulo_ponencia, eje_tematico, archivo).', 422, '', 'asistente_fields');
     }
 }
 

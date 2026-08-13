@@ -188,10 +188,10 @@ export const es = {
   "enviar.email": "Correo Electr\u00f3nico *",
   "enviar.dni": "DNI o Pasaporte *",
   "enviar.eje": "Eje Tem\u00e1tico *",
-  "enviar.archivo": "Archivo de Investigaci\u00f3n (PDF) *",
+  "enviar.archivo": "Resumen (pdf) *",
   "enviar.submit": "Procesar Registro y Enviar",
   "enviar.exito_expositor":
-    "\u2713 \u00a1Ponencia cargada correctamente! Se ha registrado en la actividad p\u00fablica del sistema. Recibir\u00e1s un correo de confirmaci\u00f3n en breve.",
+    "\u2713 \u00a1Presentaci\u00f3n cargada correctamente! Se ha registrado en la actividad p\u00fablica del sistema. Recibir\u00e1s un correo de confirmaci\u00f3n en breve.",
   "enviar.exito_asistente":
     "\u2713 \u00a1Inscripci\u00f3n registrada correctamente! Recibir\u00e1s un correo de confirmaci\u00f3n en breve.",
   "enviar.sending": "Enviando...",
@@ -204,7 +204,7 @@ export const es = {
     "Error de conexi\u00f3n. Verific\u00e1 tu internet e intent\u00e1 nuevamente.",
   "enviar.error_size":
     "El archivo supera el tama\u00f1o m\u00e1ximo permitido de {max} MB.",
-  "enviar.error_pdf_missing": "Deb\u00e9s adjuntar el archivo PDF.",
+  "enviar.error_pdf_missing": "Deb\u00e9s adjuntar el resumen PDF.",
   "enviar.error_upload_ini":
     "El archivo supera el l\u00edmite de subida permitido. Comprim\u00ed el PDF e intent\u00e1 nuevamente.",
   "enviar.error_upload_form":
@@ -226,9 +226,9 @@ export const es = {
   "enviar.error_institucion": "Universidad / Instituci\u00f3n inv\u00e1lida.",
   "enviar.error_dni": "DNI o Pasaporte inv\u00e1lido.",
   "enviar.error_email": "Correo electr\u00f3nico inv\u00e1lido.",
-  "enviar.error_titulo": "T\u00edtulo de ponencia inv\u00e1lido.",
+  "enviar.error_titulo": "T\u00edtulo de la presentaci\u00f3n inv\u00e1lido.",
   "enviar.error_eje": "Eje tem\u00e1tico inv\u00e1lido.",
-  "enviar.error_asistente": "El rol Asistente no admite campos de ponencia.",
+  "enviar.error_asistente": "El rol Asistente no admite campos de la presentaci\u00f3n.",
   "enviar.error_method": "M\u00e9todo no permitido.",
   "enviar.error_smtp_participant":
     "La inscripci\u00f3n se registr\u00f3 pero no se pudo enviar el correo de confirmaci\u00f3n. No reenv\u00edes el formulario: contact\u00e1 al comit\u00e9 para confirmar.",
@@ -241,10 +241,10 @@ export const es = {
   "enviar.rol_asistente": "Asistente",
   "enviar.rol_asistente_desc": "Participar del congreso sin presentar trabajo",
   "enviar.anuncio_expositor":
-    "Seleccionaste Expositor. Se muestran los campos: t\u00edtulo de la ponencia, eje tem\u00e1tico y archivo PDF.",
+    "Seleccionaste Expositor. Se muestran los campos: t\u00edtulo de la presentaci\u00f3n, eje tem\u00e1tico y resumen PDF.",
   "enviar.anuncio_asistente":
-    "Seleccionaste Asistente. Se ocultaron los campos: t\u00edtulo de la ponencia, eje tem\u00e1tico y archivo PDF.",
-  "enviar.titulo_ponencia": "T\u00edtulo de la Ponencia *",
+    "Seleccionaste Asistente. Se ocultaron los campos: t\u00edtulo de la presentaci\u00f3n, eje tem\u00e1tico y resumen PDF.",
+  "enviar.titulo_ponencia": "T\u00edtulo de la presentaci\u00f3n *",
   "enviar.placeholder_titulo": "Ej. Modelos de equilibrio general aplicados",
   "expos_form.title": "Env\u00edo de Comunicaciones Cient\u00edficas",
   "expos_form.description":
