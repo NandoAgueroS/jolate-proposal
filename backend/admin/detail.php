@@ -28,7 +28,7 @@ if ($id <= 0) {
 
 try {
     $pdo = get_pdo($config);
-    $sql = "SELECT i.id, i.nombre, i.institucion, i.pais, i.trabajo_conjunto, i.email, i.dni,"
+    $sql = "SELECT i.id, i.nombre, i.institucion, i.pais, i.trabajo_conjunto, i.actividad_principal, i.email, i.dni,"
          . " i.titulo_ponencia, i.eje_tematico, i.archivo_filename,"
          . " i.email_part_status, i.email_part_attempts, i.email_part_error,"
          . " i.email_comm_status, i.email_comm_attempts, i.email_comm_error,"

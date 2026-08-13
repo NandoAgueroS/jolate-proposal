@@ -1430,34 +1430,6 @@
               <div>
                 <label
                   class="block text-xs font-mono font-medium text-text mb-1.5"
-                  for="expo-form-institution"
-                  data-i18n="enviar.institucion"
-                  >Universidad / Institución *</label
-                >
-                <input
-                  type="text"
-                  id="expo-form-institution"
-                  name="institucion"
-                  required
-                  maxlength="200"
-                  autocomplete="organization"
-                  placeholder="Ej. UASLP, UNSL, ULP"
-                  data-i18n-placeholder="enviar.placeholder_institucion"
-                  class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                />
-                <span
-                  class="field-error hidden text-xs text-red-500 font-mono mt-1"
-                  data-field="institucion"
-                  role="alert"
-                  aria-live="polite"
-                ></span>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label
-                  class="block text-xs font-mono font-medium text-text mb-1.5"
                   for="expo-form-country"
                   data-i18n="enviar.pais"
                   >País *</label
@@ -1484,26 +1456,82 @@
                   aria-live="polite"
                 ></span>
               </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label
                   class="block text-xs font-mono font-medium text-text mb-1.5"
-                  for="expo-form-trabajo-conjunto"
-                  data-i18n="enviar.trabajo_conjunto"
-                  >Trabajo en conjunto con:</label
+                  for="expo-form-institution"
+                  data-i18n="enviar.institucion"
+                  >Universidad / Institución *</label
                 >
                 <input
                   type="text"
-                  id="expo-form-trabajo-conjunto"
-                  name="trabajo_conjunto"
-                  maxlength="300"
-                  autocomplete="off"
-                  placeholder="Ej. Dr. Juan Pérez"
-                  data-i18n-placeholder="enviar.placeholder_trabajo_conjunto"
+                  id="expo-form-institution"
+                  name="institucion"
+                  required
+                  maxlength="200"
+                  autocomplete="organization"
+                  placeholder="Ej. UASLP, UNSL, ULP"
+                  data-i18n-placeholder="enviar.placeholder_institucion"
                   class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
                 />
                 <span
                   class="field-error hidden text-xs text-red-500 font-mono mt-1"
-                  data-field="trabajo_conjunto"
+                  data-field="institucion"
+                  role="alert"
+                  aria-live="polite"
+                ></span>
+              </div>
+              <div>
+                <label
+                  class="block text-xs font-mono font-medium text-text mb-1.5"
+                  for="expo-form-actividad"
+                  data-i18n="enviar.actividad_principal"
+                  >Actividad Principal *</label
+                >
+                <select
+                  id="expo-form-actividad"
+                  name="actividad_principal"
+                  required
+                  class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all appearance-none"
+                >
+                  <option
+                    value=""
+                    disabled
+                    selected
+                    data-i18n="enviar.placeholder_actividad"
+                    >Seleccioná tu actividad</option
+                  >
+                  <option
+                    value="Estudiante de grado"
+                    data-i18n="enviar.actividad_grado"
+                  >
+                    Estudiante de grado
+                  </option>
+                  <option
+                    value="Estudiante de posgrado"
+                    data-i18n="enviar.actividad_posgrado"
+                  >
+                    Estudiante de posgrado
+                  </option>
+                  <option
+                    value="Docente/Investigador"
+                    data-i18n="enviar.actividad_docente"
+                  >
+                    Docente/Investigador
+                  </option>
+                  <option
+                    value="Otro"
+                    data-i18n="enviar.actividad_otro"
+                  >
+                    Otro
+                  </option>
+                </select>
+                <span
+                  class="field-error hidden text-xs text-red-500 font-mono mt-1"
+                  data-field="actividad_principal"
                   role="alert"
                   aria-live="polite"
                 ></span>
@@ -1566,32 +1594,33 @@
               </div>
             </div>
 
+            <div>
+              <label
+                class="block text-xs font-mono font-medium text-text mb-1.5"
+                for="expo-form-title"
+                data-i18n="enviar.titulo_ponencia"
+                >Título de la presentación *</label
+              >
+              <input
+                type="text"
+                id="expo-form-title"
+                name="titulo_ponencia"
+                required
+                maxlength="300"
+                autocomplete="off"
+                placeholder="Ej. Modelos de equilibrio general aplicados"
+                data-i18n-placeholder="enviar.placeholder_titulo"
+                class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+              />
+              <span
+                class="field-error hidden text-xs text-red-500 font-mono mt-1"
+                data-field="titulo_ponencia"
+                role="alert"
+                aria-live="polite"
+              ></span>
+            </div>
+
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label
-                  class="block text-xs font-mono font-medium text-text mb-1.5"
-                  for="expo-form-title"
-                  data-i18n="enviar.titulo_ponencia"
-                  >Título de la presentación *</label
-                >
-                <input
-                  type="text"
-                  id="expo-form-title"
-                  name="titulo_ponencia"
-                  required
-                  maxlength="300"
-                  autocomplete="off"
-                  placeholder="Ej. Modelos de equilibrio general aplicados"
-                  data-i18n-placeholder="enviar.placeholder_titulo"
-                  class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                />
-                <span
-                  class="field-error hidden text-xs text-red-500 font-mono mt-1"
-                  data-field="titulo_ponencia"
-                  role="alert"
-                  aria-live="polite"
-                ></span>
-              </div>
               <div>
                 <label
                   class="block text-xs font-mono font-medium text-text mb-1.5"
@@ -1651,6 +1680,30 @@
                 <span
                   class="field-error hidden text-xs text-red-500 font-mono mt-1"
                   data-field="eje_tematico"
+                  role="alert"
+                  aria-live="polite"
+                ></span>
+              </div>
+              <div>
+                <label
+                  class="block text-xs font-mono font-medium text-text mb-1.5"
+                  for="expo-form-trabajo-conjunto"
+                  data-i18n="enviar.trabajo_conjunto"
+                  >Trabajo en conjunto con:</label
+                >
+                <input
+                  type="text"
+                  id="expo-form-trabajo-conjunto"
+                  name="trabajo_conjunto"
+                  maxlength="300"
+                  autocomplete="off"
+                  placeholder="Ej. Dr. Juan Pérez"
+                  data-i18n-placeholder="enviar.placeholder_trabajo_conjunto"
+                  class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                />
+                <span
+                  class="field-error hidden text-xs text-red-500 font-mono mt-1"
+                  data-field="trabajo_conjunto"
                   role="alert"
                   aria-live="polite"
                 ></span>
@@ -1959,6 +2012,38 @@
                   <div>
                     <label
                       class="block text-xs font-mono font-medium text-text mb-1.5"
+                      for="form-country"
+                      data-i18n="enviar.pais"
+                      >País *</label
+                    >
+                    <select
+                      id="form-country"
+                      name="pais"
+                      required
+                      data-country-select
+                      class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all appearance-none"
+                    >
+                      <option
+                        value=""
+                        disabled
+                        selected
+                        data-i18n="enviar.placeholder_pais"
+                        >Seleccioná tu país</option
+                      >
+                    </select>
+                    <span
+                      class="field-error hidden text-xs text-red-500 font-mono mt-1"
+                      data-field="pais"
+                      role="alert"
+                      aria-live="polite"
+                    ></span>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      class="block text-xs font-mono font-medium text-text mb-1.5"
                       data-i18n="enviar.institucion"
                       >Universidad / Institución *</label
                     >
@@ -1976,6 +2061,58 @@
                     <span
                       class="field-error hidden text-xs text-red-500 font-mono mt-1"
                       data-field="institucion"
+                      role="alert"
+                      aria-live="polite"
+                    ></span>
+                  </div>
+                  <div>
+                    <label
+                      class="block text-xs font-mono font-medium text-text mb-1.5"
+                      for="form-actividad"
+                      data-i18n="enviar.actividad_principal"
+                      >Actividad Principal *</label
+                    >
+                    <select
+                      id="form-actividad"
+                      name="actividad_principal"
+                      required
+                      class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all appearance-none"
+                    >
+                      <option
+                        value=""
+                        disabled
+                        selected
+                        data-i18n="enviar.placeholder_actividad"
+                        >Seleccioná tu actividad</option
+                      >
+                      <option
+                        value="Estudiante de grado"
+                        data-i18n="enviar.actividad_grado"
+                      >
+                        Estudiante de grado
+                      </option>
+                      <option
+                        value="Estudiante de posgrado"
+                        data-i18n="enviar.actividad_posgrado"
+                      >
+                        Estudiante de posgrado
+                      </option>
+                      <option
+                        value="Docente/Investigador"
+                        data-i18n="enviar.actividad_docente"
+                      >
+                        Docente/Investigador
+                      </option>
+                      <option
+                        value="Otro"
+                        data-i18n="enviar.actividad_otro"
+                      >
+                        Otro
+                      </option>
+                    </select>
+                    <span
+                      class="field-error hidden text-xs text-red-500 font-mono mt-1"
+                      data-field="actividad_principal"
                       role="alert"
                       aria-live="polite"
                     ></span>
@@ -2038,87 +2175,33 @@
 
                 <!-- Campos exclusivos del rol Expositor (ocultos y deshabilitados para Asistente) -->
                 <div id="expositor-fields" class="space-y-5">
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        class="block text-xs font-mono font-medium text-text mb-1.5"
-                        for="form-country"
-                        data-i18n="enviar.pais"
-                        >País *</label
-                      >
-                      <select
-                        id="form-country"
-                        name="pais"
-                        required
-                        data-country-select
-                        class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all appearance-none"
-                      >
-                        <option
-                          value=""
-                          disabled
-                          selected
-                          data-i18n="enviar.placeholder_pais"
-                          >Seleccioná tu país</option
-                        >
-                      </select>
-                      <span
-                        class="field-error hidden text-xs text-red-500 font-mono mt-1"
-                        data-field="pais"
-                        role="alert"
-                        aria-live="polite"
-                      ></span>
-                    </div>
-                    <div>
-                      <label
-                        class="block text-xs font-mono font-medium text-text mb-1.5"
-                        for="form-trabajo-conjunto"
-                        data-i18n="enviar.trabajo_conjunto"
-                        >Trabajo en conjunto con:</label
-                      >
-                      <input
-                        type="text"
-                        id="form-trabajo-conjunto"
-                        name="trabajo_conjunto"
-                        maxlength="300"
-                        autocomplete="off"
-                        placeholder="Ej. Dr. Juan Pérez"
-                        data-i18n-placeholder="enviar.placeholder_trabajo_conjunto"
-                        class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                      />
-                      <span
-                        class="field-error hidden text-xs text-red-500 font-mono mt-1"
-                        data-field="trabajo_conjunto"
-                        role="alert"
-                        aria-live="polite"
-                      ></span>
-                    </div>
+                  <div>
+                    <label
+                      class="block text-xs font-mono font-medium text-text mb-1.5"
+                      for="form-title"
+                      data-i18n="enviar.titulo_ponencia"
+                      >Título de la presentación *</label
+                    >
+                    <input
+                      type="text"
+                      id="form-title"
+                      name="titulo_ponencia"
+                      required
+                      maxlength="300"
+                      autocomplete="off"
+                      placeholder="Ej. Modelos de equilibrio general aplicados"
+                      data-i18n-placeholder="enviar.placeholder_titulo"
+                      class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                    />
+                    <span
+                      class="field-error hidden text-xs text-red-500 font-mono mt-1"
+                      data-field="titulo_ponencia"
+                      role="alert"
+                      aria-live="polite"
+                    ></span>
                   </div>
 
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        class="block text-xs font-mono font-medium text-text mb-1.5"
-                        data-i18n="enviar.titulo_ponencia"
-                        >Título de la presentación *</label
-                      >
-                      <input
-                        type="text"
-                        id="form-title"
-                        name="titulo_ponencia"
-                        required
-                        maxlength="300"
-                        autocomplete="off"
-                        placeholder="Ej. Modelos de equilibrio general aplicados"
-                        data-i18n-placeholder="enviar.placeholder_titulo"
-                        class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-                      />
-                      <span
-                        class="field-error hidden text-xs text-red-500 font-mono mt-1"
-                        data-field="titulo_ponencia"
-                        role="alert"
-                        aria-live="polite"
-                      ></span>
-                    </div>
                     <div>
                       <label
                         class="block text-xs font-mono font-medium text-text mb-1.5"
@@ -2177,6 +2260,30 @@
                       <span
                         class="field-error hidden text-xs text-red-500 font-mono mt-1"
                         data-field="eje_tematico"
+                        role="alert"
+                        aria-live="polite"
+                      ></span>
+                    </div>
+                    <div>
+                      <label
+                        class="block text-xs font-mono font-medium text-text mb-1.5"
+                        for="form-trabajo-conjunto"
+                        data-i18n="enviar.trabajo_conjunto"
+                        >Trabajo en conjunto con:</label
+                      >
+                      <input
+                        type="text"
+                        id="form-trabajo-conjunto"
+                        name="trabajo_conjunto"
+                        maxlength="300"
+                        autocomplete="off"
+                        placeholder="Ej. Dr. Juan Pérez"
+                        data-i18n-placeholder="enviar.placeholder_trabajo_conjunto"
+                        class="w-full bg-bg border border-tint/60 rounded-xl px-4 py-2.5 text-sm text-text placeholder-text/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                      />
+                      <span
+                        class="field-error hidden text-xs text-red-500 font-mono mt-1"
+                        data-field="trabajo_conjunto"
                         role="alert"
                         aria-live="polite"
                       ></span>

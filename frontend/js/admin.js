@@ -379,6 +379,7 @@ function renderDashboard() {
                     el("th", null, "País"),
                     el("th", null, "Email"),
                     el("th", null, "DNI"),
+                    el("th", null, "Actividad"),
                     el("th", null, "Fecha"),
                     el("th", null, "Email Participante"),
                     el("th", null, "Email Comité"),
@@ -522,6 +523,11 @@ function initDataTable() {
       { data: "email", render: (d) => truncCell(d, 220) },
       { data: "dni", width: "90px" },
       {
+        data: "actividad_principal",
+        title: "Actividad",
+        render: (d) => truncCell(d, 140),
+      },
+      {
         data: "created_at",
         width: "80px",
         render: (d) => {
@@ -637,6 +643,7 @@ async function openDetail(id) {
     ["Trabajo en conjunto con", d.trabajo_conjunto],
     ["Email", d.email],
     ["DNI", d.dni],
+    ["Actividad Principal", d.actividad_principal],
     ["Título de la presentación", d.titulo_ponencia],
     ["Eje temático", d.eje_tematico],
     ["Tiene PDF", d.tiene_pdf ? "Sí" : "No"],

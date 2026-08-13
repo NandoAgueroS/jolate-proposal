@@ -135,6 +135,16 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL) || mb_strlen($email) > 200) {
     jsonError('Correo electrónico inválido.', 422, 'email', 'email_invalid');
 }
 
+$actividadPrincipal = trim($_POST['actividad_principal'] ?? '');
+if ($actividadPrincipal === '' || mb_strlen($actividadPrincipal) > 60) {
+    jsonError('Actividad principal inválida.', 422, 'actividad_principal', 'actividad_invalid');
+}
+
+$pais = trim($_POST['pais'] ?? '');
+if ($pais === '' || mb_strlen($pais) > 100) {
+    jsonError('País inválido.', 422, 'pais', 'pais_invalid');
+}
+
 // ---------- Role-specific field validation ----------
 $titulo       = '';
 $eje          = '';
@@ -144,15 +154,10 @@ $nombreArchivo = null;
 if ($rol === 'Expositor') {
     $titulo = trim($_POST['titulo_ponencia'] ?? '');
     $eje    = trim($_POST['eje_tematico']    ?? '');
-    $pais   = trim($_POST['pais']            ?? '');
     $trabajoConjunto = trim($_POST['trabajo_conjunto'] ?? '');
 
     if ($titulo === '' || mb_strlen($titulo) > 300) {
         jsonError('Título de la presentación inválido.', 422, 'titulo_ponencia', 'titulo_invalid');
-    }
-
-    if ($pais === '' || mb_strlen($pais) > 100) {
-        jsonError('País inválido.', 422, 'pais', 'pais_invalid');
     }
 
     if (mb_strlen($trabajoConjunto) > 300) {
@@ -199,12 +204,11 @@ if ($rol === 'Expositor') {
     // Asistente MUST NOT send paper fields — reject with 422 if any are present
     $hasTitulo        = trim($_POST['titulo_ponencia']     ?? '');
     $hasEje           = trim($_POST['eje_tematico']        ?? '');
-    $hasPais          = trim($_POST['pais']                ?? '');
     $hasTrabajoConjunto = trim($_POST['trabajo_conjunto']  ?? '');
     $hasArchivo = (isset($_FILES['archivo']) && $_FILES['archivo']['error'] !== UPLOAD_ERR_NO_FILE);
 
-    if ($hasTitulo !== '' || $hasEje !== '' || $hasPais !== '' || $hasTrabajoConjunto !== '' || $hasArchivo) {
-        jsonError('El rol Asistente no admite campos de la presentación (titulo_ponencia, eje_tematico, archivo, pais, trabajo_conjunto).', 422, '', 'asistente_fields');
+    if ($hasTitulo !== '' || $hasEje !== '' || $hasTrabajoConjunto !== '' || $hasArchivo) {
+        jsonError('El rol Asistente no admite campos de la presentación (titulo_ponencia, eje_tematico, archivo, trabajo_conjunto).', 422, '', 'asistente_fields');
     }
 }
 
@@ -231,15 +235,16 @@ if ($rol === 'Expositor') {
 
 // ---------- Persistence ----------
 $registrationData = [
-    'id_tipo_inscripto' => $idTipoInscripto,
-    'nombre'            => $nombre,
-    'institucion'       => $institucion,
-    'email'             => $email,
-    'dni'               => $dni,
+    'id_tipo_inscripto'  => $idTipoInscripto,
+    'nombre'             => $nombre,
+    'institucion'        => $institucion,
+    'pais'               => $pais,
+    'email'              => $email,
+    'dni'                => $dni,
+    'actividad_principal' => $actividadPrincipal,
 ];
 
 if ($rol === 'Expositor') {
-    $registrationData['pais']             = $pais;
     $registrationData['trabajo_conjunto'] = $trabajoConjunto !== '' ? $trabajoConjunto : null;
     $registrationData['titulo_ponencia']  = $titulo;
     $registrationData['eje_tematico']     = $eje;
