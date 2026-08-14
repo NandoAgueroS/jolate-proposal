@@ -87,6 +87,7 @@ function sendParticipantEmail(array $config, array $row, $pdfPath = null) {
             mailField('Nombre', $nombre)
             . mailField('País', $row['pais'])
             . (!empty($row['trabajo_conjunto']) ? mailField('Trabajo en conjunto con', $row['trabajo_conjunto']) : '')
+            . mailField('Actividad principal', $row['actividad_principal'])
             . mailField('Eje temático', $row['eje_tematico'])
             . mailField('Título de la presentación', $row['titulo_ponencia'])
             . '<p style="margin:20px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#043c41;">Tu presentación se adjunta a este correo.</p>'
@@ -98,6 +99,7 @@ function sendParticipantEmail(array $config, array $row, $pdfPath = null) {
             . 'País: ' . $row['pais'] . "\n"
             . (!empty($row['trabajo_conjunto']) ? 'Trabajo en conjunto con: ' . $row['trabajo_conjunto'] . "\n" : '')
             . 'Rol: Expositor' . "\n"
+            . 'Actividad principal: ' . $row['actividad_principal'] . "\n"
             . 'Eje: ' . $row['eje_tematico'] . "\n"
             . 'Título: ' . $row['titulo_ponencia'] . "\n"
             . 'Resumen: adjunto a este correo' . "\n"
@@ -107,12 +109,16 @@ function sendParticipantEmail(array $config, array $row, $pdfPath = null) {
         $mail->Body    = mailWrap(
             'Tu inscripción fue recibida correctamente',
             mailField('Nombre', $nombre)
+            . mailField('País', $row['pais'])
+            . mailField('Actividad principal', $row['actividad_principal'])
             . '<p style="margin:20px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#043c41;">En breve el comité se pondrá en contacto.</p>',
             'Asistente'
         );
         $mail->AltBody = 'Tu inscripción fue recibida correctamente.' . "\n"
             . 'Nombre: ' . $nombre . "\n"
+            . 'País: ' . $row['pais'] . "\n"
             . 'Rol: Asistente' . "\n"
+            . 'Actividad principal: ' . $row['actividad_principal'] . "\n"
             . 'En breve el comité se pondrá en contacto.';
     }
 
@@ -165,6 +171,7 @@ function sendCommitteeEmail(array $config, array $row, $pdfPath = null) {
             . mailField('Institución', $row['institucion'])
             . mailField('País', $row['pais'])
             . (!empty($row['trabajo_conjunto']) ? mailField('Trabajo en conjunto con', $row['trabajo_conjunto']) : '')
+            . mailField('Actividad principal', $row['actividad_principal'])
             . mailField('Correo', $email)
             . mailField('Eje temático', $row['eje_tematico'])
             . mailField('Título de la presentación', $row['titulo_ponencia'])
@@ -179,6 +186,7 @@ function sendCommitteeEmail(array $config, array $row, $pdfPath = null) {
             . (!empty($row['trabajo_conjunto']) ? 'Trabajo en conjunto con: ' . $row['trabajo_conjunto'] . "\n" : '')
             . 'Correo: ' . $email . "\n"
             . 'Rol: Expositor' . "\n"
+            . 'Actividad principal: ' . $row['actividad_principal'] . "\n"
             . 'Eje: ' . $row['eje_tematico'] . "\n"
             . 'Título: ' . $row['titulo_ponencia'] . "\n"
             . 'Resumen: adjunto a este correo';
@@ -188,12 +196,16 @@ function sendCommitteeEmail(array $config, array $row, $pdfPath = null) {
             'Nueva inscripción',
             mailField('Nombre', $nombre)
             . mailField('Institución', $row['institucion'])
+            . mailField('País', $row['pais'])
+            . mailField('Actividad principal', $row['actividad_principal'])
             . mailField('Correo', $email),
             'Asistente'
         );
         $mail->AltBody = 'Nueva inscripción' . "\n"
             . 'Nombre: ' . $nombre . "\n"
             . 'Institución: ' . $row['institucion'] . "\n"
+            . 'País: ' . $row['pais'] . "\n"
+            . 'Actividad principal: ' . $row['actividad_principal'] . "\n"
             . 'Correo: ' . $email . "\n"
             . 'Rol: Asistente';
     }

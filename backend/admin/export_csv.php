@@ -31,13 +31,13 @@ if ($rol === 'Expositor' || $rol === 'Asistente') {
 if ($q !== '') {
     // Single placeholder :q — native prepares (EMULATE_PREPARES=false) reject
     // reusing a named placeholder within the same statement.
-    $where .= ' AND CONCAT_WS(\' \', i.nombre, i.institucion, i.pais, i.trabajo_conjunto, i.email, i.dni, i.titulo_ponencia) LIKE :q';
+    $where .= ' AND CONCAT_WS(\' \', i.nombre, i.institucion, i.pais, i.trabajo_conjunto, i.actividad_principal, i.email, i.dni, i.titulo_ponencia) LIKE :q';
     $params[':q'] = '%' . $q . '%';
 }
 
 try {
     $pdo = get_pdo($config);
-    $sql = "SELECT i.id, i.nombre, i.institucion, i.pais, i.trabajo_conjunto, i.email, i.dni,"
+    $sql = "SELECT i.id, i.nombre, i.institucion, i.pais, i.trabajo_conjunto, i.actividad_principal, i.email, i.dni,"
          . " i.titulo_ponencia, i.eje_tematico, i.archivo_filename,"
          . " i.email_part_status, i.email_comm_status,"
          . " i.created_at, t.nombre AS rol"
@@ -58,7 +58,7 @@ try {
     // UTF-8 BOM so Excel detects encoding (acentos correctos).
     fwrite($out, "\xEF\xBB\xBF");
     fputcsv($out, ['ID', 'Rol', 'Nombre', 'Institución', 'País', 'Trabajo en conjunto con',
-                        'Email', 'DNI', 'Título de la presentación', 'Eje temático', '¿Tiene PDF?',
+                        'Actividad principal', 'Email', 'DNI', 'Título de la presentación', 'Eje temático', '¿Tiene PDF?',
                         'Email Participante', 'Email Comité', 'Fecha de inscripción'],
                   ';');
     foreach ($rows as $r) {
@@ -69,6 +69,7 @@ try {
             $r['institucion'],
             $r['pais'],
             $r['trabajo_conjunto'],
+            $r['actividad_principal'],
             $r['email'],
             $r['dni'],
             $r['titulo_ponencia'],

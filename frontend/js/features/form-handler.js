@@ -9,6 +9,7 @@ const idMap = {
   institucion: "institution",
   pais: "country",
   trabajo_conjunto: "trabajo-conjunto",
+  actividad_principal: "actividad",
   eje_tematico: "topic",
   titulo_ponencia: "title",
   archivo: "file",
@@ -28,6 +29,7 @@ const codeToKey = {
   titulo_invalid: "enviar.error_titulo",
   pais_invalid: "enviar.error_pais",
   trabajo_conjunto_invalid: "enviar.error_trabajo_conjunto",
+  actividad_invalid: "enviar.error_actividad",
   eje_invalid: "enviar.error_eje",
   pdf_missing: "enviar.error_pdf_missing",
   pdf_too_large: "enviar.error_size",
@@ -107,7 +109,6 @@ function initPaperForm(opts) {
     "form-title",
     "form-topic",
     "form-file",
-    "form-country",
   ];
   const expositorOptionalInputs = ["form-trabajo-conjunto"];
   const expositorInputs = [
