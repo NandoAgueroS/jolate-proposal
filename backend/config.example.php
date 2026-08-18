@@ -6,6 +6,15 @@
  * config.php debe quedar FUERA del control de versiones (.gitignore ya lo excluye).
  */
 
+$envPath = DIR . '/../.env';
+if (file_exists($envPath)) {
+    $lines = file($envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        if (strpos(trim($line), '#') === 0) continue;
+        list($name, $value) = explode('=', $line, 2);
+        $_ENV[trim($name)] = trim($value);
+    }
+}
 return [
 
     // ── SMTP (correo de notificación) ─────────────────────────────
