@@ -67,8 +67,6 @@ Sitio web estático informativo del evento académico + panel de administración
 │   ├── entrypoint.sh               ← Arranca cron + Apache
 │   ├── crontab                     ← Worker email cada 5 min
 │   └── ... 
-├── bin/
-│   └── setup-runtime.sh            ← Permisos writables en deploy
 └── docs/                           ← Planes y auditorías
     ├── plan-dashboard-admin-jolate.md
     ├── plan-envio-ponencias.md

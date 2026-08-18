@@ -4,7 +4,7 @@
 Options -Indexes
 
 # Protect sensitive files from direct HTTP access
-<FilesMatch "^(config|composer|certificado-lib)\.(php|json|lock)$">
+<FilesMatch "^(config|certificado-lib)\.(php|json|lock)$">
     <IfModule !mod_authz_core.c>
         Order deny,allow
         Deny from all

@@ -15,8 +15,6 @@ frontend/         SPA estática (index.html, admin.html, JS vanilla, Tailwind CD
 docker/           Docker Compose services (MySQL 8.0, MailHog, phpMyAdmin)
   entrypoint.sh   Arranca cron + Apache
   crontab         Worker de email cada 5 min
-bin/              Scripts de setup
-  setup-runtime.sh   Permisos de directorios writables
 docs/             Documentación y planes
   plan-dashboard-admin-jolate.md   Plan del panel de administración
 ```
@@ -45,8 +43,12 @@ Servicios:
 
 1. Clonar el repo en el directorio que sirve el vhost
 2. Copiar `backend/config.example.php` → `backend/config.php` y completar credenciales
-3. Ejecutar `./bin/setup-runtime.sh /ruta/al/repo` (o sin argumentos desde la raíz)
-4. Asegurar que Apache tenga `AllowOverride All` y `mod_rewrite` habilitado
+3. Asegurar que Apache tenga `AllowOverride All` y `mod_rewrite` habilitado
+
+`config.php` verifica que `backend/uploads/`, `backend/logs/` y
+`backend/certificados/` existan y tengan permisos `0755`. Si falta algún
+permiso, lo registra en el log de errores de PHP/Apache; no crea ni modifica
+directorios automáticamente.
 
 El `.htaccess` en la raíz del repo se encarga del ruteo frontend ← → backend,
 no requiere configuración extra del VirtualHost.

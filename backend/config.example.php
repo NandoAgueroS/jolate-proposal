@@ -6,7 +6,7 @@
  * config.php debe quedar FUERA del control de versiones (.gitignore ya lo excluye).
  */
 
-$envPath = DIR . '/../.env';
+$envPath = __DIR__ . '/../.env';
 if (file_exists($envPath)) {
     $lines = file($envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     foreach ($lines as $line) {
@@ -15,6 +15,52 @@ if (file_exists($envPath)) {
         $_ENV[trim($name)] = trim($value);
     }
 }
+
+/**
+ * Verifica que los directorios de runtime existan y sean utilizables.
+ * La creación y el cambio de propietario/permisos se resuelven fuera de PHP.
+ */
+function jolate_verify_runtime_directory(string $path): void
+{
+    $requiredMode = 0755;
+
+    if (!is_dir($path)) {
+        error_log('[JOLATE] Falta el directorio de runtime: ' . $path);
+        return;
+    }
+
+    $permissions = fileperms($path);
+    if ($permissions === false) {
+        error_log('[JOLATE] No se pudieron verificar los permisos de: ' . $path);
+        return;
+    }
+
+    $actualMode = $permissions & 0777;
+    $missingMode = $requiredMode & ~$actualMode;
+    if ($missingMode !== 0) {
+        error_log(sprintf(
+            '[JOLATE] Faltan permisos en %s: requeridos 0%o, actuales 0%o',
+            $path,
+            $requiredMode,
+            $actualMode
+        ));
+    }
+
+    if (!is_readable($path)) {
+        error_log('[JOLATE] El proceso PHP no tiene permiso de lectura en: ' . $path);
+    }
+    if (!is_writable($path)) {
+        error_log('[JOLATE] El proceso PHP no tiene permiso de escritura en: ' . $path);
+    }
+    if (!is_executable($path)) {
+        error_log('[JOLATE] El proceso PHP no tiene permiso de acceso en: ' . $path);
+    }
+}
+
+jolate_verify_runtime_directory(__DIR__ . '/uploads');
+jolate_verify_runtime_directory(__DIR__ . '/logs');
+jolate_verify_runtime_directory(__DIR__ . '/certificados');
+
 return [
 
     // ── SMTP (correo de notificación) ─────────────────────────────
