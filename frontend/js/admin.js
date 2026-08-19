@@ -370,78 +370,80 @@ function renderDashboard() {
                 "Exportar CSV",
               ],
             ),
-            el(
-              "div",
-              { class: "relative" },
-              [
-                el(
-                  "button",
-                  {
-                    id: "btn-retry-emails",
-                    type: "button",
-                    class:
-                      "inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-md text-sm font-medium",
-                    on: { click: toggleRetryMenu },
-                  },
-                  [
-                    el("i", { "data-lucide": "mail", class: "w-4 h-4" }),
-                    "Reintentar emails",
-                    el("i", { "data-lucide": "chevron-down", class: "w-3 h-3" }),
-                  ],
-                ),
-                el(
-                  "div",
-                  {
-                    id: "retry-menu",
-                    class:
-                      "hidden absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg border border-tint z-50",
-                  },
-                  [
-                    el(
-                      "div",
-                      { class: "px-4 py-2 text-xs text-text/70 border-b border-tint bg-bg/50" },
-                      [
-                        el("div", { class: "flex items-start gap-1.5" }, [
-                          el("i", { "data-lucide": "info", class: "w-3 h-3 mt-0.5 flex-shrink-0" }),
-                          el(
-                            "div",
-                            null,
-                            "Los emails pendientes se reintentan automáticamente cada 5 minutos. Los fallidos requieren reintento manual."
-                          ),
-                        ]),
-                      ]
-                    ),
-                    el(
-                      "button",
-                      {
-                        class:
-                          "w-full text-left px-4 py-2 text-sm text-text hover:bg-bg transition",
-                        on: { click: () => onRetryEmails("pending") },
-                      },
-                      "Solo pendientes",
-                    ),
-                    el(
-                      "button",
-                      {
-                        class:
-                          "w-full text-left px-4 py-2 text-sm text-text hover:bg-bg transition",
-                        on: { click: () => onRetryEmails("failed") },
-                      },
-                      "Solo fallidos",
-                    ),
-                    el(
-                      "button",
-                      {
-                        class:
-                          "w-full text-left px-4 py-2 text-sm text-text hover:bg-bg transition border-t border-tint",
-                        on: { click: () => onRetryEmails("all") },
-                      },
-                      "Todos (pendientes + fallidos)",
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            el("div", { class: "relative" }, [
+              el(
+                "button",
+                {
+                  id: "btn-retry-emails",
+                  type: "button",
+                  class:
+                    "inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-md text-sm font-medium",
+                  on: { click: toggleRetryMenu },
+                },
+                [
+                  el("i", { "data-lucide": "mail", class: "w-4 h-4" }),
+                  "Reintentar emails",
+                  el("i", { "data-lucide": "chevron-down", class: "w-3 h-3" }),
+                ],
+              ),
+              el(
+                "div",
+                {
+                  id: "retry-menu",
+                  class:
+                    "hidden absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg border border-tint z-50",
+                },
+                [
+                  el(
+                    "div",
+                    {
+                      class:
+                        "px-4 py-2 text-xs text-text/70 border-b border-tint bg-bg/50",
+                    },
+                    [
+                      el("div", { class: "flex items-start gap-1.5" }, [
+                        el("i", {
+                          "data-lucide": "info",
+                          class: "w-3 h-3 mt-0.5 flex-shrink-0",
+                        }),
+                        el(
+                          "div",
+                          null,
+                          "Los emails pendientes se reintentan automáticamente cada 5 minutos. Los fallidos requieren reintento manual.",
+                        ),
+                      ]),
+                    ],
+                  ),
+                  el(
+                    "button",
+                    {
+                      class:
+                        "w-full text-left px-4 py-2 text-sm text-text hover:bg-bg transition",
+                      on: { click: () => onRetryEmails("pending") },
+                    },
+                    "Solo pendientes",
+                  ),
+                  el(
+                    "button",
+                    {
+                      class:
+                        "w-full text-left px-4 py-2 text-sm text-text hover:bg-bg transition",
+                      on: { click: () => onRetryEmails("failed") },
+                    },
+                    "Solo fallidos",
+                  ),
+                  el(
+                    "button",
+                    {
+                      class:
+                        "w-full text-left px-4 py-2 text-sm text-text hover:bg-bg transition border-t border-tint",
+                      on: { click: () => onRetryEmails("all") },
+                    },
+                    "Todos (pendientes + fallidos)",
+                  ),
+                ],
+              ),
+            ]),
             el(
               "button",
               {
@@ -476,7 +478,7 @@ function renderDashboard() {
     ]),
     el(
       "main",
-      { class: "flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6" },
+      { class: "flex-1 max-w-10xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6" },
       [
         el(
           "div",
