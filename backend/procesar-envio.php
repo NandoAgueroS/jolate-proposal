@@ -37,10 +37,6 @@ if (!is_array($config['committee_emails']) || count($config['committee_emails'])
 if (!is_array($config['tipo_inscripto_ids']) || count($config['tipo_inscripto_ids']) === 0) {
     jsonError('Configuration invalid.', 500, '', 'server_config');
 }
-if (!is_dir($config['upload_dir']) || !is_writable($config['upload_dir'])) {
-    jsonError('Upload directory not writable.', 500, '', 'server_upload_dir');
-}
-
 $logDir = __DIR__ . '/logs';
 $logFile = $logDir . '/error.log';
 
