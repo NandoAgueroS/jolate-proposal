@@ -240,13 +240,56 @@ if ($rol === 'Expositor') {
 $idInscripto = save_registration($registrationData);
 
 if ($idInscripto === false) {
-    // DB failure: best-effort unlink the saved PDF (Expositor only)
     if ($rol === 'Expositor' && $rutaDestino !== null && file_exists($rutaDestino)) {
         @unlink($rutaDestino);
     }
     logError('DB FAILED — save_registration returned false for ' . $rol . ' / ' . $email);
     jsonError('No se pudo registrar la inscripción. Intentá más tarde.', 500, '', 'server_db');
 }
+
+// ---------- Email sending (best-effort) ----------
+$partStatus   = 'pending';
+$partAttempts = 0;
+$partError    = null;
+$commStatus   = 'pending';
+$commAttempts = 0;
+$commError    = null;
+
+$mailerRow = [
+    'id_tipo_inscripto'  => $idTipoInscripto,
+    'nombre'             => $nombre,
+    'email'              => $email,
+    'dni'                => $dni,
+    'pais'               => $pais,
+    'institucion'        => $institucion,
+    'actividad_principal' => $actividadPrincipal,
+    'trabajo_conjunto'   => $rol === 'Expositor' ? ($trabajoConjunto ?? null) : null,
+    'titulo_ponencia'    => $rol === 'Expositor' ? $titulo : null,
+    'eje_tematico'       => $rol === 'Expositor' ? $eje : null,
+];
+
+$pdfPath = ($rol === 'Expositor' && $rutaDestino !== null) ? $rutaDestino : null;
+
+try {
+    sendParticipantEmail($config, $mailerRow, $pdfPath);
+    $partStatus = 'sent';
+} catch (Exception $e) {
+    $partAttempts = 1;
+    $partError = mb_substr($e->getMessage(), 0, 500);
+    logError('PART EMAIL FAILED id=' . $idInscripto . ': ' . $e->getMessage());
+}
+
+try {
+    sendCommitteeEmail($config, $mailerRow, $pdfPath);
+    $commStatus = 'sent';
+} catch (Exception $e) {
+    $commAttempts = 1;
+    $commError = mb_substr($e->getMessage(), 0, 500);
+    logError('COMM EMAIL FAILED id=' . $idInscripto . ': ' . $e->getMessage());
+}
+
+update_email_status($idInscripto, $partStatus, $partAttempts, $partError,
+                    $commStatus, $commAttempts, $commError);
 
 // ---------- Success ----------
 jsonSuccess('¡Inscripción registrada correctamente! Recibirás un correo de confirmación en breve.');

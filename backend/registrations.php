@@ -47,6 +47,10 @@ function get_pdo(array $config) {
  *   - titulo_ponencia    (string|null, optional — Asistente passes null)
  *   - eje_tematico       (string|null, optional — Asistente passes null)
  *   - archivo_filename   (string|null, optional — Asistente passes null)
+ *   - email_part_status  (string, optional — default 'pending')
+ *   - email_part_attempts (int, optional — default 0)
+ *   - email_comm_status  (string, optional — default 'pending')
+ *   - email_comm_attempts (int, optional — default 0)
  *
  * Uses global $config for DB connection parameters (set by the calling endpoint).
  *
@@ -62,15 +66,13 @@ function save_registration(array $data) {
     try {
         $pdo = get_pdo($config);
 
-        // All identifiers are backtick-quoted.
-        // `id_tipo_inscripto` is a FK to `jolate_tipo_inscripto`.
         $sql = 'INSERT INTO `jolate_inscriptos` '
              . '(`id_tipo_inscripto`, `nombre`, `institucion`, `email`, `dni`, '
              . '`pais`, `trabajo_conjunto`, `actividad_principal`, `titulo_ponencia`, `eje_tematico`, `archivo_filename`, '
-             . '`email_part_status`, `email_comm_status`) '
+             . '`email_part_status`, `email_part_attempts`, `email_comm_status`, `email_comm_attempts`) '
              . 'VALUES (:id_tipo_inscripto, :nombre, :institucion, :email, :dni, '
              . ':pais, :trabajo_conjunto, :actividad_principal, :titulo_ponencia, :eje_tematico, :archivo_filename, '
-             . "'pending', 'pending')";
+             . ':email_part_status, :email_part_attempts, :email_comm_status, :email_comm_attempts)';
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
@@ -85,12 +87,68 @@ function save_registration(array $data) {
             ':titulo_ponencia'   => $data['titulo_ponencia']     ?? null,
             ':eje_tematico'      => $data['eje_tematico']      ?? null,
             ':archivo_filename'  => $data['archivo_filename']  ?? null,
+            ':email_part_status' => $data['email_part_status'] ?? 'pending',
+            ':email_part_attempts' => (int) ($data['email_part_attempts'] ?? 0),
+            ':email_comm_status' => $data['email_comm_status'] ?? 'pending',
+            ':email_comm_attempts' => (int) ($data['email_comm_attempts'] ?? 0),
         ]);
 
         return (int) $pdo->lastInsertId();
 
     } catch (PDOException $e) {
         $linea = '[' . date('Y-m-d H:i:s') . '] DB FAILED — save_registration: '
+               . $e->getMessage() . "\n";
+        @file_put_contents($logFile, $linea, FILE_APPEND);
+        return false;
+    }
+}
+
+/**
+ * Update email delivery status after send attempt.
+ *
+ * @param int $id Registration ID
+ * @param string $partStatus 'sent', 'pending', or 'failed'
+ * @param int $partAttempts Number of send attempts
+ * @param string|null $partError Error message (max 500 chars)
+ * @param string $commStatus 'sent', 'pending', or 'failed'
+ * @param int $commAttempts Number of send attempts
+ * @param string|null $commError Error message (max 500 chars)
+ * @return bool True on success, false on failure
+ */
+function update_email_status(int $id, string $partStatus, int $partAttempts, ?string $partError,
+                              string $commStatus, int $commAttempts, ?string $commError): bool {
+    global $config;
+
+    $logDir = __DIR__ . '/logs';
+    $logFile = $logDir . '/error.log';
+
+    try {
+        $pdo = get_pdo($config);
+
+        $sql = 'UPDATE `jolate_inscriptos` '
+             . 'SET `email_part_status` = :part_status, '
+             . '`email_part_attempts` = :part_attempts, '
+             . '`email_part_error` = :part_error, '
+             . '`email_comm_status` = :comm_status, '
+             . '`email_comm_attempts` = :comm_attempts, '
+             . '`email_comm_error` = :comm_error '
+             . 'WHERE id = :id';
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':part_status'   => $partStatus,
+            ':part_attempts' => $partAttempts,
+            ':part_error'    => $partError,
+            ':comm_status'   => $commStatus,
+            ':comm_attempts' => $commAttempts,
+            ':comm_error'    => $commError,
+            ':id'            => $id,
+        ]);
+
+        return true;
+
+    } catch (PDOException $e) {
+        $linea = '[' . date('Y-m-d H:i:s') . '] DB FAILED — update_email_status: '
                . $e->getMessage() . "\n";
         @file_put_contents($logFile, $linea, FILE_APPEND);
         return false;

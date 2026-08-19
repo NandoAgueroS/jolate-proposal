@@ -122,7 +122,7 @@ function sendParticipantEmail(array $config, array $row, $pdfPath = null) {
             . 'En breve el comité se pondrá en contacto.';
     }
 
-    $mail->send();
+    return $mail->send();
 }
 
 /**
@@ -210,5 +210,5 @@ function sendCommitteeEmail(array $config, array $row, $pdfPath = null) {
             . 'Rol: Asistente';
     }
 
-    $mail->send();
+    return $mail->send();
 }
