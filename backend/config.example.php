@@ -25,21 +25,21 @@ function jolate_verify_runtime_directory(string $path): void
     $requiredMode = 0755;
 
     if (!is_dir($path)) {
-        error_log('[JOLATE] Falta el directorio de runtime: ' . $path);
+        jolate_log('Falta el directorio de runtime: ' . $path);
         return;
     }
 
     $permissions = fileperms($path);
     if ($permissions === false) {
-        error_log('[JOLATE] No se pudieron verificar los permisos de: ' . $path);
+        jolate_log('No se pudieron verificar los permisos de: ' . $path);
         return;
     }
 
     $actualMode = $permissions & 0777;
     $missingMode = $requiredMode & ~$actualMode;
     if ($missingMode !== 0) {
-        error_log(sprintf(
-            '[JOLATE] Faltan permisos en %s: requeridos 0%o, actuales 0%o',
+        jolate_log(sprintf(
+            'Faltan permisos en %s: requeridos 0%o, actuales 0%o',
             $path,
             $requiredMode,
             $actualMode
@@ -47,14 +47,24 @@ function jolate_verify_runtime_directory(string $path): void
     }
 
     if (!is_readable($path)) {
-        error_log('[JOLATE] El proceso PHP no tiene permiso de lectura en: ' . $path);
+        jolate_log('El proceso PHP no tiene permiso de lectura en: ' . $path);
     }
     if (!is_writable($path)) {
-        error_log('[JOLATE] El proceso PHP no tiene permiso de escritura en: ' . $path);
+        jolate_log('El proceso PHP no tiene permiso de escritura en: ' . $path);
     }
     if (!is_executable($path)) {
-        error_log('[JOLATE] El proceso PHP no tiene permiso de acceso en: ' . $path);
+        jolate_log('El proceso PHP no tiene permiso de acceso en: ' . $path);
     }
+}
+
+/**
+ * Append timestamped error to logs/error.log (same format as other backend files).
+ */
+function jolate_log(string $msg): void
+{
+    $dir = __DIR__ . '/logs';
+    $linea = '[' . date('Y-m-d H:i:s') . '] [CONFIG] — ' . $msg . "\n";
+    @file_put_contents($dir . '/error.log', $linea, FILE_APPEND);
 }
 
 jolate_verify_runtime_directory(__DIR__ . '/uploads');
