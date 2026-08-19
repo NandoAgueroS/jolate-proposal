@@ -22,6 +22,7 @@ Options -Indexes
     RewriteRule ^admin/detail\.php$    backend/admin/detail.php         [L]
     RewriteRule ^admin/download\.php$  backend/admin/download_pdf.php   [L]
     RewriteRule ^admin/export\.php$    backend/admin/export_csv.php     [L]
+    RewriteRule ^admin/retry-emails\.php$ backend/admin/retry-emails.php [L]
 
     # Expose uploaded PDFs at /uploads/ while they live in backend/uploads/.
     RewriteRule ^uploads/(.*)$ backend/uploads/$1 [L]

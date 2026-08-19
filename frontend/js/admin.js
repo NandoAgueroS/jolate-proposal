@@ -249,6 +249,85 @@ function onRefresh() {
   if (state.dt) state.dt.ajax.reload();
 }
 
+function toggleRetryMenu() {
+  const menu = document.getElementById("retry-menu");
+  if (menu) menu.classList.toggle("hidden");
+}
+
+function showToast(message, type = "info") {
+  const existing = document.getElementById("admin-toast");
+  if (existing) existing.remove();
+
+  const colors = {
+    success: "bg-green-500",
+    error: "bg-red-500",
+    info: "bg-primary",
+  };
+
+  const toast = el(
+    "div",
+    {
+      id: "admin-toast",
+      class: `fixed bottom-4 right-4 ${colors[type] || colors.info} text-white px-6 py-3 rounded-lg shadow-lg z-50 transition-opacity`,
+    },
+    message,
+  );
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    setTimeout(() => toast.remove(), 300);
+  }, 4000);
+}
+
+async function onRetryEmails(scope) {
+  const menu = document.getElementById("retry-menu");
+  if (menu) menu.classList.add("hidden");
+
+  const labels = {
+    pending: "pendientes",
+    failed: "fallidos",
+    all: "pendientes y fallidos",
+  };
+
+  if (!confirm(`¿Reintentar emails ${labels[scope] || scope}?`)) {
+    return;
+  }
+
+  const btn = document.getElementById("btn-retry-emails");
+  const originalText = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML =
+    '<i data-lucide="loader" class="w-4 h-4 animate-spin"></i>Procesando...';
+  refreshIcons();
+
+  try {
+    const res = await fetch("admin/retry-emails.php", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: "scope=" + encodeURIComponent(scope),
+    });
+
+    const data = await res.json();
+
+    if (data && data.ok) {
+      const msg = `${data.sent} enviado(s), ${data.failed} fallido(s)`;
+      showToast(msg, data.failed > 0 ? "info" : "success");
+      if (state.dt) state.dt.ajax.reload();
+    } else {
+      showToast("Error al reintentar emails", "error");
+    }
+  } catch (e) {
+    showToast("Error de red al reintentar emails", "error");
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = originalText;
+    refreshIcons();
+  }
+}
+
 function renderDashboard() {
   const app = document.getElementById("app");
   app.innerHTML = "";
@@ -289,6 +368,78 @@ function renderDashboard() {
               [
                 el("i", { "data-lucide": "download", class: "w-4 h-4" }),
                 "Exportar CSV",
+              ],
+            ),
+            el(
+              "div",
+              { class: "relative" },
+              [
+                el(
+                  "button",
+                  {
+                    id: "btn-retry-emails",
+                    type: "button",
+                    class:
+                      "inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-md text-sm font-medium",
+                    on: { click: toggleRetryMenu },
+                  },
+                  [
+                    el("i", { "data-lucide": "mail", class: "w-4 h-4" }),
+                    "Reintentar emails",
+                    el("i", { "data-lucide": "chevron-down", class: "w-3 h-3" }),
+                  ],
+                ),
+                el(
+                  "div",
+                  {
+                    id: "retry-menu",
+                    class:
+                      "hidden absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg border border-tint z-50",
+                  },
+                  [
+                    el(
+                      "div",
+                      { class: "px-4 py-2 text-xs text-text/70 border-b border-tint bg-bg/50" },
+                      [
+                        el("div", { class: "flex items-start gap-1.5" }, [
+                          el("i", { "data-lucide": "info", class: "w-3 h-3 mt-0.5 flex-shrink-0" }),
+                          el(
+                            "div",
+                            null,
+                            "Los emails pendientes se reintentan automáticamente cada 5 minutos. Los fallidos requieren reintento manual."
+                          ),
+                        ]),
+                      ]
+                    ),
+                    el(
+                      "button",
+                      {
+                        class:
+                          "w-full text-left px-4 py-2 text-sm text-text hover:bg-bg transition",
+                        on: { click: () => onRetryEmails("pending") },
+                      },
+                      "Solo pendientes",
+                    ),
+                    el(
+                      "button",
+                      {
+                        class:
+                          "w-full text-left px-4 py-2 text-sm text-text hover:bg-bg transition",
+                        on: { click: () => onRetryEmails("failed") },
+                      },
+                      "Solo fallidos",
+                    ),
+                    el(
+                      "button",
+                      {
+                        class:
+                          "w-full text-left px-4 py-2 text-sm text-text hover:bg-bg transition border-t border-tint",
+                        on: { click: () => onRetryEmails("all") },
+                      },
+                      "Todos (pendientes + fallidos)",
+                    ),
+                  ],
+                ),
               ],
             ),
             el(
@@ -453,6 +604,14 @@ function renderDashboard() {
     const r = state.rolFilter.value;
     window.location =
       "admin/export.php" + (r ? "?rol=" + encodeURIComponent(r) : "");
+  });
+
+  document.addEventListener("click", (ev) => {
+    const btn = document.getElementById("btn-retry-emails");
+    const menu = document.getElementById("retry-menu");
+    if (btn && menu && !btn.contains(ev.target) && !menu.contains(ev.target)) {
+      menu.classList.add("hidden");
+    }
   });
 
   initDataTable();
