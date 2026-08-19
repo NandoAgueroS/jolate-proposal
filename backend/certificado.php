@@ -57,9 +57,6 @@ function certificado_exit_json(array $data)
 function certificado_log(string $mensaje): void
 {
     $logDir = __DIR__ . '/logs';
-    if (!is_dir($logDir)) {
-        @mkdir($logDir, 0755, true);
-    }
     $linea = '[' . date('Y-m-d H:i:s') . '] CERTIFICADO — ' . $mensaje . "\n";
     @file_put_contents($logDir . '/error.log', $linea, FILE_APPEND);
 }
@@ -71,9 +68,6 @@ function certificado_log(string $mensaje): void
 function certificado_rate_limit(string $bucket): void
 {
     $dir = __DIR__ . '/logs';
-    if (!is_dir($dir)) {
-        @mkdir($dir, 0755, true);
-    }
     $key = md5($bucket . '|' . ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
     $file = $dir . '/rate-' . $key . '.log';
     $now  = time();

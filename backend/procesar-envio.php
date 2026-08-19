@@ -37,21 +37,7 @@ if (!is_array($config['committee_emails']) || count($config['committee_emails'])
 if (!is_array($config['tipo_inscripto_ids']) || count($config['tipo_inscripto_ids']) === 0) {
     jsonError('Configuration invalid.', 500, '', 'server_config');
 }
-if (!is_writable(dirname($config['upload_dir'])) && !is_writable($config['upload_dir'])) {
-    jsonError('Upload directory not writable.', 500, '', 'server_upload_dir');
-}
-
-// Ensure upload directory exists
-if (!is_dir($config['upload_dir'])) {
-    mkdir($config['upload_dir'], 0755, true);
-}
-
-// Ensure log directory exists
 $logDir = __DIR__ . '/logs';
-if (!is_dir($logDir)) {
-    mkdir($logDir, 0755, true);
-}
-
 $logFile = $logDir . '/error.log';
 
 // Valid roles — must match config['tipo_inscripto_ids'] keys and init.sql seeds

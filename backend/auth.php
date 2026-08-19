@@ -17,7 +17,6 @@ date_default_timezone_set('UTC');
 
 function admin_log_error($msg) {
     $dir = __DIR__ . '/logs';
-    if (!is_dir($dir)) { @mkdir($dir, 0755, true); }
     @file_put_contents($dir . '/error.log', '[' . date('Y-m-d H:i:s') . '] ' . $msg . "\n", FILE_APPEND);
 }
 

@@ -24,11 +24,6 @@ RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/jolate-propo
 # Copy entire repository structure into jolate-proposal/
 COPY . /var/www/html/jolate-proposal/
 
-# Set writable permissions on runtime directories.
-# Git tracks directory existence via .gitkeep but cannot store
-# ownership or mode — both Docker and production need this step.
-RUN /var/www/html/jolate-proposal/bin/setup-runtime.sh /var/www/html/jolate-proposal
-
 # Cron configuration for email worker
 COPY docker/crontab /etc/cron.d/jolate
 RUN chmod 0644 /etc/cron.d/jolate && crontab -u www-data /etc/cron.d/jolate

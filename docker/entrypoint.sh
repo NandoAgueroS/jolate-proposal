@@ -9,5 +9,5 @@ done < <(printenv) > /var/www/env_vars
 # Start cron daemon for email worker
 cron
 
-# Start Apache in foreground
-exec apache2-foreground
+# Run the command provided by Docker Compose/Dockerfile.
+exec "$@"

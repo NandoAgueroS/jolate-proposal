@@ -56,11 +56,7 @@ function get_pdo(array $config) {
 function save_registration(array $data) {
     global $config;
 
-    // Log directory — matches procesar-envio.php convention
     $logDir = __DIR__ . '/logs';
-    if (!is_dir($logDir)) {
-        @mkdir($logDir, 0755, true);
-    }
     $logFile = $logDir . '/error.log';
 
     try {

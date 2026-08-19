@@ -6,7 +6,7 @@
  * config.php debe quedar FUERA del control de versiones (.gitignore ya lo excluye).
  */
 
-$envPath = DIR . '/../.env';
+$envPath = __DIR__ . '/../.env';
 if (file_exists($envPath)) {
     $lines = file($envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     foreach ($lines as $line) {
@@ -15,6 +15,75 @@ if (file_exists($envPath)) {
         $_ENV[trim($name)] = trim($value);
     }
 }
+
+/**
+ * Verifica que los directorios de runtime existan y sean utilizables.
+ * La creación y el cambio de propietario/permisos se resuelven fuera de PHP.
+ */
+function jolate_verify_runtime_directory(string $path): void
+{
+    $requiredMode = 0755;
+
+    if (!is_dir($path)) {
+        jolate_log('Falta el directorio de runtime: ' . $path);
+        return;
+    }
+
+    $permissions = fileperms($path);
+    if ($permissions === false) {
+        jolate_log('No se pudieron verificar los permisos de: ' . $path);
+        return;
+    }
+
+    $actualMode = $permissions & 0777;
+    $missingMode = $requiredMode & ~$actualMode;
+    if ($missingMode !== 0) {
+        jolate_log(sprintf(
+            'Faltan permisos en %s: requeridos 0%o, actuales 0%o',
+            $path,
+            $requiredMode,
+            $actualMode
+        ));
+    }
+
+    if (!is_readable($path)) {
+        jolate_log('El proceso PHP no tiene permiso de lectura en: ' . $path);
+    }
+    if (!is_writable($path)) {
+        jolate_log('El proceso PHP no tiene permiso de escritura en: ' . $path);
+    }
+    if (!is_executable($path)) {
+        jolate_log('El proceso PHP no tiene permiso de acceso en: ' . $path);
+    }
+}
+
+/**
+ * Append timestamped error to logs/error.log (same format as other backend files).
+ */
+function jolate_log(string $msg): void
+{
+    $dir = __DIR__ . '/logs';
+    $linea = '[' . date('Y-m-d H:i:s') . '] [CONFIG] — ' . $msg . "\n";
+    @file_put_contents($dir . '/error.log', $linea, FILE_APPEND);
+}
+
+jolate_verify_runtime_directory(__DIR__ . '/uploads');
+jolate_verify_runtime_directory(__DIR__ . '/logs');
+jolate_verify_runtime_directory(__DIR__ . '/certificados');
+
+// ── Variables de entorno requeridas ────────────────────────────────
+// Todas las variables que lee este config son obligatorias.
+$requiredEnv = [
+    'SMTP_HOST', 'SMTP_PORT', 'SMTP_USER', 'SMTP_PASS', 'SMTP_ENCRYPTION',
+    'SMTP_FROM_EMAIL', 'SMTP_FROM_NAME', 'SMTP_COMMITTEE_EMAILS',
+    'DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASS',
+];
+foreach ($requiredEnv as $key) {
+    if (!isset($_ENV[$key]) || $_ENV[$key] === '') {
+        jolate_log("Falta la variable de entorno requerida: $key");
+    }
+}
+
 return [
 
     // ── SMTP (correo de notificación) ─────────────────────────────
@@ -24,21 +93,19 @@ return [
     //
     // Todos los valores deben configurarse via env vars en producción.
     'smtp' => [
-        'host'       => getenv('SMTP_HOST'),
-        'port'       => getenv('SMTP_PORT'),
-        'username'   => getenv('SMTP_USER'),
-        'password'   => getenv('SMTP_PASS'),
-        'encryption' => getenv('SMTP_ENCRYPTION'),
-        'from_email' => getenv('SMTP_FROM_EMAIL'),
-        'from_name'  => getenv('SMTP_FROM_NAME'),
+        'host'       => $_ENV['SMTP_HOST'],
+        'port'       => $_ENV['SMTP_PORT'],
+        'username'   => $_ENV['SMTP_USER'],
+        'password'   => $_ENV['SMTP_PASS'],
+        'encryption' => $_ENV['SMTP_ENCRYPTION'],
+        'from_email' => $_ENV['SMTP_FROM_EMAIL'],
+        'from_name'  => $_ENV['SMTP_FROM_NAME'],
     ],
 
     // ── Destinatarios ─────────────────────────────────────────────
     // Emails que reciben la notificación con la ponencia adjunta.
     // Configurable via SMTP_COMMITTEE_EMAILS (comma-separated).
-    'committee_emails' => getenv('SMTP_COMMITTEE_EMAILS')
-        ? explode(',', getenv('SMTP_COMMITTEE_EMAILS'))
-        : ['comite@ejemplo.com'],
+    'committee_emails' => explode(',', $_ENV['SMTP_COMMITTEE_EMAILS']),
 
     // ── Almacenamiento de archivos ─────────────────────────────────
     // upload_dir: carpeta física donde se guardan los PDFs.
@@ -68,10 +135,10 @@ return [
     // Configurable via environment variables:
     //   DB_HOST, DB_NAME, DB_USER, DB_PASS
     'db' => [
-        'host' => getenv('DB_HOST'),
-        'name' => getenv('DB_NAME'),
-        'user' => getenv('DB_USER'),
-        'pass' => getenv('DB_PASS'),
+        'host' => $_ENV['DB_HOST'],
+        'name' => $_ENV['DB_NAME'],
+        'user' => $_ENV['DB_USER'],
+        'pass' => $_ENV['DB_PASS'],
     ],
 
     // ── Tipo de inscripto ──────────────────────────────────────────
