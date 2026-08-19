@@ -71,6 +71,19 @@ jolate_verify_runtime_directory(__DIR__ . '/uploads');
 jolate_verify_runtime_directory(__DIR__ . '/logs');
 jolate_verify_runtime_directory(__DIR__ . '/certificados');
 
+// ── Variables de entorno requeridas ────────────────────────────────
+// Todas las variables que lee este config son obligatorias.
+$requiredEnv = [
+    'SMTP_HOST', 'SMTP_PORT', 'SMTP_USER', 'SMTP_PASS', 'SMTP_ENCRYPTION',
+    'SMTP_FROM_EMAIL', 'SMTP_FROM_NAME', 'SMTP_COMMITTEE_EMAILS',
+    'DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASS',
+];
+foreach ($requiredEnv as $key) {
+    if (!isset($_ENV[$key]) || $_ENV[$key] === '') {
+        jolate_log("Falta la variable de entorno requerida: $key");
+    }
+}
+
 return [
 
     // ── SMTP (correo de notificación) ─────────────────────────────
@@ -80,21 +93,19 @@ return [
     //
     // Todos los valores deben configurarse via env vars en producción.
     'smtp' => [
-        'host'       => getenv('SMTP_HOST'),
-        'port'       => getenv('SMTP_PORT'),
-        'username'   => getenv('SMTP_USER'),
-        'password'   => getenv('SMTP_PASS'),
-        'encryption' => getenv('SMTP_ENCRYPTION'),
-        'from_email' => getenv('SMTP_FROM_EMAIL'),
-        'from_name'  => getenv('SMTP_FROM_NAME'),
+        'host'       => $_ENV['SMTP_HOST'],
+        'port'       => $_ENV['SMTP_PORT'],
+        'username'   => $_ENV['SMTP_USER'],
+        'password'   => $_ENV['SMTP_PASS'],
+        'encryption' => $_ENV['SMTP_ENCRYPTION'],
+        'from_email' => $_ENV['SMTP_FROM_EMAIL'],
+        'from_name'  => $_ENV['SMTP_FROM_NAME'],
     ],
 
     // ── Destinatarios ─────────────────────────────────────────────
     // Emails que reciben la notificación con la ponencia adjunta.
     // Configurable via SMTP_COMMITTEE_EMAILS (comma-separated).
-    'committee_emails' => getenv('SMTP_COMMITTEE_EMAILS')
-        ? explode(',', getenv('SMTP_COMMITTEE_EMAILS'))
-        : ['comite@ejemplo.com'],
+    'committee_emails' => explode(',', $_ENV['SMTP_COMMITTEE_EMAILS']),
 
     // ── Almacenamiento de archivos ─────────────────────────────────
     // upload_dir: carpeta física donde se guardan los PDFs.
@@ -124,10 +135,10 @@ return [
     // Configurable via environment variables:
     //   DB_HOST, DB_NAME, DB_USER, DB_PASS
     'db' => [
-        'host' => getenv('DB_HOST'),
-        'name' => getenv('DB_NAME'),
-        'user' => getenv('DB_USER'),
-        'pass' => getenv('DB_PASS'),
+        'host' => $_ENV['DB_HOST'],
+        'name' => $_ENV['DB_NAME'],
+        'user' => $_ENV['DB_USER'],
+        'pass' => $_ENV['DB_PASS'],
     ],
 
     // ── Tipo de inscripto ──────────────────────────────────────────
